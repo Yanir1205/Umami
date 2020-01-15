@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+html {
+  font-family: raleway, lato, 'sans-serif';
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+body {
+  margin: 0;
+  font-family: raleway, lato, 'sans-serif';
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+img {
+  width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  // font-family: lato, serif;
+  margin-top: 0;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: rem(60px);
+}
+
+h2 {
+  font-size: rem(30px);
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+p {
+  margin: 0 0 rem(12px);
+  max-width: 60ch;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  margin: 0;
+}

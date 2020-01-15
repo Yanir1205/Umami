@@ -1,0 +1,216 @@
+/* **** FONT SIZES **** */
+
+.fs12 {
+  font-size: rem(12px);
+}
+
+.fs14 {
+  font-size: rem(14px);
+}
+
+.fs18 {
+  font-size: rem(18px);
+}
+
+.fs20 {
+  font-size: rem(20px);
+}
+
+.fs24 {
+  font-size: rem(24px);
+}
+
+.fs28 {
+  font-size: rem(28px);
+}
+
+.fs30 {
+  font-size: rem(30px);
+}
+
+/* **** FLEX HELPERS **** */
+
+.flex {
+  display: flex;
+}
+
+.flex.column {
+  flex-direction: column;
+}
+
+.flex.row {
+  flex-direction: row;
+}
+
+.flex.wrap {
+  flex-wrap: wrap;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.space-even {
+  justify-content: space-evenly;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.align-base {
+  align-items: baseline;
+}
+
+.flex-basis-1 {
+  flex: 1;
+}
+
+.flex-basis-10 {
+  flex: 10%;
+}
+
+.flex-basis-20 {
+  flex: 20%;
+}
+
+.flex-basis-30 {
+  flex: 30%;
+}
+
+.flex-basis-25 {
+  flex: 25%;
+}
+
+.flex-basis-40 {
+  flex: 40%;
+}
+
+.flex-basis-50 {
+  flex: 50%;
+}
+
+.flex-basis-60 {
+  flex: 60%;
+}
+
+.flex-basis-80 {
+  flex: 80%;
+}
+
+.flex-grow-30 {
+  flex: 1 0 30%;
+}
+
+.flex-shrink-20 {
+  flex: 0 1 20%;
+}
+
+.flex-shrink-30 {
+  flex: 0 1 30%;
+}
+
+.flex-shrink-50 {
+  flex: 0 1 50%;
+}
+
+.flex-shrink-70 {
+  flex: 0 1 70%;
+}
+
+.flex-30 {
+  flex: 0 0 30%;
+}
+
+.flex-40 {
+  flex: 0 0 40%;
+}
+
+.flex-70 {
+  flex: 0 0 70%;
+}
+
+/* **** MARGINS **** */
+
+.margin-bottom-20 {
+  margin-bottom: 20px;
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+.margin-left-10 {
+  margin-left: 10px;
+}
+
+.margin-right-10 {
+  margin-right: 10px;
+}
+
+.margin-right-20 {
+  margin-right: 20px;
+}
+
+.margin-right-40 {
+  margin-right: 40px;
+}
+
+/* **** TEXT HELPERS **** */
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+/* **** LIST HELPERS **** */
+
+.clean-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+/* **** DISPLAY HELPERS **** */
+
+.hide {
+  display: none;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.show {
+  display: inline-block;
+}
+
+.strike-through {
+  text-decoration: line-through;
+}
+
+// Media helpers
+
+.square-ratio {
+  @include aspect-ratio(1, 1);
+}

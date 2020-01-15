@@ -1,0 +1,28 @@
+.main-site-container {
+  margin: 0;
+  padding: 0;
+  width: 50vw;
+  min-height: 100vh;
+}
+
+.container {
+  margin: 0 auto;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  @include for-narrow-layout {
+    max-width: $mobile-breakpoint;
+  }
+
+  @include for-normal-layout {
+    max-width: $narrow-breakpoint;
+  }
+
+  @include for-wide-layout {
+    max-width: $normal-breakpoint;
+  }
+
+  @include for-extra-wide-layout {
+    max-width: $wide-breakpoint;
+  }
+}
