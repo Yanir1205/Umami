@@ -1,14 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { load } from '../actions/MealActions'
+
 export class MealApp extends Component {
+  
+  componentDidMount() {
+    this.props.load()
+    console.log(this.props.meals);
+  }
+
   render() {
-    return <div>MEAL APP</div>;
+    return <div>
+      MEAL APP
+      
+      </div>;
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  meal: state.meal.meals
+});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  load,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealApp);
