@@ -10,7 +10,8 @@ export default {
 export function load() {
   return dispatch => {
     MealService.query().then(meals => {
-      dispatch({ type: 'LOAD_MEALS', meals });
+      debugger;
+      dispatch({ type: 'LOAD', meals });
     });
   };
 }
@@ -23,7 +24,7 @@ export function loadSingle(id) {
 }
 
 export function add(meal) {
-  const action = meal._id ? 'UPDATE_MEAL' : 'ADD_MEAL';
+  const action = meal._id ? 'UPDATE' : 'ADD';
   return dispatch => {
     MealService.save(meal).then(meal => {
       dispatch({ type: action, meal });
@@ -34,7 +35,7 @@ export function add(meal) {
 export function remove(id) {
   return dispatch => {
     MealService.remove(id).then(() => {
-      dispatch({ type: 'REMOVE_MEAL', id });
+      dispatch({ type: 'REMOVE', id });
     });
   };
 }
