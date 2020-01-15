@@ -22,14 +22,14 @@ function load(state, action) {
 function getById(state, action) {
   return {
     ...state,
-    [action.meals.name]: action.meals,
+    meal: action.meal,
   };
 }
 
 function add(state, action) {
   return {
     ...state,
-    meals: reducerUtility.addItemToState(state.meals, action.meals),
+    meals: reducerUtility.addItemToState(state.meals, action.meal),
   };
 }
 
@@ -37,7 +37,7 @@ function update(state, action) {
   return {
     ...state,
     meals: reducerUtility.updateItemInArray(state.meals, action.id, toy => {
-      return reducerUtility.updateObject(toy, action.meals);
+      return reducerUtility.updateObject(toy, action.meal);
     }),
   };
 }
