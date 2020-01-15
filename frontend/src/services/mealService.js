@@ -14,7 +14,7 @@ function query() {
 }
 
 function getById(id) {
-  return HttpService.get(`${endpoint}/${userId}`);
+  return HttpService.get(`${endpoint}/${id}`);
 }
 
 function add(user) {
