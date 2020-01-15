@@ -13,7 +13,7 @@ const MealReducer = reducerUtility.createReducer(initialValues, {
 });
 
 function load(state, action) {
-  debugger
+  debugger;
   return {
     ...state,
     meals: action.meals,
@@ -23,14 +23,14 @@ function load(state, action) {
 function loadSingle(state, action) {
   return {
     ...state,
-    [action.meals.name]: action.meals,
+    meal: action.meal,
   };
 }
 
 function add(state, action) {
   return {
     ...state,
-    meals: reducerUtility.addItemToState(state.meals, action.meals),
+    meals: reducerUtility.addItemToState(state.meals, action.meal),
   };
 }
 
@@ -38,7 +38,7 @@ function update(state, action) {
   return {
     ...state,
     meals: reducerUtility.updateItemInArray(state.meals, action.id, toy => {
-      return reducerUtility.updateObject(toy, action.meals);
+      return reducerUtility.updateObject(toy, action.meal);
     }),
   };
 }

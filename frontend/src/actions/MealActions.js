@@ -8,11 +8,9 @@ export default {
 };
 
 export function load() {
-  return dispatch => {
-    MealService.query().then(meals => {
-      debugger;
-      dispatch({ type: 'LOAD', meals });
-    });
+  return async dispatch => {
+    const meals = await MealService.query();
+    dispatch({ type: 'LOAD', meals });
   };
 }
 
@@ -25,17 +23,15 @@ export function loadSingle(id) {
 
 export function add(meal) {
   const action = meal._id ? 'UPDATE' : 'ADD';
-  return dispatch => {
-    MealService.save(meal).then(meal => {
-      dispatch({ type: action, meal });
-    });
+  return async dispatch => {
+    const newMeal = await MealService.save(meal);
+    dispatch({ type: action, newMeal });
   };
 }
 
 export function remove(id) {
-  return dispatch => {
-    MealService.remove(id).then(() => {
-      dispatch({ type: 'REMOVE', id });
-    });
+  return async dispatch => {
+    await MealService.remove(id);
+    dispatch({ type: 'REMOVE', id });
   };
 }
