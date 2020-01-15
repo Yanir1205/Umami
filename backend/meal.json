@@ -1,6 +1,7 @@
 {
   "meal": [
     {
+      "isActive": true,
       "_id": 1539,
       "title": "Dani's Chef dinner",
       "attendees": [
@@ -53,6 +54,7 @@
       }
     },
     {
+      "isActive": true,
       "_id": 1540,
       "title": "Dani's Chef dinner",
       "attendees": [
@@ -105,6 +107,7 @@
       }
     },
     {
+      "isActive": true,
       "_id": 1541,
       "title": "Dani's Chef dinner",
       "attendees": [
