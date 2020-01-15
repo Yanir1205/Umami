@@ -1,4 +1,4 @@
-import MealService from '../services/MealService';
+import MealService from '../services/mealService';
 
 export default {
   load,

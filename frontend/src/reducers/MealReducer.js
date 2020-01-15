@@ -13,7 +13,6 @@ const MealReducer = reducerUtility.createReducer(initialValues, {
 });
 
 function load(state, action) {
-  debugger
   return {
     ...state,
     meals: action.meals,
