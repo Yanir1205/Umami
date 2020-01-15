@@ -11,7 +11,6 @@ export class MealApp extends Component {
   }
 
   render() {
-    debugger
     return <div>
       MEAL APP
       {this.props.meals.length && <div>{this.props.meals[0].title}</div>}

@@ -6,7 +6,7 @@ let initialValues = {
 
 const MealReducer = reducerUtility.createReducer(initialValues, {
   LOAD: load,
-  LOAD_SINGLE: loadSingle,
+  GET_BY_ID: getById,
   ADD: add,
   UPDATE: update,
   REMOVE: remove,
@@ -20,7 +20,7 @@ function load(state, action) {
   };
 }
 
-function loadSingle(state, action) {
+function getById(state, action) {
   return {
     ...state,
     [action.meals.name]: action.meals,
