@@ -10,8 +10,8 @@ export default {
 export function load() {
   return dispatch => {
     MealService.query().then(meals => {
-      debugger
       dispatch({ type: 'LOAD', meals });
+      debugger
     });
   };
 }

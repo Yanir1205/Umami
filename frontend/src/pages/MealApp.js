@@ -4,22 +4,23 @@ import { connect } from 'react-redux';
 import { load } from '../actions/MealActions'
 
 export class MealApp extends Component {
-  
+
   componentDidMount() {
     this.props.load()
     console.log(this.props.meals);
   }
 
   render() {
+    debugger
     return <div>
       MEAL APP
-      
-      </div>;
+      {this.props.meals.length && <div>{this.props.meals[0].title}</div>}
+    </div>;
   }
 }
 
 const mapStateToProps = state => ({
-  meal: state.meal.meals
+  meals: state.meal.meals
 });
 
 const mapDispatchToProps = {
