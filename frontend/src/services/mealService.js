@@ -9,6 +9,10 @@ export default {
 
 const endpoint = 'meal';
 
+/**
+ * Hi arkashkah haseksi
+ */
+
 function query() {
   return HttpService.get(endpoint);
 }
