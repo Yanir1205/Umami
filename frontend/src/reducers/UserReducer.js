@@ -8,8 +8,8 @@ const initialState = {
 };
 
 const UserReducer = reducerUtility.createReducer(initialState, {
-  SET_USER: load,
-  ADD_USER: add,
+  SET: load,
+  ADD: add,
 });
 
 function load(state, action) {
@@ -19,7 +19,7 @@ function load(state, action) {
 function add(state, action) {
   return {
     ...state,
-    loggedInUser: reducerUtility.addItemToState(state.user, action.payload),
+    loggedInUser: reducerUtility.addItemToState(state.user, action.user),
   };
 }
 

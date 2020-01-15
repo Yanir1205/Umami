@@ -17,10 +17,10 @@ function getById(id) {
   return HttpService.get(`${endpoint}/${id}`);
 }
 
-function add(user) {
-  return HttpService.push(`${endpoint}/${user._id}`, user);
+function add(meal) {
+  return HttpService.push(`${endpoint}/${meal._id}`, meal);
 }
 
-function update(user) {
-  return HttpService.put(`${endpoint}/${user._id}`, user);
+function update(meal) {
+  return HttpService.put(`${endpoint}/${meal._id}`, meal);
 }

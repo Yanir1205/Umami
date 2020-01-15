@@ -39,14 +39,14 @@ export function getById() {
 
 function _setUser(user) {
   return {
-    type: 'SET_USER',
+    type: 'SET',
     user,
   };
 }
 
 function _addUser(user) {
   return {
-    type: 'ADD_USER',
+    type: 'ADD',
     user,
   };
 }
