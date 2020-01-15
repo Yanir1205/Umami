@@ -1,24 +1,27 @@
 import HttpService from './HttpService';
 
+const authEndpoint = 'auth';
+const endpoint = 'user';
+
 async function login(credentails) {
-  const user = await HttpService.post('auth/login', credentails);
+  const user = await HttpService.post(`${authEndpoint}/login`, credentails);
   return _handleLogin(user);
 }
 async function signup(credentails) {
-  const user = await HttpService.post('auth/signup', credentails);
+  const user = await HttpService.post(`${authEndpoint}/signup`, credentails);
   return _handleLogin(user);
 }
 async function logout() {
-  await HttpService.post('auth/logout');
+  await HttpService.post(`${authEndpoint}/logout`);
   sessionStorage.clear();
 }
 function _handleLogin(user) {
-  sessionStorage.setItem('user', JSON.stringify(user));
+  sessionStorage.setItem(endpoint, JSON.stringify(user));
   return user;
 }
 
 function getById(id) {
-  return HttpService.get(`user/${id}`);
+  return HttpService.get(`${endpoint}/${id}`);
 }
 
 export default {
