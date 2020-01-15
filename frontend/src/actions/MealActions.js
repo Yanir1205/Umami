@@ -2,7 +2,9 @@ import MealService from '../services/mealService';
 
 export default {
   load,
+  loadSingle,
   add,
+  remove,
 };
 
 export function load() {
@@ -10,6 +12,13 @@ export function load() {
     MealService.query().then(meals => {
       dispatch({ type: 'LOAD_MEALS', meals });
     });
+  };
+}
+
+export function loadSingle(id) {
+  return async dispatch => {
+    const meal = await MealService.getById(id);
+    dispatch({ type: 'LOAD_SINGLE', meal });
   };
 }
 

@@ -9,7 +9,9 @@ export class Header extends Component {
         <div className='header-container container flex align-center'>
           <div className='header-logo flex-basis-50 flex align-center'>
             <div className='header-img'></div>
-            <h1>TWO2</h1>
+            <h1>
+              EAT<span>2</span>
+            </h1>
           </div>
           <NavBar></NavBar>
         </div>

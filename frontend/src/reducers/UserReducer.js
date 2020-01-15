@@ -1,22 +1,26 @@
+import reducerUtility from './reducerUtilities';
+
 let localLoggedUser = null;
 if (sessionStorage.user) localLoggedUser = JSON.parse(sessionStorage.user);
 
 const initialState = {
   loggedInUser: localLoggedUser,
-  users: [],
 };
 
-export default function(state = initialState, action = {}) {
-  switch (action.type) {
-    case 'SET_USER':
-      return { ...state, loggedInUser: action.user };
+const UserReducer = reducerUtility.createReducer(initialState, {
+  SET_USER: load,
+  ADD_USER: add,
+});
 
-    case 'ADD_USER':
-      return {
-        ...state,
-        users: [...state.users, action.users],
-      };
-    default:
-      return state;
-  }
+function load(state, action) {
+  return { ...state, loggedInUser: action.user };
 }
+
+function add(state, action) {
+  return {
+    ...state,
+    loggedInUser: reducerUtility.addItemToState(state.user, action.payload),
+  };
+}
+
+export default UserReducer;

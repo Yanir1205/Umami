@@ -2,7 +2,6 @@ import UserService from '../services/UserService';
 import { loading, doneLoading } from './SystemActions';
 // import history from './../history';
 
-// THUNK
 export function login(credentails) {
   return async dispatch => {
     const user = await UserService.login(credentails);

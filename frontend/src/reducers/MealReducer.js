@@ -6,10 +6,10 @@ let initialValues = {
 
 const MealReducer = reducerUtility.createReducer(initialValues, {
   LOAD: load,
+  LOAD_SINGLE: loadSingle,
   ADD: add,
   UPDATE: update,
   REMOVE: remove,
-  LOAD_SINGLE: loadSingle,
 });
 
 function load(state, action) {
