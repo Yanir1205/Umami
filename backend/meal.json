@@ -6,6 +6,7 @@
       "cuisineType": "asian",
       "mealType": "dinner",
       "title": "Dani's Chef dinner",
+      "price": 215,
       "attendees": [
         {
           "_id": 5645,
@@ -65,6 +66,7 @@
       "cuisineType": "asian",
       "mealType": "dinner",
       "title": "Liro's Chef dinner",
+      "price": 215,
       "attendees": [
         {
           "_id": 5645,
@@ -124,6 +126,7 @@
       "cuisineType": "asian",
       "mealType": "dinner",
       "title": "Yanir's Chef dinner",
+      "price": 215,
       "attendees": [
         {
           "_id": 5645,
