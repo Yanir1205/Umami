@@ -20,10 +20,16 @@ function load(state, action) {
 }
 
 function getById(state, action) {
-  return {
-    ...state,
-    meal: action.meal,
-  };
+  const meal = {
+      ...state,
+      meal: action.meal,
+    };
+    console.log("MealRed -> getByID   ",meal);
+    return meal;
+  // return {
+  //   ...state,
+  //   meal: action.meal,
+  // };
 }
 
 function add(state, action) {
