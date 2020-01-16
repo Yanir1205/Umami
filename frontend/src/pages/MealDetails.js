@@ -18,7 +18,7 @@ export class MealDetails extends Component {
           <div>
             <h2>{meal.title}</h2>
             <p> {meal.txt}</p>
-            <p>Adrress: {meal.location.address}</p>
+            <p>Address: {meal.location.address}</p>
             <p>
               hosted by: {meal.hostedBy.fullName}
               <img className='user-Img' src={meal.hostedBy.imgUrl}></img>

@@ -21,7 +21,7 @@ export class Header extends Component {
           <NavBar></NavBar>
           <div className='header-controls flex-basis-30 flex align-center justify-end'>
             <div className='margin-right-30'>
-              <Link className='' to='/user/1539'>
+              <Link className='' to='/user/5678'>
                 <img style={{ width: '30px', height: '30px' }} src={require('../assets/img/layout/dish-cover.svg')} alt='' />
               </Link>
             </div>

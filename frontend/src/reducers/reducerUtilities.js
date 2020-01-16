@@ -11,6 +11,7 @@ export function updateObject(oldObject, newValues) {
 }
 
 export function addItemToState(state, item) {
+  debugger
   return [...state, item];
 }
 
