@@ -16,13 +16,13 @@
 
 import React from "react";
 
-export default function MealPreview({ meal, getCityName, getAvgRate }) {
-  const diningType = getCityName(meal.location.address, meal.title)
+export default function MealPreview({ meal, getAvgRate }) {
   const avgRate = getAvgRate(meal.reviews);
   return (
     <div className="meal-card">
       <img src={meal.imgUrls[0]} alt=""></img>
-      <p>{diningType}</p>
+      {/* <p>{diningType}</p> */}
+      <p>{meal.mealType} in {meal.location.city}</p>
       <h5>{meal.title}</h5>
       <p>{avgRate}/5 ({meal.reviews.length})</p>
       <div>

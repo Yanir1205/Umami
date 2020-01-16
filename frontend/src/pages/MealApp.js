@@ -12,19 +12,13 @@ export class MealApp extends Component {
     console.log(this.props.meals);
   }
 
-  getCityName = (address, title) => {
-    const diningType = title.toLowerCase().includes('dinner') ? 'dinner' : title.toLowerCase().includes('breakfast') ? 'breakfast' : 'lunch';
-    const city = address.split(' ').slice(2, -1).join(' ');
-    return `${diningType} in ${city}`;
-  }
-
   getAvgRate(reviews) {
     return reviews.reduce((acc, currReview) => acc + currReview.rate, 0) / reviews.length
   }
 
   render() {
     return <div>
-      {this.props.meals.length && <MealList meals={this.props.meals} getCityName={this.getCityName} getAvgRate={this.getAvgRate}></MealList>}
+      {this.props.meals.length && <MealList meals={this.props.meals} getAvgRate={this.getAvgRate}></MealList>}
     </div>
   }
 }

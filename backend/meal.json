@@ -9,19 +9,23 @@
       "price": 215,
       "attendees": [
         {
-          "_id": 5645,
+          "_id": "5645",
           "fullName": "arkadi duchin",
           "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
         },
         {
-          "_id": 5649,
+          "_id": "5649",
           "fullName": "puki shmuki",
           "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
         }
       ],
       "date": 1579098102911,
       "capacity": 15,
-      "tags": ["bochari", "dumplings", "eastern"],
+      "tags": [
+        "bochari",
+        "dumplings",
+        "eastern"
+      ],
       "location": {
         "lat": 32.08783,
         "lan": 34.80308,
@@ -36,7 +40,7 @@
         "https://ilrosso.co.uk/8pageflip/files/mobile-ext/backGroundImgURL.jpg"
       ],
       "hostedBy": {
-        "_id": 5641,
+        "_id": "5641",
         "fullName": "israel aharoni",
         "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
       },
@@ -44,7 +48,7 @@
       "reviews": [
         {
           "byUser": {
-            "_id": 5649,
+            "_id": "5649",
             "fullName": "puki shmuki",
             "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
           },
@@ -56,8 +60,15 @@
       "menu": {
         "firstCourse": "soup",
         "mainSoup": "steak",
-        "desserts": ["malabi", "knafe"],
-        "beverages": ["coke", "sprite", "red wine"]
+        "desserts": [
+          "malabi",
+          "knafe"
+        ],
+        "beverages": [
+          "coke",
+          "sprite",
+          "red wine"
+        ]
       }
     },
     {
@@ -69,19 +80,23 @@
       "price": 215,
       "attendees": [
         {
-          "_id": 5645,
+          "_id": "5645",
           "fullName": "arkadi duchin",
           "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
         },
         {
-          "_id": 5649,
+          "_id": "5649",
           "fullName": "puki shmuki",
           "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
         }
       ],
       "date": 1579098102911,
       "capacity": 15,
-      "tags": ["bochari", "dumplings", "eastern"],
+      "tags": [
+        "bochari",
+        "dumplings",
+        "eastern"
+      ],
       "location": {
         "lat": 32.08783,
         "lan": 34.80308,
@@ -96,7 +111,7 @@
         "https://ilrosso.co.uk/8pageflip/files/mobile-ext/backGroundImgURL.jpg"
       ],
       "hostedBy": {
-        "_id": 5641,
+        "_id": "5641",
         "fullName": "israel aharoni",
         "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
       },
@@ -104,7 +119,7 @@
       "reviews": [
         {
           "byUser": {
-            "_id": 5649,
+            "_id": "5649",
             "fullName": "puki shmuki",
             "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
           },
@@ -116,8 +131,15 @@
       "menu": {
         "firstCourse": "soup",
         "mainSoup": "steak",
-        "desserts": ["malabi", "knafe"],
-        "beverages": ["coke", "sprite", "red wine"]
+        "desserts": [
+          "malabi",
+          "knafe"
+        ],
+        "beverages": [
+          "coke",
+          "sprite",
+          "red wine"
+        ]
       }
     },
     {
@@ -129,19 +151,23 @@
       "price": 215,
       "attendees": [
         {
-          "_id": 5645,
+          "_id": "5645",
           "fullName": "arkadi duchin",
           "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
         },
         {
-          "_id": 5649,
+          "_id": "5649",
           "fullName": "puki shmuki",
           "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
         }
       ],
       "date": 1579098102911,
       "capacity": 15,
-      "tags": ["bochari", "dumplings", "eastern"],
+      "tags": [
+        "bochari",
+        "dumplings",
+        "eastern"
+      ],
       "location": {
         "lat": 32.08783,
         "lan": 34.80308,
@@ -156,7 +182,7 @@
         "https://ilrosso.co.uk/8pageflip/files/mobile-ext/backGroundImgURL.jpg"
       ],
       "hostedBy": {
-        "_id": 5641,
+        "_id": "5641",
         "fullName": "israel aharoni",
         "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
       },
@@ -164,7 +190,7 @@
       "reviews": [
         {
           "byUser": {
-            "_id": 5649,
+            "_id": "5649",
             "fullName": "puki shmuki",
             "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
           },
@@ -176,9 +202,24 @@
       "menu": {
         "firstCourse": "soup",
         "mainSoup": "steak",
-        "desserts": ["malabi", "knafe"],
-        "beverages": ["coke", "sprite", "red wine"]
+        "desserts": [
+          "malabi",
+          "knafe"
+        ],
+        "beverages": [
+          "coke",
+          "sprite",
+          "red wine"
+        ]
       }
     }
-  ]
+  ],
+  "user": {
+    "_id": "5641",
+    "fullName": "arkadi ziv",
+    "userName": "arkadiz",
+    "password": "12345678",
+    "email": "arkashkash@walla.com",
+    "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
+  }
 }
