@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 export class UserDetails extends Component {
   render() {
-    return <div>UserDetails</div>;
+    return <div className='container'>UserDetails</div>;
   }
 }
 
