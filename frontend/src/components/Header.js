@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import NavBar from './NavBar.js';
+import { Link } from 'react-router-dom';
 
 export class Header extends Component {
   render() {
@@ -9,9 +10,11 @@ export class Header extends Component {
         <div className='header-container container flex align-center'>
           <div className='header-logo flex-basis-50 flex align-center'>
             <div className='header-img'></div>
-            <h1>
-              EAT<span>2</span>
-            </h1>
+            <Link to="/">
+              <h1>
+                EAT<span>2</span>
+              </h1>
+            </Link>
           </div>
           <NavBar></NavBar>
         </div>
