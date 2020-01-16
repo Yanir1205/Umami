@@ -1,8 +1,10 @@
 {
   "meal": [
     {
-      "isActive": true,
       "_id": 1539,
+      "isActive": true,
+      "cuisineType": "asian",
+      "mealType": "dinner",
       "title": "Dani's Chef dinner",
       "attendees": [
         {
@@ -22,7 +24,9 @@
       "location": {
         "lat": 32.08783,
         "lan": 34.80308,
-        "address": "Habonim 2, Ramat Gan, Israel"
+        "address": "Habonim 2, Ramat Gan, Israel",
+        "city": "Ramat-Gan",
+        "country": "Israel"
       },
       "imgUrls": [
         "https://www.weekend.co.il/restaurant/thumb.aspx?imgUrl=C:\\Web\\Templates\\Templates\\21501\\IMG_0347.jpg",
@@ -56,8 +60,10 @@
       }
     },
     {
-      "isActive": true,
       "_id": 1540,
+      "isActive": true,
+      "cuisineType": "asian",
+      "mealType": "dinner",
       "title": "Liro's Chef dinner",
       "attendees": [
         {
@@ -77,7 +83,9 @@
       "location": {
         "lat": 32.08783,
         "lan": 34.80308,
-        "address": "Habonim 2, Ramat Gan, Israel"
+        "address": "Habonim 2, Ramat Gan, Israel",
+        "city": "Ramat-Gan",
+        "country": "Israel"
       },
       "imgUrls": [
         "https://www.weekend.co.il/restaurant/thumb.aspx?imgUrl=C:\\Web\\Templates\\Templates\\21501\\IMG_0347.jpg",
@@ -111,8 +119,10 @@
       }
     },
     {
-      "isActive": true,
       "_id": 1541,
+      "isActive": true,
+      "cuisineType": "asian",
+      "mealType": "dinner",
       "title": "Yanir's Chef dinner",
       "attendees": [
         {
@@ -132,7 +142,9 @@
       "location": {
         "lat": 32.08783,
         "lan": 34.80308,
-        "address": "Habonim 2, Ramat Gan, Israel"
+        "address": "Habonim 2, Ramat Gan, Israel",
+        "city": "Ramat-Gan",
+        "country": "Israel"
       },
       "imgUrls": [
         "https://www.weekend.co.il/restaurant/thumb.aspx?imgUrl=C:\\Web\\Templates\\Templates\\21501\\IMG_0347.jpg",
