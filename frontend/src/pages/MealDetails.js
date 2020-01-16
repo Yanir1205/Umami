@@ -14,7 +14,6 @@ export class MealDetails extends Component {
     const meal = this.props.meal
     console.log("MealDetails -> render id",this.props.match.params);
     console.log("MealDetails -> render meal",meal);
-    debugger
     return <div>MEAL DETAILS
       {meal && <div>
         <h2>{meal.title}</h2> 

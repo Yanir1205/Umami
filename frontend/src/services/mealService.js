@@ -9,18 +9,22 @@ export default {
 
 const endpoint = 'meal';
 
-function query() {
-  return HttpService.get(endpoint);
+async function query() {
+  const meals = await HttpService.get(endpoint);
+  return meals;
 }
 
-function getById(id) {
-  return HttpService.get(`${endpoint}/${id}`);
+async function getById(id) {
+  const meal = await HttpService.get(`${endpoint}/${id}`);
+  return meal;
 }
 
-function add(meal) {
-  return HttpService.push(`${endpoint}/${meal._id}`, meal);
+async function add(meal) {
+  const addedMeal = await HttpService.post(`${endpoint}`, meal);
+  return addedMeal;
 }
 
-function update(meal) {
-  return HttpService.put(`${endpoint}/${meal._id}`, meal);
+async function update(meal) {
+  const updatedMeal = await HttpService.put(`${endpoint}/${meal._id}`, meal);
+  return updatedMeal;
 }

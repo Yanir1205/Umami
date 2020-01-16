@@ -20,7 +20,7 @@ export default function MealPreview({ meal, getCityName, getAvgRate }) {
   const diningType = getCityName(meal.location.address, meal.title)
   const avgRate = getAvgRate(meal.reviews);
   return (
-    <div>
+    <div className="meal-card">
       <img src={meal.imgUrls[0]} alt=""></img>
       <p>{diningType}</p>
       <h5>{meal.title}</h5>
