@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import MealApp from './pages/MealApp';
 import MealDetails from './pages/MealDetails';
 import UserDetails from './pages/UserDetails';
-import MealForm from './pages/MealForm';
+import MealFormWrapper from './pages/MealFormWrapper';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -24,10 +24,11 @@ export default class App extends Component {
           <Header></Header>
           <Switch>
             <Route component={Home} path='/' exact></Route>
+            <Route component={MealFormWrapper} path='/meal/edit/:id?'></Route>
+
             <Route component={MealApp} path='/meal' exact></Route>
             <Route component={MealDetails} path='/meal/:id' exact></Route>
             <Route component={UserDetails} path='/user/:id' exact></Route>
-            <Route component={MealForm} path='/meal/edit/:id'></Route>
           </Switch>
           <Footer></Footer>
         </Router>

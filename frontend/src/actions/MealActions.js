@@ -26,11 +26,23 @@ export function getById(id) {
 }
 
 export function add(meal) {
+  console.log(meal);
+  debugger
   const action = meal._id ? 'UPDATE' : 'ADD';
-  return async dispatch => {
-    const newMeal = await MealService.save(meal);
-    dispatch({ type: action, newMeal });
-  };
+  if(action === 'UPDATE'){
+    return async dispatch => {
+      const newMeal = await MealService.update(meal);
+      debugger
+      dispatch({ type: action, newMeal });
+    };
+  } else{
+    return async dispatch => {
+      const newMeal = await MealService.add(meal);
+      debugger
+      dispatch({ type: action, newMeal });
+    };
+  
+  }
 }
 
 export function remove(id) {
