@@ -6,7 +6,7 @@ import { ReviewPreview } from './ReviewPreview';
 export class ReviewList extends Component {
   render() {
     const reviews = this.props.reviews
-    return <div><ul>
+    return <div><ul className="clean-list"> 
         {reviews && reviews.map((review) => {
           return <ReviewPreview review ={review}></ReviewPreview> 
         })}</ul>

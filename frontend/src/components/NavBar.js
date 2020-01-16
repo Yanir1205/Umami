@@ -7,8 +7,8 @@ export class NavBar extends Component {
 
   render() {
     return (
-      <nav className='main-nav flex-basis-50'>
-        <ul className='main-menu clean-list flex-basis-1 flex justify-center'>
+      <nav className='main-nav flex-basis-30'>
+        <ul className='main-menu clean-list flex-basis-1 flex justify-center align-center'>
           <li>
             <NavLink activeClassName='active' to='/meal' exact>
               CUISINES

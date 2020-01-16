@@ -7,7 +7,7 @@ export class ReviewPreview extends Component {
     const review = this.props.review
     console.log("ReviewPreview --> render review ", review);
 
-    return <div className ="review-container">
+    return <div className ="review-preview-container">
       <li><img className="user-Img" src={review.byUser.imgUrl}></img>{review.byUser.fullName} 
   <span>date: <Moment date ={review.at}>
                 

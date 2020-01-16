@@ -1,7 +1,22 @@
-
-
-
-
+export default class Meal {
+  constructor(hostedBy, title, description, date, price, capacity, cuisine, mealType, menu, tags = [], location = {}, imgUrls = []) {
+    this.isActive = true;
+    this.hostedBy = hostedBy;
+    this.title = title;
+    this.description = description;
+    this.date = date;
+    this.price = price;
+    this.capacity = capacity;
+    this.cuisine = cuisine; //Italian, Fusion, Middele Esteran
+    this.mealType = mealType; //Dinner,Lunch,Breakfest
+    this.menu = menu;
+    this.tags = tags;
+    this.location = location;
+    this.imgUrls = imgUrls;
+    this.attendees = [];
+    this.reviews = [];
+  }
+}
 
 /*
 

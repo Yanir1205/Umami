@@ -7,8 +7,8 @@ export class Attendees extends Component {
     return <div className="attendees-containner">
       {attendees &&  <div > <p>Attendees</p>
 
-         {attendees.map((attendee  )=> {
-          return <span>{attendee.fullName+ ' '}<img className="user-Img" src={attendee.imgUrl}></img> </span>})}
+         {attendees.map((attendee ,index )=> {
+          return <span><img  key ={index} className="user-Img" src={attendee.imgUrl}></img> {attendee.fullName} </span>})}
 
         </div>}
     </div>;
