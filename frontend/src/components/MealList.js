@@ -23,7 +23,7 @@ function MealList({ meals, history, getCityName, getAvgRate }) {
       <ul>
         {meals.map(meal => (
           <li key={meal._id} onClick={() => history.push(`/meal/${meal._id}`)}>
-            <MealPreview meal={meal} getCityName={getCityName} getAvgRate={getAvgRate}/>
+            <MealPreview meal={meal} getAvgRate={getAvgRate}/>
           </li>
         ))}
       </ul>
