@@ -14,6 +14,7 @@ export class MealDetails extends Component {
     const meal = this.props.meal
     console.log("MealDetails -> render id",this.props.match.params);
     console.log("MealDetails -> render meal",meal);
+    debugger
     return <div>MEAL DETAILS
       {meal && <div>
         <h2>{meal.title}</h2> 
@@ -22,7 +23,7 @@ export class MealDetails extends Component {
       <p>hosted by: {meal.hostedBy.fullName} 
       
       <img className="user-Img" src={meal.hostedBy.imgUrl}></img>
-      <Menu menu={meal.menu}/>
+      <Menu />
         <img src={meal.imgUrls[0]}></img></p>
 
         </div>}
