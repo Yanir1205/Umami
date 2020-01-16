@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {getById} from '../actions/MealActions'
 import Menu from '../components/Menu'
+import Attendees from '../components/Attendees'
+import ReviewList from '../components/ReviewList'
 export class MealDetails extends Component {
   componentDidMount(){
     
@@ -22,9 +24,12 @@ export class MealDetails extends Component {
       <p>hosted by: {meal.hostedBy.fullName} 
       
       <img className="user-Img" src={meal.hostedBy.imgUrl}></img>
-      <Menu menu={meal.menu}/>
-        <img src={meal.imgUrls[0]}></img></p>
+      <Attendees attendees={meal.attendees}></Attendees>
 
+      <Menu  menu={meal.menu}/>
+
+        <img src={meal.imgUrls[0]}></img></p>
+        <ReviewList reviews={meal.reviews}></ReviewList>
         </div>}
         </div>
   }
