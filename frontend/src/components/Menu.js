@@ -7,8 +7,8 @@ export class Menu extends Component {
     debugger
     console.log("Menu -> render ", menu);
     
-    return <div>Meal Menu
-      {menu && <div> 
+    return <div className="menu-containner"><p>Meal Menu</p>
+      {menu && <div > 
         <p>first course: {menu.firstCourse}</p>
         <p>main soup: {menu.mainSoup}</p>
         <p>desserts: {menu.desserts.map((dessert  )=> {
@@ -20,12 +20,6 @@ export class Menu extends Component {
   }
 }
 
-// "menu": {
-//   "firstCourse": "soup",
-//   "mainSoup": "steak",
-//   "desserts": ["malabi", "knafe"],
-//   "beverages": ["coke", "sprite", "red wine"]
-// }
 
 
 
