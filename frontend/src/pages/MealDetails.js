@@ -23,7 +23,7 @@ export class MealDetails extends Component {
       <p>hosted by: {meal.hostedBy.fullName} 
       
       <img className="user-Img" src={meal.hostedBy.imgUrl}></img>
-      <Menu />
+      <Menu menu={meal.menu}/>
         <img src={meal.imgUrls[0]}></img></p>
 
         </div>}
