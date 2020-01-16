@@ -18,11 +18,7 @@
       ],
       "date": 1579098102911,
       "capacity": 15,
-      "tags": [
-        "bochari",
-        "dumplings",
-        "eastern"
-      ],
+      "tags": ["bochari", "dumplings", "eastern"],
       "location": {
         "lat": 32.08783,
         "lan": 34.80308,
@@ -55,21 +51,14 @@
       "menu": {
         "firstCourse": "soup",
         "mainSoup": "steak",
-        "desserts": [
-          "malabi",
-          "knafe"
-        ],
-        "beverages": [
-          "coke",
-          "sprite",
-          "red wine"
-        ]
+        "desserts": ["malabi", "knafe"],
+        "beverages": ["coke", "sprite", "red wine"]
       }
     },
     {
       "isActive": true,
       "_id": 1540,
-      "title": "Dani's Chef dinner",
+      "title": "Liro's Chef dinner",
       "attendees": [
         {
           "_id": 5645,
@@ -84,11 +73,7 @@
       ],
       "date": 1579098102911,
       "capacity": 15,
-      "tags": [
-        "bochari",
-        "dumplings",
-        "eastern"
-      ],
+      "tags": ["bochari", "dumplings", "eastern"],
       "location": {
         "lat": 32.08783,
         "lan": 34.80308,
@@ -121,21 +106,14 @@
       "menu": {
         "firstCourse": "soup",
         "mainSoup": "steak",
-        "desserts": [
-          "malabi",
-          "knafe"
-        ],
-        "beverages": [
-          "coke",
-          "sprite",
-          "red wine"
-        ]
+        "desserts": ["malabi", "knafe"],
+        "beverages": ["coke", "sprite", "red wine"]
       }
     },
     {
       "isActive": true,
       "_id": 1541,
-      "title": "Dani's Chef dinner",
+      "title": "Yanir's Chef dinner",
       "attendees": [
         {
           "_id": 5645,
@@ -150,11 +128,7 @@
       ],
       "date": 1579098102911,
       "capacity": 15,
-      "tags": [
-        "bochari",
-        "dumplings",
-        "eastern"
-      ],
+      "tags": ["bochari", "dumplings", "eastern"],
       "location": {
         "lat": 32.08783,
         "lan": 34.80308,
@@ -187,22 +161,9 @@
       "menu": {
         "firstCourse": "soup",
         "mainSoup": "steak",
-        "desserts": [
-          "malabi",
-          "knafe"
-        ],
-        "beverages": [
-          "coke",
-          "sprite",
-          "red wine"
-        ]
+        "desserts": ["malabi", "knafe"],
+        "beverages": ["coke", "sprite", "red wine"]
       }
-    },
-    {
-      "title": "aaa",
-      "description": "aaa",
-      "imgUrl": "aaa",
-      "_id": 1542
     }
   ]
 }

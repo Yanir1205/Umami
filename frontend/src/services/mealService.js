@@ -10,7 +10,7 @@ export default {
 const endpoint = 'meal';
 
 async function query() {
-  const meals =  await HttpService.get(endpoint);
+  const meals = await HttpService.get(endpoint);
   return meals;
 }
 
@@ -20,13 +20,11 @@ async function getById(id) {
 }
 
 async function add(meal) {
-  debugger
-  const addedMeal  = await HttpService.post(`${endpoint}`, meal);
-  return  addedMeal
+  const addedMeal = await HttpService.post(`${endpoint}`, meal);
+  return addedMeal;
 }
 
 async function update(meal) {
-  const updatedMeal  = await HttpService.put(`${endpoint}/${meal._id}`, meal);
-  return  updatedMeal
+  const updatedMeal = await HttpService.put(`${endpoint}/${meal._id}`, meal);
+  return updatedMeal;
 }
-

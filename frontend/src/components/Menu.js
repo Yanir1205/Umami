@@ -7,7 +7,9 @@ export class Menu extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => (
+  {menu:state.meal.meal.menu}
+);
 
 const mapDispatchToProps = {};
 

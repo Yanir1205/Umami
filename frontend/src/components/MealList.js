@@ -17,13 +17,13 @@ import React from "react";
 import { withRouter } from "react-router";
 import MealPreview from './MealPreview'
 
-function MealList({ meals, history }) {
+function MealList({ meals, history, getCityName, getAvgRate }) {
   return (
     <section>
       <ul>
         {meals.map(meal => (
-          <li key={meal._id} onClick={() => history.push(`/todo/${meal._id}`)}>
-            <MealPreview meal={meal} />
+          <li key={meal._id} onClick={() => history.push(`/meal/${meal._id}`)}>
+            <MealPreview meal={meal} getCityName={getCityName} getAvgRate={getAvgRate}/>
           </li>
         ))}
       </ul>
