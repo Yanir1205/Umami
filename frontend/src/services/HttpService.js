@@ -12,6 +12,8 @@ var axios = Axios.create({
 
 export default {
   get(endpoint, data) {
+      console.log('Http  ---->>>get  ',endpoint, data);
+      
     return ajax(endpoint, 'GET', data);
   },
   post(endpoint, data) {
@@ -26,12 +28,16 @@ export default {
 };
 
 async function ajax(endpoint, method = 'get', data = null, dispatch) {
+    console.log("ajax");
+    
   try {
     const res = await axios({
       url: `${BASE_URL}${endpoint}`,
       method,
       data,
     });
+    console.log("Http ajax ",res);
+    
     return res.data;
   } catch (err) {
     console.log(`Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: ${data}`);
