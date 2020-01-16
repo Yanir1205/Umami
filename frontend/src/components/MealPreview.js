@@ -16,10 +16,19 @@
 
 import React from "react";
 
-export default function MealPreview({ meal }) {
+export default function MealPreview({ meal, getCityName, getAvgRate }) {
+  const diningType = getCityName(meal.location.address, meal.title)
+  const avgRate = getAvgRate(meal.reviews);
   return (
-    <section>
+    <div>
+      <img src={meal.imgUrls[0]} alt=""></img>
+      <p>{diningType}</p>
       <h5>{meal.title}</h5>
-    </section>
+      <p>{avgRate}/5 ({meal.reviews.length})</p>
+      <div>
+        <p>Hosted By {meal.hostedBy.fullName}</p>
+        <img className="user-Img" src={meal.hostedBy.imgUrl} alt=""></img>
+      </div>
+    </div>
   )
 }
