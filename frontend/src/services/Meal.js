@@ -1,22 +1,63 @@
-
-
-
-
+export default class Meal {
+  constructor(
+    title = 'Italian',
+    description = 'A great meal',
+    hostedBy = { _id: '5678', fullName: 'Israel Ahroni', imgUrl: 'https://randomuser.me/api/portraits/med/men/75.jpg' },
+    date = Date.now(),
+    price = 150,
+    capacity = 8,
+    cuisine = 'Italian',
+    mealType = 'Dinner',
+    menu = {
+      firstCourse: 'Soup',
+      mainSoup: 'Steak',
+      desserts: ['Strawberries'],
+      beverages: ['Sparkling Water', 'Softdrinks', 'Merlot'],
+    },
+    tags = ['Dumplings', 'Bochari'],
+    location = { lat: 32.08783, lan: 34.80308, address: 'Habonim 2, Ramat Gan, Israel', city: 'Ramat-Gan', country: 'Israel' },
+    imgUrls = [
+      'https://www.weekend.co.il/restaurant/thumb.aspx?imgUrl=C:\\Web\\Templates\\Templates\\21501\\IMG_0347.jpg',
+      'https://www.weekend.co.il/restaurant/thumb.aspx?imgUrl=C:\\Web\\Templates\\Templates\\24633\\IMG_6586.JPG',
+      'https://www.weekend.co.il/restaurant/thumb.aspx?imgUrl=C:\\Web\\Templates\\Templates\\24633\\IMG_6639.JPG',
+      'https://ilrosso.co.uk/8pageflip/files/mobile-ext/backGroundImgURL.jpg',
+    ],
+  ) {
+    this.isActive = true;
+    this.hostedBy = hostedBy; //needs to be a real object
+    this.title = title;
+    this.description = description;
+    this.date = date;
+    this.price = price;
+    this.capacity = capacity;
+    this.cuisine = cuisine; //Italian, Fusion, Middele Esteran
+    this.mealType = mealType; //Dinner,Lunch,Breakfest
+    this.menu = menu;
+    this.tags = tags;
+    this.location = location;
+    this.imgUrls = imgUrls;
+    this.attendees = [];
+    this.reviews = [];
+  }
+}
 
 /*
 
-{
+ {
+      "_id": 1539,
       "isActive": true,
-      "_id": 1541,
+      "cuisineType": "asian",
+      "mealType": "dinner",
       "title": "Dani's Chef dinner",
+      "price": 215,
       "attendees": [
         {
-          "_id": 5645,
+          "_id": "5645",
           "fullName": "arkadi duchin",
           "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
         },
         {
-          "_id": 5649,
+          "_id": "5649",
           "fullName": "puki shmuki",
           "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
         }
@@ -31,7 +72,9 @@
       "location": {
         "lat": 32.08783,
         "lan": 34.80308,
-        "address": "Habonim 2, Ramat Gan, Israel"
+        "address": "Habonim 2, Ramat Gan, Israel",
+        "city": "Ramat-Gan",
+        "country": "Israel"
       },
       "imgUrls": [
         "https://www.weekend.co.il/restaurant/thumb.aspx?imgUrl=C:\\Web\\Templates\\Templates\\21501\\IMG_0347.jpg",
@@ -40,7 +83,7 @@
         "https://ilrosso.co.uk/8pageflip/files/mobile-ext/backGroundImgURL.jpg"
       ],
       "hostedBy": {
-        "_id": 5641,
+        "_id": "5641",
         "fullName": "israel aharoni",
         "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
       },
@@ -48,7 +91,7 @@
       "reviews": [
         {
           "byUser": {
-            "_id": 5649,
+            "_id": "5649",
             "fullName": "puki shmuki",
             "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
           },
@@ -71,7 +114,6 @@
         ]
       }
     }
-
 
 
 */

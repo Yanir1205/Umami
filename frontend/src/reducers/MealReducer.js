@@ -1,9 +1,46 @@
-import reducerUtility from './reducerUtilities';
 
-let initialValues = {
+let initialState = {
   meals: [],
+  selectedMeal:null
 };
 
+
+export default function MealReducer(state = initialState, action = {}) {
+  switch (action.type) {
+    case 'LOAD':
+      return {
+        ...state,
+        meals: action.meals
+      };
+
+    case 'GET_BY_ID':
+      return {
+        ...state,
+        meal: action.meal,
+        selectedMeal:action.meal
+      };
+
+    case 'ADD':
+      return {
+        ...state,
+        meals: [...state.meals, action.meal],
+        selectedMeal: action.meal
+      };
+      case 'UPDATE':
+        return {
+          ...state,
+          meals: state.meals.map(meal => (action.meal._id === meal._id ? action.meal : meal))
+        };
+        case 'REMOVE':
+          return  { ...state, meals: state.meals.filter(meal => meal._id !== action.id) };
+    default:
+      return state;
+  }
+}
+
+
+
+/*
 const MealReducer = reducerUtility.createReducer(initialValues, {
   LOAD: load,
   GET_BY_ID: getById,
@@ -11,6 +48,7 @@ const MealReducer = reducerUtility.createReducer(initialValues, {
   UPDATE: update,
   REMOVE: remove,
 });
+
 
 function load(state, action) {
   return {
@@ -20,36 +58,28 @@ function load(state, action) {
 }
 
 function getById(state, action) {
-  const meal = {
-      ...state,
-      meal: action.meal,
-    };
-    console.log("MealRed -> getByID   ",meal);
-    return meal;
-  // return {
-  //   ...state,
-  //   meal: action.meal,
-  // };
+  return {
+    ...state,
+    meal: action.meal,
+  };
 }
 
 function add(state, action) {
+  debugger
   return {
     ...state,
-    meals: reducerUtility.addItemToState(state.meals, action.meal),
+    meals: [...state.meals, action.meal],
   };
 }
 
 function update(state, action) {
   return {
     ...state,
-    meals: reducerUtility.updateItemInArray(state.meals, action.id, toy => {
-      return reducerUtility.updateObject(toy, action.meal);
-    }),
+    meals: state.meals.map(meal => (action.meal._id === meal._id ? action.meal : meal))
   };
 }
 
 function remove(state, action) {
-  return { ...state, meals: reducerUtility.removeItemFromState(state.meals, action.id) };
+  return  { ...state, meals: state.meals.filter(meal => meal._id !== action.id) };
 }
-
-export default MealReducer;
+*/

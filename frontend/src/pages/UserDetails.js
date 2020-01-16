@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { load } from '../actions/MealActions'
+import { load } from '../actions/MealActions';
 
 import UserMealList from '../components/UserMealList'
 
 
 export class UserDetails extends Component {
-
   //this page will display a calander. each date with a meal will appear with a special icon
   //when clicking on a specific date, a table will appear (below the calander) with all the meals of the chosen date
   //the table will show all attended meals and hosted meals of the chosen day
@@ -58,7 +57,7 @@ export class UserDetails extends Component {
 }
 
 const mapStateToProps = state => ({
-  meals: state.meal.meals
+  meals: state.meal.meals,
 });
 
 const mapDispatchToProps = {

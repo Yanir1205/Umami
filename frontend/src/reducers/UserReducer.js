@@ -19,7 +19,7 @@ function load(state, action) {
 function add(state, action) {
   return {
     ...state,
-    loggedInUser: reducerUtility.addItemToState(state.user, action.user),
+    loggedInUser: action.user,
   };
 }
 

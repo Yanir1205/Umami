@@ -1,30 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { load } from '../actions/MealActions'
+import { load } from '../actions/MealActions';
 
-import MealList from '../components/MealList'
+import MealList from '../components/MealList';
 
 export class MealApp extends Component {
-
   componentDidMount() {
-    this.props.load()
+    this.props.load();
     console.log(this.props.meals);
   }
 
   getAvgRate(reviews) {
-    return reviews.reduce((acc, currReview) => acc + currReview.rate, 0) / reviews.length
+    return reviews.reduce((acc, currReview) => acc + currReview.rate, 0) / reviews.length;
   }
 
   render() {
-    return <div>
-      {this.props.meals.length && <MealList meals={this.props.meals} getAvgRate={this.getAvgRate}></MealList>}
-    </div>
+    return <div className='container'>{this.props.meals.length && <MealList meals={this.props.meals} getAvgRate={this.getAvgRate}></MealList>}</div>;
   }
 }
 
 const mapStateToProps = state => ({
-  meals: state.meal.meals
+  meals: state.meal.meals,
 });
 
 const mapDispatchToProps = {
