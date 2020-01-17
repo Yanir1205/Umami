@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { MuiPickersUtilsProvider } from "@material-ui/pickers"
 import { load } from '../actions/MealActions';
+import DateFnsUtils from "@date-io/date-fns";
 
 import UserMealList from '../components/UserMealList'
-
+import Calander from '../components/Calander'
 
 export class UserDetails extends Component {
   //this page will display a calander. each date with a meal will appear with a special icon
@@ -15,6 +16,10 @@ export class UserDetails extends Component {
 
   //the component will get inside it props - the user id (in match.params in the url)
 
+  state = {
+    date: new Date(Date.now())
+  }
+
   componentDidMount() {
     //get the user id from match.params
     //get all the meals related to this user by its id (a mongoDB find function)
@@ -22,6 +27,12 @@ export class UserDetails extends Component {
     //instead of a simple mongoDB find function
     this.props.load(); //loads all the meals
     this.filterMealsForCurrUser()
+  }
+
+  onDateChange = (newDate) => {
+    //whenver the user changes the date on the calander this function will operate
+    //it will change the table (which appears below the calander), so that it will display the event of the chosen date
+    this.setState({ date: newDate })
   }
 
   filterMealsForCurrUser = () => {
@@ -51,6 +62,9 @@ export class UserDetails extends Component {
     const { hostMeals, attendedMeals } = this.filterMealsForCurrUser()
     return <div>
       UserDetails
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Calander date={this.state.date} onDateChange={this.onDateChange}></Calander>
+      </MuiPickersUtilsProvider>
       <UserMealList attended={attendedMeals} host={hostMeals}></UserMealList>
     </div>
   }

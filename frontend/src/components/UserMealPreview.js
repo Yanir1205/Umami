@@ -1,14 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import MaterialTable from 'material-table';
+import React from 'react';
 
-// import UserMealPreview from './UserMealPreview'
-
-export default function UserMealList({ meal }) {
-    debugger;
-
-    return <ul>
-        {meal.title}
-    </ul>
-
+export default function UserMealPreview(props) {
+    // const dateToShow = new Date(props.meal.date).split(' ').
+    return <div>
+        <span>{props.isHost ? 'Host' : 'Attended'}</span>
+        <span>{props.meal.title}</span>
+    </div>
 }

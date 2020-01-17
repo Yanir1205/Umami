@@ -35,7 +35,6 @@ export class MealDetails extends Component {
   }
   render() {
     const classes = this.props;
-    debugger
     const meal = this.props.meal
     return <div className="container">MEAL DETAILS
       {meal && <div>

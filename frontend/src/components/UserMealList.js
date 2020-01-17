@@ -5,9 +5,8 @@ import MaterialTable from 'material-table';
 import UserMealPreview from './UserMealPreview'
 
 export default function UserMealList({ attended, host }) {
-    debugger;
 
-    return <ul>
+    return <ul className="clean-list">
 
         {attended.map(attendedMeal => (
             <li key={attendedMeal._id}>
