@@ -4,7 +4,6 @@ export class Menu extends Component {
 
   render() {
     const menu = this.props.menu
-    debugger
     console.log("Menu -> render ", menu);
     
     return <div className="menu-containner"><p>Meal Menu</p>

@@ -39,14 +39,14 @@ export class MealDetails extends Component {
     const meal = this.props.meal
     return <div className="container">MEAL DETAILS
       {meal && <div>
-        <img style={{ width: '400px', height: '200px' }} src={meal.imgUrls[0]}></img>
+        <img style={{ width: '400px', height: '200px' }} src={meal.imgUrls[0]} alt=""></img>
         <h2>{meal.title}</h2>
         <p> {meal.txt}</p>
         <div className="meal-details">
           <div className="hosted-by">
             
             <Paper elevation={1} className={classes.paper}><p>hosted by</p>
-              <p>   <img className="user-Img" src={meal.hostedBy.imgUrl}></img>
+              <p>   <img className="user-Img" src={meal.hostedBy.imgUrl} alt=""></img>
                 {meal.hostedBy.fullName} </p>
               <p>Adrress: {meal.location.address}</p>
             </Paper>

@@ -90,7 +90,7 @@
       "price": 215,
       "attendees": [
         {
-          "_id": "5645",
+          "_id": "5678",
           "fullName": "arkadi duchin",
           "imgUrl": "https://randomuser.me/api/portraits/med/men/75.jpg"
         },
@@ -938,7 +938,7 @@
     }
   ],
   "user": {
-    "_id": "5641",
+    "_id": "5678",
     "fullName": "arkadi ziv",
     "userName": "arkadiz",
     "password": "12345678",

@@ -19,19 +19,14 @@ import MealPreview from './MealPreview'
 import Paper from '@material-ui/core/Paper';
 
 
-// function MealList({ meals, history, getCityName, getAvgRate }) {
-function MealList(props) {
-  const classes = props;
-
+function MealList({ meals, history,  getAvgRate }) {
   return (
     <section>
       <ul className="clean-list">
-        {props.meals.map(meal => (
-          <Paper elevation={1} className={classes.paper}>
-            <li key={meal._id} onClick={() => props.history.push(`/meal/${meal._id}`)}>
-              <MealPreview meal={meal} getAvgRate={props.getAvgRate} />
-            </li>
-          </Paper>
+        {meals.map(meal => (
+          <li key={meal._id} onClick={() => history.push(`/meal/${meal._id}`)}>
+            <MealPreview meal={meal} getAvgRate={getAvgRate}/>
+          </li>
         ))}
       </ul>
     </section>

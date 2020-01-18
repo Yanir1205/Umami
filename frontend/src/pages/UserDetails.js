@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { MuiPickersUtilsProvider } from "@material-ui/pickers"
 import { load } from '../actions/MealActions';
+import DateFnsUtils from "@date-io/date-fns";
+
+import UserMealList from '../components/UserMealList'
+import Calander from '../components/Calander'
 
 export class UserDetails extends Component {
   //this page will display a calander. each date with a meal will appear with a special icon
@@ -12,26 +16,57 @@ export class UserDetails extends Component {
 
   //the component will get inside it props - the user id (in match.params in the url)
 
+  state = {
+    date: new Date(Date.now())
+  }
+
   componentDidMount() {
     //get the user id from match.params
     //get all the meals related to this user by its id (a mongoDB find function)
     //for now (as long as we are using the json-server instead of mongoDB), we will perform a filter in the frontend
     //instead of a simple mongoDB find function
-    const { id } = this.props.match.params;
-    debugger;
-    this.props.load();
+    this.props.load(); //loads all the meals
+    this.filterMealsForCurrUser()
   }
 
-  get mealsToShow() {
-    //filters the meals by this user id
-    const { id } = this.props.match.params;
-    this.props.meals.filter(meal => {
-      return meal.attendees.filter(attendedUser => attendedUser._id === id) || meal.hostedBy._id === id;
-    });
+  onDateChange = (newDate) => {
+    //whenver the user changes the date on the calander this function will operate
+    //it will change the table (which appears below the calander), so that it will display the event of the chosen date
+    this.setState({ date: newDate })
   }
+
+  filterMealsForCurrUser = () => {
+    //gets the meals from the props (this.props.meals)
+    //filters the props and returns the fltered results according to the user id from the url
+    const { id } = this.props.match.params
+
+    //getting the meal items this user is hosting:
+    const hostMeals = this.props.meals.filter(meal => meal.hostedBy._id === id)
+
+    //getting the meal items this user is attending:
+    let attendedMeals = [];
+    for (let i = 0; i < this.props.meals.length; i++) {
+      for (let j = 0; j < this.props.meals[i].attendees.length; j++) {
+        if (this.props.meals[i].attendees[j]._id === id) {
+          attendedMeals.push(this.props.meals[i])
+        }
+      }
+    }
+    return { hostMeals, attendedMeals };
+  }
+
+
 
   render() {
-    return <div className='container'>UserDetails</div>;
+    console.log(this.filterMealsForCurrUser())
+    const { hostMeals, attendedMeals } = this.filterMealsForCurrUser()
+    return <div>
+      UserDetails
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Calander date={this.state.date} onDateChange={this.onDateChange}></Calander>
+      </MuiPickersUtilsProvider>
+      <UserMealList attended={attendedMeals} host={hostMeals}></UserMealList>
+    </div>
   }
 }
 
@@ -45,51 +80,24 @@ const mapDispatchToProps = {
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);
 
-/*
-
-import React, { useState } from "react";
-import { Badge } from "@material-ui/core";
-import { DatePicker } from "@material-ui/pickers";
-import { makeJSDateObject } from "../../../utils/helpers";
-
-function getRandomNumber(min, max) {
-  return Math.round(Math.random() * (max - min) + min);
-}
-
-function ServerRequest() {
-  const [selectedDays, setSelectedDays] = useState([1, 2, 15]);
-  const [selectedDate, handleDateChange] = useState(new Date());
-
-  const handleMonthChange = async () => {
-    // just select random days to simulate server side based data
-    return new Promise(resolve => {
-      setTimeout(() => {
-        setSelectedDays([1, 2, 3].map(() => getRandomNumber(1, 28)));
-        resolve();
-      }, 1000);
-    });
-  };
-
-  return (
-    <>
-      <DatePicker
-        label="With server data"
-        value={selectedDate}
-        onChange={handleDateChange}
-        onMonthChange={handleMonthChange}
-        renderDay={(day, selectedDate, isInCurrentMonth, dayComponent) => {
-          const date = makeJSDateObject(day); // skip this step, it is required to support date libs
-          const isSelected = isInCurrentMonth && selectedDays.includes(date.getDate());
-
-          // You can also use our internal <Day /> component
-          return <Badge badgeContent={isSelected ? "🌚" : undefined}>{dayComponent}</Badge>;
-        }}
-      />
-    </>
-  );
-}
-
-export default ServerRequest;
 
 
-*/
+// getUserMeals = () => {
+//   //filters the meals by this user id
+//   const { id } = this.props.match.params
+//   let hostMeals = this.props.meals.filter(meal => meal.hostedBy._id === id)
+//   let attendedMeals = [];
+//   // const attendedByCurrUser = this.props.meals.reduce((acc, meal) => {
+//   //   return acc.push(meal.attendees.filter(attendedUser => {
+//   //     return attendedUser._id === id
+//   //   }))
+//   // }, [])
+//   for (let i = 0; i < this.props.meals.length; i++) {
+//     for (let j = 0; j < this.props.meals[i].attendees.length; j++) {
+//       if (this.props.meals[i].attendees[j]._id === id) {
+//         attendedMeals.push(this.props.meals[i])
+//       }
+//     }
+//   }
+//   return { hostMeals, attendedMeals };
+// }
