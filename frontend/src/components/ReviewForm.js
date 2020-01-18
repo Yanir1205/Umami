@@ -14,7 +14,7 @@ export class ReviewForm extends Component {
         <FormControl>
           <InputLabel htmlFor="email-address">Email address</InputLabel>
           <Input id="email-address" aria-describedby="my-helper-email-address" />
-        </FormControl>
+        </FormControl>  
 
         <FormControl>
           <InputLabel htmlFor="user-name">User Name</InputLabel>

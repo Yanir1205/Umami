@@ -16,6 +16,8 @@
 import React from "react";
 import { withRouter } from "react-router";
 import MealPreview from './MealPreview'
+import Paper from '@material-ui/core/Paper';
+
 
 function MealList({ meals, history,  getAvgRate }) {
   return (
