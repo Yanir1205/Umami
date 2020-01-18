@@ -17,7 +17,7 @@ export class UserDetails extends Component {
   //the component will get inside it props - the user id (in match.params in the url)
 
   state = {
-    date: new Date(Date.now())
+    date: new Date(Date.now()),
   }
 
   componentDidMount() {
@@ -27,6 +27,9 @@ export class UserDetails extends Component {
     //instead of a simple mongoDB find function
     this.props.load(); //loads all the meals
     this.filterMealsForCurrUser()
+
+    //should be (when the server will be ready)
+    //this.props.load({at: this.state.date, byUserId: this.props.match.params.id})
   }
 
   onDateChange = (newDate) => {
