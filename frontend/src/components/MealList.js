@@ -16,15 +16,22 @@
 import React from "react";
 import { withRouter } from "react-router";
 import MealPreview from './MealPreview'
+import Paper from '@material-ui/core/Paper';
 
-function MealList({ meals, history, getCityName, getAvgRate }) {
+
+// function MealList({ meals, history, getCityName, getAvgRate }) {
+function MealList(props) {
+  const classes = props;
+
   return (
     <section>
-      <ul>
-        {meals.map(meal => (
-          <li key={meal._id} onClick={() => history.push(`/meal/${meal._id}`)}>
-            <MealPreview meal={meal} getAvgRate={getAvgRate}/>
-          </li>
+      <ul className="clean-list">
+        {props.meals.map(meal => (
+          <Paper elevation={1} className={classes.paper}>
+            <li key={meal._id} onClick={() => props.history.push(`/meal/${meal._id}`)}>
+              <MealPreview meal={meal} getAvgRate={props.getAvgRate} />
+            </li>
+          </Paper>
         ))}
       </ul>
     </section>

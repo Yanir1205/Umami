@@ -5,10 +5,18 @@
 }
 
 .meal-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
+    .img-meal{
+        width: 250px;
+        height: 150px;
+    }
 }
 .menu-containner{
-    width: 45vw;
+    width: 40vw;
     // background: aliceblue;
     text-align: center;
 
@@ -27,4 +35,5 @@
     justify-content: space-between;
     padding: 5px;
 }
+
 

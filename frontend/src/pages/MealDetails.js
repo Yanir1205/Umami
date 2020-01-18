@@ -8,6 +8,7 @@ import ReviewForm from '../components/ReviewForm'
 
 
 import { makeStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 
 
@@ -35,7 +36,6 @@ export class MealDetails extends Component {
   }
   render() {
     const classes = this.props;
-    debugger
     const meal = this.props.meal
     return <div className="container">MEAL DETAILS
       {meal && <div>
@@ -67,7 +67,11 @@ export class MealDetails extends Component {
 
         <Paper elevation={4} className={classes.paper}>
           <ReviewList reviews={meal.reviews}></ReviewList>
+          <Button type="submit" variant="outlined" color="primary">
+            Add Review
+          </Button>
         </Paper>
+
       </div>}
     </div>
   }
