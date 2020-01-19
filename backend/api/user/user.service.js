@@ -1,6 +1,6 @@
 
 const dbService = require('../../services/db.service')
-const reviewService = require('../review/review.service')
+// const reviewService = require('../review/review.service')
 const ObjectId = require('mongodb').ObjectId
 
 module.exports = {
@@ -32,11 +32,11 @@ async function getById(userId) {
         const user = await collection.findOne({"_id":ObjectId(userId)})
         delete user.password
 
-        user.givenReviews = await reviewService.query({byUserId: ObjectId(user._id) })
-        user.givenReviews = user.givenReviews.map(review => {
-            delete review.byUser
-            return review
-        })
+        // // user.givenReviews = await reviewService.query({byUserId: ObjectId(user._id) })
+        // user.givenReviews = user.givenReviews.map(review => {
+        //     delete review.byUser
+        //     return review
+        // })
 
 
         return user
@@ -47,8 +47,10 @@ async function getById(userId) {
 }
 async function getByEmail(email) {
     const collection = await dbService.getCollection('user')
+    
     try {
         const user = await collection.findOne({email})
+        // console.log('user.servce --> getByEmail -> user',user );
         return user
     } catch (err) {
         console.log(`ERROR: while finding user ${email}`)

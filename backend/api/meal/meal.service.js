@@ -59,8 +59,8 @@ async function edit(meal) {
 }
 
 async function add(meal) {
-    // meal.byUserId = ObjectId(meal.byUserId);
-    // meal.aboutUserId = ObjectId(meal.aboutUserId);
+    meal.byUserId = ObjectId(meal.byUserId);
+    meal.aboutUserId = ObjectId(meal.aboutUserId);
 
     const collection = await dbService.getCollection('meal')
     try {

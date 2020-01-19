@@ -5,6 +5,7 @@ const endpoint = 'user';
 
 async function login(credentails) {
   const user = await HttpService.post(`${authEndpoint}/login`, credentails);
+
   return _handleLogin(user);
 }
 async function signup(credentails) {
@@ -27,6 +28,14 @@ async function getById(id) {
   return user;
 }
 
+function  checkConnection (){
+
+  const currentUser = sessionStorage.getItem('user')
+  
+  if(currentUser){
+    return true 
+  }else return false 
+}
 
 
 export default {
@@ -34,4 +43,5 @@ export default {
   signup,
   logout,
   getById,
+  checkConnection
 };
