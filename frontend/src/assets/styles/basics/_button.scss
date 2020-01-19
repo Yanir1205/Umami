@@ -1,0 +1,103 @@
+/* **** BUTTONS **** */
+
+button {
+  font-family: oswald, raleway, lato, 'sans-serif';
+  display: inline-block;
+  background-color: transparent;
+  border-radius: 2px;
+  box-sizing: border-box;
+  border: 1px solid $basicClr3;
+  line-height: 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-small {
+  width: 35px;
+}
+
+.btn-md {
+  width: 4rem;
+  font-size: 1.2rem;
+}
+
+.btn-lg {
+  width: 40%;
+}
+
+.btn-cta {
+  background-color: $basicClr3;
+  color: $basicClr1;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-cta:hover {
+  background-color: rgba($basicClr3, 0.05);
+  transition: 0.2s ease;
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: $basicClr3;
+  border: 1px solid $basicClr3;
+  transition: 0.2s ease;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.btn-ghost:hover {
+  background-color: rgba($basicClr3, 0.04);
+  color: $basicClr1;
+  transition: 0.2s ease;
+}
+
+.btn-secondary {
+  background-color: $basicClr1;
+  color: $basicClr3;
+  border: 1px solid $basicClr3;
+  transition: 0.2s ease;
+  cursor: pointer;
+  padding: 5px 4px 3px 5px;
+}
+
+.btn-secondary:hover {
+  background-color: $basicClr1;
+  transition: 0.2s ease;
+}
+
+.btn-round {
+  height: fit-content;
+  padding: 0px 5px 2px 5px;
+  border: 1px solid $basicClr3;
+  background: $basicClr3;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+  color: $basicClr1;
+
+  &:hover {
+    background: $basicClr1;
+    color: $basicClr3;
+  }
+}
+
+.btn-disabled {
+  color: $basicClr4;
+  background-color: $basicClr5;
+}
+
+.btn-disabled:hover {
+  cursor: initial;
+}
+
+@media (max-width: 480px) {
+  .btn-sm {
+    width: 40%;
+  }
+  .btn-md {
+    width: 50%;
+  }
+  .btn-lg {
+    width: 90%;
+  }
+}

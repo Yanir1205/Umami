@@ -1,0 +1,92 @@
+.main-attendees-container {
+  display: flex;
+  align-items: center;
+  margin: 30px auto;
+
+  .frame {
+    box-shadow: 1px 2px 5px 0px rgba($basicClr2, 0.3);
+    width: fit-content;
+    margin-right: 30px;
+  }
+
+  .center {
+    overflow: hidden;
+    box-shadow: 5px 5px 5px 0 rgba($basicClr2, 0.3);
+  }
+}
+.profile {
+  text-align: center;
+  margin: 10px 20px 0px 20px;
+
+  .image {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    margin: 10px auto 10px auto;
+
+    .circle-1 {
+      position: absolute;
+      width: 76px;
+      height: 76px;
+      top: -3px;
+      left: -3px;
+      border-width: 1px;
+      border-style: solid;
+      border-color: $basicClr3 $basicClr4 $basicClr3 transparent;
+      border-radius: 50%;
+      transition: all 1.5s ease-in-out;
+    }
+
+    .circle-2 {
+      @extend .circle-1;
+      width: 82px;
+      height: 82px;
+      top: -6px;
+      left: -6px;
+      border-color: $basicClr3 transparent $basicClr4 $basicClr3;
+    }
+
+    img {
+      border-radius: 50%;
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      .circle-1 {
+        transform: rotate(360deg);
+      }
+
+      .circle-2 {
+        transform: rotate(-360deg);
+      }
+    }
+  }
+
+  .name {
+    letter-spacing: 2px;
+    word-spacing: 3px;
+  }
+
+  .address {
+    letter-spacing: 2px;
+    word-spacing: 3px;
+    margin-bottom: 10px;
+  }
+
+  .actions {
+    .btn {
+      padding: 0px 10px;
+      margin: 0 auto 10px auto;
+      border: 1px solid $basicClr3;
+      border-radius: 15px;
+      transition: all 0.3s ease-in-out;
+      color: $basicClr3;
+
+      &:hover {
+        background: $basicClr3;
+        color: $basicClr1;
+      }
+    }
+  }
+}
