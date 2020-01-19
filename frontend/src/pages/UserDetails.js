@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { MuiPickersUtilsProvider } from "@material-ui/pickers"
 import { load } from '../actions/MealActions';
+import { setFilter } from '../actions/FlterActions'
 import DateFnsUtils from "@date-io/date-fns";
 
 import UserMealList from '../components/UserMealList'
@@ -14,28 +15,35 @@ export class UserDetails extends Component {
   //for any meal of which the current user is a host - the table will enable view, edit (remove???)
   //for any meal of which the current user is an attendee - the table will enable view and remove
 
-  //the component will get inside it props - the user id (in match.params in the url)
-
-  state = {
-    date: new Date(Date.now()),
-  }
-
   componentDidMount() {
     //get the user id from match.params
     //get all the meals related to this user by its id (a mongoDB find function)
     //for now (as long as we are using the json-server instead of mongoDB), we will perform a filter in the frontend
     //instead of a simple mongoDB find function
-    this.props.load(); //loads all the meals
-    this.filterMealsForCurrUser()
+    // this.props.setFilter({ ...this.props.filter, at: new Date(), userId: this.props.match.params.id }) //sets the filter
+    // this.props.load(this.props.filter); //loads only the filtered meals into the state and the data
+    // this.filterMealsForCurrUser()
+    this.props.setFilter({ ...this.props.filter, userId: this.props.match.params.id })
 
     //should be (when the server will be ready)
     //this.props.load({at: this.state.date, byUserId: this.props.match.params.id})
   }
 
+  componentDidUpdate(prevProps) {
+    if (JSON.stringify(prevProps.filter) !== JSON.stringify(this.props.filter)) {
+      this.loadMeals();
+    }
+  }
+
+  loadMeals() {
+    this.props.load(this.props.filter);
+  }
+
   onDateChange = (newDate) => {
     //whenver the user changes the date on the calander this function will operate
     //it will change the table (which appears below the calander), so that it will display the event of the chosen date
-    this.setState({ date: newDate })
+    // this.setState(prevState => ({ date: newDate, filterBy: { ...prevState.filterBy, at: newDate.toLocaleDateString() } }))
+    this.props.setFilter({ ...this.props.filter, at: Date.parse(newDate) })
   }
 
   filterMealsForCurrUser = () => {
@@ -58,27 +66,40 @@ export class UserDetails extends Component {
     return { hostMeals, attendedMeals };
   }
 
-
+  mealsToShow = () => {
+    const { id } = this.props.match.params
+    const attended = [];
+    const host = [];
+    this.props.meals.forEach(meal => {
+      if (meal.hostedBy.id === id) {
+        host.push(meal);
+      } else {
+        attended.push(meal);
+      }
+    })
+    return { host, attended }
+  }
 
   render() {
-    console.log(this.filterMealsForCurrUser())
-    const { hostMeals, attendedMeals } = this.filterMealsForCurrUser()
+    const { host, attended } = this.mealsToShow();
     return <div>
       UserDetails
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <Calander date={this.state.date} onDateChange={this.onDateChange}></Calander>
+        <Calander date={this.props.filter.at} onDateChange={this.onDateChange}></Calander>
       </MuiPickersUtilsProvider>
-      <UserMealList attended={attendedMeals} host={hostMeals}></UserMealList>
+      {this.props.meals.length && <UserMealList attended={attended} host={host}></UserMealList>}
     </div>
   }
 }
 
 const mapStateToProps = state => ({
   meals: state.meal.meals,
+  filter: state.filter.filter
 });
 
 const mapDispatchToProps = {
   load,
+  setFilter
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);

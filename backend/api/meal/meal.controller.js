@@ -4,6 +4,7 @@ const mealsService = require('./meal.service')
 // TODO: needs error handling! try, catch
 
 async function getMeals(req, res) {
+    console.log('meal.controller. req received: (updated)',req.query)
     try {
         const meals = await mealsService.query(req.query)
         res.send(meals)
@@ -37,9 +38,7 @@ async function deleteMeal(req, res) {
 
 async function addMeal(req, res) {
     try {
-        var meal = req.body;
-        console.log('meal.controller  --> addMeal -->',meal);
-        
+        var meal = req.body;        
         
         // review.byUserId = req.session.user._id;  FOR SESSION
         meal = await mealsService.add(meal)

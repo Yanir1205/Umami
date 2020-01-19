@@ -7,9 +7,9 @@ export default {
   remove,
 };
 
-export function load() {
+export function load(filter) {
   return async dispatch => {
-    const meals = await MealService.query();
+    const meals = await MealService.query(filter);
     dispatch({ type: 'LOAD', meals });
   };
 }
