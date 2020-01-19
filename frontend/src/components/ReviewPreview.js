@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Moment from 'react-moment';
+import Moment from 'moment';
 
-export class ReviewPreview extends Component {
+class ReviewPreview extends Component {
   render() {
-    const review = this.props.review
-    console.log("ReviewPreview --> render review ", review);
+    const review = this.props.review;
 
-    return <div className ="review-preview-container">
-      <li><img className="user-Img" src={review.byUser.imgUrl}></img>{review.byUser.fullName} 
-  <span>date: <Moment date ={review.at}>
-                
-            </Moment></span></li>
-     
-      <li >{review.txt}</li>
-    </div>;
+    return (
+      <div className='review-container'>
+        <blockquote>
+          <header>
+            <span data-rating={review.rate}>
+              <i className='icon-small fas fa-star'></i>
+              <i className='icon-small fas fa-star'></i>
+              <i className='icon-small fas fa-star'></i>
+              <i className='icon-small fas fa-star'></i>
+              <i className='icon-small fas fa-star'></i>
+            </span>
+            <strong>Event Name</strong>
+            <span>, {Moment.unix(review.at).format('LL')}</span>
+            <span>
+              By <em>{review.byUser.fullName}</em>
+            </span>
+            <span>Verified Review</span>
+          </header>
+          <p>{review.txt}</p>
+        </blockquote>
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewPreview);
+export default ReviewPreview;

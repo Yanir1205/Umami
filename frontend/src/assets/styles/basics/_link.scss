@@ -1,6 +1,30 @@
-// a {
-//     color: $clr5;
-//     &.router-link-active {
-//         color: $clr5;
-//     }
-// }
+.underline-link,
+.underline-link:visited {
+  text-decoration: none;
+  position: relative;
+  color: $basicClr3;
+
+  &:after {
+    content: '';
+    height: 3px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    background: $basicClr3;
+    transition: 0.2s easy;
+  }
+
+  &:hover:after {
+    width: 100%;
+  }
+
+  &.block {
+    display: block;
+    padding: 0.5em;
+
+    &:hover {
+      background: $basicClr1;
+    }
+  }
+}

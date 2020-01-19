@@ -18,7 +18,6 @@ export class UserDetails extends Component {
     //for now (as long as we are using the json-server instead of mongoDB), we will perform a filter in the frontend
     //instead of a simple mongoDB find function
     const { id } = this.props.match.params;
-    debugger;
     this.props.load();
   }
 

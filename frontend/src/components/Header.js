@@ -26,7 +26,7 @@ export class Header extends Component {
               </Link>
             </div>
             <div className=''>
-              <a href='' onClick={this.onLogout}>
+              <a href='#' onClick={this.onLogout}>
                 Logout
               </a>
             </div>

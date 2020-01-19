@@ -1,0 +1,83 @@
+.card-bottom-border {
+  margin: 30px auto;
+  padding: 20px;
+  height: auto;
+  background-color: $basicClr1;
+  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.25), 0 2px 2px rgba(0, 0, 0, 0.2);
+  border-bottom: 2px solid $basicClr3;
+
+  .card-title {
+    font-weight: 900;
+    font-size: 2em;
+    margin: 0.25em 0;
+    color: $basicClr3;
+  }
+}
+
+.card-border {
+  // margin: 30px auto;
+  // padding: 20px;
+  height: auto;
+  background-color: $basicClr1;
+  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.25), 0 2px 2px rgba(0, 0, 0, 0.2);
+  border: 1px solid $basicClr3;
+
+  .card-title {
+    font-weight: 900;
+    font-size: 2em;
+    margin: 0.25em 0;
+    color: $basicClr3;
+  }
+}
+
+.card-simple {
+  margin: 30px auto;
+  padding: 20px;
+  height: auto;
+  background-color: $basicClr1;
+  box-shadow: 0 5px 5px rgba(88, 89, 91, 0.12), 0 5px 5px rgba(88, 89, 91, 0.24);
+
+  .card-title {
+    font-weight: 900;
+    font-size: 2em;
+    margin: 0.25em 0;
+    color: $basicClr3;
+  }
+}
+
+.card-container-lg {
+  position: absolute;
+  overflow: none;
+  height: auto;
+  width: 400px;
+  z-index: 300;
+  transform: translate(0%, 0%);
+  background-color: $basicClr4;
+  background-clip: content-box;
+  border-style: solid;
+  padding: 0.3rem 0.3rem;
+
+  &:before {
+    border-color: $basicClr4;
+  }
+
+  &:after {
+    border-color: $basicClr4;
+  }
+}
+
+.card-background-lg {
+  width: 93%;
+  height: 80%;
+  background-color: $basicClr1;
+  overflow: none;
+  border-radius: 2px;
+  margin: 10px 0px;
+  padding: 10px 10px;
+}
+
+.card-container-horizontal {
+  border-width: 0 2px 0 2px;
+  border-left-color: $basicClr4;
+  border-right-color: $basicClr4;
+}

@@ -1,0 +1,168 @@
+/* **** INPUT **** */
+
+select:focus,
+button:focus,
+div:focus {
+  outline: none;
+}
+
+input:focus,
+textarea:focus {
+  border: 1px solid $basicClr3;
+  background: rgba($basicClr3, 0.01);
+}
+
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible) {
+  outline: none;
+}
+
+input {
+  font-family: oswald, raleway, lato, 'sans-serif';
+  display: inline-block;
+  padding-left: 5px;
+  box-sizing: border-box;
+  border: 1px solid $basicClr3;
+  border-radius: 0.25rem;
+  line-height: 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+input::placeholder {
+  color: $basicClr3;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  padding: 5px;
+}
+
+/* **** INPUT DATE**** */
+
+.input-date {
+  display: inline-block;
+  position: relative;
+  background: $basicClr1
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='22' viewBox='0 0 20 22'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23688EBB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' transform='translate(1 1)'%3E%3Crect width='18' height='18' y='2' rx='2'/%3E%3Cpath d='M13 0L13 4M5 0L5 4M0 8L18 8'/%3E%3C/g%3E%3C/svg%3E")
+    right 1rem center no-repeat;
+}
+
+.input-date:focus {
+  outline: none;
+  background: transparent;
+  border: 1px solid $basicClr3;
+  background: rgba($basicClr3, 0.01)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='22' viewBox='0 0 20 22'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23688EBB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' transform='translate(1 1)'%3E%3Crect width='18' height='18' y='2' rx='2'/%3E%3Cpath d='M13 0L13 4M5 0L5 4M0 8L18 8'/%3E%3C/g%3E%3C/svg%3E")
+    right 1rem center no-repeat;
+}
+
+::-webkit-datetime-edit-month-field:hover,
+::-webkit-datetime-edit-day-field:hover,
+::-webkit-datetime-edit-year-field:hover {
+  background: rgba($basicClr3, 0.01);
+}
+::-webkit-datetime-edit-text {
+  opacity: 0;
+}
+::-webkit-clear-button,
+::-webkit-inner-spin-button {
+  display: none;
+  visibility: hidden;
+}
+::-webkit-calendar-picker-indicator {
+  position: absolute;
+  width: 2.5rem;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  cursor: pointer;
+  color: $basicClr3;
+  background: rgba($basicClr3, 0.01)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='22' viewBox='0 0 20 22'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23688EBB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' transform='translate(1 1)'%3E%3Crect width='18' height='18' y='2' rx='2'/%3E%3Cpath d='M13 0L13 4M5 0L5 4M0 8L18 8'/%3E%3C/g%3E%3C/svg%3E")
+    right 1rem center no-repeat;
+}
+
+.input-date:hover::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+.input-date:hover::-webkit-calendar-picker-indicator:hover {
+  opacity: 0;
+}
+
+/* ****  INPUT WITH ICON **** */
+
+/*
+ <div className='input-wrapper flex'>
+	 <i className='icon-medium color-gray input-icon fas fa-search'></i>
+	 <input type='text' placeholder='Search' name='search' class='input-with-icon'></input>
+ </div>
+
+*/
+
+.input-icon {
+  position: absolute;
+  left: 3px;
+  top: calc(50% - 0.5em);
+  /* Keep icon in center of input, regardless of the input height */
+}
+
+.input-with-icon {
+  padding-left: 25px;
+  width: 15rem;
+  line-height: 2rem;
+  border: none;
+  border-color: transparent;
+  border-bottom: 2px solid #47484a;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+/* **** TEXT AREA **** */
+
+textarea {
+  font-family: oswald, raleway, lato, 'sans-serif';
+  display: inline-block;
+  padding-left: 5px;
+  box-sizing: border-box;
+  border: 1px solid $basicClr3;
+  border-radius: 0.25rem;
+  vertical-align: top;
+  line-height: 2rem;
+  font-size: 1rem;
+  overflow: hidden;
+  resize: none;
+  cursor: pointer;
+}
+
+textarea::placeholder {
+  color: $basicClr3;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  padding: 5px;
+}
+
+.textarea-bottom-border {
+  width: 95%;
+  line-height: 2rem;
+  border: none;
+  border-color: transparent;
+  border-bottom: 1px solid #47484a;
+}
+
+.textarea-bottom-border::placeholder {
+  color: #47484a;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  padding: 0px 5px 1px 0px;
+}
+
+.textarea:invalid {
+  border: 1px dashed red;
+}
+
+/* .textarea:valid {
+	border-bottom: 1px solid #47484A;
+} */

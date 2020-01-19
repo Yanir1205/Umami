@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ReviewPreview } from './ReviewPreview';
-
+import ReviewPreview from './ReviewPreview';
 
 export class ReviewList extends Component {
   render() {
-    const reviews = this.props.reviews
-    return <div><ul className="clean-list"> 
-        {reviews && reviews.map((review) => {
-          return <ReviewPreview review ={review}></ReviewPreview> 
-        })}</ul>
-    </div>
+    const reviews = this.props.reviews;
+    return (
+      <div className='main-reviews-container margin-bottom-40'>
+        {reviews &&
+          reviews.map((review, idx) => {
+            return <ReviewPreview key={idx} review={review}></ReviewPreview>;
+          })}
+      </div>
+    );
   }
 }
 

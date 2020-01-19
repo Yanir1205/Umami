@@ -34,6 +34,10 @@
   display: flex;
 }
 
+.flex-inline {
+  display: inline-flex;
+}
+
 .flex.column {
   flex-direction: column;
 }
@@ -156,6 +160,10 @@
   margin-bottom: 20px;
 }
 
+.margin-bottom-40 {
+  margin-bottom: 40px;
+}
+
 .margin-top-20 {
   margin-top: 20px;
 }
@@ -186,6 +194,10 @@
   text-transform: uppercase;
 }
 
+.strike-through {
+  text-decoration: line-through;
+}
+
 /* **** LIST HELPERS **** */
 
 .clean-list {
@@ -196,7 +208,7 @@
 
 /* **** DISPLAY HELPERS **** */
 
-.hide {
+.hide * {
   display: none;
 }
 
@@ -207,10 +219,6 @@
 
 .show {
   display: inline-block;
-}
-
-.strike-through {
-  text-decoration: line-through;
 }
 
 // Media helpers
