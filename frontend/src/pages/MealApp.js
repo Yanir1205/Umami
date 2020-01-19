@@ -16,7 +16,10 @@ export class MealApp extends Component {
   }
 
   render() {
-    return <div className='container'>{this.props.meals.length && <MealList meals={this.props.meals} getAvgRate={this.getAvgRate}></MealList>}</div>;
+    return <div className='container'>
+      {!this.props.meals.length && <div>LOADING...</div>}
+      {this.props.meals.length && <MealList meals={this.props.meals} getAvgRate={this.getAvgRate}></MealList>}
+    </div>;
   }
 }
 

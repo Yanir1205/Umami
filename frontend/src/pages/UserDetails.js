@@ -80,6 +80,11 @@ export class UserDetails extends Component {
     return { host, attended }
   }
 
+  onCreateMeal = () => {
+    debugger
+    this.props.history.push('/meal/edit');
+  }
+
   render() {
     const { host, attended } = this.mealsToShow();
     return <div>
@@ -87,7 +92,8 @@ export class UserDetails extends Component {
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <Calander date={this.props.filter.at} onDateChange={this.onDateChange}></Calander>
       </MuiPickersUtilsProvider>
-      {this.props.meals.length && <UserMealList attended={attended} host={host}></UserMealList>}
+      <button className="create-new-meal btn" onClick={this.onCreateMeal}>CREATE MEAL</button>
+      {this.props.meals.length > 0 && <UserMealList attended={attended} host={host}></UserMealList>}
     </div>
   }
 }
