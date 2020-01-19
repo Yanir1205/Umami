@@ -3,8 +3,12 @@ import { loading, doneLoading } from './SystemActions';
 // import history from './../history';
 
 export function login(credentails) {
+  console.log('UserActions -> login -> credentails',credentails);
+
   return async dispatch => {
     const user = await UserService.login(credentails);
+    console.log('UserActions -> login -> user',user);
+
     dispatch(_setUser(user));
   };
 }

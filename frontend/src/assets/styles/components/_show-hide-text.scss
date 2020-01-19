@@ -1,0 +1,16 @@
+.show-hide-text-container {
+  margin-bottom: 30px;
+
+  & > p {
+    transition: all 0.2s;
+  }
+
+  & > p > a {
+    font-family: oswald-semi;
+    margin-left: 20px;
+    text-decoration: underline;
+    font-variant: small-caps;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+  }
+}

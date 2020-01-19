@@ -1,0 +1,35 @@
+.review-form {
+  & > h3 {
+    text-align: center;
+  }
+
+  & .rating > i {
+    margin-left: 10px;
+  }
+
+  & .email {
+    width: 100%;
+    margin-bottom: 20px;
+
+    & input {
+      width: 100%;
+    }
+  }
+
+  & .review {
+    width: 100%;
+    margin-bottom: 20px;
+
+    & textarea {
+      width: 100%;
+    }
+  }
+
+  & .save {
+    width: 100%;
+
+    & button {
+      width: 50%;
+    }
+  }
+}

@@ -9,14 +9,14 @@
 }
 
 html {
-  font-family: raleway, lato, 'sans-serif';
+  font-family: oswald, raleway, lato, 'sans-serif';
   font-size: 16px;
   line-height: 1.6;
 }
 
 body {
   margin: 0;
-  font-family: raleway, lato, 'sans-serif';
+  font-family: oswald, raleway, lato, 'sans-serif';
   font-size: 16px;
   line-height: 1.6;
 }
@@ -41,21 +41,26 @@ h1 {
 }
 
 h2 {
+  font-size: 1.4rem;
   font-size: rem(30px);
 }
 
 h3 {
-  font-size: 1rem;
+  font-size: 1.2rem;
+  font-family: oswald-semi;
+  letter-spacing: 3px;
+  word-spacing: 5px;
+  margin-bottom: 20px;
 }
 
 h4 {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 300;
 }
 
 p {
   margin: 0 0 rem(12px);
-  max-width: 60ch;
+  // max-width: 60ch;
 }
 
 a {

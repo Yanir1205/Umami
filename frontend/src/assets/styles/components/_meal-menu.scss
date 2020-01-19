@@ -1,0 +1,27 @@
+.menu-main-container {
+  .menu-container {
+    padding: 20px;
+  }
+
+  .menu-section {
+    margin-bottom: 20px;
+
+    & h3 {
+      font-family: oswald-semi, lato;
+      margin: 10px 0;
+      text-align: Center;
+      font-size: rem(20px);
+      letter-spacing: 5px;
+      word-spacing: 3px;
+    }
+
+    & div {
+      margin: 15px 0;
+      font-variant: small-caps;
+      font-size: 1.4rem;
+      text-align: Center;
+      letter-spacing: 2px;
+      // border-bottom: 1px dotted rgb(213, 213, 213);
+    }
+  }
+}

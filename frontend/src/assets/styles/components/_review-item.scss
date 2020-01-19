@@ -1,0 +1,133 @@
+.review-container {
+  & blockquote {
+    padding: 0;
+    background: $basicClr1;
+    margin: 30px 0 0 0;
+    border: 1px solid $basicClr5;
+    border-radius: 3px;
+    padding: 15px 15px 10px 15px;
+    position: relative;
+    box-shadow: rgba($basicClr2, 0.025) 0 3px 20px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    cursor: default;
+  }
+  & blockquote:before {
+    content: '';
+    display: block;
+    border: 20px solid transparent;
+    border-top-color: $basicClr5;
+    position: absolute;
+    top: 100%;
+    left: 20px;
+    z-index: 250;
+    background: transparent;
+    height: 0;
+    opacity: 1;
+  }
+  & blockquote:after {
+    content: '';
+    display: block;
+    border: 19px solid transparent;
+    border-top-color: $basicClr1;
+    position: absolute;
+    top: 100%;
+    left: 21px;
+    z-index: 500;
+  }
+  & blockquote header span i {
+    color: $basicClr1;
+    text-shadow: $basicClr5 1px 0 0, $basicClr5 0 1px 0, $basicClr5 -1px 0 0, $basicClr5 0 -1px 0;
+  }
+  & blockquote header span[data-rating='1'] i:nth-child(-n + 1),
+  & blockquote header span[data-rating='2'] i:nth-child(-n + 2),
+  & blockquote header span[data-rating='3'] i:nth-child(-n + 3),
+  & blockquote header span[data-rating='4'] i:nth-child(-n + 4),
+  & blockquote header span[data-rating='5'] i:nth-child(-n + 5) {
+    color: $starColor;
+    text-shadow: $starShadow 1px 0 0, $starShadow 0 1px 0, $starShadow -1px 0 0, $starShadow 0 -1px 0;
+  }
+  & blockquote strong {
+    display: inline;
+    margin-left: 10px;
+    color: $basicClr2;
+    letter-spacing: 2px;
+    word-spacing: 3px;
+  }
+  & strong + span {
+    margin-left: 5px;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+  }
+
+  & blockquote strong + span + span {
+    display: block;
+    margin: 5px 0;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    text-transform: capitalize;
+  }
+  & blockquote span em {
+    font-style: normal;
+    font-weight: bold;
+    color: $basicClr6;
+    text-decoration: underline;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+  }
+  & blockquote span:last-of-type {
+    color: $clr7;
+    font-size: 0.85rem;
+    font-weight: bold;
+    display: block;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+  }
+  & blockquote p {
+    font-size: 1.1rem;
+    font-style: normal;
+    margin: 5px 0 0 0;
+    color: $basicClr2;
+    text-transform: capitalize;
+  }
+  & h2:last-of-type {
+    background: $basicClr5;
+    text-align: center;
+    font-weight: 400;
+    padding: 15px;
+    margin: 0;
+    border: 1px solid $basicClr5;
+    position: relative;
+  }
+  & h2 q,
+  & h2 strong {
+    font-weight: 600;
+  }
+}
+
+@media (min-width: 400px) {
+  .review-container h2:last-of-type {
+    font-size: 24pt;
+  }
+}
+@media (min-width: 700px) {
+  .review-container blockquote {
+    // width: 75%;
+    margin: 30px 0px 0 0px;
+  }
+  .review-container blockquote:nth-of-type(even) {
+    margin-left: calc(25% - 15px);
+  }
+  .review-container h2:last-of-type {
+    font-size: 28pt;
+  }
+}
+@media (min-width: 700px) {
+  .review-container .quote-container {
+    width: 100%;
+    padding: 0 75px;
+  }
+}

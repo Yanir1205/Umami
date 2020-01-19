@@ -1,0 +1,107 @@
+.meal-details-page-container {
+  .meal-details-container {
+    margin: 30px 0;
+
+    .left-box {
+      margin-right: 30px;
+      height: 100%;
+
+      .nav-container {
+        margin: 30px 0;
+
+        .top-box > a {
+          font-family: oswald-semi;
+          color: $basicClr2;
+          margin: 0px 40px 10px 0px;
+          font-size: 120%;
+          letter-spacing: 3px;
+          word-spacing: 5px;
+          transition: all 0.2s;
+        }
+        & a:hover {
+          color: $basicClr3;
+        }
+
+        .bottom-box > div {
+          margin: 10px 40px 20px 0px;
+          text-transform: capitalize;
+          color: $basicClr3;
+          font-weight: bolder;
+          letter-spacing: 1px;
+          word-spacing: 2px;
+          line-height: normal;
+          vertical-align: text-bottom;
+        }
+      }
+
+      .reviews-title-wrapper {
+        display: inline-flex;
+
+        & > h3 {
+          margin-right: 20px;
+        }
+      }
+    }
+
+    .right-box {
+      height: 100%;
+      position: sticky;
+      top: 0;
+
+      .payment-container {
+        .price {
+          padding: 30px 0px 0px 20px;
+          margin-bottom: 10px;
+          font-family: oswald-semi;
+          font-size: 120%;
+          font-weight: normal;
+          letter-spacing: 3px;
+          word-spacing: 5px;
+        }
+
+        .details-container {
+          display: flex;
+          flex-direction: column;
+          padding: 10px 20px 30px 20px;
+
+          & > div:first-child {
+            margin-top: 10px;
+          }
+
+          & > div label {
+            margin-bottom: 10px;
+          }
+
+          & > div {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            text-transform: capitalize;
+            color: $basicClr3;
+            font-weight: bolder;
+            letter-spacing: 1px;
+            word-spacing: 2px;
+            line-height: normal;
+            vertical-align: text-bottom;
+          }
+
+          .payment ul {
+            display: flex;
+            flex-direction: column;
+          }
+          & ul > li {
+            margin: 10px 0px 20px 0px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid $basicClr3;
+            font-weight: normal;
+            display: flex;
+            justify-content: space-between;
+          }
+          & ul > li > span:first-child {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}

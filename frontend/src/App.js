@@ -12,6 +12,7 @@ import MealFormWrapper from './pages/MealFormWrapper';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
+import './assets/css/all.min.css';
 import './assets/styles/global.scss';
 
 const history = createBrowserHistory();
