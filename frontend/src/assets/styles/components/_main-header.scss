@@ -4,32 +4,44 @@
   margin: 0px 30px 30px 30px;
   //   margin-bottom: 30px;
   border-bottom: 1px solid $clr3;
-}
 
-.header-logo {
-  font-size: 2.875rem;
-  color: $clr3;
-}
+  .header-logo {
+    font-size: 2.875rem;
+    color: $clr3;
+  }
 
-.main-menu {
-  width: 100%;
-  height: 100%;
-}
+  .main-menu {
+    width: 100%;
+    height: 100%;
 
-.main-menu > *:not(:first-child) {
-  margin-left: 100px;
-}
+    & > *:not(:first-child) {
+      margin-left: 100px;
+    }
 
-.main-menu a {
-  font-size: 1.3rem;
-  text-transform: uppercase;
-  letter-spacing: 0.3rem;
-  border: 1px solid transparent;
-  transition: color 0.3s ease;
-  cursor: pointer;
-}
+    & > a {
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3rem;
+      border: 1px solid transparent;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
 
-.main-menu a:hover {
-  color: $clr3;
-  border-bottom: 2px solid $clr3;
+    & > a:hover {
+      color: $clr3;
+      border-bottom: 2px solid $clr3;
+    }
+  }
+
+  .header-controls > div a {
+    cursor: pointer;
+  }
+
+  .header-controls > div:first-child {
+    margin-right: 10px;
+  }
+
+  .header-controls > div:last-child {
+    margin-left: 10px;
+  }
 }

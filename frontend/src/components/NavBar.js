@@ -15,7 +15,7 @@ export class NavBar extends Component {
             </NavLink>
           </li>
           <li>
-            <NavLink activeClassName='active' to='/meal' exact>
+            <NavLink activeClassName='active' to='/meal/location' exact>
               LOCATIONS
             </NavLink>
           </li>

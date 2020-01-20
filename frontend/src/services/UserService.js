@@ -24,21 +24,19 @@ function _handleLogin(user) {
 }
 
 async function getById(id) {
-  const user =  await HttpService.get(`${endpoint}/${id}`);
+  const user = await HttpService.get(`${endpoint}/${id}`);
   return user;
 }
-function getUserLoggedin(){
-  return  sessionStorage.getItem('user')
+function getUserLoggedIn() {
+  return sessionStorage.getItem('user');
 }
-function  checkConnection (){
+function checkConnection() {
+  const currentUser = getUserLoggedIn();
 
-  const currentUser =getUserLoggedin()
-  
-  if(currentUser){
-    return true 
-  }else return false 
+  if (currentUser) {
+    return true;
+  } else return false;
 }
-
 
 export default {
   login,
@@ -46,6 +44,5 @@ export default {
   logout,
   getById,
   checkConnection,
-  getUserLoggedin
-
+  getUserLoggedIn,
 };

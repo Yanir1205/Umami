@@ -7,38 +7,33 @@ const BASE_URL = process.env.NODE_ENV === 'production' ? '/api/' : '//localhost:
 var axios = Axios.create({
   withCredentials: true,
 });
-//  יניר איפה אתה ?
+
 export default {
-  get(endpoint, data) {
-    if (data) {
-      endpoint += `?userId=${data.userId}&at=${data.at}&type=${data.type}`;
-      if (data.location) endpoint += `&city=${data.location.city}&country=${data.location.country}`;
-    }
-    return ajax(endpoint, 'GET', data);
+  get(endpoint, data, pararms) {
+    return ajax(endpoint, 'GET', data, pararms);
   },
-  post(endpoint, data) {
-    return ajax(endpoint, 'POST', data);
+  post(endpoint, data, pararms) {
+    return ajax(endpoint, 'POST', data, pararms);
   },
-  put(endpoint, data) {
-    return ajax(endpoint, 'PUT', data);
+  put(endpoint, data, pararms) {
+    return ajax(endpoint, 'PUT', data, pararms);
   },
-  delete(endpoint, data) {
-    return ajax(endpoint, 'DELETE', data);
+  delete(endpoint, data, pararms) {
+    return ajax(endpoint, 'DELETE', data, pararms);
   },
 };
 
-async function ajax(endpoint, method = 'get', data = null, dispatch) {
+async function ajax(endpoint, method = 'get', data = null, params = null, dispatch) {
   try {
-    debugger;
     const res = await axios({
       url: `${BASE_URL}${endpoint}`,
       method,
       data,
+      params,
     });
-    debugger;
     return res.data;
   } catch (err) {
-    console.log(`Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: ${data}`);
+    console.log(`Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: ${data}, with params: ${params}`);
     console.dir(err);
     if (err.response && err.response.status === 401) {
       history.push('/'); // diaspatch ('authorization error')

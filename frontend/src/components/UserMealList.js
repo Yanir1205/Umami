@@ -1,36 +1,22 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import MaterialTable from 'material-table';
+import React from 'react';
 
 import UserMealPreview from './UserMealPreview'
 
 export default function UserMealList({ attended, host }) {
-    return <ul className="clean-list">
+    return <div>
 
         {attended.map(attendedMeal => (
-            <li key={attendedMeal._id}>
+            <div key={attendedMeal._id}>
                 <UserMealPreview meal={attendedMeal} isHost={false} />
-            </li>
+            </div>
         ))}
 
         {host.map(hostMeal => (
-            <li key={hostMeal._id}>
+            <div key={hostMeal._id}>
                 <UserMealPreview meal={hostMeal} isHost={true} />
-            </li>
+            </div>
         ))}
 
-    </ul>
+    </div>
 
 }
-
-
-/*
-
-<ul>
-        {meals.map(meal => (
-          <li key={meal._id} onClick={() => history.push(`/meal/${meal._id}`)}>
-            <MealPreview meal={meal} getAvgRate={getAvgRate}/>
-          </li>
-        ))}
-      </ul>
-*/

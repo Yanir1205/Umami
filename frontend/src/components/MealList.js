@@ -1,35 +1,43 @@
-// import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+import React, { Component } from 'react';
 
-// export class MealList extends Component {
-//   render() {
-//     return <div>MealList</div>;
-//   }
-// }
 
-// const mapStateToProps = state => ({});
+import { withRouter } from "react-router";
+import MealPreview from './MealPreview'
+import CuisinePreview from './CuisinePreview'
+import LocationPreview from './LocationPreview'
 
-// const mapDispatchToProps = {};
+class MealList extends Component {
 
-// export default connect(mapStateToProps, mapDispatchToProps)(MealList);
+  render() {
+    return (
+      <section>
+        {this.props.renderType === 'meal' && <div className="clean-list">
+          {this.props.meals.map(meal => (
+            <div className="" key={meal._id} onClick={() => this.props.history.push(`/meal/${meal._id}`)}>
+              <MealPreview meal={meal} getAvgRate={this.props.getAvgRate} />
+            </div>
+          ))}
+        </div>}
 
-import React from 'react';
-import { withRouter } from 'react-router';
-import MealPreview from './MealPreview';
-import Paper from '@material-ui/core/Paper';
+        {this.props.renderType === 'cuisine' && this.props.cuisineTypes && <div>
+          {this.props.cuisineTypes.map(cuisineType => {
+            return <div className="cuisine-card-container" key={cuisineType}>
+              <CuisinePreview cuisineType={cuisineType} onCuisineClick={this.props.onCuisineClick}></CuisinePreview>
+            </div>
+          })}
+        </div>}
 
-function MealList({ meals, history, getAvgRate }) {
-  return (
-    <section>
-      <ul className="meal-list clean-list">
-        {meals.map(meal => (
-          <li key={meal._id} onClick={() => history.push(`/meal/${meal._id}`)}>
-            <MealPreview meal={meal} getAvgRate={getAvgRate} />
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
+        {this.props.renderType === 'location' && this.props.locations && <div>
+          {this.props.locations.map(location => {
+            return <div className="cuisine-card-container" key={location}>
+              <LocationPreview location={location} onLocationClick={this.props.onLocationClick}></LocationPreview>
+            </div>
+          })}
+        </div>}
+
+      </section>
+    )
+  }
 }
 
 export default withRouter(MealList);

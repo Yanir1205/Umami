@@ -11,6 +11,6 @@ router.get('/', getMeals)
 router.get('/:id', getById)
 router.post('/add', addMeal)
 router.delete('/:id', deleteMeal)
-router.put('/edit/:id', editMeal)
+router.put('/:id', editMeal)
 
 module.exports = router
