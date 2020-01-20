@@ -13,24 +13,23 @@
 
 // export default connect(mapStateToProps, mapDispatchToProps)(MealList);
 
-import React from "react";
-import { withRouter } from "react-router";
-import MealPreview from './MealPreview'
+import React from 'react';
+import { withRouter } from 'react-router';
+import MealPreview from './MealPreview';
 import Paper from '@material-ui/core/Paper';
 
-
-function MealList({ meals, history,  getAvgRate }) {
+function MealList({ meals, history, getAvgRate }) {
   return (
     <section>
-      <ul className="clean-list">
+      <ul className='clean-list'>
         {meals.map(meal => (
           <li key={meal._id} onClick={() => history.push(`/meal/${meal._id}`)}>
-            <MealPreview meal={meal} getAvgRate={getAvgRate}/>
+            <MealPreview meal={meal} getAvgRate={getAvgRate} />
           </li>
         ))}
       </ul>
     </section>
-  )
+  );
 }
 
-export default withRouter(MealList)
+export default withRouter(MealList);
