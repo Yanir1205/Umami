@@ -22,29 +22,21 @@ class MealDetails extends Component {
   }
 
   onRegister = registration => {
-    console.log(registration);
-    const user =  JSON.parse(UserService.getUserLoggedin())
-    const meal = this.props.meal
-    if(meal.currCapacity + registration.numOfGuests <= meal.capacity){
-      delete user.email 
-      delete user.phone 
-      user.numGust = registration.numOfGuests
-      meal.attendees.push(user);
-      this.props.add(meal)
-    }
     
-    //TODO: Came from the 'payment' section
-    //      save registartion for logged-in user/guest
-    //      need to add to DB -> the number of guests for current registered event 
+    const user =  JSON.parse(UserService.getUserLoggedin())
+    const meal = this.props.meal;
 
-
+    if(meal.currCapacity + registration.numOfGuests <= meal.capacity){
+      delete user.email; 
+      delete user.phone; 
+      user.numGust = registration.numOfGuests;
+      meal.attendees.push(user);
+      this.props.add(meal);
+    }
   };
 
   onSelectedMenu = selectedMenuItems => {
     console.log(selectedMenuItems);
-    //TODO: Came from the 'menu' section
-    //      Low priority - if we would want to have multiple menus
-    //      for an event and have the user choose which course he would like
   };
 
   onDisplayReviewForm = ev => {
@@ -59,8 +51,6 @@ class MealDetails extends Component {
 
   onSaveReviewForm = review => {
     this.setState({ displayReviewForm: 'hide' });
-
-    console.log('MealDetails onSaveReviewForm review ',review);
     const user =  JSON.parse(UserService.getUserLoggedin())
     const meal = this.props.meal
     delete user.email 
@@ -70,14 +60,10 @@ class MealDetails extends Component {
     review.at = Date.now()   
     meal.reviews.push(review)
     this.props.add(meal)
-
-    //TODO: Came from the 'submit review' section
-    //      save review for logged-in user/guest
   };
 
   render() {
     const meal = this.props.meal;
-    // console.log('MealDetails meal',meal);
     
     return (
       <div className='container meal-details-page-container'>

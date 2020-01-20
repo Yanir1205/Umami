@@ -28,8 +28,7 @@ class MealPageNav extends Component {
 
   render() {
     let { meal } = this.props;
-    // console.log('MealPageNav',meal);
-    
+
     return (
       <div className='nav-container'>
         <div className='top-box flex '>
@@ -62,8 +61,7 @@ class MealPageNav extends Component {
             <span> Guests </span>
           </div>
           <div className='available-places'>
-            <span> Available Places-{meal.capacity - meal.currCapacity }</span> 
-            
+            <span> Available Places-{meal.capacity - meal.currCapacity}</span>
           </div>
         </div>
       </div>

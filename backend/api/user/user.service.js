@@ -50,7 +50,6 @@ async function getByEmail(email) {
     
     try {
         const user = await collection.findOne({email})
-        // console.log('user.servce --> getByEmail -> user',user );
         return user
     } catch (err) {
         console.log(`ERROR: while finding user ${email}`)
