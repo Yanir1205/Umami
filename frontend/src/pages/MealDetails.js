@@ -22,16 +22,10 @@ class MealDetails extends Component {
 
   onRegister = registration => {
     console.log(registration);
-    //TODO: Came from the 'payment' section
-    //      save registartion for logged-in user/guest
-    //      need to add to DB -> the number of guests for current registered event
   };
 
   onSelectedMenu = selectedMenuItems => {
     console.log(selectedMenuItems);
-    //TODO: Came from the 'menu' section
-    //      Low priority - if we would want to have multiple menus
-    //      for an event and have the user choose which course he would like
   };
 
   onDisplayReviewForm = ev => {
@@ -47,9 +41,6 @@ class MealDetails extends Component {
   onSaveReviewForm = review => {
     this.setState({ displayReviewForm: 'hide' });
     console.log(review);
-
-    //TODO: Came from the 'submit review' section
-    //      save review for logged-in user/guest
   };
 
   render() {
