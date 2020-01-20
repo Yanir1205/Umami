@@ -15,15 +15,17 @@
 @import 'basics/site-helpers.scss';
 
 /*Components*/
-@import 'components/main-header.scss';
-@import 'components/card.scss';
-@import 'components/image-gallery.scss';
-@import 'components/show-hide-text.scss';
-@import 'components/meal-menu.scss';
-@import 'components/review-item.scss';
-@import 'components/review-form.scss';
-@import 'components/attendees.scss';
-@import 'components/meal-form.scss';
+@import "components/main-header.scss";
+@import "components/card.scss";
+@import "components/image-gallery.scss";
+@import "components/show-hide-text.scss";
+@import "components/meal-menu.scss";
+@import "components/review-item.scss";
+@import "components/review-form.scss";
+@import "components/attendies.scss";
+@import "components/user-details.scss";
+
+
 
 /* Views*/
 @import 'views/meal-details.scss';

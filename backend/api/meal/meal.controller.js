@@ -32,10 +32,8 @@ async function deleteMeal(req, res) {
 }
 
 async function addMeal(req, res) {
-  debugger;
   try {
     var meal = req.body;
-    console.log('meal.controller  --> addMeal -->', meal);
 
     // review.byUserId = req.session.user._id;  FOR SESSION
     meal = await mealsService.add(meal);

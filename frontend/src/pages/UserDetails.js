@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { load } from '../actions/MealActions';
+<<<<<<< HEAD
 import DateFnsUtils from '@date-io/date-fns';
+=======
+import { setFilter } from '../actions/FlterActions'
+import DateFnsUtils from "@date-io/date-fns";
+>>>>>>> 867d3455d76da21179ece75d8bebc9a675c89726
 
 import UserMealList from '../components/UserMealList';
 import Calander from '../components/Calander';
@@ -14,17 +19,21 @@ export class UserDetails extends Component {
   //for any meal of which the current user is a host - the table will enable view, edit (remove???)
   //for any meal of which the current user is an attendee - the table will enable view and remove
 
+<<<<<<< HEAD
   //the component will get inside it props - the user id (in match.params in the url)
 
   state = {
     date: new Date(Date.now()),
   };
 
+=======
+>>>>>>> 867d3455d76da21179ece75d8bebc9a675c89726
   componentDidMount() {
     //get the user id from match.params
     //get all the meals related to this user by its id (a mongoDB find function)
     //for now (as long as we are using the json-server instead of mongoDB), we will perform a filter in the frontend
     //instead of a simple mongoDB find function
+<<<<<<< HEAD
 
     //[LIOR] - Just in case - not sure which part is needed :)
     // const { id } = this.props.match.params;
@@ -32,13 +41,38 @@ export class UserDetails extends Component {
 
     this.props.load(); //loads all the meals
     this.filterMealsForCurrUser();
+=======
+    // this.props.setFilter({ ...this.props.filter, at: new Date(), userId: this.props.match.params.id }) //sets the filter
+    // this.props.load(this.props.filter); //loads only the filtered meals into the state and the data
+    // this.filterMealsForCurrUser()
+    this.props.setFilter({ ...this.props.filter, userId: this.props.match.params.id })
+
+    //should be (when the server will be ready)
+    //this.props.load({at: this.state.date, byUserId: this.props.match.params.id})
+  }
+
+  componentDidUpdate(prevProps) {
+    if (JSON.stringify(prevProps.filter) !== JSON.stringify(this.props.filter)) {
+      this.loadMeals();
+    }
+  }
+
+  loadMeals() {
+    this.props.load(this.props.filter);
+>>>>>>> 867d3455d76da21179ece75d8bebc9a675c89726
   }
 
   onDateChange = newDate => {
     //whenver the user changes the date on the calander this function will operate
     //it will change the table (which appears below the calander), so that it will display the event of the chosen date
+<<<<<<< HEAD
     this.setState({ date: newDate });
   };
+=======
+    // this.setState(prevState => ({ date: newDate, filterBy: { ...prevState.filterBy, at: newDate.toLocaleDateString() } }))
+    this.props.setFilter({ ...this.props.filter, at: Date.parse(newDate) })
+  }
+>>>>>>> 867d3455d76da21179ece75d8bebc9a675c89726
 
   filterMealsForCurrUser = () => {
     //gets the meals from the props (this.props.meals)
@@ -58,6 +92,7 @@ export class UserDetails extends Component {
       }
     }
     return { hostMeals, attendedMeals };
+<<<<<<< HEAD
   };
 
   render() {
@@ -72,15 +107,50 @@ export class UserDetails extends Component {
         <UserMealList attended={attendedMeals} host={hostMeals}></UserMealList>
       </div>
     );
+=======
+  }
+
+  mealsToShow = () => {
+    const { id } = this.props.match.params
+    const attended = [];
+    const host = [];
+    this.props.meals.forEach(meal => {
+      if (meal.hostedBy.id === id) {
+        host.push(meal);
+      } else {
+        attended.push(meal);
+      }
+    })
+    return { host, attended }
+  }
+
+  onCreateMeal = () => {
+    debugger
+    this.props.history.push('/meal/edit');
+  }
+
+  render() {
+    const { host, attended } = this.mealsToShow();
+    return <div>
+      UserDetails
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Calander date={this.props.filter.at} onDateChange={this.onDateChange}></Calander>
+      </MuiPickersUtilsProvider>
+      <button className="create-new-meal btn" onClick={this.onCreateMeal}>CREATE MEAL</button>
+      {this.props.meals.length > 0 && <UserMealList attended={attended} host={host}></UserMealList>}
+    </div>
+>>>>>>> 867d3455d76da21179ece75d8bebc9a675c89726
   }
 }
 
 const mapStateToProps = state => ({
   meals: state.meal.meals,
+  filter: state.filter.filter
 });
 
 const mapDispatchToProps = {
   load,
+  setFilter
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);
