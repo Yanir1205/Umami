@@ -2,16 +2,20 @@ import history from '../history';
 import Axios from 'axios';
 
 const BASE_URL = process.env.NODE_ENV === 'production'
-    ? '/api/'
-    : '//localhost:3030/api/'
+  ? '/api/'
+  : '//localhost:3030/api/'
 // const BASE_URL = process.env.NODE_ENV === 'production' ? '/' : '//localhost:3030/';
 
 var axios = Axios.create({
   withCredentials: true,
 });
-
+ //  יניר איפה אתה ?
 export default {
   get(endpoint, data) {
+    if (data) {
+      endpoint += `?userId=${data.userId}&at=${data.at}&type=${data.type}`;
+      if (data.location) endpoint += `&city=${data.location.city}&country=${data.location.country}`;
+    }
     return ajax(endpoint, 'GET', data);
   },
   post(endpoint, data) {    
@@ -33,7 +37,6 @@ async function ajax(endpoint, method = 'get', data = null, dispatch) {
       method,
       data,
     });
-
     return res.data;
   } catch (err) {
     console.log(`Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: ${data}`);

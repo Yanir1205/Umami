@@ -5,7 +5,6 @@ import MaterialTable from 'material-table';
 import UserMealPreview from './UserMealPreview'
 
 export default function UserMealList({ attended, host }) {
-
     return <ul className="clean-list">
 
         {attended.map(attendedMeal => (

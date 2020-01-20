@@ -25,6 +25,11 @@ button {
   width: 40%;
 }
 
+.btn-exlg {
+  width: 300px;
+  float: right;
+}
+
 .btn-cta {
   background-color: $basicClr3;
   color: $basicClr1;
@@ -73,6 +78,21 @@ button {
   background: $basicClr3;
   border-radius: 50%;
   transition: all 0.3s ease-in-out;
+  color: $basicClr1;
+
+  &:hover {
+    background: $basicClr1;
+    color: $basicClr3;
+  }
+}
+
+.btn-round-sm {
+  height: 25px;
+  width: 25px;
+  border: 1px solid $basicClr3;
+  background: $basicClr3;
+  // border-radius: 50%;
+  display: inline-block;
   color: $basicClr1;
 
   &:hover {

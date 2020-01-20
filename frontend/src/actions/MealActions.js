@@ -7,9 +7,9 @@ export default {
   remove,
 };
 
-export function load() {
+export function load(filter) {
   return async dispatch => {
-    const meals = await MealService.query();
+    const meals = await MealService.query(filter);
     dispatch({ type: 'LOAD', meals });
   };
 }
@@ -22,6 +22,7 @@ export function getById(id) {
 }
 
 export function add(meal) {
+  debugger
   const action = meal._id ? 'UPDATE' : 'ADD';
   if(action === 'UPDATE'){
     return async dispatch => {
@@ -31,6 +32,7 @@ export function add(meal) {
   } else{
     return async dispatch => {
       const newMeal = await MealService.add(meal);
+      debugger
       dispatch({ type: action, meal:newMeal });
     };
   }

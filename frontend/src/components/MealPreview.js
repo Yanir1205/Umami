@@ -35,5 +35,5 @@ export default function MealPreview({ meal, getAvgRate }) {
 
 
     </div>
-  )
+  );
 }

@@ -9,8 +9,8 @@ export default {
 
 const endpoint = 'meal';
 
-async function query() {
-  const meals = await HttpService.get(endpoint);
+async function query(filter) {
+  const meals = await HttpService.get(endpoint,filter);
   return meals;
 }
 
