@@ -11,35 +11,28 @@ var axios = Axios.create({
 });
 
 export default {
-  get(endpoint, data) {
-    if (data) {
-      endpoint += `?userId=${data.userId}&at=${data.at}&type=${data.type}`;
-      if (data.location) endpoint += `&city=${data.location.city}&country=${data.location.country}`;
-    }
-    
-    return ajax(endpoint, 'GET', data);
+  get(endpoint, data, pararms) {
+    return ajax(endpoint, 'GET', data, pararms);
   },
-  post(endpoint, data) {    
-    
-    return ajax(endpoint, 'POST', data);
+  post(endpoint, data, pararms) {
+    return ajax(endpoint, 'POST', data, pararms);
   },
-  put(endpoint, data) {
+  put(endpoint, data, pararms) {
 
-    return ajax(endpoint, 'PUT', data);
+    return ajax(endpoint, 'PUT', data, pararms);
   },
-  delete(endpoint, data) {
-    return ajax(endpoint, 'DELETE', data);
+  delete(endpoint, data, pararms) {
+    return ajax(endpoint, 'DELETE', data, pararms);
   },
 };
 
-async function ajax(endpoint, method = 'get', data = null, dispatch) {
-  console.log('HttpServer',endpoint ,method,data);
-  
+async function ajax(endpoint, method = 'get', data = null, dispatch, params = null) {
   try {
     const res = await axios({
       url: `${BASE_URL}${endpoint}`,
       method,
       data,
+      params
     });
     console.log('HttpServer - > res.data',res.data);
 

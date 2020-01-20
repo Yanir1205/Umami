@@ -40,7 +40,7 @@ export class MealApp extends Component {
     //if the renderType is location - use mealService to get from the DB all the unique locations using map reduce
 
     if (this.state.renderType === 'meal') {
-      this.props.load(this.props.filter);
+      await this.props.load(this.props.filter);
 
     } else if (this.state.renderType === 'cuisine') {
       await this.props.load();
