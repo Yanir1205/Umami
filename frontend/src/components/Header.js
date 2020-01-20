@@ -9,10 +9,12 @@ import UserService from '../services/UserService'
 export class Header extends Component {
 
   state = {
-    isLogIn: false
+    isLogIn: UserService.checkConnection()
   }
   componentDidUpdate() {
     console.log('Hii !!!');
+
+    // this.setState({ isLogIn: UserService.checkConnection() })
 
   }
 

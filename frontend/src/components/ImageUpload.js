@@ -6,7 +6,6 @@ class ImageUpload extends Component {
   fileObj = [];
   fileArray = [];
 
-  /* Refs provide a way to access DOM nodes or React elements created in the render method. */
   dropRef = React.createRef();
 
   componentDidMount() {
@@ -77,7 +76,6 @@ class ImageUpload extends Component {
       // URL.revokeObjectURL(this.fileObj[0][i]);
     }
 
-    console.log(this.fileArray, this.state.files);
     this.setState({ files: this.fileArray });
   };
 

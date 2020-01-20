@@ -96,14 +96,10 @@ async function getById(mealId) {
 }
 
 async function edit(meal) {
-  // console.log('meal.service -> edit', meal);
   const collection = await dbService.getCollection('meal');
-  console.log('meal.service -> collection', collection);
   try {
     var id = meal._id;
     delete meal._id;
-    console.log('meal.service -> edit _id', meal);
-
     await collection.updateOne({ _id: ObjectId(id) }, { $set: meal });
     meal._id = id;
 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { MealForm } from '../components/MealForm.js';
 import { getById, add } from '../actions/MealActions.js';

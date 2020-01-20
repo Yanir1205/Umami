@@ -21,7 +21,7 @@ import Paper from '@material-ui/core/Paper';
 function MealList({ meals, history, getAvgRate }) {
   return (
     <section>
-      <ul className='clean-list'>
+      <ul className="meal-list clean-list">
         {meals.map(meal => (
           <li key={meal._id} onClick={() => history.push(`/meal/${meal._id}`)}>
             <MealPreview meal={meal} getAvgRate={getAvgRate} />

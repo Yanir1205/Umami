@@ -11,6 +11,7 @@ import AttendeesList from '../components/AttendeesList';
 import ReviewForm from '../components/ReviewForm';
 import ReviewList from '../components/ReviewList';
 import MealMap from '../components/MealMap';
+import UserService from '../services/UserService'
 
 class MealDetails extends Component {
   state = { displayReviewForm: 'hide' };
@@ -21,7 +22,17 @@ class MealDetails extends Component {
   }
 
   onRegister = registration => {
-    console.log(registration);
+    
+    const user =  JSON.parse(UserService.getUserLoggedin())
+    const meal = this.props.meal;
+
+    if(meal.currCapacity + registration.numOfGuests <= meal.capacity){
+      delete user.email; 
+      delete user.phone; 
+      user.numGust = registration.numOfGuests;
+      meal.attendees.push(user);
+      this.props.add(meal);
+    }
   };
 
   onSelectedMenu = selectedMenuItems => {
@@ -40,11 +51,20 @@ class MealDetails extends Component {
 
   onSaveReviewForm = review => {
     this.setState({ displayReviewForm: 'hide' });
-    console.log(review);
+    const user =  JSON.parse(UserService.getUserLoggedin())
+    const meal = this.props.meal
+    delete user.email 
+    delete user.phone     
+    delete user.username
+    review.byUser = user 
+    review.at = Date.now()   
+    meal.reviews.push(review)
+    this.props.add(meal)
   };
 
   render() {
     const meal = this.props.meal;
+    
     return (
       <div className='container meal-details-page-container'>
         {meal && (
@@ -73,7 +93,7 @@ class MealDetails extends Component {
                 </div>
                 <ReviewList reviews={meal.reviews}></ReviewList>
                 <h3 id='location'>Location</h3>
-                <MealMap></MealMap>
+                <MealMap location = {meal.location}></MealMap>
               </div>
               <div className='right-box flex-shrink-30'>
                 <MealPayment meal={meal} onRegister={this.onRegister}></MealPayment>

@@ -18,27 +18,12 @@ export class MealForm extends Component {
 
   componentDidMount() {
     //TODO - get the 'loogedInUser' or the 'guest-mood' profile and init the 'hostedBy' object
-
     if (this.props.meal) {
-      //means we are in edit mode
-      //need to populate the fields with data
-
       this.setState({ meal: this.props.meal });
     }
   }
 
   handleImageUpload = files => {
-    console.log('MealForm', files);
-    //image files need to be uploaded to cloudinary -> and the ones that are returned from the 'file-upload' are not intended
-    //for saving in a db.
-    //The following images can be used instead, until we set up cloudinary
-    /*
-    https://image1.masterfile.com/getImage/NzAwLTAxMTgzOTE2ZW4uMDAwMDAwMDA=AAfrEX/700-01183916en_Masterfile.jpg
-    https://www.israel21c.org/wp-content/uploads/2019/06/mushroom-main-768x432.jpg
-    https://s31606.pcdn.co/wp-content/uploads/2019/07/ice-cream-chocolate-and-macaroons-on-a-plate-a-light-snack-at-the-picture-id915586306.jpg
-    https://i.pinimg.com/originals/7f/49/79/7f497907c241fc0a3005df3939008e5d.jpg
-    https://s3-eu-west-1.amazonaws.com/wbm.thumbnail/dissolve/1200/710911.jpg
-    */
     this.setState({
       imgUrls: [
         'https://i.pinimg.com/564x/ea/16/38/ea163859e57fd49a35219038bc771c07.jpg',
@@ -56,7 +41,6 @@ export class MealForm extends Component {
     let field = ev.target.name;
     let value = ev.target.value;
     this.setState({ [field]: value });
-    /* handles the following fields: title, description, cuisineType, mealType, price date, capacity */
   };
 
   onHandleLocationChange = ev => {
@@ -66,7 +50,6 @@ export class MealForm extends Component {
     let value = ev.target.value;
     tempLocation[field] = { ...tempLocation[field], value };
     this.setState({ location: tempLocation });
-    /* handles the location fields */
   };
 
   onHandleMenuListChange = ev => {
@@ -80,7 +63,6 @@ export class MealForm extends Component {
       tempMenu[field] = { ...tempMenu[field], value };
     }
     this.setState({ menu: tempMenu });
-    /* handles the menu fields */
   };
 
   onSaveMeal = ev => {
@@ -99,7 +81,6 @@ export class MealForm extends Component {
       capacity: this.state.capacity,
     };
 
-    console.log(meal);
     this.props.onSaveMeal(meal);
   };
 
@@ -116,42 +97,42 @@ export class MealForm extends Component {
             <div className='card-bottom-border flex column'>
               <div className='title'>
                 <label htmlFor='title'>Title</label>
-                <input type='text' placeholder='Event Name' id='title' name='title' id='title' value={this.state.title}  onChange={this.onHandleChange} className='input-form' required></input>
+                <input type='text' placeholder='Event Name' id='title' name='title' id='title' value={this.state.title} onChange={this.onHandleChange} className='input-form' required></input>
               </div>
               <div className='description'>
                 <label htmlFor='description'>Description</label>
-                <textarea id='description' name='description' id='description' value={this.state.description} placeholder='Description' onChange={this.onHandleChange} className='textarea-form'  required></textarea>
+                <textarea id='description' name='description' id='description' value={this.state.description} placeholder='Description' onChange={this.onHandleChange} className='textarea-form' required></textarea>
               </div>
               <div className='cuisineType'>
                 <label htmlFor='cuisineType'>Cuisine</label>
-                <input type='text' placeholder='Cuisine' name='cuisineType' id='cuisineType' value={this.state.cuisineType}  onChange={this.onHandleChange} className='input-form' required></input>
+                <input type='text' placeholder='Cuisine' name='cuisineType' id='cuisineType' value={this.state.cuisineType} onChange={this.onHandleChange} className='input-form' required></input>
               </div>
               <div className='mealType'>
                 <label htmlFor='mealType'>Meal</label>
-                <input type='text' placeholder='Dinner | Lunch | Breakfest' name='mealType' id='mealType' value={this.state.mealType}  onChange={this.onHandleChange} className='input-form' required></input>
+                <input type='text' placeholder='Dinner | Lunch | Breakfest' name='mealType' id='mealType' value={this.state.mealType} onChange={this.onHandleChange} className='input-form' required></input>
               </div>
               <div className='flex row flex space-between'>
                 <div className='address flex-basis-1 margin-right-10'>
                   <label htmlFor='address'>Address</label>
-                  <input type='text' placeholder='Address' name='address' id='address' value={this.state.address} onChange={this.onHandleLocationChange} className='input-form'  required></input>
+                  <input type='text' placeholder='Address' name='address' id='address' value={this.state.address} onChange={this.onHandleLocationChange} className='input-form' required></input>
                 </div>
                 <div className='state flex-basis-1 margin-right-10'>
-                <label htmlFor='state'>State</label>
-                  <input type='text' placeholder='State' name='state' id='state' value={this.state.state} onChange={this.onHandleLocationChange} className='input-form'  required></input>
+                  <label htmlFor='state'>State</label>
+                  <input type='text' placeholder='State' name='state' id='state' value={this.state.state} onChange={this.onHandleLocationChange} className='input-form' required></input>
                 </div>
                 <div className='city flex-basis-1'>
-                <label htmlFor='city'>City</label>
-                  <input type='text' placeholder='City' name='city' id='city' value={this.state.city}  onChange={this.onHandleLocationChange} className='input-form' required></input>
+                  <label htmlFor='city'>City</label>
+                  <input type='text' placeholder='City' name='city' id='city' value={this.state.city} onChange={this.onHandleLocationChange} className='input-form' required></input>
                 </div>
               </div>
               <div className='flex row flex space-even'>
                 <div className='date flex-basis-1 margin-right-10'>
-                <label htmlFor='date'>Date</label>
+                  <label htmlFor='date'>Date</label>
                   <input type='date' name='date' placeholder='Date' id='date' onChange={this.onHandleChange} value={this.state.date} className='input-date'></input>
                 </div>
                 <div className='price flex-basis-1'>
-                <label htmlFor='price'>Price</label>
-                  <input type='text' placeholder='Price' id='price' name='price' value={this.state.price}  onChange={this.onHandleChange} className='input-form' required></input>
+                  <label htmlFor='price'>Price</label>
+                  <input type='text' placeholder='Price' id='price' name='price' value={this.state.price} onChange={this.onHandleChange} className='input-form' required></input>
                 </div>
               </div>
             </div>
