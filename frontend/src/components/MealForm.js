@@ -132,7 +132,7 @@ export class MealForm extends Component {
               </div>
               <div className='flex row flex space-between'>
                 <div className='address flex-basis-1 margin-right-10'>
-                  <label for='mealType'>Meal</label>
+                  <label for='address'>Address</label>
                   <input type='text' placeholder='Address' name='address' className='input-form' onChange={this.onHandleLocationChange} required></input>
                 </div>
                 <div className='state flex-basis-1 margin-right-10'>
