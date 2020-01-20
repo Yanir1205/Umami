@@ -10,7 +10,7 @@ export default {
 const endpoint = 'meal';
 
 async function query(filter) {
-  const meals = await HttpService.get(endpoint,filter);
+  const meals = await HttpService.get(endpoint, filter);
   return meals;
 }
 
@@ -20,6 +20,7 @@ async function getById(id) {
 }
 
 async function add(meal) {
+  debugger;
   const addedMeal = await HttpService.post(`${endpoint}`, meal);
   return addedMeal;
 }

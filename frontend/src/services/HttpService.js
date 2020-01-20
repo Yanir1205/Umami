@@ -1,15 +1,13 @@
 import history from '../history';
 import Axios from 'axios';
 
-const BASE_URL = process.env.NODE_ENV === 'production'
-  ? '/api/'
-  : '//localhost:3030/api/'
+const BASE_URL = process.env.NODE_ENV === 'production' ? '/api/' : '//localhost:3030/api/';
 // const BASE_URL = process.env.NODE_ENV === 'production' ? '/' : '//localhost:3030/';
 
 var axios = Axios.create({
   withCredentials: true,
 });
- //  יניר איפה אתה ?
+//  יניר איפה אתה ?
 export default {
   get(endpoint, data) {
     if (data) {
@@ -18,11 +16,10 @@ export default {
     }
     return ajax(endpoint, 'GET', data);
   },
-  post(endpoint, data) {    
+  post(endpoint, data) {
     return ajax(endpoint, 'POST', data);
   },
   put(endpoint, data) {
-
     return ajax(endpoint, 'PUT', data);
   },
   delete(endpoint, data) {
@@ -32,11 +29,13 @@ export default {
 
 async function ajax(endpoint, method = 'get', data = null, dispatch) {
   try {
+    debugger;
     const res = await axios({
       url: `${BASE_URL}${endpoint}`,
       method,
       data,
     });
+    debugger;
     return res.data;
   } catch (err) {
     console.log(`Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: ${data}`);
