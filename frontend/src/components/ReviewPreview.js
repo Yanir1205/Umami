@@ -4,7 +4,7 @@ import Moment from 'moment';
 class ReviewPreview extends Component {
   render() {
     const review = this.props.review;
-
+    
     return (
       <div className='review-container '>
         {review && (

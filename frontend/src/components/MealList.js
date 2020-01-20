@@ -10,8 +10,9 @@ class MealList extends Component {
 
   render() {
     return (
-      <section>
-        {this.props.renderType === 'meal' && <div className="clean-list">
+
+      <section >
+        {this.props.renderType === 'meal' && <div className="meal-list clean-list">
           {this.props.meals.map(meal => (
             <div className="" key={meal._id} onClick={() => this.props.history.push(`/meal/${meal._id}`)}>
               <MealPreview meal={meal} getAvgRate={this.props.getAvgRate} />
@@ -22,7 +23,7 @@ class MealList extends Component {
         {this.props.renderType === 'cuisine' && this.props.cuisineTypes && <div>
           {this.props.cuisineTypes.map(cuisineType => {
             return <div className="cuisine-card-container" key={cuisineType}>
-              <CuisinePreview cuisineType={cuisineType} onCuisineClick={this.props.onCuisineClick}></CuisinePreview>
+              <CuisinePreview  cuisineType={cuisineType} onCuisineClick={this.props.onCuisineClick}></CuisinePreview>
             </div>
           })}
         </div>}

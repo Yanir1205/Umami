@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import Moment from 'moment';
 
 class MealPayment extends Component {
-  state = { numOfGuests: 0, date: '', maxDate: '', totalPrice: 0, buttonText: 'REGISTER', registerCounter: 0, paymentClass: 'hide' };
+  state = { numOfGuests: 0,
+     date: '', maxDate: '', 
+     totalPrice: 0,
+   buttonText: 'REGISTER',
+    registerCounter: 0, 
+    paymentClass: 'hide' 
+  };
 
   componentDidMount() {
     //TODO - if logged in user & registered - fill out fields based on registered event
@@ -28,8 +34,12 @@ class MealPayment extends Component {
 
   onRegister = ev => {
     ev.preventDefault();
+    console.log('MealPayment -> onRegister');
+    
     let counter = this.state.registerCounter;
     if (counter === 0) {
+      console.log('MealPayment -> if counter');
+
       let calcPrice = this.state.numOfGuests * this.props.meal.price;
       this.setState({ totalPrice: calcPrice, registerCounter: 1, buttonText: 'BOOK MEAL', paymentClass: 'payment' });
     } else if (counter >= 1 && this.state.numOfGuests !== 0) {
@@ -39,6 +49,7 @@ class MealPayment extends Component {
   };
 
   render() {
+    console.log('MealPayment');
     const { meal } = this.props;
     return (
       <div className='card-border payment-container'>

@@ -11,7 +11,7 @@ class ReviewForm extends Component {
 
   onSaveReviewForm = ev => {
     ev.preventDefault();
-    this.props.onSaveReviewForm({ email: this.state.email, review: this.state.txt, rate: this.state.rate });
+    this.props.onSaveReviewForm({ email: this.state.email, txt: this.state.txt, rate: this.state.rate });
   };
 
   onToggleStar = ev => {
@@ -28,6 +28,7 @@ class ReviewForm extends Component {
   };
 
   render() {
+    console.log('ReviewForm');
     return (
       <div className='card-container-lg card-container-horizontal flex align-center justify-center'>
         <div className='card-background-lg main-review-form-container flex column align-end'>
@@ -44,7 +45,7 @@ class ReviewForm extends Component {
               <input type='email' placeholder='Email' name='email' onChange={this.onHandleChange} required></input>
             </div>
             <div className='review'>
-              <textarea className='' id='review' name='review' onChange={this.onHandleChange} placeholder='Tell us what you think'></textarea>
+              <textarea className='' id='review' name='txt' onChange={this.onHandleChange} placeholder='Tell us what you think'></textarea>
             </div>
             <div className='save'>
               <button className='button btn-ghost'>SAVE</button>

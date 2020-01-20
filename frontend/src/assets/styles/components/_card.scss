@@ -91,6 +91,8 @@
     padding: 0;
     column-gap: 1.5em;
     font-size: 0.85em;
+    flex-direction: column;
+    break-inside: avoid-column;
 }
 
 .cuisine-card {
@@ -104,5 +106,31 @@
   transition: 1s ease all;
   box-sizing: border-box;
   box-sizing: border-box;
+  flex-direction: column;
+  break-inside: avoid-column;
   box-shadow: 2px 2px 4px 0 #ccc;
 }
+
+.filter-cuisine-card {
+  display: flex;
+  width: 350px;
+  height: 350px;
+  flex-direction: column;
+  break-inside: avoid-column;
+  // margin: 5px;
+  // padding: 3px;
+  cursor: pointer;
+  
+  .item {
+      display: inline-block;
+      break-inside: avoid;
+      background: #fff;
+      padding: 1em;
+      // margin: 0 0 1.5em;
+      // width: 100%;
+      box-sizing: border-box;
+      box-shadow: 2px 2px 4px 0 #ccc;
+    
+      
+    }
+  }

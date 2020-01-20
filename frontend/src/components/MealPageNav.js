@@ -28,7 +28,8 @@ class MealPageNav extends Component {
 
   render() {
     let { meal } = this.props;
-
+    console.log('MealPageNav');
+    
     return (
       <div className='nav-container'>
         <div className='top-box flex '>

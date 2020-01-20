@@ -41,6 +41,7 @@ export class MealForm extends Component {
     let field = ev.target.name;
     let value = ev.target.value;
     this.setState({ [field]: value });
+    console.log('MealForm onHandleLocationChange -> ',this.state );
   };
 
   onHandleLocationChange = ev => {
@@ -48,8 +49,9 @@ export class MealForm extends Component {
     let tempLocation = this.state.location;
     let field = ev.target.name;
     let value = ev.target.value;
-    tempLocation[field] = { ...tempLocation[field], value };
+    tempLocation[field] = value ;
     this.setState({ location: tempLocation });
+    debugger
   };
 
   onHandleMenuListChange = ev => {
@@ -60,7 +62,7 @@ export class MealForm extends Component {
     if (field === 'desserts' || field === 'beverages') {
       tempMenu[field].push(value);
     } else {
-      tempMenu[field] = { ...tempMenu[field], value };
+      tempMenu[field] = value ;
     }
     this.setState({ menu: tempMenu });
   };
@@ -68,6 +70,7 @@ export class MealForm extends Component {
   onSaveMeal = ev => {
     ev.preventDefault();
     let meal = {
+      isActive:true,
       hostedBy: this.state.hostedBy,
       menu: this.state.menu,
       location: this.state.location,
@@ -77,8 +80,10 @@ export class MealForm extends Component {
       cuisineType: this.state.cuisineType,
       mealType: this.state.mealType,
       price: this.state.price,
-      date: this.state.date,
+      date: Date.parse(new Date(this.state.date)),
       capacity: this.state.capacity,
+      reviews:[],
+      attendees:[]
     };
 
     this.props.onSaveMeal(meal);

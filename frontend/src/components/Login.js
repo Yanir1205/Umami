@@ -39,7 +39,7 @@ export class Login extends Component {
   }
 
   afterOpenModal() {
-    // references are now sync'd and can be accessed.
+    // references are now synced and can be accessed.
     this.subtitle.style.color = '#f00';
   }
 
@@ -49,7 +49,6 @@ export class Login extends Component {
 
   onLogin = () => {
     console.log('$$$$$$$$');
-
     const email = this.state.email;
     const password = this.state.password;
     const user = { email, password };
