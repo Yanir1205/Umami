@@ -14,10 +14,11 @@ export default {
   get(endpoint, data) {
     return ajax(endpoint, 'GET', data);
   },
-  post(endpoint, data) {
+  post(endpoint, data) {    
     return ajax(endpoint, 'POST', data);
   },
   put(endpoint, data) {
+
     return ajax(endpoint, 'PUT', data);
   },
   delete(endpoint, data) {
@@ -32,6 +33,7 @@ async function ajax(endpoint, method = 'get', data = null, dispatch) {
       method,
       data,
     });
+
     return res.data;
   } catch (err) {
     console.log(`Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: ${data}`);

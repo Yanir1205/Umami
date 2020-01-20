@@ -27,10 +27,12 @@ async function getById(id) {
   const user =  await HttpService.get(`${endpoint}/${id}`);
   return user;
 }
-
+function getUserLoggedin(){
+  return  sessionStorage.getItem('user')
+}
 function  checkConnection (){
 
-  const currentUser = sessionStorage.getItem('user')
+  const currentUser =getUserLoggedin()
   
   if(currentUser){
     return true 
@@ -43,5 +45,7 @@ export default {
   signup,
   logout,
   getById,
-  checkConnection
+  checkConnection,
+  getUserLoggedin
+
 };

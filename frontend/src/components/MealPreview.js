@@ -1,34 +1,39 @@
-// import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-
-// export class MealPreview extends Component {
-//   render() {
-//     return <div>MealPreview</div>;
-//   }
-// }
-
-// const mapStateToProps = state => ({});
-
-// const mapDispatchToProps = {};
-
-// export default connect(mapStateToProps, mapDispatchToProps)(MealPreview);
-
 
 import React from "react";
-import Paper from '@material-ui/core/Paper';
+import Moment from 'moment';
+
 export default function MealPreview({ meal, getAvgRate }) {
   const avgRate = getAvgRate(meal.reviews);
   return (
-    <div className="meal-card">
-      <img className = "img-meal" src={meal.imgUrls[0]} alt=""></img>
-      {/* <p>{diningType}</p> */}
-      <p>{meal.mealType} in {meal.location.city}</p>
-      <h5>{meal.title}</h5>
-      {meal.reviews.length > 0 && <p>{avgRate}/5 ({meal.reviews.length})</p>}
-      <div>
-        <p>Hosted By {meal.hostedBy.fullName}</p>
-        <img className="user-Img" src={meal.hostedBy.imgUrl} alt=""></img>
+    <div className="meal-card card-border align-base margin-bottom-20">
+
+      <img className="img-meal" src={meal.imgUrls[0]} alt=""></img>
+      <strong className="date sports"> <p>{Moment.unix(meal.date).format('LL').split('').slice(0, 3)}</p>
+        <p>{Moment.unix(meal.date).format('LL').split('').slice(8, 9)}</p></strong>
+      {/* <strong className="date sports"> {Moment.unix(meal.date).format('LL').split(',').slice(8,9)}</strong> */}
+      {/* {meal.mealType}  */}
+      <div className="review-container flex space-between flex.row ">
+        <p>📍{meal.location.city}</p>
+        <p data-rating={avgRate}>
+          <i className='icon-small fas fa-star'></i>
+          <i className='icon-small fas fa-star'></i>
+          <i className='icon-small fas fa-star'></i>
+          <i className='icon-small fas fa-star'></i>
+          <i className='icon-small fas fa-star'></i>
+        </p>
       </div>
+      <h5>{meal.title}</h5>
+      {/* {meal.reviews.length > 0 && <p>{avgRate}/5 ({meal.reviews.length})</p>} */}
+      <div className="flex flex.row align-center ">
+
+        <img className="user-img" src={meal.hostedBy.imgUrl} alt=""></img>
+        <div>
+          
+          <p>{meal.hostedBy.fullName}</p>
+        </div>
+      </div>
+
+
     </div>
   )
 }

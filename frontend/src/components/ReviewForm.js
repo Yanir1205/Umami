@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class ReviewForm extends Component {
   state = {
     email: '',
-    review: '',
+    txt: '',
     rate: 0,
     starClass: 'icon-medium color-gray fas fa-star',
     starSelected: 'icon-medium color-yellow fas fa-star',
@@ -11,7 +11,7 @@ class ReviewForm extends Component {
 
   onSaveReviewForm = ev => {
     ev.preventDefault();
-    this.props.onSaveReviewForm({ email: this.state.email, review: this.state.review, rate: this.state.rate });
+    this.props.onSaveReviewForm({ email: this.state.email, review: this.state.txt, rate: this.state.rate });
   };
 
   onToggleStar = ev => {

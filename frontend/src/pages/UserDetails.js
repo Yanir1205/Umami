@@ -25,13 +25,8 @@ export class UserDetails extends Component {
     //get all the meals related to this user by its id (a mongoDB find function)
     //for now (as long as we are using the json-server instead of mongoDB), we will perform a filter in the frontend
     //instead of a simple mongoDB find function
-<<<<<<< HEAD
     const { id } = this.props.match.params;
     this.props.load();
-=======
-    this.props.load(); //loads all the meals
-    this.filterMealsForCurrUser()
->>>>>>> 4fdd222e8b412770262a333668f13e6b297bb3a6
   }
 
   onDateChange = (newDate) => {

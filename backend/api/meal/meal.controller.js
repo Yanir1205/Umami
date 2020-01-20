@@ -4,8 +4,11 @@ const mealsService = require('./meal.service')
 // TODO: needs error handling! try, catch
 
 async function getMeals(req, res) {
+    
     try {
         const meals = await mealsService.query(req.query)
+        console.log('meal.controller  -> getMeals' ,meals);
+        
         res.send(meals)
     } catch (err) {
         logger.error('Cannot get meals', err);
@@ -38,7 +41,7 @@ async function deleteMeal(req, res) {
 async function addMeal(req, res) {
     try {
         var meal = req.body;
-        console.log('meal.controller  --> addMeal -->',meal);
+        // console.log('meal.controller  --> addMeal -->',meal);
         
         
         // review.byUserId = req.session.user._id;  FOR SESSION
@@ -55,6 +58,7 @@ async function addMeal(req, res) {
 }
 
 async function editMeal(req, res){
+    
     try {
         const meal = req.body;
         const updatedMeal = await mealsService.edit(meal)

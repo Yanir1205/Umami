@@ -4,10 +4,11 @@ import Moment from 'moment';
 class ReviewPreview extends Component {
   render() {
     const review = this.props.review;
-
+    console.log('ReviewPreview render ' ,review);
+    
     return (
-      <div className='review-container'>
-        <blockquote>
+      <div className='review-container '>
+        {review && <blockquote>
           <header>
             <span data-rating={review.rate}>
               <i className='icon-small fas fa-star'></i>
@@ -16,15 +17,15 @@ class ReviewPreview extends Component {
               <i className='icon-small fas fa-star'></i>
               <i className='icon-small fas fa-star'></i>
             </span>
-            <strong>Event Name</strong>
-            <span>, {Moment.unix(review.at).format('LL')}</span>
+            <strong>Event Name </strong>
+            <span>{Moment.unix(review.at).format('LL')}</span>
             <span>
               By <em>{review.byUser.fullName}</em>
             </span>
             <span>Verified Review</span>
           </header>
           <p>{review.txt}</p>
-        </blockquote>
+        </blockquote>}
       </div>
     );
   }

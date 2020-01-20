@@ -2,13 +2,15 @@
 const dbService = require('../../services/db.service')
 const ObjectId = require('mongodb').ObjectId
 
-async function query(filterBy = {}) {
-    // const criteria = _buildCriteria(filterBy)
+async function query() {
+    // const criteria = _buildCriteria(filterBy)'
+    
     const collection = await dbService.getCollection('meal')
-    console.log("meal.service ->> query -> collection", collection);
+
+    // console.log("meal.service ->> query -> collection", collection);
     try {
         const meal = await collection.find().toArray();
-        console.log("meal.service ->> query ->", meal);
+        // console.log("meal.service ->> query ->", meal);
         return meal
     } catch (err) {
         console.log('ERROR: cannot find Meals')
@@ -28,7 +30,7 @@ async function remove(mealId) {
 
 async function getById(mealId) {
     const collection = await dbService.getCollection('meal')
-    console.log('meal.service -> getById', mealId);
+    // console.log('meal.service -> getById', mealId);
     try {
         const meal = await collection.findOne({ "_id": ObjectId(mealId) })
         return meal;
@@ -45,7 +47,7 @@ async function edit(meal) {
     try {
         var id = meal._id
         delete meal._id
-        console.log('meal.service -> edit _id', meal);
+        // console.log('meal.service -> edit _id', meal);
         
      await collection.updateOne({ "_id": ObjectId(id) }, { $set: meal  })
         meal._id = id 
