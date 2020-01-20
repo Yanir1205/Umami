@@ -54,7 +54,6 @@ export class Login extends Component {
     }
 
     onLogin = ()=>{
-                console.log('$$$$$$$$');
 
         const email = this.state.email
         const password = this.state.password

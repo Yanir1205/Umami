@@ -2,7 +2,7 @@
 let initialState = {
     filter: {
         userId: '',
-        at: Date.now(),
+        at: '',
         type: '',
         location: {
             city: '',

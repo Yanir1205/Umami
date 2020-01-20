@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class MealMenu extends Component {
   render() {
+    console.log('MealMenu');
     const menu = this.props.menu;
     return (
       <div className='card-bottom-border menu-main-container'>

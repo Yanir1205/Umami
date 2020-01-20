@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { MuiPickersUtilsProvider } from "@material-ui/pickers"
 import { load } from '../actions/MealActions';
 import { setFilter } from '../actions/FlterActions'
 import DateFnsUtils from "@date-io/date-fns";
 
-import UserMealList from '../components/UserMealList';
-import Calander from '../components/Calander';
+import UserMealList from '../components/UserMealList'
+import Calander from '../components/Calander'
 
-export class UserDetails extends Component {
+class UserDetails extends Component {
+  //this page will display a calander. each date with a meal will appear with a special icon
+  //when clicking on a specific date, a table will appear (below the calander) with all the meals of the chosen date
+  //the table will show all attended meals and hosted meals of the chosen day
+  //for any meal of which the current user is a host - the table will enable view, edit (remove???)
+  //for any meal of which the current user is an attendee - the table will enable view and remove
 
   componentDidMount() {
-
-    const { id } = this.props.match.params;
-    this.props.load();
-
     this.props.setFilter({ ...this.props.filter, userId: this.props.match.params.id })
   }
 
@@ -28,22 +29,20 @@ export class UserDetails extends Component {
     this.props.load(this.props.filter);
   }
 
-  onDateChange = newDate => {
-
+  onDateChange = (newDate) => {
     this.props.setFilter({ ...this.props.filter, at: Date.parse(newDate) })
   }
 
   filterMealsForCurrUser = () => {
+    const { id } = this.props.match.params
 
-    const { id } = this.props.match.params;
-
-    const hostMeals = this.props.meals.filter(meal => meal.hostedBy._id === id);
+    const hostMeals = this.props.meals.filter(meal => meal.hostedBy._id === id)
 
     let attendedMeals = [];
     for (let i = 0; i < this.props.meals.length; i++) {
       for (let j = 0; j < this.props.meals[i].attendees.length; j++) {
         if (this.props.meals[i].attendees[j]._id === id) {
-          attendedMeals.push(this.props.meals[i]);
+          attendedMeals.push(this.props.meals[i])
         }
       }
     }
@@ -65,7 +64,6 @@ export class UserDetails extends Component {
   }
 
   onCreateMeal = () => {
-    debugger
     this.props.history.push('/meal/edit');
   }
 
@@ -93,4 +91,3 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);
-

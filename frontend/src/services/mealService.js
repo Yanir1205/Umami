@@ -25,6 +25,8 @@ async function add(meal) {
 }
 
 async function update(meal) {
+  console.log('@@@@@@MealService -> update  ');
   const updatedMeal = await HttpService.put(`${endpoint}/${meal._id}`, meal);
+  
   return updatedMeal;
 }

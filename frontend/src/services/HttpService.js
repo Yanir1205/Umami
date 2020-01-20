@@ -9,16 +9,18 @@ const BASE_URL = process.env.NODE_ENV === 'production'
 var axios = Axios.create({
   withCredentials: true,
 });
- //  יניר איפה אתה ?
+
 export default {
   get(endpoint, data) {
     if (data) {
       endpoint += `?userId=${data.userId}&at=${data.at}&type=${data.type}`;
       if (data.location) endpoint += `&city=${data.location.city}&country=${data.location.country}`;
     }
+    
     return ajax(endpoint, 'GET', data);
   },
   post(endpoint, data) {    
+    
     return ajax(endpoint, 'POST', data);
   },
   put(endpoint, data) {
@@ -31,12 +33,16 @@ export default {
 };
 
 async function ajax(endpoint, method = 'get', data = null, dispatch) {
+  console.log('HttpServer',endpoint ,method,data);
+  
   try {
     const res = await axios({
       url: `${BASE_URL}${endpoint}`,
       method,
       data,
     });
+    console.log('HttpServer - > res.data',res.data);
+
     return res.data;
   } catch (err) {
     console.log(`Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: ${data}`);

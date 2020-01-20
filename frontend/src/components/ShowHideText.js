@@ -23,7 +23,10 @@ class ShowHideText extends Component {
   };
 
   render() {
+    console.log('ShowHideText');
+    
     return (
+
       <div className='card-bottom-border show-hide-text-container'>
         <p>
           {this.state.text}
