@@ -32,8 +32,21 @@ input {
 input::placeholder {
   color: $basicClr3;
   font-size: 1rem;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   padding: 5px;
+  margin-bottom: 3px;
+}
+
+/* **** INPUT FORM**** */
+.input-form {
+  font-variant: small-caps;
+  // font-size: 1.8rem;
+  letter-spacing: 2px;
+  border: 1px solid $basicClr7;
+}
+
+.input-form::placeholder {
+  color: $basicClr7;
 }
 
 /* **** INPUT DATE**** */
@@ -90,6 +103,17 @@ input::placeholder {
   opacity: 0;
 }
 
+.input-form-date {
+  font-variant: small-caps;
+  // font-size: 1.8rem;
+  letter-spacing: 2px;
+  border: 1px solid $basicClr7;
+}
+
+.input-form-date::placeholder {
+  color: $basicClr7;
+}
+
 /* ****  INPUT WITH ICON **** */
 
 /*
@@ -142,6 +166,17 @@ textarea::placeholder {
   font-size: 1rem;
   letter-spacing: 2px;
   padding: 5px;
+}
+
+.textarea-form {
+  font-variant: small-caps;
+  // font-size: 1.8rem;
+  letter-spacing: 2px;
+  border: 1px solid $basicClr7;
+}
+
+.textarea-form::placeholder {
+  color: $basicClr7;
 }
 
 .textarea-bottom-border {

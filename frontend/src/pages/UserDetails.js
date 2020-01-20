@@ -8,7 +8,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import UserMealList from '../components/UserMealList'
 import Calander from '../components/Calander'
 
-export class UserDetails extends Component {
+class UserDetails extends Component {
   //this page will display a calander. each date with a meal will appear with a special icon
   //when clicking on a specific date, a table will appear (below the calander) with all the meals of the chosen date
   //the table will show all attended meals and hosted meals of the chosen day

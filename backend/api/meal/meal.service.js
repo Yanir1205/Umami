@@ -1,10 +1,9 @@
-
-const dbService = require('../../services/db.service')
-const ObjectId = require('mongodb').ObjectId
+const dbService = require('../../services/db.service');
+const ObjectId = require('mongodb').ObjectId;
 
 function buildCriteria(filterBy) {
-    console.log('buildCriteria filter is: ', filterBy)
-    const criteria = {};
+  console.log('buildCriteria filter is: ', filterBy);
+  const criteria = {};
 
     // filtering by type of meal (asian, buchari etc):
     if (filterBy.type) {
@@ -29,8 +28,7 @@ function buildCriteria(filterBy) {
     }
     */
 
-
-    /*
+  /*
         //filtering by date: (working great!)
         if (filterBy.at) {
     
@@ -58,8 +56,8 @@ function buildCriteria(filterBy) {
     }
 
 
-    console.log('criteria after building: ', criteria);
-    return criteria;
+  console.log('criteria after building: ', criteria);
+  return criteria;
 }
 
 async function query(filterBy = {}) {
@@ -76,71 +74,70 @@ async function query(filterBy = {}) {
     }
 }
 
-
-
 async function remove(mealId) {
-    const collection = await dbService.getCollection('meal')
-    try {
-        await collection.deleteOne({ "_id": ObjectId(mealId) })
-    } catch (err) {
-        console.log(`ERROR: cannot remove meal ${mealId}`)
-        throw err;
-    }
+  const collection = await dbService.getCollection('meal');
+  try {
+    await collection.deleteOne({ _id: ObjectId(mealId) });
+  } catch (err) {
+    console.log(`ERROR: cannot remove meal ${mealId}`);
+    throw err;
+  }
 }
 
 async function getById(mealId) {
-    const collection = await dbService.getCollection('meal')
-    try {
-        const meal = await collection.findOne({ "_id": ObjectId(mealId) })
-        return meal;
-    } catch (err) {
-        console.log(`ERROR: cannot find meal ${mealId}`)
-        throw err;
-    }
+  const collection = await dbService.getCollection('meal');
+  console.log('meal.service -> getById', mealId);
+  try {
+    const meal = await collection.findOne({ _id: ObjectId(mealId) });
+    return meal;
+  } catch (err) {
+    console.log(`ERROR: cannot find meal ${mealId}`);
+    throw err;
+  }
 }
 
 async function edit(meal) {
-    const collection = await dbService.getCollection('meal')
-    try {
-        var id = meal._id
-        delete meal._id
+  // console.log('meal.service -> edit', meal);
+  const collection = await dbService.getCollection('meal');
+  console.log('meal.service -> collection', collection);
+  try {
+    var id = meal._id;
+    delete meal._id;
+    console.log('meal.service -> edit _id', meal);
 
-        await collection.updateOne({ "_id": ObjectId(id) }, { $set: meal })
-        meal._id = id
+    await collection.updateOne({ _id: ObjectId(id) }, { $set: meal });
+    meal._id = id;
 
-        return meal
-    } catch (err) {
-
-        console.log(`ERROR: cannot update meal ${meal._id} err-> `, err)
-        // throw err;
-    }
+    return meal;
+  } catch (err) {
+    console.log(`ERROR: cannot update meal ${meal._id} err-> `, err);
+    // throw err;
+  }
 }
 
 async function add(meal) {
-    meal.byUserId = ObjectId(meal.byUserId);
-    meal.aboutUserId = ObjectId(meal.aboutUserId);
+  // meal.byUserId = ObjectId(meal.byUserId);
+  // meal.aboutUserId = ObjectId(meal.aboutUserId);
 
-    const collection = await dbService.getCollection('meal')
-    try {
-        await collection.insertOne(meal);
-        return meal;
-    } catch (err) {
-        console.log(`ERROR: cannot insert user`)
-        throw err;
-    }
+  const collection = await dbService.getCollection('meal');
+  try {
+    await collection.insertOne(meal);
+    return meal;
+  } catch (err) {
+    console.log(`ERROR: cannot insert user`);
+    throw err;
+  }
 }
 
 function _buildCriteria(filterBy) {
-    const criteria = {};
-    return criteria;
+  const criteria = {};
+  return criteria;
 }
 
 module.exports = {
-    query,
-    getById,
-    remove,
-    add,
-    edit
-}
-
-
+  query,
+  getById,
+  remove,
+  add,
+  edit,
+};

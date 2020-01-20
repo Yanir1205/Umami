@@ -3,34 +3,25 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { MealForm } from '../components/MealForm.js';
 import { getById, add } from '../actions/MealActions.js';
-import Meal from '../services/Meal.js';
-
-
 
 class MealFormWrapper extends Component {
-
-  state = {meal:{}};
-
   componentDidMount() {
     const id = this.props.match.params.id;
-    if(id) { 
+    if (id) {
       this.props.getById(id);
-      this.setState = {meal: this.props.meal};
     }
   }
 
-  // const meal = new Meal(`${data.title} ${Date.now()}`,data.description);
-  // this.props.add(meal);
-  // this.props.history.push('/meal');
-
-
+  onSaveMeal = meal => {
+    this.props.add(meal);
+  };
 
   render() {
     return (
       <React.Fragment>
-        <div className='container'>
-            <h3>Create Event</h3>
-             <MealForm /> 
+        <div className='container main-form-container'>
+          <h2>Event</h2>
+          <MealForm onSaveMeal={this.onSaveMeal} meal={this.props.meal} />
         </div>
       </React.Fragment>
     );

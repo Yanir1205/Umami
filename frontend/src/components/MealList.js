@@ -40,4 +40,4 @@ class MealList extends Component {
   }
 }
 
-export default withRouter(MealList)
+export default withRouter(MealList);

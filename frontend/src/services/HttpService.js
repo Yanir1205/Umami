@@ -18,10 +18,11 @@ export default {
     }
     return ajax(endpoint, 'GET', data);
   },
-  post(endpoint, data) {
+  post(endpoint, data) {    
     return ajax(endpoint, 'POST', data);
   },
   put(endpoint, data) {
+
     return ajax(endpoint, 'PUT', data);
   },
   delete(endpoint, data) {
@@ -36,7 +37,6 @@ async function ajax(endpoint, method = 'get', data = null, dispatch) {
       method,
       data,
     });
-    console.log('data received from get on httpService: ', res.data)
     return res.data;
   } catch (err) {
     console.log(`Had Issues ${method}ing to the backend, endpoint: ${endpoint}, with data: ${data}`);

@@ -1,19 +1,18 @@
 /*Setup*/
-@import "setup/variables.scss";
-@import "setup/functions.scss";
-@import "setup/mixins.scss";
+@import 'setup/variables.scss';
+@import 'setup/functions.scss';
+@import 'setup/mixins.scss';
 
 /*Basics*/
-@import "basics/helpers.scss";
-@import "basics/layout.scss";
-@import "basics/base.scss";
-@import "basics/link.scss";
-@import "basics/typography.scss";
-@import "basics/icon.scss";
-@import "basics/input.scss";
-@import "basics/button.scss";
-@import "basics/site-helpers.scss";
-
+@import 'basics/helpers.scss';
+@import 'basics/layout.scss';
+@import 'basics/base.scss';
+@import 'basics/link.scss';
+@import 'basics/typography.scss';
+@import 'basics/icon.scss';
+@import 'basics/input.scss';
+@import 'basics/button.scss';
+@import 'basics/site-helpers.scss';
 
 /*Components*/
 @import "components/main-header.scss";
@@ -23,10 +22,11 @@
 @import "components/meal-menu.scss";
 @import "components/review-item.scss";
 @import "components/review-form.scss";
-@import "components/attendies.scss";
+@import "components/attendees.scss";
+@import "components/mealPreview.scss";
 @import "components/user-details.scss";
 
 
 
 /* Views*/
-@import "views/meal-details.scss";
+@import 'views/meal-details.scss';
