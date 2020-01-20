@@ -6,12 +6,11 @@ function buildCriteria(filterBy) {
     console.log('buildCriteria filter is: ', filterBy)
     const criteria = {};
 
-    /*
-    filtering by type of meal (asian, buchari etc):
+    // filtering by type of meal (asian, buchari etc):
     if (filterBy.type) {
         criteria.cuisineType = { $regex: `.*${filterBy.type}.*` }
     }
-*/
+
     /*
     //filtering by host or attendees userId:
     if (filterBy.userId) {
@@ -44,33 +43,32 @@ function buildCriteria(filterBy) {
         }
     */
 
-    /*
-        //filtering by location:
-        if (filterBy.city) {
-            // console.log('inside filterBy.city. criteria is: ', criteria);
-            // criteria.location = {};
-            // criteria.location.city = filterBy.city;
-            // console.log('criteria after city: ', criteria);
-            criteria.location = { $in: { city: filterBy.location.city } }
-        }
-        if (filterBy.country) {
-            if (!criteria.location) criteria.location = {}
-            criteria.location.country = filterBy.country;
-        }
-    */
+
+    //filtering by location:
+    if (filterBy.city) {
+        // console.log('inside filterBy.city. criteria is: ', criteria);
+        // criteria.location = {};
+        // criteria.location.city = filterBy.city;
+        // console.log('criteria after city: ', criteria);
+        criteria.location = { $in: { city: filterBy.location.city } }
+    }
+    if (filterBy.country) {
+        if (!criteria.location) criteria.location = {}
+        criteria.location.country = filterBy.country;
+    }
+
 
     console.log('criteria after building: ', criteria);
     return criteria;
 }
 
 async function query(filterBy = {}) {
-    console.log('hiiiiiiiiiiiiiii');
-    console.log('meal Service filter is: (updated)', filterBy)
     const criteria = buildCriteria(filterBy)
     console.log('criteria is: ', criteria);
     const collection = await dbService.getCollection('meal')
     try {
         const meal = await collection.find(criteria).toArray();
+        console.log('meal received from DB: ', meal)
         return meal
     } catch (err) {
         console.log('ERROR: cannot find Meals')

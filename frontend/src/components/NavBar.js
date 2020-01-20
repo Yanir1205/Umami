@@ -10,12 +10,12 @@ export class NavBar extends Component {
       <nav className='main-nav flex-basis-30'>
         <ul className='main-menu clean-list flex-basis-1 flex justify-center align-center'>
           <li>
-            <NavLink activeClassName='active' to='/meal' exact>
+            <NavLink activeClassName='active' to='/meal/cuisine' exact>
               CUISINES
             </NavLink>
           </li>
           <li>
-            <NavLink activeClassName='active' to='/meal' exact>
+            <NavLink activeClassName='active' to='/meal/location' exact>
               LOCATIONS
             </NavLink>
           </li>

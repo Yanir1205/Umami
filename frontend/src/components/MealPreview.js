@@ -1,21 +1,5 @@
-// import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-
-// export class MealPreview extends Component {
-//   render() {
-//     return <div>MealPreview</div>;
-//   }
-// }
-
-// const mapStateToProps = state => ({});
-
-// const mapDispatchToProps = {};
-
-// export default connect(mapStateToProps, mapDispatchToProps)(MealPreview);
-
-
 import React from "react";
-import Paper from '@material-ui/core/Paper';
+
 export default function MealPreview({ meal, getAvgRate }) {
   const avgRate = getAvgRate(meal.reviews);
   return (

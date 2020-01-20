@@ -9,7 +9,7 @@ const BASE_URL = process.env.NODE_ENV === 'production'
 var axios = Axios.create({
   withCredentials: true,
 });
- //  יניר איפה אתה ?
+
 export default {
   get(endpoint, data) {
     if (data) {

@@ -81,3 +81,26 @@
   border-left-color: $basicClr4;
   border-right-color: $basicClr4;
 }
+
+.cuisine-card-container {
+    column-count: 3;
+    column-gap: 1em;
+    margin: 1.5em;
+    padding: 0;
+    column-gap: 1.5em;
+    font-size: 0.85em;
+}
+
+.cuisine-card {
+  cursor: pointer;
+  display: inline-block;
+  break-inside: avoid;
+  background: #fff;
+  padding: 1em;
+  margin: 0 0 1.5em;
+  width: 100%;
+  transition: 1s ease all;
+  box-sizing: border-box;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 4px 0 #ccc;
+}
