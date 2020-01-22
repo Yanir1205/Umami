@@ -23,7 +23,6 @@ class ShowHideText extends Component {
   };
 
   render() {
-    console.log('ShowHideText');
     
     return (
 

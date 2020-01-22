@@ -29,7 +29,6 @@ class ImageGallery extends Component {
   };
 
   render() {
-    console.log('ImageGallery');
     
     return (
       <div className='image-gallery-container'>

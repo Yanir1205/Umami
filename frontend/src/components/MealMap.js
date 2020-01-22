@@ -27,7 +27,6 @@ class MealMap extends Component {
     delete location.address
     delete location.city
     delete location.country
-    console.log('MealMap');
     return (
       <div>
         <Map  className="card-container-horizontal " style={mapContainerStyle} google={this.props.google}

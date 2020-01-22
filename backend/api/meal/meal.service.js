@@ -5,9 +5,25 @@ async function query(filterBy = {}) {
   const criteria = buildCriteria(filterBy);
   const collection = await dbService.getCollection('meal');
   try {
-    const meal = await collection.find(criteria).toArray();
-    const resultMeals = filterResults(meal, filterBy);
-    return resultMeals;
+    if (!filterBy.group) {
+      const meals = await collection.find(criteria).toArray();
+      const resultMeals = filterResults(meals, filterBy);
+      return resultMeals;
+    } else { //meaning there is a group operation needed:
+      if (!filterBy.meals) {
+        const badges = await collection.aggregate([{ $group: { _id: filterBy.group } }]).toArray();
+        return badges
+      } else {
+        const meals = await collection.aggregate([{ $group: { _id: filterBy.group, meals: { $push: filterBy.meals } } }]).toArray();
+        let mealsToReturn = [];
+
+        //returning only 1 result per location:
+        meals.forEach(meal => {
+          mealsToReturn.push(meal.meals[0])
+        })
+        return mealsToReturn
+      }
+    }
   } catch (err) {
     console.log('ERROR: cannot find Meals');
     throw err;
@@ -26,7 +42,6 @@ async function remove(mealId) {
 
 async function getById(mealId) {
   const collection = await dbService.getCollection('meal');
-  console.log('meal.service -> getById', mealId);
   try {
     const meal = await collection.findOne({ _id: ObjectId(mealId) });
     return meal;
@@ -98,31 +113,6 @@ function buildCriteria(filterBy) {
     criteria.cuisineType = { $regex: `.*${filterBy.type}.*` };
   }
 
-  //filtering by host or attendees userId:
-  // if (filterBy.userId) {
-  //     console.log('inside filter user id');
-  //     // const criteria1 = {};
-  //     // criteria1.hostedBy.id = filterBy.userId
-  //     // const criteria2 = {};
-  //     // criteria2.attendees.id = filterBy.userIdb
-  //     // criteria.hostedBy
-  //     // criteria.attendees
-  //     // criteria.user = { $or: [{ hostedBy: filterBy.userId }, { attendees: filterBy.userId }] }
-
-  //     /*
-  //     criteria.hostedBy = {};
-  //     criteria.hostedBy.id = filterBy.userId
-  //     */
-
-  //     // criteria.attendees = filterBy.userId
-  //     // db.inventory.find( { $or: [ { status: "A" }, { qty: { $lt: 30 } } ] } ) //mongoDB help query
-
-  //     criteria['$or'] = [{ "hostedBy.id": filterBy.userId }, { "attendees.id": filterBy.userId }]
-  //     // criteria['$or'] = [{ "hostedBy.id": filterBy.userId }, { "attendees": { "$elemMatch": { "id": filterBy.userId } } }]
-  //     console.log('after filter user id');
-
-  // }
-
   //filtering by date: (working great!)
   if (filterBy.at) {
     const msPerDay = 86400 * 1000;
@@ -141,7 +131,6 @@ function buildCriteria(filterBy) {
     criteria.location.country = filterBy.country;
   }
 
-  console.log('criteria after building: ', criteria);
   return criteria;
 }
 

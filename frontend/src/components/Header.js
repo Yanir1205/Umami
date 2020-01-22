@@ -30,7 +30,6 @@ export class Header extends Component {
     return UserService.checkConnection();
   };
   render() {
-    console.log('checkLogIn', this.state.isLogIn);
     return (
       <div className='main-header-container'>
         <div className='header-container  flex'>

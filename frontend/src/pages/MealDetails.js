@@ -22,7 +22,6 @@ class MealDetails extends Component {
     this.props.getById(id);
   }
   componentDidUpdate() {
-    console.log('componentDidUpdate hiiiiii');
 
   }
   onRegister = registration => {
@@ -39,7 +38,6 @@ class MealDetails extends Component {
   };
 
   onSelectedMenu = selectedMenuItems => {
-    console.log(selectedMenuItems);
   };
 
   onDisplayReviewForm = ev => {
@@ -69,8 +67,6 @@ class MealDetails extends Component {
 
   render() {
     const meal = this.props.meal;
-    console.log('MealDetails -> render ' ,meal);
-    debugger
     return (
       <div className='container meal-details-page-container'>
         {meal && (

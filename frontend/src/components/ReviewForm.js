@@ -28,7 +28,6 @@ class ReviewForm extends Component {
   };
 
   render() {
-    console.log('ReviewForm');
     return (
       <div className='card-container-lg card-container-horizontal flex align-center justify-center'>
         <div className='card-background-lg main-review-form-container flex column align-end'>

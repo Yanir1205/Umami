@@ -34,11 +34,9 @@ class MealPayment extends Component {
 
   onRegister = ev => {
     ev.preventDefault();
-    console.log('MealPayment -> onRegister');
     
     let counter = this.state.registerCounter;
     if (counter === 0) {
-      console.log('MealPayment -> if counter');
 
       let calcPrice = this.state.numOfGuests * this.props.meal.price;
       this.setState({ totalPrice: calcPrice, registerCounter: 1, buttonText: 'BOOK MEAL', paymentClass: 'payment' });
@@ -49,7 +47,6 @@ class MealPayment extends Component {
   };
 
   render() {
-    console.log('MealPayment');
     const { meal } = this.props;
     return (
       <div className='card-border payment-container'>
