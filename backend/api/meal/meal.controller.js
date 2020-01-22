@@ -4,6 +4,7 @@ const mealsService = require('./meal.service');
 async function getMeals(req, res) {
   try {
     const meals = await mealsService.query(req.query);
+    // console.log("Meal.Controller -> meal filter",meals)
     res.send(meals);
   } catch (err) {
     logger.error('Cannot get meals', err);

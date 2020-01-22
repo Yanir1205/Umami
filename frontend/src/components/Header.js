@@ -5,25 +5,21 @@ import { Link } from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
 import UserService from '../services/UserService';
+import { logout, login } from '../actions/UserActions';
 
 export class Header extends Component {
   state = {
-    isLogIn: UserService.checkConnection(),
+    isLogIn: null,
   };
 
-  handleClick = () => {
-    this.setState(prevState => ({ isLogIn: !prevState.isLogIn }));
-  };
   onLogout = () => {
-    UserService.logout();
-    this.setState(prevState => ({ isLogIn: !prevState.isLogIn }));
+    this.props.logout();
   };
-  onLogIn = () => {
-    this.setState(prevState => ({ isLogIn: !prevState.isLogIn }));
+
+  onLogIn = async user => {
+    const isLogin = await this.props.login(user);
   };
-  checkLogIn = () => {
-    return UserService.checkConnection();
-  };
+
   render() {
     return (
       <div className='main-header-container'>
@@ -36,7 +32,7 @@ export class Header extends Component {
           </div>
           <NavBar></NavBar>
           <div className='header-controls flex-basis-30 flex align-center justify-end'>
-            {this.state.isLogIn && (
+            {this.props.loggedInUser && (
               <>
                 <div className='margin-right-30'>
                   <Link className='' to={`/user/${JSON.parse(UserService.getUserLoggedIn())._id}`}>
@@ -51,7 +47,7 @@ export class Header extends Component {
                 </div>
               </>
             )}
-            {!this.state.isLogIn && (
+            {!this.props.loggedInUser && (
               <>
                 <Login onLogIn={this.onLogIn}></Login> <span>|</span>
                 <Signup></Signup>
@@ -64,8 +60,13 @@ export class Header extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  loggedInUser: state.user.loggedInUser,
+});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  logout,
+  login,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

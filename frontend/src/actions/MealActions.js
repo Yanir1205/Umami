@@ -8,8 +8,12 @@ export default {
 };
 
 export function load(filter) {
+  console.log('MealAction filter',filter);
+  
   return async dispatch => {
     const meals = await MealService.query(filter);
+    console.log('MealAction LOAD ',meals);
+    
     dispatch({ type: 'LOAD', meals });
   };
 }

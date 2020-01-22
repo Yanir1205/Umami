@@ -5,7 +5,7 @@ const router = express.Router()
 
 // middleware that is specific to this router
 // router.use(requireAuth)
-// console.log('meal.router is worker (:>');
+console.log('meal.router is worker (:>');
 
 router.get('/', getMeals)
 router.get('/:id', getById)

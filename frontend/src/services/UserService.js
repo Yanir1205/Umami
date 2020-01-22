@@ -13,6 +13,8 @@ async function signup(credentails) {
 }
 
 async function logout() {
+  console.log('UserService logout');
+  
   await HttpService.post(`${authEndpoint}/logout`);
   sessionStorage.clear();
 }

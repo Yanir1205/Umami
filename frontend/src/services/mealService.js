@@ -22,6 +22,7 @@ async function query(filter) {
       params.country = filter.location.country;
     }
   }
+  
   const meals = await HttpService.get(endpoint, filter, params);
   return meals;
 }

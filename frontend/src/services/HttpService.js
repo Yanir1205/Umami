@@ -9,17 +9,17 @@ var axios = Axios.create({
 });
 
 export default {
-  get(endpoint, data, pararms) {
-    return ajax(endpoint, 'GET', data, pararms);
+  get(endpoint, data, params) {
+    return ajax(endpoint, 'GET', data, params);
   },
-  post(endpoint, data, pararms) {
-    return ajax(endpoint, 'POST', data, pararms);
+  post(endpoint, data, params) {
+    return ajax(endpoint, 'POST', data, params);
   },
-  put(endpoint, data, pararms) {
-    return ajax(endpoint, 'PUT', data, pararms);
+  put(endpoint, data, params) {
+    return ajax(endpoint, 'PUT', data, params);
   },
-  delete(endpoint, data, pararms) {
-    return ajax(endpoint, 'DELETE', data, pararms);
+  delete(endpoint, data, params) {
+    return ajax(endpoint, 'DELETE', data, params);
   },
 };
 
@@ -31,7 +31,6 @@ async function ajax(endpoint, method = 'get', data = null, params = null, dispat
       data,
       params,
     });
-    console.log('HttpServer - > res.data',res.data);
 
     return res.data;
   } catch (err) {
