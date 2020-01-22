@@ -85,6 +85,10 @@
             vertical-align: text-bottom;
           }
 
+          .selected-date {
+            background-color: $basicClr7;
+          }
+
           .payment ul {
             display: flex;
             flex-direction: column;

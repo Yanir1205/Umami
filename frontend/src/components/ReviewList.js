@@ -5,13 +5,12 @@ import ReviewPreview from './ReviewPreview';
 export class ReviewList extends Component {
   render() {
     const reviews = this.props.reviews;
-    console.log('ReviewForm');
-    
+
     return (
       <div className='main-reviews-container margin-bottom-40 note-list-container'>
         {reviews &&
           reviews.map((review, idx) => {
-            return <ReviewPreview  key={idx} review={review}></ReviewPreview>;
+            return <ReviewPreview key={idx} review={review}></ReviewPreview>;
           })}
       </div>
     );

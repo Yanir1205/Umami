@@ -5,8 +5,8 @@ class MealPageNav extends Component {
 
   componentDidMount() {
     const { meal } = this.props;
-    let startTime = meal.mealType === 'dinner' ? '6:00PM' : meal.mealType === 'lunch' ? '12:00PM' : '9:00AM';
-    let endTime = meal.mealType === 'dinner' ? '9:00PM' : meal.mealType === 'lunch' ? '4:00PM' : '11:00AM';
+    let startTime = meal.mealType === 'Dinner' ? '6:00PM' : meal.mealType === 'Lunch' ? '12:00PM' : '9:00AM';
+    let endTime = meal.mealType === 'Dinner' ? '9:00PM' : meal.mealType === 'Lunch' ? '4:00PM' : '11:00AM';
     let minCapacity = Math.floor(parseInt(meal.capacity) / 2);
     let totalRates = meal.reviews.length;
     let avgRate = 0,
@@ -28,8 +28,6 @@ class MealPageNav extends Component {
 
   render() {
     let { meal } = this.props;
-    console.log('MealPageNav');
-    
     return (
       <div className='nav-container'>
         <div className='top-box flex '>
@@ -58,12 +56,12 @@ class MealPageNav extends Component {
           <div>{meal.mealType}</div>
           <div>{meal.cuisineType}</div>
           <div className='meal-guests'>
-            <span>{this.state.minCapacity}</span> - <span>{meal.capacity}</span>
+            <span>{meal.capacity}</span>
             <span> Guests </span>
           </div>
-          <div className='available-places'>
+          {/* <div className='available-places'>
             <span> Available Places-{meal.capacity - meal.currCapacity}</span>
-          </div>
+          </div> */}
         </div>
       </div>
     );

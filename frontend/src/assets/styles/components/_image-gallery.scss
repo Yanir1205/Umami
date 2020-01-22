@@ -1,7 +1,7 @@
 .image-gallery-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(2, 10vw);
+  grid-template-rows: repeat(2, 20vw);
   grid-gap: 15px;
 
   figure img {
@@ -37,25 +37,25 @@
     border-radius: rem(2px);
     transform: translateY(0);
 
-    & .layer {
-      opacity: 0;
-      position: absolute;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 10px;
-      height: 90%;
-      background: $basicClr1;
-      color: $basicClr2;
-      transition: all 0.9s ease;
-      transform: scale(0.1);
-    }
+    // & .layer {
+    //   opacity: 0;
+    //   position: absolute;
+    //   display: flex;
+    //   justify-content: center;
+    //   align-items: center;
+    //   width: 10px;
+    //   height: 90%;
+    //   background: $basicClr1;
+    //   color: $basicClr2;
+    //   transition: all 0.9s ease;
+    //   transform: scale(0.1);
+    // }
 
-    &:hover .layer {
-      opacity: 0.8;
-      width: 90%;
-      transition: all 0.5s ease;
-      transform: scale(1);
-    }
+    // &:hover .layer {
+    //   opacity: 0.8;
+    //   width: 90%;
+    //   transition: all 0.5s ease;
+    //   transform: scale(1);
+    // }
   }
 }

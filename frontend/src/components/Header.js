@@ -37,9 +37,7 @@ export class Header extends Component {
           <div className='header-logo flex-basis-30 flex'>
             <div className='header-img'></div>
             <Link to='/'>
-              <h1>
-                EAT<span>2</span>
-              </h1>
+              <h1>umami</h1>
             </Link>
           </div>
           <NavBar></NavBar>

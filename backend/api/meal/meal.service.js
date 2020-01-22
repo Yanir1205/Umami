@@ -39,11 +39,11 @@ async function getById(mealId) {
 async function edit(meal) {
   const collection = await dbService.getCollection('meal');
   try {
+    debugger;
     var id = meal._id;
     delete meal._id;
     await collection.updateOne({ _id: ObjectId(id) }, { $set: meal });
     meal._id = id;
-
     return meal;
   } catch (err) {
     console.log(`ERROR: cannot update meal ${meal._id} err-> `, err);
@@ -52,9 +52,6 @@ async function edit(meal) {
 }
 
 async function add(meal) {
-  // meal.byUserId = ObjectId(meal.byUserId);
-  // meal.aboutUserId = ObjectId(meal.aboutUserId);
-
   const collection = await dbService.getCollection('meal');
   try {
     await collection.insertOne(meal);
