@@ -15,19 +15,19 @@ async function query(filterBy = {}) {
         return badges
       } else {
         const meals = await collection.aggregate([{ $group: { _id: filterBy.group, meals: { $push: filterBy.meals } } }]).toArray();
-        let mealsToReturn = [];
+      let mealsToReturn = [];
 
-        //returning only 1 result per location:
-        meals.forEach(meal => {
-          mealsToReturn.push(meal.meals[0])
-        })
-        return mealsToReturn
-      }
+      //returning only 1 result per location:
+      meals.forEach(meal => {
+        mealsToReturn.push(meal.meals[0])
+      })
+      return mealsToReturn
     }
-  } catch (err) {
-    console.log('ERROR: cannot find Meals');
-    throw err;
   }
+  } catch (err) {
+  console.log('ERROR: cannot find Meals');
+  throw err;
+}
 }
 
 async function remove(mealId) {
