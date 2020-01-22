@@ -14,8 +14,7 @@ class MealFormWrapper extends Component {
   onSaveMeal = meal => {
     const { loggedInUser } = this.props;
     meal.hostedBy = { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl };
-    console.log('MealFormWrapper - > ', meal);
-    this.props.add({ ...meal });
+    this.props.add(meal);
   };
 
   render() {

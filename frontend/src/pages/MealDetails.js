@@ -70,7 +70,7 @@ class MealDetails extends Component {
 
   render() {
     const meal = this.props.meal;
-    console.log('meal details - meal', meal);
+    console.log('meal details render - meal', meal);
     return (
       <div className='container meal-details-page-container'>
         {meal && (
@@ -114,7 +114,7 @@ class MealDetails extends Component {
 
 const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
-  meal: state.meal.meal,
+  meal: state.meal.selectedMeal,
 });
 
 const mapDispatchToProps = {

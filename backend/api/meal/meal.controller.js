@@ -4,7 +4,6 @@ const mealsService = require('./meal.service');
 async function getMeals(req, res) {
   try {
     const meals = await mealsService.query(req.query);
-    // console.log("Meal.Controller -> meal filter",meals)
     res.send(meals);
   } catch (err) {
     logger.error('Cannot get meals', err);
@@ -14,7 +13,6 @@ async function getMeals(req, res) {
 async function getById(req, res) {
   try {
     const meal = await mealsService.getById(req.params.id);
-    console.log('controller getById', meal);
     res.send(meal);
   } catch (err) {
     logger.error('Cannot get meal by id', err);

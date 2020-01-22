@@ -22,17 +22,9 @@ async function query(filter) {
       params.country = filter.location.country;
     }
   }
-  
   const meals = await HttpService.get(endpoint, filter, params);
   return meals;
 }
-
-/*
-if (data) {
-      endpoint += `?userId=${data.userId}&at=${data.at}&type=${data.type}`;
-      if (data.location) endpoint += `&city=${data.location.city}&country=${data.location.country}`;
-    }
-*/
 
 async function getById(id) {
   const meal = await HttpService.get(`${endpoint}/${id}`);
