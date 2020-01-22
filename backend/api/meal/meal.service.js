@@ -9,25 +9,26 @@ async function query(filterBy = {}) {
       const meals = await collection.find(criteria).toArray();
       const resultMeals = filterResults(meals, filterBy);
       return resultMeals;
-    } else { //meaning there is a group operation needed:
+    } else {
+      //meaning there is a group operation needed:
       if (!filterBy.meals) {
         const badges = await collection.aggregate([{ $group: { _id: filterBy.group } }]).toArray();
-        return badges
+        return badges;
       } else {
         const meals = await collection.aggregate([{ $group: { _id: filterBy.group, meals: { $push: filterBy.meals } } }]).toArray();
-      let mealsToReturn = [];
+        let mealsToReturn = [];
 
-      //returning only 1 result per location:
-      meals.forEach(meal => {
-        mealsToReturn.push(meal.meals[0])
-      })
-      return mealsToReturn
+        //returning only 1 result per location:
+        meals.forEach(meal => {
+          mealsToReturn.push(meal.meals[0]);
+        });
+        return mealsToReturn;
+      }
     }
-  }
   } catch (err) {
-  console.log('ERROR: cannot find Meals');
-  throw err;
-}
+    console.log('ERROR: cannot find Meals');
+    throw err;
+  }
 }
 
 async function remove(mealId) {
@@ -44,7 +45,6 @@ async function getById(mealId) {
   const collection = await dbService.getCollection('meal');
   try {
     const meal = await collection.findOne({ _id: ObjectId(mealId) });
-    console.log('getById meal', meal);
     return meal;
   } catch (err) {
     console.log(`ERROR: cannot find meal ${mealId}`);
@@ -67,8 +67,6 @@ async function edit(meal) {
 }
 
 async function add(meal) {
-
-
   const collection = await dbService.getCollection('meal');
   try {
     await collection.insertOne(meal);
@@ -80,41 +78,32 @@ async function add(meal) {
 }
 
 function filterMealsByUserId(userId, meals) {
-
-  var resultMeals = meals.filter((meal) => {
-    const id = meal.hostedBy._id.toString()
+  var resultMeals = meals.filter(meal => {
+    const id = meal.hostedBy._id.toString();
     if (id === userId) {
-
-      return meal
+      return meal;
     }
-  }, [])
+  }, []);
 
-  meals.forEach(async (meal) => {
+  meals.forEach(async meal => {
     meal.occurrences.forEach(occurrence => {
-      occurrence.attendees.forEach(async (attendee) => {
+      occurrence.attendees.forEach(async attendee => {
         if (attendee._id !== undefined) {
-          const id = attendee._id.toString()
+          const id = attendee._id.toString();
           if (id === userId) {
             resultMeals.push(meal);
           }
         }
-      })
-
-    })
+      });
+    });
   });
-
-
   return resultMeals;
 }
 
 async function filterResults(meals, filterBy) {
-
   let resultMeals = [...meals];
   if (filterBy.userId) {
-
-
     resultMeals = await filterMealsByUserId(filterBy.userId, meals);
-
   }
   return resultMeals;
 }
@@ -124,7 +113,7 @@ function buildCriteria(filterBy) {
 
   // filtering by type of meal (working great!):
   if (filterBy.type) {
-    criteria.cuisineType = { $regex: `.*${filterBy.type}.*` }
+    criteria.cuisineType = { $regex: `.*${filterBy.type}.*` };
   }
 
   //filtering by date: (working great!)
@@ -138,13 +127,12 @@ function buildCriteria(filterBy) {
 
   //filtering by location:
   if (filterBy.city) {
-    criteria.location = { $in: { city: filterBy.location.city } }
+    criteria.location = { $in: { city: filterBy.location.city } };
   }
   if (filterBy.country) {
-    if (!criteria.location) criteria.location = {}
+    if (!criteria.location) criteria.location = {};
     criteria.location.country = filterBy.country;
   }
-
   return criteria;
 }
 

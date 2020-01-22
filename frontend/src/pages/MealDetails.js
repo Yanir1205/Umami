@@ -13,27 +13,31 @@ import ReviewList from '../components/ReviewList';
 import MealMap from '../components/MealMap';
 
 class MealDetails extends Component {
-  state = { displayReviewForm: 'hide' };
+  state = { displayReviewForm: 'hide', occurrenceAttendees: {} };
 
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.getById(id);
   }
 
-  onOccuranceRegistration = registration => {
+  onEventRegistration = async registration => {
     if (this.props.loggedInUser) {
+      debugger;
       const { loggedInUser } = this.props;
       const meal = { ...this.props.meal };
-      let occurrence = meal.occurrences.find(current => current.id === registration.id);
+      const activeOccurrence = meal.occurrences.find(current => current.id === registration.id);
 
-      if (occurrence && meal.capacity >= occurrence.total + parseInt(registration.numOfAttendees)) {
-        occurrence.attendees = [...occurrence.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.numOfAttendees }];
-        occurrence.total = occurrence.total + registration.numOfAttendees;
-        meal.occurrences = [...this.props.meal.occurrences, occurrence];
+      if (activeOccurrence && parseInt(meal.capacity) >= parseInt(activeOccurrence.total) + parseInt(registration.attendees)) {
+        // const currentUser = activeOccurrence.attendees.filter(current => current._id === loggedInUser._id);
 
-        console.log('onOccuranceRegistration - meal', meal);
-
-        this.props.add(meal);
+        // if (currentUser && currentUser.length > 0) {
+        //   currentUser.numOfAttendees = parseInt(currentUser.numOfAttendees) + parseInt(registration.attendees);
+        // } else {
+        //   activeOccurrence.attendees = [...activeOccurrence.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.attendees }];
+        // }
+        activeOccurrence.attendees = [...activeOccurrence.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.attendees }];
+        activeOccurrence.total = parseInt(activeOccurrence.total) + parseInt(registration.attendees);
+        await this.props.add(meal);
       }
     }
   };
@@ -50,7 +54,6 @@ class MealDetails extends Component {
 
   onSaveReviewForm = async review => {
     this.setState({ displayReviewForm: 'hide' });
-
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       const meal = { ...this.props.meal };
@@ -61,16 +64,13 @@ class MealDetails extends Component {
         rate: review.rate,
         at: Date.now(),
       };
-
       meal.reviews = [...meal.reviews, newReview];
-      console.log('onSaveReviewForm - meal', meal);
       await this.props.add(meal);
     }
   };
 
   render() {
     const meal = this.props.meal;
-    console.log('meal details - meal', meal);
     return (
       <div className='container meal-details-page-container'>
         {meal && (
@@ -87,7 +87,7 @@ class MealDetails extends Component {
                 <h3 id='menu'>Our menu</h3>
                 <MealMenu menu={meal.menu} onSelectedMenu={this.onSelectedMenu} />
                 <h3>Meet the other guests</h3>
-                <AttendeesList attendees={meal.attendees}></AttendeesList>
+                <AttendeesList attendees={meal.occurrences[0].attendees}></AttendeesList>
                 <div className='reviews-title-wrapper'>
                   <h3 id='reviews'>Reviews</h3>
                   <a className='btn-round' title='Review Us' href='' onClick={this.onDisplayReviewForm}>
@@ -102,7 +102,7 @@ class MealDetails extends Component {
                 <MealMap location={meal.location}></MealMap>
               </div>
               <div className='right-box flex-shrink-30'>
-                <MealPayment loggedInUser={this.props.loggedInUser} meal={meal} onOccuranceRegistration={this.onOccuranceRegistration}></MealPayment>
+                <MealPayment meal={meal} onEventRegistration={this.onEventRegistration}></MealPayment>
               </div>
             </div>
           </React.Fragment>
@@ -114,7 +114,7 @@ class MealDetails extends Component {
 
 const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
-  meal: state.meal.meal,
+  meal: state.meal.selectedMeal,
 });
 
 const mapDispatchToProps = {

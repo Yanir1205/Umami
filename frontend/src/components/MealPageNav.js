@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class MealPageNav extends Component {
   state = { startTime: '', endTime: '', minCapacity: '', totalRates: 0, avgRate: 0, rateClass: 'hide' };
@@ -68,4 +69,9 @@ class MealPageNav extends Component {
   }
 }
 
-export default MealPageNav;
+const mapStateToProps = state => ({
+  loggedInUser: state.user.loggedInUser,
+});
+
+const mapDispatchToProps = {};
+export default connect(mapStateToProps, mapDispatchToProps)(MealPageNav);

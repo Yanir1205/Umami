@@ -21,18 +21,16 @@ async function query(filter, groupBy) {
       params.city = filter.location.city;
       params.country = filter.location.country;
     }
-  }
-  else if (groupBy) {
+  } else if (groupBy) {
     if (groupBy.meals) {
       params = {
         group: groupBy._id,
-        meals: groupBy.meals.$push
-      }
-    }
-    else {
+        meals: groupBy.meals.$push,
+      };
+    } else {
       params = {
         group: groupBy._id,
-      }
+      };
     }
   }
   const meals = await HttpService.get(endpoint, filter, params);
