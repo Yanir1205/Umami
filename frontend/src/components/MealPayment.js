@@ -1,47 +1,50 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import Moment from 'moment';
 import Utilities from '../services/UtilitiesService';
 
 class MealPayment extends Component {
-  state = { sortedOccurrences: [], userOccurrences: [], datePattern: '', selectedOccurance: 0, numOfAttendees: 0, date: '', totalPrice: 0, buttonText: 'REGISTER EVENT', registerCounter: 0, paymentClass: 'hide' };
+  state = { sortedOccurrences: [], activeOccurrence: 0, attendees: 0, date: '', totalPrice: 0, buttonText: 'REGISTER EVENT', registerCounter: 0, paymentClass: 'hide' };
 
   componentDidMount() {
     const sortedOccurrences = this.props.meal.occurrences.sort(Utilities.sortFunction);
-    let userOccurrences = [],
-      numOfAttendees = 0,
-      totalPrice = 0,
-      buttonText = 'REGISTER EVENT',
-      paymentClass = 'hide',
-      date = Moment(sortedOccurrences[0].date).format('MM-DD-YY'),
-      datePattern = sortedOccurrences.reduce((pattern, current) => `${pattern}${Moment(current.date).format('MM-DD-YY')}`, '');
+    let date = Moment(sortedOccurrences[0].date).format('MM-DD-YY');
+    let activeOccurrence = sortedOccurrences[0];
 
-    if (this.props.loggedInUser) {
-      userOccurrences = this.props.meal.occurrences.filter(occurrence => {
-        return occurrence.attendees.find(attendee => attendee._id === this.props.loggedInUser._id);
+    if (!this.props.loggedInUser) {
+      this.setState({
+        sortedOccurrences: sortedOccurrences,
+        activeOccurrence: activeOccurrence,
+        date: date,
       });
+    } else {
+      debugger;
+      let userOccurrences = this.props.meal.occurrences.reduce((result, current) => {
+        let exists = current.attendees.filter(attendee => attendee._id === this.props.loggedInUser._id);
+        if (exists) result.push(exists);
+      }, []);
 
-      //populate fields from first occurrence
-      if (userOccurrences.length > 0) {
-        // date = Moment(userOccurrences[0].date).format('MM-DD-YY');
-        numOfAttendees = userOccurrences[0].attendees[0].numOfAttendees;
-        totalPrice = numOfAttendees * this.props.meal.price;
-        buttonText = 'UPDATE EVENT';
-        paymentClass = 'payment';
-      }
+      let attendees = 0,
+        totalPrice = 0;
+
+      if (userOccurrences && userOccurrences.length > 0) {
+        activeOccurrence = userOccurrences.sort(Utilities.sortFunction);
+        date = Moment(activeOccurrence[0].date).format('MM-DD-YY');
+        attendees = activeOccurrence[0].attendees[0].numOfAttendees;
+        totalPrice = attendees * this.props.meal.price;
+      } else userOccurrences = [];
+
+      this.setState({
+        sortedOccurrences: sortedOccurrences,
+        activeOccurrence: activeOccurrence,
+        attendees: attendees,
+        totalPrice: totalPrice,
+        date: date,
+        buttonText: attendees === 0 ? 'REGISTER EVENT' : 'UPDATE EVENT',
+        paymentClass: attendees === 0 ? 'hide' : 'payment',
+      });
     }
-
-    this.setState({
-      sortedOccurrences: sortedOccurrences,
-      userOccurrences: userOccurrences,
-      counter: 0,
-      numOfAttendees: numOfAttendees,
-      totalPrice: totalPrice,
-      datePattern: datePattern,
-      date: date,
-      registerCounter: 0,
-      buttonText: buttonText,
-      paymentClass: paymentClass,
-    });
   }
 
   handleChange = ev => {
@@ -49,25 +52,27 @@ class MealPayment extends Component {
     let name = ev.target.name;
     let value = ev.target.value;
 
-    if (name === 'numOfAttendees' && this.state.numOfAttendees !== value) {
+    if (name === 'attendees' && this.state.attendees !== value) {
       let totalPrice = value * this.props.meal.price;
-      this.setState({ numOfAttendees: value, totalPrice: totalPrice, registerCounter: 1, buttonText: 'BOOK EVENT', paymentClass: 'payment' });
+      this.setState({ attendees: value, totalPrice: totalPrice });
     } else {
-      let selectedOccurance = this.state.sortedOccurrences.find(current => {
+      let activeOccurrence = this.state.sortedOccurrences.find(current => {
         return Moment(current.date).format('MM-DD-YY') === Moment(value).format('MM-DD-YY');
       });
-      this.setState({ counter: 0, [name]: value, selectedOccurance: selectedOccurance });
+
+      this.setState({ date: value, activeOccurrence: activeOccurrence });
     }
   };
 
-  onOccuranceRegistration = ev => {
+  onEventRegistration = ev => {
     ev.preventDefault();
+    debugger;
     if (this.state.registerCounter === 0) {
-      let calcPrice = this.state.numOfAttendees * this.props.meal.price;
+      let calcPrice = this.state.attendees * this.props.meal.price;
       this.setState({ totalPrice: calcPrice, registerCounter: 1, buttonText: 'BOOK EVENT', paymentClass: 'payment' });
-    } else if (this.state.registerCounter >= 1 && this.state.numOfAttendees !== 0) {
+    } else if (this.state.registerCounter >= 1 && this.state.attendees !== 0) {
       this.setState({ registerCounter: 0 });
-      this.props.onOccuranceRegistration({ id: this.state.selectedOccurance.id, date: new Date(this.state.date).getTime(), numOfAttendees: this.state.numOfAttendees });
+      this.props.onEventRegistration({ id: this.state.activeOccurrence.id, date: new Date(this.state.date).getTime(), attendees: this.state.attendees });
     }
   };
 
@@ -77,7 +82,7 @@ class MealPayment extends Component {
       <div className='card-border payment-container'>
         <div className='price'>
           <span>${meal.price}</span>
-          <span>per guest</span>
+          <small>per guest</small>
         </div>
         <div>
           <hr />
@@ -85,11 +90,11 @@ class MealPayment extends Component {
         <div className='details-container'>
           <div className='date'>
             <label htmlFor='date'>Date</label>
-            <input name='date' list='occurrenceDates' placeholder='Select event date' value={this.state.date} onChange={this.handleChange} pattern={this.state.datePattern} title='Must be one of the offered dates' className='input-date'></input>
-            <datalist id='occurrenceDates'>
+            <input name='date' list='occurrences' placeholder='Select Event Date' value={this.state.date} onChange={this.handleChange} title='Select one of the event dates' className='input-date'></input>
+            <datalist id='occurrences'>
               {meal.occurrences.map((occurrence, idx) => {
                 return (
-                  <option key={idx} className={this.state.userOccurrences.includes(occurrence.date) ? 'selected-date' : ''} value={Moment(occurrence.date).format('MM-DD-YY')}>
+                  <option key={idx} value={Moment(occurrence.date).format('MM-DD-YY')}>
                     {Moment(occurrence.date).format('MM-DD-YY')}
                   </option>
                 );
@@ -97,17 +102,17 @@ class MealPayment extends Component {
             </datalist>
           </div>
           <div className='guests'>
-            <label htmlFor='numOfAttendees'>Number of Guests</label>
-            <input type='number' placeholder='Number of guests' min='1' name='numOfAttendees' onChange={this.handleChange} value={this.state.numOfAttendees === 0 ? '' : this.state.numOfAttendees}></input>
+            <label htmlFor='attendees'>Number of Guests</label>
+            <input type='number' placeholder='Number of Guests' min='1' name='attendees' onChange={this.handleChange} value={this.state.attendees === 0 ? '' : this.state.attendees}></input>
             <span className='validity'></span>
           </div>
           <div className={this.state.paymentClass}>
             <ul className='clean-list'>
               <li>
                 <span>
-                  ${meal.price} x {this.state.numOfAttendees} guests
+                  ${meal.price} x {this.state.attendees}
                 </span>
-                <span></span>
+                <span>guests</span>
               </li>
               <li>
                 <span>Total</span>
@@ -116,7 +121,7 @@ class MealPayment extends Component {
             </ul>
           </div>
           <div>
-            <button onClick={this.onOccuranceRegistration} className='button btn-ghost'>
+            <button onClick={this.onEventRegistration} className='button btn-ghost'>
               {this.state.buttonText}
             </button>
           </div>
