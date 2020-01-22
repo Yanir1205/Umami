@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import { load } from '../actions/MealActions';
 import { setFilter } from '../actions/FlterActions'
-
 import UserMealList from '../components/UserMealList'
-import UserService from '../services/UserService';
 
 class UserDetails extends Component {
 
   async componentDidMount() {
-
     await this.props.setFilter({ ...this.props.filter, userId: this.props.match.params.id })
-
     await this.loadMeals();
   }
  
