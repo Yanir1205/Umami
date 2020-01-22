@@ -39,14 +39,11 @@ async function getById(id) {
 }
 
 async function add(meal) {
-  debugger;
   const addedMeal = await HttpService.post(`${endpoint}`, meal);
   return addedMeal;
 }
 
 async function update(meal) {
-  console.log('@@@@@@MealService -> update  ');
   const updatedMeal = await HttpService.put(`${endpoint}/${meal._id}`, meal);
-  
   return updatedMeal;
 }

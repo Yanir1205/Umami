@@ -6,7 +6,6 @@ class MealPayment extends Component {
   state = { sortedOccurrences: [], userOccurrences: [], datePattern: '', selectedOccurance: 0, numOfAttendees: 0, date: '', totalPrice: 0, buttonText: 'REGISTER EVENT', registerCounter: 0, paymentClass: 'hide' };
 
   componentDidMount() {
-    debugger;
     const sortedOccurrences = this.props.meal.occurrences.sort(Utilities.sortFunction);
     let userOccurrences = [],
       numOfAttendees = 0,
@@ -62,7 +61,6 @@ class MealPayment extends Component {
   };
 
   onOccuranceRegistration = ev => {
-    debugger;
     ev.preventDefault();
     if (this.state.registerCounter === 0) {
       let calcPrice = this.state.numOfAttendees * this.props.meal.price;
@@ -87,7 +85,7 @@ class MealPayment extends Component {
         <div className='details-container'>
           <div className='date'>
             <label htmlFor='date'>Date</label>
-            <input name='date' list='occurrenceDates' onChange={this.handleChange} pattern={this.state.datePattern} title='Must be one of the offered dates' className='input-date'></input>
+            <input name='date' list='occurrenceDates' placeholder='Select event date' value={this.state.date} onChange={this.handleChange} pattern={this.state.datePattern} title='Must be one of the offered dates' className='input-date'></input>
             <datalist id='occurrenceDates'>
               {meal.occurrences.map((occurrence, idx) => {
                 return (

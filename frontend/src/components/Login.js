@@ -48,16 +48,13 @@ export class Login extends Component {
   }
 
   onLogin = () => {
-    console.log('$$$$$$$$');
     const email = this.state.email;
     const password = this.state.password;
     const user = { email, password };
-
     this.props.login(user);
 
     var interval = setInterval(() => {
       const checkLogIn = UserService.checkConnection();
-      console.log('$$$$$$$$', checkLogIn);
       if (checkLogIn) {
         this.closeModal();
         clearInterval(interval);

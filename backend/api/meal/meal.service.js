@@ -26,9 +26,9 @@ async function remove(mealId) {
 
 async function getById(mealId) {
   const collection = await dbService.getCollection('meal');
-  console.log('meal.service -> getById', mealId);
   try {
     const meal = await collection.findOne({ _id: ObjectId(mealId) });
+    console.log('getById meal', meal);
     return meal;
   } catch (err) {
     console.log(`ERROR: cannot find meal ${mealId}`);
@@ -39,7 +39,6 @@ async function getById(mealId) {
 async function edit(meal) {
   const collection = await dbService.getCollection('meal');
   try {
-    debugger;
     var id = meal._id;
     delete meal._id;
     await collection.updateOne({ _id: ObjectId(id) }, { $set: meal });
@@ -47,7 +46,7 @@ async function edit(meal) {
     return meal;
   } catch (err) {
     console.log(`ERROR: cannot update meal ${meal._id} err-> `, err);
-    // throw err;
+    throw err;
   }
 }
 

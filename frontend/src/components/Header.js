@@ -10,11 +10,6 @@ export class Header extends Component {
   state = {
     isLogIn: UserService.checkConnection(),
   };
-  componentDidUpdate() {
-    console.log('Hii !!!');
-
-    // this.setState({ isLogIn: UserService.checkConnection() })
-  }
 
   handleClick = () => {
     this.setState(prevState => ({ isLogIn: !prevState.isLogIn }));
@@ -30,7 +25,6 @@ export class Header extends Component {
     return UserService.checkConnection();
   };
   render() {
-    console.log('checkLogIn', this.state.isLogIn);
     return (
       <div className='main-header-container'>
         <div className='header-container  flex'>

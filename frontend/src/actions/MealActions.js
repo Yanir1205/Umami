@@ -22,7 +22,6 @@ export function getById(id) {
 }
 
 export function add(meal) {
-  debugger;
   const action = meal._id ? 'UPDATE' : 'ADD';
   if (action === 'UPDATE') {
     console.log('MealAction UPDATE -> ', meal);
