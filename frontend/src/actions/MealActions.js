@@ -5,6 +5,10 @@ export default {
   getById,
   add,
   remove,
+  loadCities,
+  loadCuisines,
+  loadMealsByLocation,
+  loadMealsByCuisine
 };
 
 export function load(filter) {
@@ -16,6 +20,54 @@ export function load(filter) {
   };
 }
 
+export function loadCities() {
+  const groupBy = {
+    _id: "$location.city"
+  }
+  return async dispatch => {
+    const cities = await MealService.query(null, groupBy)
+    const citiesToReducer = cities.map(city => city._id)
+    dispatch({ type: 'LOAD_CITIES', citiesToReducer })
+  }
+}
+
+export function loadMealsByLocation() {
+  const groupBy = {
+    _id: "$location.city",
+    meals: {
+      $push: "$$ROOT"
+    }
+  }
+  return async dispatch => {
+    const meals = await MealService.query(null, groupBy)
+    dispatch({ type: 'LOAD', meals })
+  }
+}
+
+export function loadMealsByCuisine() {
+  const groupBy = {
+    _id: "$cuisineType",
+    meals: {
+      $push: "$$ROOT"
+    }
+  }
+  return async dispatch => {
+    const meals = await MealService.query(null, groupBy)
+    dispatch({ type: 'LOAD', meals })
+  }
+}
+
+export function loadCuisines() {
+  const groupBy = {
+    _id: "$cuisineType"
+  }
+  return async dispatch => {
+    const cuisineTypes = await MealService.query(null, groupBy)
+    const cuisineTypesToReducer = cuisineTypes.map(cuisine => cuisine._id)
+    dispatch({ type: 'LOAD_CUISINES', cuisineTypesToReducer })
+  }
+}
+
 export function getById(id) {
   return async dispatch => {
     const meal = await MealService.getById(id);
@@ -24,20 +76,15 @@ export function getById(id) {
 }
 
 export function add(meal) {
-  
   const action = meal._id ? 'UPDATE' : 'ADD';
   if (action === 'UPDATE') {
     return async dispatch => {
       const newMeal = await MealService.update(meal);
-      console.log('MealAction update meal', newMeal);
-
       dispatch({ type: action, meal: newMeal });
     };
   } else {
     return async dispatch => {
-      console.log('MealAction ADD -> ', meal);
       const newMeal = await MealService.add(meal);
-      console.log('MealAction add meal', newMeal);
       dispatch({ type: action, meal: newMeal });
     };
   }

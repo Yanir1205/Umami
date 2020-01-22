@@ -9,7 +9,7 @@ export default {
 
 const endpoint = 'meal';
 
-async function query(filter) {
+async function query(filter, groupBy) {
   let params;
   if (filter) {
     params = {
@@ -22,18 +22,23 @@ async function query(filter) {
       params.country = filter.location.country;
     }
   }
-  
+  else if (groupBy) {
+    if (groupBy.meals) {
+      params = {
+        group: groupBy._id,
+        meals: groupBy.meals.$push
+      }
+    }
+    else {
+      params = {
+        group: groupBy._id,
+      }
+    }
+  }
   const meals = await HttpService.get(endpoint, filter, params);
 
   return meals;
 }
-
-/*
-if (data) {
-      endpoint += `?userId=${data.userId}&at=${data.at}&type=${data.type}`;
-      if (data.location) endpoint += `&city=${data.location.city}&country=${data.location.country}`;
-    }
-*/
 
 async function getById(id) {
   const meal = await HttpService.get(`${endpoint}/${id}`);
@@ -51,6 +56,5 @@ async function add(meal) {
 
 async function update(meal) {
   const updatedMeal = await HttpService.put(`${endpoint}/${meal._id}`, meal);
-  
   return updatedMeal;
 }

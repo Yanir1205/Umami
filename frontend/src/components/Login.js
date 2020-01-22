@@ -27,7 +27,6 @@ export class Login extends Component {
     let field = ev.target.name;
     let value = ev.target.value;
     this.setState({ [field]: value });
-    // this.props.onFilter(this.state.filterBy)
   };
 
   openModal() {
@@ -47,17 +46,7 @@ export class Login extends Component {
     const email = this.state.email;
     const password = this.state.password;
     const user = { email, password };
-
     this.props.onLogIn(user);
-
-    // var interval = setInterval(() => {
-      // const checkLogIn = UserService.checkConnection();
-    //   if (checkLogIn) {
-    //     this.closeModal();
-    //     clearInterval(interval);
-    //     this.props.onLogIn();
-    //   }
-    // }, 1000);
   };
 
   render() {
@@ -81,7 +70,5 @@ export class Login extends Component {
     );
   }
 }
-
-
 
 export default Login;

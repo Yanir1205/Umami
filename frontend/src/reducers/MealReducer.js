@@ -1,6 +1,8 @@
 let initialState = {
   meals: [],
   selectedMeal: null,
+  cities: [],
+  cuisines: []
 };
 
 export default function MealReducer(state = initialState, action = {}) {
@@ -32,6 +34,10 @@ export default function MealReducer(state = initialState, action = {}) {
       };
     case 'REMOVE':
       return { ...state, meals: state.meals.filter(meal => meal._id !== action.id) };
+    case 'LOAD_CITIES':
+      return { ...state, cities: [...action.citiesToReducer] }
+    case 'LOAD_CUISINES':
+      return { ...state, cuisines: [...action.cuisineTypesToReducer] }
     default:
       return state;
   }

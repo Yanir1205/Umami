@@ -2,31 +2,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { load } from '../actions/MealActions';
-import { setFilter } from '../actions/FilterActions'
-import UserMealList from '../components/UserMealList'
+import { setFilter } from '../actions/FilterActions';
+import UserMealList from '../components/UserMealList';
 
 class UserDetails extends Component {
-
   async componentDidMount() {
-    await this.props.setFilter({ ...this.props.filter, userId: this.props.match.params.id })
+    await this.props.setFilter({ ...this.props.filter, userId: this.props.match.params.id });
     await this.loadMeals();
   }
- 
 
   loadMeals = () => {
-     this.props.load(this.props.filter)
-  }
-
+    this.props.load(this.props.filter);
+  };
 
   onCreateMeal = () => {
     this.props.history.push('/meal/edit');
-  }
+  };
 
   mealsToShow = async () => {
-    const { id } = this.props.match.params
+    const { id } = this.props.match.params;
     const attended = [];
     const host = [];
-
 
     const meals = [];
       meals = [...this.props.meals]
@@ -43,17 +39,19 @@ class UserDetails extends Component {
 
   render() {
     const user = this.props.loggedInUser;
-
-    
-    return <div className="container">
-      <div className="user-container">
-
-        <h3>Hello {user.fullName}</h3>
-        <img className="user-img-propile" src={user.imgUrl} />
+    return (
+      <div className='container'>
+        <div className='user-container'>
+          <h3>Hello {user.fullName}</h3>
+        </div>
+        <div className ="flex "> 
+        <button className='btn-cta btn-mdd align-end' onClick={this.onCreateMeal}>
+          CREATE EVENT
+        </button>
+        </div>
+        {this.props.meals.length > 0 && <UserMealList meals={this.props.meals} userId={user._id}></UserMealList>}
       </div>
-      <button className="create-new-meal btn" onClick={this.onCreateMeal}>CREATE EVENT</button>
-      {this.props.meals.length >0 && <UserMealList  meals={this.props.meals}  userId={user._id}></UserMealList>}
-    </div>
+    );
   }
 }
 
@@ -65,7 +63,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   load,
-  setFilter
+  setFilter,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);

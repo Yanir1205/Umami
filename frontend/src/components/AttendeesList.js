@@ -3,7 +3,6 @@ import AttendeesPreview from './AttendeesPreview';
 
 class AttendeesList extends Component {
   render() {
-    console.log('AttendeesList');
     const { attendees } = this.props;
     return (
       <div className='main-attendees-container'>

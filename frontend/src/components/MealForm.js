@@ -41,7 +41,7 @@ export class MealForm extends Component {
     let field = ev.target.name;
     let value = ev.target.value;
     this.setState({ [field]: value });
-    console.log('MealForm onHandleLocationChange -> ',this.state );
+    console.log('MealForm onHandleLocationChange -> ', this.state);
   };
 
   onHandleLocationChange = ev => {
@@ -49,9 +49,8 @@ export class MealForm extends Component {
     let tempLocation = this.state.location;
     let field = ev.target.name;
     let value = ev.target.value;
-    tempLocation[field] = value ;
+    tempLocation[field] = value;
     this.setState({ location: tempLocation });
-    debugger
   };
 
   onHandleMenuListChange = ev => {
@@ -62,7 +61,7 @@ export class MealForm extends Component {
     if (field === 'desserts' || field === 'beverages') {
       tempMenu[field].push(value);
     } else {
-      tempMenu[field] = value ;
+      tempMenu[field] = value;
     }
     this.setState({ menu: tempMenu });
   };
@@ -70,7 +69,7 @@ export class MealForm extends Component {
   onSaveMeal = ev => {
     ev.preventDefault();
     let meal = {
-      isActive:true,
+      isActive: true,
       hostedBy: this.state.hostedBy,
       menu: this.state.menu,
       location: this.state.location,
@@ -82,14 +81,16 @@ export class MealForm extends Component {
       price: this.state.price,
       date: Date.parse(new Date(this.state.date)),
       capacity: this.state.capacity,
-      reviews:[],
-      attendees:[]
+      reviews: [],
+      attendees: [],
     };
 
     this.props.onSaveMeal(meal);
   };
 
   render() {
+    console.log('render in MealForm -> ',this.state);
+    
     return (
       <div>
         <form className='' onSubmit={this.onSaveMeal}>

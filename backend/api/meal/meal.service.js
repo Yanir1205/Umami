@@ -2,18 +2,32 @@ const dbService = require('../../services/db.service');
 const ObjectId = require('mongodb').ObjectId;
 
 async function query(filterBy = {}) {
-    
-    const criteria = buildCriteria(filterBy)
-    const collection = await dbService.getCollection('meal')
-    try {
+  const criteria = buildCriteria(filterBy);
+  const collection = await dbService.getCollection('meal');
+  try {
+    if (!filterBy.group) {
+      const meals = await collection.find(criteria).toArray();
+      const resultMeals = filterResults(meals, filterBy);
+      return resultMeals;
+    } else { //meaning there is a group operation needed:
+      if (!filterBy.meals) {
+        const badges = await collection.aggregate([{ $group: { _id: filterBy.group } }]).toArray();
+        return badges
+      } else {
+        const meals = await collection.aggregate([{ $group: { _id: filterBy.group, meals: { $push: filterBy.meals } } }]).toArray();
+      let mealsToReturn = [];
 
-        const meal = await collection.find(criteria).toArray();
-        const resultMeals = await filterResults(meal, filterBy);
-        return resultMeals;
-    } catch (err) {
-        console.log('ERROR: cannot find Meals')
-        throw err;
+      //returning only 1 result per location:
+      meals.forEach(meal => {
+        mealsToReturn.push(meal.meals[0])
+      })
+      return mealsToReturn
     }
+  }
+  } catch (err) {
+  console.log('ERROR: cannot find Meals');
+  throw err;
+}
 }
 
 async function remove(mealId) {
@@ -28,11 +42,8 @@ async function remove(mealId) {
 
 async function getById(mealId) {
   const collection = await dbService.getCollection('meal');
-  console.log('meal.service -> getById', mealId);
   try {
     const meal = await collection.findOne({ _id: ObjectId(mealId) });
-    console.log('meal.service - > meal ',meal);
-    
     return meal;
   } catch (err) {
     console.log(`ERROR: cannot find meal ${mealId}`);
@@ -43,7 +54,6 @@ async function getById(mealId) {
 async function edit(meal) {
   const collection = await dbService.getCollection('meal');
   try {
-    debugger;
     var id = meal._id;
     delete meal._id;
     await collection.updateOne({ _id: ObjectId(id) }, { $set: meal });
@@ -51,95 +61,88 @@ async function edit(meal) {
     return meal;
   } catch (err) {
     console.log(`ERROR: cannot update meal ${meal._id} err-> `, err);
-    // throw err;
+    throw err;
   }
 }
 
 async function add(meal) {
 
 
-    const collection = await dbService.getCollection('meal');
-    try {
-        await collection.insertOne(meal);
-        return meal;
-    } catch (err) {
-        console.log(`ERROR: cannot insert user`);
-        throw err;
+  const collection = await dbService.getCollection('meal');
+  try {
+    await collection.insertOne(meal);
+    return meal;
+  } catch (err) {
+    console.log(`ERROR: cannot insert user`);
+    throw err;
+  }
+}
+
+function filterMealsByUserId(userId, meals) {
+
+  var resultMeals = meals.filter((meal) => {
+    const id = meal.hostedBy._id.toString()
+    if (id === userId) {
+
+      return meal
     }
-}
+  }, [])
 
- function filterMealsByUserId(userId, meals) {
-
-    var resultMeals =  meals.filter(( meal) => {
-        const id = meal.hostedBy._id.toString()
-        if (id === userId) {
-            
-            return meal
+  meals.forEach(async (meal) => {
+    meal.occurrences.forEach(occurrence => {
+      occurrence.attendees.forEach(async (attendee) => {
+        if (attendee._id !== undefined) {
+          const id = attendee._id.toString()
+          if (id === userId) {
+            resultMeals.push(meal);
+          }
         }
-    }, [])
+      })
 
-    meals.forEach(async (meal) => {
-         meal.occurrences.forEach(occurrence => {
-            occurrence.attendees.forEach(async (attendee) => {
-                if (attendee._id !== undefined) {
-                    const id = attendee._id.toString()
-                    if (id === userId) {
-                        resultMeals.push(meal);
-                    }
-                }
-            })
-
-        })
-    });
-  
-    
-    return resultMeals;
+    })
+  });
+  return resultMeals;
 }
-
-
 
 async function filterResults(meals, filterBy) {
 
-    let resultMeals = [...meals];
-    if (filterBy.userId) {
+  let resultMeals = [...meals];
+  if (filterBy.userId) {
 
 
-        resultMeals = await filterMealsByUserId(filterBy.userId, meals);
+    resultMeals = await filterMealsByUserId(filterBy.userId, meals);
 
-    }
-    return resultMeals;
+  }
+  return resultMeals;
 }
 
 function buildCriteria(filterBy) {
-    const criteria = {};
+  const criteria = {};
 
-    // filtering by type of meal (working great!):
-    if (filterBy.type) {
-        criteria.cuisineType = { $regex: `.*${filterBy.type}.*` }
-    }
+  // filtering by type of meal (working great!):
+  if (filterBy.type) {
+    criteria.cuisineType = { $regex: `.*${filterBy.type}.*` }
+  }
 
+  //filtering by date: (working great!)
+  if (filterBy.at) {
+    const msPerDay = 86400 * 1000;
+    let begining = filterBy.at - (filterBy.at % msPerDay);
+    begining += new Date().getTimezoneOffset() * 60 * 1000;
+    const ending = begining + msPerDay - 1;
+    criteria.date = { $gt: begining, $lt: ending };
+  }
 
-    //filtering by date: (working great!)
-    if (filterBy.at) {
-        const msPerDay = 86400 * 1000;
-        let begining = filterBy.at - (filterBy.at % msPerDay);
-        begining += ((new Date()).getTimezoneOffset() * 60 * 1000);
-        const ending = begining + msPerDay - 1
-        criteria.date = { $gt: begining, $lt: ending }
-    }
+  //filtering by location:
+  if (filterBy.city) {
+    criteria.location = { $in: { city: filterBy.location.city } }
+  }
+  if (filterBy.country) {
+    if (!criteria.location) criteria.location = {}
+    criteria.location.country = filterBy.country;
+  }
 
-
-    //filtering by location:
-    if (filterBy.city) {
-        criteria.location = { $in: { city: filterBy.location.city } }
-    }
-    if (filterBy.country) {
-        if (!criteria.location) criteria.location = {}
-        criteria.location.country = filterBy.country;
-    }
-
-    console.log('criteria after building: ', criteria);
-    return criteria;
+  return criteria;
 }
 
 module.exports = {

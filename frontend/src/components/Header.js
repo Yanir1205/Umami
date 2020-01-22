@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
 import UserService from '../services/UserService';
-import { logout ,login} from '../actions/UserActions';
-
+import { logout, login } from '../actions/UserActions';
 
 export class Header extends Component {
     // state = {
@@ -20,16 +19,11 @@ export class Header extends Component {
      await this.props.logout();
   }
 
-  onLogIn = async (user) => {
-    const isLogin =  await this.props.login(user)
-   console.log('Header -> onlogIn -> ',isLogin);
-   
+  onLogIn = async user => {
+    const isLogin = await this.props.login(user);
   };
-  // checkLogIn = () => {
-  //   return UserService.checkConnection();
-  // };
+
   render() {
-    console.log('checkLogIn', this.props.loggedInUser);
     return (
       <div className='main-header-container'>
         <div className='header-container  flex'>
@@ -71,12 +65,11 @@ export class Header extends Component {
 
 const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
-
 });
 
 const mapDispatchToProps = {
   logout,
-  login
+  login,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

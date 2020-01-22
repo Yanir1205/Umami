@@ -20,7 +20,7 @@ class MealMap extends Component {
   };
 
   render() {
-    const location = this.props.location;
+    const location = {...this.props.location}
     delete location.address;
     delete location.city;
     delete location.country;

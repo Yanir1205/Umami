@@ -21,22 +21,18 @@ class MealDetails extends Component {
   }
 
   onOccuranceRegistration = registration => {
-   
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       const meal = { ...this.props.meal };
       let occurrence = meal.occurrences.find(current => current.id === registration.id);
-     
-      console.log('meal', meal);
-      console.log('occurrence', occurrence);
-      console.log('meal.capacity', meal.capacity);
-      console.log('parseInt(registration.numOfAttendees)', parseInt(registration.numOfAttendees));
 
       if (occurrence && meal.capacity >= occurrence.total + parseInt(registration.numOfAttendees)) {
-      
         occurrence.attendees = [...occurrence.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.numOfAttendees }];
         occurrence.total = occurrence.total + registration.numOfAttendees;
         meal.occurrences = [...this.props.meal.occurrences, occurrence];
+
+        console.log('onOccuranceRegistration - meal', meal);
+
         this.props.add(meal);
       }
     }
@@ -67,12 +63,14 @@ class MealDetails extends Component {
       };
 
       meal.reviews = [...meal.reviews, newReview];
+      console.log('onSaveReviewForm - meal', meal);
       await this.props.add(meal);
     }
   };
 
   render() {
     const meal = this.props.meal;
+    console.log('meal details - meal', meal);
     return (
       <div className='container meal-details-page-container'>
         {meal && (

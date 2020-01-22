@@ -1,96 +1,113 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { load } from '../actions/MealActions';
+import { load, loadCuisines, loadCities, loadMealsByLocation, loadMealsByCuisine } from '../actions/MealActions';
 import { setFilter } from '../actions/FilterActions';
 
 import MealList from '../components/MealList';
+import BadgeList from '../components/BadgeList';
 
 export class MealApp extends Component {
 
-  state = {
-    renderType: '',
-    cuisineTypes: '',
-    locations: ''
-  }
-
-  componentDidMount() {
-    const renderType = this.getRenderType()
-    this.setState({ renderType: renderType }, this.loadMeals)
-  }
-
-  componentDidUpdate(prevProps) {
-    if (JSON.stringify(prevProps.location.pathname) !== JSON.stringify(this.props.location.pathname)) {
-      const renderType = this.getRenderType()
-      this.setState({ renderType: renderType }, this.loadMeals)
-    }
-  }
-
-  getRenderType() {
-    return this.props.history.location.pathname === '/meal/cuisine' ? 'cuisine' : this.props.history.location.pathname === '/meal/location' ? 'location' : 'meal';
-  }
-
-  getAvgRate(reviews) {
-    return reviews.reduce((acc, currReview) => acc + currReview.rate, 0) / reviews.length;
-  }
-
-
-
-  
-  loadMeals = async () => {
-    //if the renderType is meal - get all the meals according to the current filter (could be none or by location or by cuisine specific names)
-    //if the renderType is cuisine - use mealService to get access to the DB where a map reduce function will get all the unique cuisine types
-    //if the renderType is location - use mealService to get from the DB all the unique locations using map reduce
-
-    if (this.state.renderType === 'meal') {
-      await this.props.load(this.props.filter);
-
-    } else if (this.state.renderType === 'cuisine') {
-      await this.props.load();
-      const cuisineTypes = this.props.meals.reduce((acc, meal) => {
-        return acc.includes(meal.cuisineType) ? acc : [...acc, meal.cuisineType]
-      }, []);
-      this.setState({ cuisineTypes: cuisineTypes, locations: '' })
-
-    } else if (this.state.renderType === 'location') {
-      await this.props.load();
-      const locations = this.props.meals.reduce((acc, meal) => {
-        return acc.includes(meal.location.city) ? acc : [...acc, meal.location.city]
-      }, []);
-      this.setState({ locations: locations, cuisineTypes: '' })
+    state = {
+        selectedBadge: '',
+        renderType: ''
     }
 
-  }
+    componentDidMount() {
+        this.loadMeals()
+    }
 
-  onLocationClick = async (cityName) => {
-    await this.setState({ renderType: 'meal' }, this.props.history.push('/meal'));
-    await this.props.setFilter({ ...this.props.filter, location: { ...this.props.filter.location, city: cityName } })
-    this.loadMeals()
-  }
+    componentDidUpdate(prevProps) {
+        if (JSON.stringify(prevProps.location.pathname) !== JSON.stringify(this.props.location.pathname)) {
+            this.loadMeals()
+        }
+    }
 
-  onCuisineClick = async (cuisine) => {
-    await this.setState({ renderType: 'meal' });
-    this.props.history.push('/meal')
-    await this.props.setFilter({ ...this.props.filter, type: cuisine })
-    this.loadMeals()
-  }
+    getAvgRate = (reviews) => {
+        return reviews.reduce((acc, currReview) => acc + currReview.rate, 0) / reviews.length;
+    }
 
-  render() {
-    return <div className='container'>
-      {!this.props.meals.length && <div>LOADING...</div>}
-      {this.props.meals.length && <MealList onCuisineClick={this.onCuisineClick} onLocationClick={this.onLocationClick} renderType={this.state.renderType} meals={this.props.meals} cuisineTypes={this.state.cuisineTypes} locations={this.state.locations} getAvgRate={this.getAvgRate}></MealList>}
-    </div>;
-  }
+    loadMeals = async () => {
+        let badgeName = '';
+        if (this.props.location.pathname.includes('location')) {
+            badgeName = 'location';
+        } else if (this.props.location.pathname.includes('cuisine')) {
+            badgeName = 'cuisine';
+        }
+        this.setBadges(badgeName);
+        this.setState({ renderType: badgeName });
+        if (badgeName === 'location') {
+            const { location } = this.props.match.params
+            if (!location) {
+                this.props.loadMealsByLocation();
+            } else {
+                await this.props.setFilter({ ...this.props.filter, location: { city: location } })
+                this.props.load(this.props.filter);
+            }
+        } else {
+            const { cuisine } = this.props.match.params
+            if (!cuisine) {
+                this.props.loadMealsByCuisine();
+            } else {
+                await this.props.setFilter({ ...this.props.filter, type: cuisine })
+                this.props.load(this.props.filter)
+            }
+        }
+    }
+
+    setBadges = (badgeType) => {
+        if (badgeType === 'location') {
+            this.props.loadCities()
+        } else if (badgeType === 'cuisine') {
+            this.props.loadCuisines()
+        }
+    }
+
+
+    onLocationClick = async (event) => {
+        const city = event.target.innerText
+        await this.props.setFilter({ ...this.props.filter, location: { ...this.props.filter.location, city } })
+        this.props.history.push(`/meal/location/${city}`);
+        this.loadMeals()
+    }
+
+    onCuisineClick = async (event) => {
+        const cuisine = event.target.innerText;
+        await this.props.setFilter({ ...this.props.filter, type: cuisine })
+        this.props.history.push(`/meal/cuisine/${cuisine}`)
+        this.loadMeals()
+    }
+
+    onCardClick = (id) => {
+        this.props.history.push(`/meal/${id}`)
+    }
+
+    render() {
+        return <div className='container'>
+            {!this.props.meals.length && <div>LOADING...</div>}
+            {this.props.cuisines && this.state.renderType === 'cuisine' && <BadgeList selectedBadge={this.state.selectedBadge} onBadgeClick={this.onCuisineClick} badges={this.props.cuisines}></BadgeList>}
+            {this.props.cities && this.state.renderType === 'location' && <BadgeList selectedBadge={this.state.selectedBadge} onBadgeClick={this.onLocationClick} badges={this.props.cities}></BadgeList>}
+
+            {this.props.meals.length && this.state.renderType && <MealList onCardClick={this.onCardClick} onCuisineClick={this.onCuisineClick} onLocationClick={this.onLocationClick} renderType={this.state.renderType} meals={this.props.meals} getAvgRate={this.getAvgRate}></MealList>}
+        </div>;
+    }
 }
 
 const mapStateToProps = state => ({
-  meals: state.meal.meals,
-  filter: state.filter.filter
+    meals: state.meal.meals,
+    filter: state.filter.filter,
+    cities: state.meal.cities,
+    cuisines: state.meal.cuisines
 });
 
 const mapDispatchToProps = {
-  load,
-  setFilter
+    load,
+    setFilter,
+    loadCuisines,
+    loadCities,
+    loadMealsByLocation,
+    loadMealsByCuisine
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealApp);
