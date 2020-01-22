@@ -22,6 +22,7 @@ async function query(filter) {
       params.country = filter.location.country
     }
   }
+  
   const meals = await HttpService.get(endpoint, filter, params);
   return meals;
 }
@@ -44,7 +45,6 @@ async function add(meal) {
 }
 
 async function update(meal) {
-  console.log('@@@@@@MealService -> update  ');
   const updatedMeal = await HttpService.put(`${endpoint}/${meal._id}`, meal);
   
   return updatedMeal;

@@ -2,11 +2,13 @@ const dbService = require('../../services/db.service');
 const ObjectId = require('mongodb').ObjectId;
 
 async function query(filterBy = {}) {
+    
     const criteria = buildCriteria(filterBy)
     const collection = await dbService.getCollection('meal')
     try {
+
         const meal = await collection.find(criteria).toArray();
-        const resultMeals = filterResults(meal, filterBy);
+        const resultMeals = await filterResults(meal, filterBy);
         return resultMeals;
     } catch (err) {
         console.log('ERROR: cannot find Meals')
@@ -52,8 +54,7 @@ async function edit(meal) {
 }
 
 async function add(meal) {
-    // meal.byUserId = ObjectId(meal.byUserId);
-    // meal.aboutUserId = ObjectId(meal.aboutUserId);
+
 
     const collection = await dbService.getCollection('meal');
     try {
@@ -65,23 +66,47 @@ async function add(meal) {
     }
 }
 
-function filterMealsByUserId(userId, meals) {
-    //this function gets a given userId and the meal and uses map reduce to filter the results 
-    let resultMeals = meals.reduce((acc, meal) => {
-        return (meal.hostedBy._id === userId) ? meal : acc
-    }, [])
-    meals.forEach((meal) => {
-        if (meal.attendees.find(user => { return user._id === userId })) {
-            resultMeals.push(meal)
+ function filterMealsByUserId(userId, meals) {
+
+    var resultMeals =  meals.filter(( meal) => {
+        const id = meal.hostedBy._id.toString()
+        // const res = (id === userId) ? meal :acc
+        if (id === userId) {
+            
+            return meal
         }
-    })
-    return resultMeals
+    }, [])
+
+    meals.forEach(async (meal) => {
+         meal.occurrences.forEach(occurrence => {
+            occurrence.attendees.forEach(async (attendee) => {
+                if (attendee._id !== undefined) {
+                    const id = attendee._id.toString()
+                    if (id === userId) {
+                        resultMeals.push(meal);
+                    }
+                }
+            })
+
+        })
+    });
+  
+    
+    return resultMeals;
 }
 
-function filterResults(meals, filterBy) {
+onRowClick=(id)=>{
+    this.props.onRowClick(id)
+}
+
+async function filterResults(meals, filterBy) {
+
     let resultMeals = [...meals];
     if (filterBy.userId) {
-        resultMeals = filterMealsByUserId(filterBy.userId, meals);
+
+
+        resultMeals = await filterMealsByUserId(filterBy.userId, meals);
+
     }
     return resultMeals;
 }
@@ -94,31 +119,6 @@ function buildCriteria(filterBy) {
         criteria.cuisineType = { $regex: `.*${filterBy.type}.*` }
     }
 
-    //filtering by host or attendees userId:
-    // if (filterBy.userId) {
-    //     console.log('inside filter user id');
-    //     // const criteria1 = {};
-    //     // criteria1.hostedBy.id = filterBy.userId
-    //     // const criteria2 = {};
-    //     // criteria2.attendees.id = filterBy.userIdb
-    //     // criteria.hostedBy
-    //     // criteria.attendees
-    //     // criteria.user = { $or: [{ hostedBy: filterBy.userId }, { attendees: filterBy.userId }] }
-
-    //     /*
-    //     criteria.hostedBy = {};
-    //     criteria.hostedBy.id = filterBy.userId
-    //     */
-
-    //     // criteria.attendees = filterBy.userId
-    //     // db.inventory.find( { $or: [ { status: "A" }, { qty: { $lt: 30 } } ] } ) //mongoDB help query
-
-
-    //     criteria['$or'] = [{ "hostedBy.id": filterBy.userId }, { "attendees.id": filterBy.userId }]
-    //     // criteria['$or'] = [{ "hostedBy.id": filterBy.userId }, { "attendees": { "$elemMatch": { "id": filterBy.userId } } }]
-    //     console.log('after filter user id');
-
-    // }
 
     //filtering by date: (working great!)
     if (filterBy.at) {

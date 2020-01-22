@@ -26,7 +26,8 @@ export default {
   },
 };
 
-async function ajax(endpoint, method = 'get', data = null, dispatch, params = null) {
+async function ajax(endpoint, method = 'get', data = null , params = null , dispatch) {
+  
   try {
     const res = await axios({
       url: `${BASE_URL}${endpoint}`,
@@ -34,7 +35,6 @@ async function ajax(endpoint, method = 'get', data = null, dispatch, params = nu
       data,
       params
     });
-    console.log('HttpServer - > res.data',res.data);
 
     return res.data;
   } catch (err) {

@@ -33,7 +33,9 @@ export class Header extends Component {
     return UserService.checkConnection()
   }
   render() {
-    console.log("checkLogIn", this.state.isLogIn);
+    const user = UserService.checkConnection()
+    console.log("checkLogIn", user);
+    
     return (
       <div className='main-header-container'>
         <div className='header-container  flex'>
@@ -48,9 +50,9 @@ export class Header extends Component {
           <NavBar></NavBar>
           <div className='header-controls flex-basis-30 flex align-center justify-end'>
             <div className='margin-right-30'>
-              <Link className='' to={`/user/${JSON.parse(UserService.getUserLoggedin())._id}`}>
+            {this.state.isLogIn && <Link className='' to={`/user/${JSON.parse(UserService.getUserLoggedin())._id}`}>
                 <img style={{ width: '30px', height: '30px' }} src={require('../assets/img/layout/dish-cover.svg')} alt='' />
-              </Link>
+              </Link>}
             </div>
             <div className=''>
 

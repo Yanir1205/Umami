@@ -6,6 +6,7 @@ const mealsService = require('./meal.service');
 async function getMeals(req, res) {
   try {
     const meals = await mealsService.query(req.query);
+    // console.log("Meal.Controller -> meal filter",meals)
     res.send(meals);
   } catch (err) {
     logger.error('Cannot get meals', err);
@@ -13,6 +14,8 @@ async function getMeals(req, res) {
   }
 }
 async function getById(req, res) {
+  console.log('meal.controller -> getById',req.params.id);
+
   const meal = await mealsService.getById(req.params.id);
   try {
     res.send(meal);
@@ -50,6 +53,7 @@ async function addMeal(req, res) {
 
 async function editMeal(req, res) {
   try {
+    
     const meal = req.body;
     const updatedMeal = await mealsService.edit(meal);
     res.send(updatedMeal);
