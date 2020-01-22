@@ -1,6 +1,8 @@
 let initialState = {
   meals: [],
   selectedMeal: null,
+  cities: [],
+  cuisines: [],
 };
 
 export default function MealReducer(state = initialState, action = {}) {
@@ -14,7 +16,7 @@ export default function MealReducer(state = initialState, action = {}) {
     case 'GET_BY_ID':
       return {
         ...state,
-        meal: action.meal,
+        // meal: action.meal,
         selectedMeal: action.meal,
       };
 
@@ -28,10 +30,14 @@ export default function MealReducer(state = initialState, action = {}) {
       return {
         ...state,
         meals: state.meals.map(meal => (action.meal._id === meal._id ? action.meal : meal)),
-        meal: action.meal,
+        selectedMeal: action.meal,
       };
     case 'REMOVE':
       return { ...state, meals: state.meals.filter(meal => meal._id !== action.id) };
+    case 'LOAD_CITIES':
+      return { ...state, cities: [...action.citiesToReducer] };
+    case 'LOAD_CUISINES':
+      return { ...state, cuisines: [...action.cuisineTypesToReducer] };
     default:
       return state;
   }

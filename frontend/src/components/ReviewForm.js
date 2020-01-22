@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class ReviewForm extends Component {
   state = {
@@ -57,4 +58,9 @@ class ReviewForm extends Component {
   }
 }
 
-export default ReviewForm;
+const mapStateToProps = state => ({
+  loggedInUser: state.user.loggedInUser,
+});
+
+const mapDispatchToProps = {};
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);

@@ -5,9 +5,26 @@ async function query(filterBy = {}) {
   const criteria = buildCriteria(filterBy);
   const collection = await dbService.getCollection('meal');
   try {
-    const meal = await collection.find(criteria).toArray();
-    const resultMeals = await filterResults(meal, filterBy);
-    return resultMeals;
+    if (!filterBy.group) {
+      const meals = await collection.find(criteria).toArray();
+      const resultMeals = filterResults(meals, filterBy);
+      return resultMeals;
+    } else {
+      //meaning there is a group operation needed:
+      if (!filterBy.meals) {
+        const badges = await collection.aggregate([{ $group: { _id: filterBy.group } }]).toArray();
+        return badges;
+      } else {
+        const meals = await collection.aggregate([{ $group: { _id: filterBy.group, meals: { $push: filterBy.meals } } }]).toArray();
+        let mealsToReturn = [];
+
+        //returning only 1 result per location:
+        meals.forEach(meal => {
+          mealsToReturn.push(meal.meals[0]);
+        });
+        return mealsToReturn;
+      }
+    }
   } catch (err) {
     console.log('ERROR: cannot find Meals');
     throw err;
@@ -28,7 +45,6 @@ async function getById(mealId) {
   const collection = await dbService.getCollection('meal');
   try {
     const meal = await collection.findOne({ _id: ObjectId(mealId) });
-    console.log('getById meal', meal);
     return meal;
   } catch (err) {
     console.log(`ERROR: cannot find meal ${mealId}`);
@@ -64,7 +80,6 @@ async function add(meal) {
 function filterMealsByUserId(userId, meals) {
   var resultMeals = meals.filter(meal => {
     const id = meal.hostedBy._id.toString();
-    // const res = (id === userId) ? meal :acc
     if (id === userId) {
       return meal;
     }
@@ -82,7 +97,6 @@ function filterMealsByUserId(userId, meals) {
       });
     });
   });
-
   return resultMeals;
 }
 

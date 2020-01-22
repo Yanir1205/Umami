@@ -9,7 +9,7 @@ export default {
 
 const endpoint = 'meal';
 
-async function query(filter) {
+async function query(filter, groupBy) {
   let params;
   if (filter) {
     params = {
@@ -20,6 +20,17 @@ async function query(filter) {
     if (filter.location) {
       params.city = filter.location.city;
       params.country = filter.location.country;
+    }
+  } else if (groupBy) {
+    if (groupBy.meals) {
+      params = {
+        group: groupBy._id,
+        meals: groupBy.meals.$push,
+      };
+    } else {
+      params = {
+        group: groupBy._id,
+      };
     }
   }
   const meals = await HttpService.get(endpoint, filter, params);

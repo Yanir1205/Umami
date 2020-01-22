@@ -52,11 +52,9 @@
 
     &:hover {
       cursor: pointer;
-
       .circle-1 {
         transform: rotate(360deg);
       }
-
       .circle-2 {
         transform: rotate(-360deg);
       }
