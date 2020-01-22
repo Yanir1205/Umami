@@ -30,6 +30,7 @@ export default function MealReducer(state = initialState, action = {}) {
       return {
         ...state,
         meals: state.meals.map(meal => (action.meal._id === meal._id ? action.meal : meal)),
+        meal: action.meal
       };
     case 'REMOVE':
       return { ...state, meals: state.meals.filter(meal => meal._id !== action.id) };

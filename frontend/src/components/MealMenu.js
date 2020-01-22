@@ -8,11 +8,23 @@ class MealMenu extends Component {
         <div className='menu-container'>
           <div className='card-title menu-section'>
             <h3>First Course</h3>
-            <div className='menu-item'>{menu.firstCourse}</div>
+            {menu.firstCourse.map((course, idx) => {
+              return (
+                <div key={idx} className='menu-item'>
+                  {course}
+                </div>
+              );
+            })}
           </div>
           <div className='card-title menu-section'>
             <h3>Main Course</h3>
-            <div className='menu-item'>{menu.mainSoup}</div>
+            {menu.mainCourse.map((course, idx) => {
+              return (
+                <div key={idx} className='menu-item'>
+                  {course}
+                </div>
+              );
+            })}
           </div>
           <div className='card-title menu-section'>
             <h3>Dessert</h3>

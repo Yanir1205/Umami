@@ -1,60 +1,69 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { load } from '../actions/MealActions';
-import { setFilter } from '../actions/FlterActions'
 
-import UserMealList from '../components/UserMealList'
+import { load } from '../actions/MealActions';
+import { setFilter } from '../actions/FilterActions';
+import UserMealList from '../components/UserMealList';
 
 class UserDetails extends Component {
-
   async componentDidMount() {
-    await this.props.setFilter({ ...this.props.filter, userId: this.props.match.params.id })
-    this.loadMeals();
+    await this.props.setFilter({ ...this.props.filter, userId: this.props.match.params.id });
+    await this.loadMeals();
   }
 
   loadMeals = () => {
-    this.props.load(this.props.filter)
-  }
-
+    this.props.load(this.props.filter);
+  };
 
   onCreateMeal = () => {
     this.props.history.push('/meal/edit');
-  }
+  };
 
-  mealsToShow = () => {
-    const { id } = this.props.match.params
+  mealsToShow = async () => {
+    const { id } = this.props.match.params;
     const attended = [];
     const host = [];
-    this.props.meals.forEach(meal => {
-      if (meal.hostedBy._id === id) {
-        host.push(meal);
+
+    const meals = [];
+    meals = [...this.props.meals];
+    await meals.forEach(async meal => {
+      console.log('meal.hostedBy._id.toString() === id', meal.hostedBy._id.toString() === id);
+      debugger;
+      if (meal.hostedBy._id.toString() === id) {
+        await host.push(meal);
       } else {
-        attended.push(meal);
+        await attended.push(meal);
       }
-    })
-    return { host, attended }
-  }
+    });
+    return { host, attended };
+  };
 
   render() {
-    const { host, attended } = this.mealsToShow();
-    const user = this.props.user.fullName
-    return <div className="container">
-      <h3>Hello {user}</h3>
-      <button className="create-new-meal btn" onClick={this.onCreateMeal}>CREATE EVENT</button>
-      {this.props.meals.length > 0 && <UserMealList host={host} attended={attended}></UserMealList>}
-    </div>
+    const user = this.props.loggedInUser;
+    return (
+      <div className='container'>
+        <div className='user-container'>
+          <h3>Hello {user.fullName}</h3>
+          <img className='user-img-propile' src={user.imgUrl} />
+        </div>
+        <button className='create-new-meal btn' onClick={this.onCreateMeal}>
+          CREATE EVENT
+        </button>
+        {this.props.meals.length > 0 && <UserMealList meals={this.props.meals} userId={user._id}></UserMealList>}
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => ({
   meals: state.meal.meals,
   filter: state.filter.filter,
-  user: state.user.loggedInUser
+  loggedInUser: state.user.loggedInUser,
 });
 
 const mapDispatchToProps = {
   load,
-  setFilter
+  setFilter,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);

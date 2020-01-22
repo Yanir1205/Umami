@@ -14,6 +14,7 @@ let initialState = {
 export default function FilterReducer(state = initialState, action = {}) {
     switch (action.type) {
         case 'SET_FILTER':
+            
             return {
                 ...state,
                 filter: { ...action.filter }

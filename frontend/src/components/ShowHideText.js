@@ -23,10 +23,8 @@ class ShowHideText extends Component {
   };
 
   render() {
-    
     return (
-
-      <div className='card-bottom-border show-hide-text-container'>
+      <div className='show-hide-text-container'>
         <p>
           {this.state.text}
           <a className={this.state.showLink} href='#' onClick={this.toggleText}>

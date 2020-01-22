@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { load, loadCuisines, loadCities, loadMealsByLocation, loadMealsByCuisine } from '../actions/MealActions';
-import { setFilter } from '../actions/FlterActions';
+import { setFilter } from '../actions/FilterActions';
 
 import MealList from '../components/MealList';
 import BadgeList from '../components/BadgeList';
@@ -71,6 +71,7 @@ export class MealApp extends Component {
             this.props.loadCuisines()
         }
     }
+  
 
     onLocationClick = async (event) => {
         const city = event.target.innerText

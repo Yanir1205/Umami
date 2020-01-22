@@ -44,6 +44,7 @@ async function getById(mealId) {
   const collection = await dbService.getCollection('meal');
   try {
     const meal = await collection.findOne({ _id: ObjectId(mealId) });
+    console.log('getById meal', meal);
     return meal;
   } catch (err) {
     console.log(`ERROR: cannot find meal ${mealId}`);
@@ -58,49 +59,62 @@ async function edit(meal) {
     delete meal._id;
     await collection.updateOne({ _id: ObjectId(id) }, { $set: meal });
     meal._id = id;
-
     return meal;
   } catch (err) {
     console.log(`ERROR: cannot update meal ${meal._id} err-> `, err);
-    // throw err;
+    throw err;
   }
 }
 
 async function add(meal) {
-  // meal.byUserId = ObjectId(meal.byUserId);
-  // meal.aboutUserId = ObjectId(meal.aboutUserId);
+
 
   const collection = await dbService.getCollection('meal');
   try {
     await collection.insertOne(meal);
     return meal;
   } catch (err) {
-    console.log(`ERROR: cannot insert meal`);
+    console.log(`ERROR: cannot insert user`);
     throw err;
   }
 }
 
 function filterMealsByUserId(userId, meals) {
-  //this function gets a given userId and the meal and uses map reduce to filter the results
-  let resultMeals = meals.reduce((acc, meal) => {
-    return meal.hostedBy._id === userId ? meal : acc;
-  }, []);
-  meals.forEach(meal => {
-    if (
-      meal.attendees.find(user => {
-        return user._id === userId;
-      })
-    ) {
-      resultMeals.push(meal);
+
+  var resultMeals = meals.filter((meal) => {
+    const id = meal.hostedBy._id.toString()
+    if (id === userId) {
+
+      return meal
     }
+  }, [])
+
+  meals.forEach(async (meal) => {
+    meal.occurrences.forEach(occurrence => {
+      occurrence.attendees.forEach(async (attendee) => {
+        if (attendee._id !== undefined) {
+          const id = attendee._id.toString()
+          if (id === userId) {
+            resultMeals.push(meal);
+          }
+        }
+      })
+
+    })
   });
+
+
   return resultMeals;
 }
 
-function filterResults(meals, filterBy) {
+async function filterResults(meals, filterBy) {
+
   let resultMeals = [...meals];
   if (filterBy.userId) {
-    resultMeals = filterMealsByUserId(filterBy.userId, meals);
+
+
+    resultMeals = await filterMealsByUserId(filterBy.userId, meals);
+
   }
   return resultMeals;
 }
@@ -110,7 +124,7 @@ function buildCriteria(filterBy) {
 
   // filtering by type of meal (working great!):
   if (filterBy.type) {
-    criteria.cuisineType = { $regex: `.*${filterBy.type}.*` };
+    criteria.cuisineType = { $regex: `.*${filterBy.type}.*` }
   }
 
   //filtering by date: (working great!)
@@ -124,10 +138,10 @@ function buildCriteria(filterBy) {
 
   //filtering by location:
   if (filterBy.city) {
-    criteria.location = { $in: { city: filterBy.location.city } };
+    criteria.location = { $in: { city: filterBy.location.city } }
   }
   if (filterBy.country) {
-    if (!criteria.location) criteria.location = {};
+    if (!criteria.location) criteria.location = {}
     criteria.location.country = filterBy.country;
   }
 
