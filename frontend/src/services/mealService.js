@@ -24,6 +24,7 @@ async function query(filter) {
   }
   
   const meals = await HttpService.get(endpoint, filter, params);
+
   return meals;
 }
 
@@ -36,11 +37,14 @@ if (data) {
 
 async function getById(id) {
   const meal = await HttpService.get(`${endpoint}/${id}`);
+
+  console.log('@@mealService -> getByIb',meal);
+  
   return meal;
 }
 
 async function add(meal) {
-  debugger;
+  
   const addedMeal = await HttpService.post(`${endpoint}`, meal);
   return addedMeal;
 }

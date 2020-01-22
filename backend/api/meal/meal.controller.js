@@ -18,6 +18,7 @@ async function getById(req, res) {
 
   const meal = await mealsService.getById(req.params.id);
   try {
+    console.log('meal.controller - > getById',meal);
     res.send(meal);
   } catch (err) {
     logger.error('Cannot get meal by id', err);
@@ -35,7 +36,7 @@ async function deleteMeal(req, res) {
 }
 
 async function addMeal(req, res) {
-  debugger;
+  
   try {
     var meal = req.body;
 

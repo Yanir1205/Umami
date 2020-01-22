@@ -12,8 +12,6 @@ export function load(filter) {
   
   return async dispatch => {
     const meals = await MealService.query(filter);
-    console.log('MealAction LOAD ',meals);
-    
     dispatch({ type: 'LOAD', meals });
   };
 }
@@ -26,10 +24,9 @@ export function getById(id) {
 }
 
 export function add(meal) {
-  debugger;
+  
   const action = meal._id ? 'UPDATE' : 'ADD';
   if (action === 'UPDATE') {
-    console.log('MealAction UPDATE -> ', meal);
     return async dispatch => {
       const newMeal = await MealService.update(meal);
       console.log('MealAction update meal', newMeal);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { load } from '../actions/MealActions';
-import { setFilter } from '../actions/FlterActions'
+import { setFilter } from '../actions/FilterActions'
 import UserMealList from '../components/UserMealList'
 
 class UserDetails extends Component {
@@ -31,17 +31,12 @@ class UserDetails extends Component {
     const meals = [];
       meals = [...this.props.meals]
       await meals.forEach(async (meal) => {
-        console.log('meal.hostedBy._id.toString() === id', meal.hostedBy._id.toString() === id);
-        debugger
         if (meal.hostedBy._id.toString() === id) {
           await host.push(meal);
         } else {
           await attended.push(meal);
         }
       })
-
-    
-
     return { host, attended }
   }
 

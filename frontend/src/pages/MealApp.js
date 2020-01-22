@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { load } from '../actions/MealActions';
-import { setFilter } from '../actions/FlterActions';
+import { setFilter } from '../actions/FilterActions';
 
 import MealList from '../components/MealList';
 
@@ -34,6 +34,9 @@ export class MealApp extends Component {
     return reviews.reduce((acc, currReview) => acc + currReview.rate, 0) / reviews.length;
   }
 
+
+
+  
   loadMeals = async () => {
     //if the renderType is meal - get all the meals according to the current filter (could be none or by location or by cuisine specific names)
     //if the renderType is cuisine - use mealService to get access to the DB where a map reduce function will get all the unique cuisine types

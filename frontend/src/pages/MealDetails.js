@@ -21,19 +21,19 @@ class MealDetails extends Component {
   }
 
   onOccuranceRegistration = registration => {
-    debugger;
+   
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       const meal = { ...this.props.meal };
       let occurrence = meal.occurrences.find(current => current.id === registration.id);
-      debugger;
+     
       console.log('meal', meal);
       console.log('occurrence', occurrence);
       console.log('meal.capacity', meal.capacity);
       console.log('parseInt(registration.numOfAttendees)', parseInt(registration.numOfAttendees));
 
       if (occurrence && meal.capacity >= occurrence.total + parseInt(registration.numOfAttendees)) {
-        debugger;
+      
         occurrence.attendees = [...occurrence.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.numOfAttendees }];
         occurrence.total = occurrence.total + registration.numOfAttendees;
         meal.occurrences = [...this.props.meal.occurrences, occurrence];
@@ -116,7 +116,10 @@ class MealDetails extends Component {
 
 const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
-  meal: state.meal.meal,
+  meal: state.meal.selectedMeal,
+  
+  
+
 });
 
 const mapDispatchToProps = {

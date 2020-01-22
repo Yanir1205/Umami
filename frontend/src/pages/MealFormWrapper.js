@@ -19,7 +19,7 @@ class MealFormWrapper extends Component {
     delete user.username
     meal.hostedBy = user
     console.log('MealFormWrapper - > ',meal);
-    debugger
+   
     this.props.add({...meal});
   };
 

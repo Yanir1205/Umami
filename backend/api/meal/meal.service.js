@@ -31,6 +31,8 @@ async function getById(mealId) {
   console.log('meal.service -> getById', mealId);
   try {
     const meal = await collection.findOne({ _id: ObjectId(mealId) });
+    console.log('meal.service - > meal ',meal);
+    
     return meal;
   } catch (err) {
     console.log(`ERROR: cannot find meal ${mealId}`);
@@ -70,7 +72,6 @@ async function add(meal) {
 
     var resultMeals =  meals.filter(( meal) => {
         const id = meal.hostedBy._id.toString()
-        // const res = (id === userId) ? meal :acc
         if (id === userId) {
             
             return meal
@@ -95,9 +96,7 @@ async function add(meal) {
     return resultMeals;
 }
 
-onRowClick=(id)=>{
-    this.props.onRowClick(id)
-}
+
 
 async function filterResults(meals, filterBy) {
 

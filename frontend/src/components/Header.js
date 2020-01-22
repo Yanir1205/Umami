@@ -9,15 +9,15 @@ import { logout ,login} from '../actions/UserActions';
 
 
 export class Header extends Component {
-  state = {
-    isLogIn:null,
-    
-  };
+    // state = {
+    //   isLogIn:null,
+      
+    // };
 
-  onLogout = () => {
-    console.log('Header logout');
+  onLogout =async () => {
+     console.log('Header logout');
     
-    this.props.logout();
+     await this.props.logout();
   }
 
   onLogIn = async (user) => {
@@ -29,7 +29,7 @@ export class Header extends Component {
   //   return UserService.checkConnection();
   // };
   render() {
-    console.log('checkLogIn', this.state.isLogIn);
+    console.log('checkLogIn', this.props.loggedInUser);
     return (
       <div className='main-header-container'>
         <div className='header-container  flex'>
