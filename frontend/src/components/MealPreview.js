@@ -46,7 +46,8 @@ class MealPreview extends Component {
         let nextDate = new Date(this.getNextDateFromNow().date)
         nextDate = nextDate.toDateString().split(' ').slice(1, 3).join(' ')
         return (
-            <div className="meal-card card-border align-base margin-bottom-20" onClick={() => this.onCardClick(this.props.meal._id)}>
+            // <div className="meal-card card-border align-base margin-bottom-20" onClick={() => this.onCardClick(this.props.meal._id)}>
+            <div className="meal-card " onClick={() => this.onCardClick(this.props.meal._id)}>
 
                 <img className="img-meal" src={this.props.meal.imgUrls[0]} alt=""></img>
                 <div>{this.getPromotionMsg()}</div>

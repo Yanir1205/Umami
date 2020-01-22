@@ -74,25 +74,23 @@
   border-radius: 2px;
   margin: 10px 0px;
   padding: 10px 10px;
-  
 }
 
 .card-container-horizontal {
   border-width: 0 2px 0 2px;
   border-left-color: $basicClr4;
   border-right-color: $basicClr4;
-
 }
 
 .cuisine-card-container {
-    column-count: 3;
-    column-gap: 1em;
-    margin: 1.5em;
-    padding: 0;
-    column-gap: 1.5em;
-    font-size: 0.85em;
-    flex-direction: column;
-    break-inside: avoid-column;
+  column-count: 3;
+  column-gap: 1em;
+  margin: 1.5em;
+  padding: 0;
+  column-gap: 1.5em;
+  font-size: 0.85em;
+  flex-direction: column;
+  break-inside: avoid-column;
 }
 
 .cuisine-card {
@@ -120,17 +118,30 @@
   // margin: 5px;
   // padding: 3px;
   cursor: pointer;
-  
+
   .item {
+    display: inline-block;
+    break-inside: avoid;
+    background: #fff;
+    padding: 1em;
+    // margin: 0 0 1.5em;
+    // width: 100%;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 4px 0 #ccc;
+  }
+}
+.badge-list-container {
+  display: flex;
+  justify-content: space-evenly;
+  .badge-card-container {
+    div {
       display: inline-block;
-      break-inside: avoid;
-      background: #fff;
-      padding: 1em;
-      // margin: 0 0 1.5em;
-      // width: 100%;
-      box-sizing: border-box;
-      box-shadow: 2px 2px 4px 0 #ccc;
-    
-      
+      h3 {
+        cursor: pointer;
+        border: 1px solid black;
+        padding: 10px;
+        border-radius: 8px;
+      }
     }
   }
+}
