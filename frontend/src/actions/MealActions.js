@@ -26,25 +26,22 @@ export function getById(id) {
 }
 
 export function add(meal) {
-
-
+  debugger;
   const action = meal._id ? 'UPDATE' : 'ADD';
-  if(action === 'UPDATE'){
-    console.log('MealAction UPDATE meal -> ',meal);
-    
+  if (action === 'UPDATE') {
+    console.log('MealAction UPDATE -> ', meal);
     return async dispatch => {
       const newMeal = await MealService.update(meal);
-      console.log('MealAction add newMeal',newMeal);
+      console.log('MealAction update meal', newMeal);
 
-      dispatch({ type: action, meal:newMeal });
+      dispatch({ type: action, meal: newMeal });
     };
-  } else{
+  } else {
     return async dispatch => {
-      console.log('MealAction UPDATE ADD -> ',meal);
-
+      console.log('MealAction ADD -> ', meal);
       const newMeal = await MealService.add(meal);
-      console.log('MealAction add newMeal',newMeal);
-      dispatch({ type: action, meal:newMeal });
+      console.log('MealAction add meal', newMeal);
+      dispatch({ type: action, meal: newMeal });
     };
   }
 }

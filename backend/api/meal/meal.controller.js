@@ -35,6 +35,7 @@ async function deleteMeal(req, res) {
 }
 
 async function addMeal(req, res) {
+  debugger;
   try {
     var meal = req.body;
 

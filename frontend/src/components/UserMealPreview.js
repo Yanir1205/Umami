@@ -22,9 +22,6 @@ class UserMealPreview extends Component {
     componentDidMount() {
 
         this.loadTable()
-        console.log('componentDidMount', this.props);
-
-
     }
 
 

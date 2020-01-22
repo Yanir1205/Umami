@@ -19,7 +19,6 @@ class ImageGallery extends Component {
     });
   }
 
-  //TODO - Add short description to every image - figcaption
   swapWithMain = ev => {
     ev.preventDefault();
     const selected = ev.target.name;
@@ -29,13 +28,10 @@ class ImageGallery extends Component {
   };
 
   render() {
-    console.log('ImageGallery');
-    
     return (
       <div className='image-gallery-container'>
         <figure className='main-figure'>
           <img alt='' name='main' src={this.state.main}></img>
-          <figcaption className='layer'>Something about this image</figcaption>
         </figure>
         <figure>
           <img alt='' name='one' src={this.state.one} onClick={this.swapWithMain}></img>

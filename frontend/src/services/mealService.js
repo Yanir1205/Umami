@@ -16,10 +16,10 @@ async function query(filter) {
       userId: filter.userId,
       at: filter.at,
       type: filter.type,
-    }
+    };
     if (filter.location) {
-      params.city = filter.location.city
-      params.country = filter.location.country
+      params.city = filter.location.city;
+      params.country = filter.location.country;
     }
   }
   
@@ -40,6 +40,7 @@ async function getById(id) {
 }
 
 async function add(meal) {
+  debugger;
   const addedMeal = await HttpService.post(`${endpoint}`, meal);
   return addedMeal;
 }

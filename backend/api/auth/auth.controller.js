@@ -29,6 +29,8 @@ async function signup(req, res) {
 }
 
 async function logout(req, res){
+    console.log('auth.controller logout');
+    
     try {
         req.session.destroy()
         res.send({ message: 'logged out successfully' })

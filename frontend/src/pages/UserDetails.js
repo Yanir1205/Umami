@@ -50,11 +50,8 @@ class UserDetails extends Component {
 
 
   render() {
+    const user = this.props.loggedInUser;
 
-    console.log('this.props.meals', this.props.meals);
-
-    const user = JSON.parse(UserService.getUserLoggedin())
-    console.log('UserDetails - > user ',user);
     
     return <div className="container">
       <div className="user-container">
@@ -70,7 +67,8 @@ class UserDetails extends Component {
 
 const mapStateToProps = state => ({
   meals: state.meal.meals,
-  filter: state.filter.filter
+  filter: state.filter.filter,
+  loggedInUser: state.user.loggedInUser,
 });
 
 const mapDispatchToProps = {

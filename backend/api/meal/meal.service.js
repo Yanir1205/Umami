@@ -17,40 +17,40 @@ async function query(filterBy = {}) {
 }
 
 async function remove(mealId) {
-    const collection = await dbService.getCollection('meal');
-    try {
-        await collection.deleteOne({ _id: ObjectId(mealId) });
-    } catch (err) {
-        console.log(`ERROR: cannot remove meal ${mealId}`);
-        throw err;
-    }
+  const collection = await dbService.getCollection('meal');
+  try {
+    await collection.deleteOne({ _id: ObjectId(mealId) });
+  } catch (err) {
+    console.log(`ERROR: cannot remove meal ${mealId}`);
+    throw err;
+  }
 }
 
 async function getById(mealId) {
-    const collection = await dbService.getCollection('meal');
-    console.log('meal.service -> getById', mealId);
-    try {
-        const meal = await collection.findOne({ _id: ObjectId(mealId) });
-        return meal;
-    } catch (err) {
-        console.log(`ERROR: cannot find meal ${mealId}`);
-        throw err;
-    }
+  const collection = await dbService.getCollection('meal');
+  console.log('meal.service -> getById', mealId);
+  try {
+    const meal = await collection.findOne({ _id: ObjectId(mealId) });
+    return meal;
+  } catch (err) {
+    console.log(`ERROR: cannot find meal ${mealId}`);
+    throw err;
+  }
 }
 
 async function edit(meal) {
-    const collection = await dbService.getCollection('meal');
-    try {
-        var id = meal._id;
-        delete meal._id;
-        await collection.updateOne({ _id: ObjectId(id) }, { $set: meal });
-        meal._id = id;
-
-        return meal;
-    } catch (err) {
-        console.log(`ERROR: cannot update meal ${meal._id} err-> `, err);
-        // throw err;
-    }
+  const collection = await dbService.getCollection('meal');
+  try {
+    debugger;
+    var id = meal._id;
+    delete meal._id;
+    await collection.updateOne({ _id: ObjectId(id) }, { $set: meal });
+    meal._id = id;
+    return meal;
+  } catch (err) {
+    console.log(`ERROR: cannot update meal ${meal._id} err-> `, err);
+    // throw err;
+  }
 }
 
 async function add(meal) {
@@ -144,9 +144,9 @@ function buildCriteria(filterBy) {
 }
 
 module.exports = {
-    query,
-    getById,
-    remove,
-    add,
-    edit,
+  query,
+  getById,
+  remove,
+  add,
+  edit,
 };
