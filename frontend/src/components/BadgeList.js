@@ -13,8 +13,8 @@ class BadgeList extends Component {
         return (
             <span >
                 {this.props.badges && this.props.badges.map((badge, idx) => {
-                    return <div className="badge-card-container" key={idx}>
-                        <BadgePreview isSelected={badge === this.props.selectedBadge ? 'selected' : ''} onBadgeClick={this.props.onBadgeClick} badge={badge} />
+                    return <div className="cuisine-list " key={idx}>
+                        <BadgePreview  isSelected={badge === this.props.selectedBadge ? 'selected' : ''} onBadgeClick={this.props.onBadgeClick} badge={badge} />
                     </div>
                 })}
             </span>

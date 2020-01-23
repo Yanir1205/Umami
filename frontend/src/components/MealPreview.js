@@ -46,15 +46,27 @@ class MealPreview extends Component {
         let nextDate = new Date(this.getNextDateFromNow().date)
         nextDate = nextDate.toDateString().split(' ').slice(1, 3).join(' ')
         return (
-            <div className="meal-card card-border align-base margin-bottom-20" onClick={() => this.onCardClick(this.props.meal._id)}>
+            <div className="item  meal-card card-bottom-border  flex" onClick={() => this.onCardClick(this.props.meal._id)}>
+                <div className="flex.column">
+                    <div className="category ">{this.getPromotionMsg()}</div>
+                    <img className="img-meal " src={this.props.meal.imgUrls[0]} alt=""></img>
+                    <div className="flex space-between ">
+                        <div>{this.getMainMsg()}</div>
+                        <div>{avgRate ? Math.floor(avgRate) : ''}(⭐)</div>
+                    </div>
 
-                <img className="img-meal" src={this.props.meal.imgUrls[0]} alt=""></img>
-                <div>{this.getPromotionMsg()}</div>
-                <div>{this.getMainMsg()}</div>
-                <div>{avgRate ? avgRate : ''}</div>
-                <div>{this.props.meal.title}</div>
-                <div>{this.props.meal.price} $</div>
-                <div>{nextDate}</div>
+
+                    <div className="flex space-between ">
+                        <div>{this.props.meal.title}</div>
+                        <div>{nextDate}</div>
+                    </div>
+                    <hr className="hr"></hr>
+                    <div>{this.props.meal.description}</div>
+                    <hr className="hr"></hr>
+                    
+                    <div className="flex align-end justify-end">{this.props.meal.price} $</div>
+
+                </div>
             </div>
         );
     }

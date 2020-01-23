@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 class AttendeesPreview extends Component {
+
   render() {
     const { attendee } = this.props;
     return (
