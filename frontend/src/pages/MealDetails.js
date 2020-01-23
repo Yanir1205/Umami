@@ -15,9 +15,11 @@ import MealMap from '../components/MealMap';
 class MealDetails extends Component {
   state = { pageOverlayClass: 'hide', displayReviewForm: 'hide', occurrenceAttendees: {} };
 
-  componentDidMount() {
+  async componentDidMount() {
     const id = this.props.match.params.id;
-    this.props.getById(id);
+    await this.props.getById(id);
+    // console.log( 'DETELS->',this.props.meal.imgUrls);
+    
   }
 
   onEventRegistration = async registration => {
@@ -70,6 +72,7 @@ class MealDetails extends Component {
 
   render() {
     const meal = this.props.meal;
+ 
     return (
       <div className='container meal-details-page-container'>
         <div id='page-overlay' className={this.state.pageOverlayClass}></div>
@@ -78,7 +81,7 @@ class MealDetails extends Component {
             <div className='page-title'>
               <h2>{meal.title}</h2>
             </div>
-            <ImageGallery images={meal.imgUrls}></ImageGallery>
+            <ImageGallery meal={meal}></ImageGallery>
             <div className='meal-details-container flex'>
               <div className='left-box flex-shrink-70'>
                 <MealPageNav meal={meal}></MealPageNav>

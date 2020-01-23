@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from "react-router";
 import NavBar from './NavBar.js';
 import { Link } from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
 import { logout, login } from '../actions/UserActions';
 
+
 export class Header extends Component {
   onLogout = async () => {
     await this.props.logout();
+    debugger
+    this.props.history.push(`/`)
   };
 
   onLogIn = async user => {
@@ -63,4 +67,4 @@ const mapDispatchToProps = {
   login,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter( connect(mapStateToProps, mapDispatchToProps)(Header));

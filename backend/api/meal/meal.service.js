@@ -127,7 +127,11 @@ function buildCriteria(filterBy) {
 
   //filtering by location:
   if (filterBy.city) {
-    criteria.location = { $in: { city: filterBy.location.city } };
+    // criteria.location = { $in: { city: filterBy.location.city } };
+    // criteria.location = { { "location.city" : { $eq: filterBy.location.city} } };
+    criteria.location = { "location.city" : { $eq: filterBy.location.city} } 
+
+    // db.inventory.find( { "item.name": { $eq: "ab" } } )
   }
   if (filterBy.country) {
     if (!criteria.location) criteria.location = {};

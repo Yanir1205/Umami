@@ -7,7 +7,7 @@ class MealPreview extends Component {
     getNextDateFromNow() {
         let max = -Infinity
         this.props.meal.occurrences.forEach(occurrence => {
-            if (occurrence.date > max && occurrence.date < Date.now())
+            if (occurrence.date > max && occurrence.date > Date.now())
                 max = occurrence
         })
         return max
@@ -42,19 +42,36 @@ class MealPreview extends Component {
     }
 
     render() {
+        const description = this.props.meal.description
+        
         const avgRate = this.props.getAvgRate([...this.props.meal.reviews])
         let nextDate = new Date(this.getNextDateFromNow().date)
+        console.log('Date :-> ',nextDate);
         nextDate = nextDate.toDateString().split(' ').slice(1, 3).join(' ')
         return (
-            <div className="meal-card card-border align-base margin-bottom-20" onClick={() => this.onCardClick(this.props.meal._id)}>
+            <div className="item  meal-card flex" onClick={() => this.onCardClick(this.props.meal._id)}>
+                    <div className="category ">{this.getPromotionMsg()}</div>
+                    <img className="img-meal " src={this.props.meal.imgUrls[0]} alt=""></img>
+                <div className="flex.column text-card">
+                    <div className="flex space-between ">
+                        <div> {this.getMainMsg()}</div>
+                        <div className="start">{avgRate ? Math.floor(avgRate)+'(⭐)' : '0(⭐)'}</div>
+                    </div>
 
-                <img className="img-meal" src={this.props.meal.imgUrls[0]} alt=""></img>
-                <div>{this.getPromotionMsg()}</div>
-                <div>{this.getMainMsg()}</div>
-                <div>{avgRate ? avgRate : ''}</div>
-                <div>{this.props.meal.title}</div>
-                <div>{this.props.meal.price} $</div>
-                <div>{nextDate}</div>
+
+                        {/* <img className ="user-img" src={this.props.meal.hostedBy.imgUrl}></img> */}
+                    <div className="flex space-between ">
+                        <div>{this.props.meal.title}</div>
+                        <div>{nextDate}</div>
+                    </div>
+                    <div className="description-tag">
+                    <hr className="hr "></hr>
+                    <div className="text-description-tag">{description}</div>
+                    <hr className="hr"></hr>
+                    </div>
+                    <div className="price-tag flex align-end justify-end">{this.props.meal.price} $</div>
+
+                </div>
             </div>
         );
     }

@@ -111,6 +111,7 @@
   box-shadow: 2px 2px 4px 0 #ccc;
 }
 
+
 .filter-cuisine-card {
   display: flex;
   width: 350px;
@@ -134,8 +135,26 @@
 }
 
 .outer-card {
-  border: 5px solid #f4b6425d;
+  border: 5px solid #ffffff;
   padding: 10px 5px;
-  background-color: #f4b642;
+  background-color: hsl(0, 0%, 97%);
   box-shadow: 0 5px 5px rgba(88, 89, 91, 0.12), 0 5px 5px rgba(88, 89, 91, 0.24);
+}
+
+.badge-list-container {
+  display: flex;
+  // justify-content: space-evenly;
+  
+  .badge-card-container {
+    div {
+      margin-right: 15px;
+      display: inline-block;
+      h3 {
+        cursor: pointer;
+        border: 1px solid black;
+        padding: 10px;
+        border-radius: 8px;
+      }
+    }
+  }
 }
