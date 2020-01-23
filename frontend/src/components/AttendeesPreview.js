@@ -15,9 +15,6 @@ class AttendeesPreview extends Component {
             </div>
             <div className='name'>{attendee.fullName}</div>
             <div className='address'>US, New-York</div>
-            <div className='actions'>
-              <button className='btn'>Contact</button>
-            </div>
           </div>
         </div>
       </div>

@@ -5,9 +5,10 @@ import GoogleMapReact from 'google-map-react';
 const GOOGLE_API_KEY = 'AIzaSyDt708aK1FKYJTOT61i_xrzY9R3UD3_6Lw&&';
 
 const mapContainerStyle = {
-  width: '70vw',
-  height: '70vh',
-  margin: '5px',
+  width: '48vw',
+  height: '60vh',
+  margin: '20px 0px 20px 0px',
+  zIndex: 0,
 };
 
 class MealMap extends Component {
@@ -20,12 +21,12 @@ class MealMap extends Component {
   };
 
   render() {
-    const location = {...this.props.location}
+    const location = { ...this.props.location };
     delete location.address;
     delete location.city;
     delete location.country;
     return (
-      <div>
+      <div className='google-map-container'>
         <Map className='card-container-horizontal ' style={mapContainerStyle} google={this.props.google} initialCenter={location} zoom={14}>
           <Marker name={'Current location'} />
         </Map>

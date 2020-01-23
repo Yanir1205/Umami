@@ -5,42 +5,44 @@ import Moment from 'moment';
 import Utilities from '../services/UtilitiesService';
 
 class MealPayment extends Component {
-  state = { sortedOccurrences: [], activeOccurrence: 0, attendees: 0, date: '', totalPrice: 0, buttonText: 'REGISTER EVENT', registerCounter: 0, paymentClass: 'hide' };
+  state = { meal: [], activeOccurrence: 0, attendees: 0, date: '', totalPrice: 0, buttonText: 'REGISTER EVENT', registerCounter: 0, paymentClass: 'hide' };
 
   componentDidMount() {
-    const sortedOccurrences = this.props.meal.occurrences.sort(Utilities.sortFunction);
-    let date = Moment(sortedOccurrences[0].date).format('MM-DD-YY');
-    let activeOccurrence = sortedOccurrences[0];
+    const meal = { ...this.props.meal };
+    meal.occurrences.sort(Utilities.sortunction);
+    let date = Moment(meal.occurrences[0].date).format('MM-DD-YY');
+    let activeOccurrence = meal.occurrences[0];
 
     if (!this.props.loggedInUser) {
       this.setState({
-        sortedOccurrences: sortedOccurrences,
+        meal: meal,
         activeOccurrence: activeOccurrence,
         date: date,
       });
     } else {
-      debugger;
-      let userOccurrences = this.props.meal.occurrences.reduce((result, current) => {
-        let exists = current.attendees.filter(attendee => attendee._id === this.props.loggedInUser._id);
-        if (exists) result.push(exists);
+      let userOccurrences = meal.occurrences.reduce((result, current) => {
+        let user = current.attendees.filter(attendee => attendee._id === this.props.loggedInUser._id);
+        if (user) result.push({ user: user[0], activeOccurrence: current });
+        return result;
       }, []);
 
       let attendees = 0,
         totalPrice = 0;
 
       if (userOccurrences && userOccurrences.length > 0) {
-        activeOccurrence = userOccurrences.sort(Utilities.sortFunction);
-        date = Moment(activeOccurrence[0].date).format('MM-DD-YY');
-        attendees = activeOccurrence[0].attendees[0].numOfAttendees;
-        totalPrice = attendees * this.props.meal.price;
+        activeOccurrence = userOccurrences[0].activeOccurrence;
+        date = Moment(activeOccurrence.date).format('MM-DD-YY');
+        attendees = userOccurrences[0].user.numOfAttendees;
+        totalPrice = parseInt(attendees) * parseInt(meal.price);
       } else userOccurrences = [];
 
       this.setState({
-        sortedOccurrences: sortedOccurrences,
+        meal: meal,
         activeOccurrence: activeOccurrence,
         attendees: attendees,
         totalPrice: totalPrice,
         date: date,
+        registerCounter: attendees === 0 ? 0 : 1,
         buttonText: attendees === 0 ? 'REGISTER EVENT' : 'UPDATE EVENT',
         paymentClass: attendees === 0 ? 'hide' : 'payment',
       });
@@ -56,7 +58,7 @@ class MealPayment extends Component {
       let totalPrice = value * this.props.meal.price;
       this.setState({ attendees: value, totalPrice: totalPrice });
     } else {
-      let activeOccurrence = this.state.sortedOccurrences.find(current => {
+      let activeOccurrence = this.state.meal.occurrences.find(current => {
         return Moment(current.date).format('MM-DD-YY') === Moment(value).format('MM-DD-YY');
       });
 
@@ -66,7 +68,6 @@ class MealPayment extends Component {
 
   onEventRegistration = ev => {
     ev.preventDefault();
-    debugger;
     if (this.state.registerCounter === 0) {
       let calcPrice = this.state.attendees * this.props.meal.price;
       this.setState({ totalPrice: calcPrice, registerCounter: 1, buttonText: 'BOOK EVENT', paymentClass: 'payment' });

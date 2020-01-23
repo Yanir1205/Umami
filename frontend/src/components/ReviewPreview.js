@@ -4,7 +4,7 @@ import Moment from 'moment';
 class ReviewPreview extends Component {
   render() {
     const review = this.props.review;
-    
+
     return (
       <div className='review-container '>
         {review && (
@@ -18,7 +18,7 @@ class ReviewPreview extends Component {
                 <i className='icon-small fas fa-star'></i>
               </span>
               <strong>Event Name </strong>
-              <span>{Moment.unix(review.at).format('LL')}</span>
+              <span>{Moment(review.at).format('MM-DD-YY')}</span>
               <span>
                 By <em>{review.byUser.fullName}</em>
               </span>

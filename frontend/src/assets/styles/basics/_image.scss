@@ -1,0 +1,40 @@
+.image-hover * {
+  box-sizing: border-box;
+}
+.image-hover {
+  // position: relative;
+  // width: 450px;
+  // height: 200px;
+  // display: inline-block;
+  // overflow: hidden;
+  // background: #fff;
+  border: 5px solid #fff;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+}
+// .image-hover a {
+//   text-decoration: none;
+// }
+
+// .image-hover img {
+//   margin: -100px 0px 0px -100px;
+// }
+
+/*** effect zoom in ***/
+
+.img-zoom-in img {
+  transition: all 0.2s ease-in-out;
+}
+
+.img-zoom-in:hover img {
+  transform: scale(1.1);
+}
+
+/*** effect zoom out ***/
+
+.img-zoom-out img {
+  transition: all 0.2s ease-in-out;
+}
+
+.img-zoom-out:hover img {
+  transform: scale(0.9);
+}

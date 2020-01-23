@@ -32,7 +32,6 @@
 
 .flex {
   display: flex;
-  
 }
 
 .flex-inline {
@@ -218,7 +217,7 @@
   opacity: 0.7;
 }
 
-.show {
+.show-inline {
   display: inline-block;
 }
 
@@ -229,6 +228,10 @@
 
   margin: 0 auto;
 }
+.show-block {
+  display: block;
+}
+
 // Media helpers
 
 .square-ratio {

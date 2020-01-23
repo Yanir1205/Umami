@@ -1,15 +1,22 @@
 .image-gallery-container {
+  margin-bottom: 50px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(2, 20vw);
+  grid-template-rows: repeat(2, 15vw);
   grid-gap: 15px;
 
   figure img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(100%);
-    transition: filter 0.9s linear;
+    overflow: hidden;
+    transition: all 0.6s linear;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.02);
+      filter: saturate(150%);
+    }
   }
 
   & > figure:first-child {
@@ -22,6 +29,7 @@
   & > figure:first-child {
     padding-left: 10px;
     border-left: 1px solid $basicClr2;
+    cursor: none;
   }
 
   & > figure:first-child img {
@@ -49,13 +57,6 @@
     //   color: $basicClr2;
     //   transition: all 0.9s ease;
     //   transform: scale(0.1);
-    // }
-
-    // &:hover .layer {
-    //   opacity: 0.8;
-    //   width: 90%;
-    //   transition: all 0.5s ease;
-    //   transform: scale(1);
     // }
   }
 }
