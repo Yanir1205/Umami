@@ -10,10 +10,11 @@ class MealPageNav extends Component {
     let endTime = meal.mealType === 'Dinner' ? '9:00PM' : meal.mealType === 'Lunch' ? '4:00PM' : '11:00AM';
     let minCapacity = Math.floor(parseInt(meal.capacity) / 2);
     let totalRates = meal.reviews.length;
-    let avgRate = 0,
-      rateClass = 'hide';
+    let avgRate = 0;
+    let rateClass = 'hide';
+
     if (totalRates > 0) {
-      avgRate = meal.reviews.reduce((acc, currReview) => acc + currReview.rate, 0) / meal.reviews.length;
+      avgRate = meal.reviews.reduce((result, current) => result + parseInt(current.rate), 0) / meal.reviews.length;
       rateClass = 'rate';
     }
 
@@ -48,7 +49,7 @@ class MealPageNav extends Component {
         <div className='bottom-box flex'>
           <div className={this.state.rateClass}>
             <i className='icon-small fas fa-star'></i>
-            <span>{Math.ceil(this.state.avgRate)}</span>
+            <span>{this.state.avgRate.toFixed(1)}</span>
             <span>({this.state.totalRates})</span>
           </div>
           <div className='meal-period'>

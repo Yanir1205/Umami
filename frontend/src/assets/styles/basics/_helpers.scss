@@ -32,7 +32,6 @@
 
 .flex {
   display: flex;
-  
 }
 
 .flex-inline {
@@ -218,8 +217,12 @@
   opacity: 0.7;
 }
 
-.show {
+.show-inline {
   display: inline-block;
+}
+
+.show-block {
+  display: block;
 }
 
 // Media helpers
