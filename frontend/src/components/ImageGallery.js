@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class ImageGallery extends Component {
   state = {
@@ -9,15 +10,17 @@ class ImageGallery extends Component {
     four: '',
   };
 
-  componentDidMount() {
-    this.setState({
-      main: this.props.images[0],
-      one: this.props.images[1],
-      two: this.props.images[2],
-      three: this.props.images[3],
-      four: this.props.images[4],
+   componentDidMount() {
+     
+     this.setState({
+      main: this.props.meal.imgUrls[0],
+      one: this.props.meal.imgUrls[1],
+      two: this.props.meal.imgUrls[2],
+      three: this.props.meal.imgUrls[3],
+      four: this.props.meal.imgUrls[4],
     });
   }
+
 
   swapWithMain = ev => {
     ev.preventDefault();
@@ -31,23 +34,26 @@ class ImageGallery extends Component {
     return (
       <div className='image-gallery-container'>
         <figure className='main-figure'>
-          <img alt='' name='main' src={this.state.main}></img>
+          <img alt='' name='main' src={this.props.meal.imgUrls[0]}></img>
         </figure>
         <figure>
-          <img alt='' name='one' src={this.state.one} onClick={this.swapWithMain}></img>
+          <img alt='' name='one' src={this.props.meal.imgUrls[1]} onClick={this.swapWithMain}></img>
         </figure>
         <figure>
-          <img alt='' name='two' src={this.state.two} onClick={this.swapWithMain}></img>
+          <img alt='' name='two' src={this.props.meal.imgUrls[2]} onClick={this.swapWithMain}></img>
         </figure>
         <figure>
-          <img alt='' name='three' src={this.state.three} onClick={this.swapWithMain}></img>
+          <img alt='' name='three' src={this.props.meal.imgUrls[3]} onClick={this.swapWithMain}></img>
         </figure>
         <figure>
-          <img alt='' name='four' src={this.state.four} onClick={this.swapWithMain}></img>
+          <img alt='' name='four' src={this.props.meal.imgUrls[4]} onClick={this.swapWithMain}></img>
         </figure>
       </div>
     );
   }
 }
 
-export default ImageGallery;
+
+
+
+export default(ImageGallery);
