@@ -64,7 +64,6 @@ export class MealApp extends Component {
         }
     }
 
-
     onLocationClick = async (event) => {
         const city = event.target.innerText
         await this.props.setFilter({ ...this.props.filter, location: { ...this.props.filter.location, city } })
