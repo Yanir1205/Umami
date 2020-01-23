@@ -54,17 +54,18 @@ export class Login extends Component {
       <div>
         <a onClick={this.openModal}>Login</a>
         <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel='Example Modal'>
-          <h2 ref={subtitle => (this.subtitle = subtitle)}>Log in </h2>
+          <h2 ref={subtitle => (this.subtitle = subtitle)}>Log-in </h2>
           <div className='log-in'>
-            <p>User-Name</p>
+            {/* <p>User-Name</p> */}
             <input type='email' placeholder='email' onChange={this.changeInput} name='email'></input>
-            <p>Password</p>
+            <p></p>
             <input type='text' placeholder='password' onChange={this.changeInput} name='password'></input>
-            <br />
-            <button onClick={this.onLogIn}>Log-in</button>
+            <p></p>
+           
+            <button className="btn-x-lg" onClick={this.onLogIn}>Log-in</button>
           </div>
 
-          <button onClick={this.closeModal}>close</button>
+          <button className="close-btn icon-medium color-gray fas fa-times"onClick={this.closeModal}></button>
         </Modal>
       </div>
     );

@@ -27,6 +27,24 @@ button {
 
 }
 
+.close-btn{
+  // content: 'X'; // here is your X(cross) sign.
+  color: rgb(0, 0, 0);
+  // font-weight: 300;
+  // font-family: Arial, sans-serif;
+  // width: 30px;
+  // height: 30px;
+  display: flex;
+  // border-radius: 30px;
+  position: absolute;
+  top:2px;
+  right:2px;
+  text-align: center;
+
+}
+.btn-x-lg{
+  width: 100%;
+}
 .btn-lg {
   width: 40%;
 }
@@ -50,8 +68,9 @@ button {
 }
 
 .btn-ghost {
-  background-color: transparent;
-  color: $basicClr3;
+  background-color: $clr7;
+  // background-color: transparent;
+  color: $basicClr2;
   border: 1px solid $basicClr3;
   transition: 0.2s ease;
   cursor: pointer;
@@ -59,8 +78,8 @@ button {
 }
 
 .btn-ghost:hover {
-  background-color: rgba($basicClr3, 0.04);
-  color: $basicClr1;
+  background-color: rgba($clr7, 0.04);
+  color: $basicClr2;
   transition: 0.2s ease;
 }
 
