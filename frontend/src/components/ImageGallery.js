@@ -48,6 +48,7 @@ class ImageGallery extends Component {
         <figure>
           <img alt='' name='four' src={this.props.meal.imgUrls[4]} onClick={this.swapWithMain}></img>
         </figure>
+        
       </div>
     );
   }
