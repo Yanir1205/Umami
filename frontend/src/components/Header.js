@@ -4,12 +4,11 @@ import NavBar from './NavBar.js';
 import { Link } from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
-import UserService from '../services/UserService';
 import { logout, login } from '../actions/UserActions';
 
 export class Header extends Component {
-  onLogout = () => {
-    this.props.logout();
+  onLogout = async () => {
+    await this.props.logout();
   };
 
   onLogIn = async user => {

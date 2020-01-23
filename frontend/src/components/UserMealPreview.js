@@ -71,6 +71,7 @@ class UserMealPreview extends Component {
                     console.log("HIIIII ON EDIT");
                 }
             }
+            
 
         ]
     }

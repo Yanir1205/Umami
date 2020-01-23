@@ -132,10 +132,9 @@ class MealPayment extends Component {
   }
 }
 
+export default MealPayment;
+
 const mapStateToProps = state => ({
+
   loggedInUser: state.user.loggedInUser,
 });
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MealPayment);

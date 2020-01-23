@@ -34,15 +34,20 @@ async function query(filter, groupBy) {
     }
   }
   const meals = await HttpService.get(endpoint, filter, params);
+
   return meals;
 }
 
 async function getById(id) {
   const meal = await HttpService.get(`${endpoint}/${id}`);
+
+  console.log('@@mealService -> getByIb',meal);
+  
   return meal;
 }
 
 async function add(meal) {
+  
   const addedMeal = await HttpService.post(`${endpoint}`, meal);
   return addedMeal;
 }

@@ -22,7 +22,9 @@ button {
 }
 
 .btn-mdd {
-  width: 30%;
+  width: 20%;
+  margin-bottom:20px;
+
 }
 
 .btn-lg {
@@ -43,6 +45,7 @@ button {
 
 .btn-cta:hover {
   background-color: rgba($basicClr3, 0.05);
+  color: $basicClr3;
   transition: 0.2s ease;
 }
 
