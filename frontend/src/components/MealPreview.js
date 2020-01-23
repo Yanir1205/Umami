@@ -7,7 +7,7 @@ class MealPreview extends Component {
     getNextDateFromNow() {
         let max = -Infinity
         this.props.meal.occurrences.forEach(occurrence => {
-            if (occurrence.date > max && occurrence.date < Date.now())
+            if (occurrence.date > max && occurrence.date > Date.now())
                 max = occurrence
         })
         return max

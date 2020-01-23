@@ -14,7 +14,6 @@ class MealList extends Component {
             <MealPreview  onCardClick={this.props.onCardClick} meal={meal} getAvgRate={this.props.getAvgRate} renderType={this.props.renderType} />
           </div>
         ))}
-        {/* <MealPreview onCardClick={this.props.onCardClick} meal={this.props.meals[0]} getAvgRate={this.props.getAvgRate} renderType={this.props.renderType}/> */}
       </section>
     )
   }
