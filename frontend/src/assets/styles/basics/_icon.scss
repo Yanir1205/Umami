@@ -1,7 +1,7 @@
 .icon-small {
   font-size: 0.7rem;
   vertical-align: middle;
-    padding: 0px 0px 18px 3px;
+  padding: 0px 3px 5px 0px;
 }
 
 .icon-medium {
@@ -18,4 +18,7 @@
 
 .color-yellow {
   color: $starColor;
+}
+.color-green {
+  color: $clr4;
 }

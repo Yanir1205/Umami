@@ -13,7 +13,7 @@ import ReviewList from '../components/ReviewList';
 import MealMap from '../components/MealMap';
 
 class MealDetails extends Component {
-  state = { displayReviewForm: 'hide', occurrenceAttendees: {} };
+  state = { pageOverlayClass: 'hide', displayReviewForm: 'hide', occurrenceAttendees: {} };
 
   componentDidMount() {
     const id = this.props.match.params.id;
@@ -22,20 +22,19 @@ class MealDetails extends Component {
 
   onEventRegistration = async registration => {
     if (this.props.loggedInUser) {
-      debugger;
       const { loggedInUser } = this.props;
       const meal = { ...this.props.meal };
       const activeOccurrence = meal.occurrences.find(current => current.id === registration.id);
 
       if (activeOccurrence && parseInt(meal.capacity) >= parseInt(activeOccurrence.total) + parseInt(registration.attendees)) {
-        // const currentUser = activeOccurrence.attendees.filter(current => current._id === loggedInUser._id);
+        const currentUser = activeOccurrence.attendees.find(current => current._id === loggedInUser._id);
 
-        // if (currentUser && currentUser.length > 0) {
-        //   currentUser.numOfAttendees = parseInt(currentUser.numOfAttendees) + parseInt(registration.attendees);
-        // } else {
-        //   activeOccurrence.attendees = [...activeOccurrence.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.attendees }];
-        // }
-        activeOccurrence.attendees = [...activeOccurrence.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.attendees }];
+        if (currentUser) {
+          currentUser.numOfAttendees = parseInt(currentUser.numOfAttendees) + parseInt(registration.attendees);
+        } else {
+          activeOccurrence.attendees = [...activeOccurrence.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.attendees }];
+        }
+
         activeOccurrence.total = parseInt(activeOccurrence.total) + parseInt(registration.attendees);
         await this.props.add(meal);
       }
@@ -44,16 +43,16 @@ class MealDetails extends Component {
 
   onDisplayReviewForm = ev => {
     ev.preventDefault();
-    if (this.props.loggedInUser) this.setState({ displayReviewForm: '' });
+    if (this.props.loggedInUser) this.setState({ displayReviewForm: '', pageOverlayClass: 'page-overlay show-block' });
   };
 
   onCloseReviewForm = ev => {
     ev.preventDefault();
-    this.setState({ displayReviewForm: 'hide' });
+    this.setState({ displayReviewForm: 'hide', pageOverlayClass: 'hide' });
   };
 
   onSaveReviewForm = async review => {
-    this.setState({ displayReviewForm: 'hide' });
+    this.setState({ displayReviewForm: 'hide', pageOverlayClass: 'hide' });
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       const meal = { ...this.props.meal };
@@ -73,6 +72,7 @@ class MealDetails extends Component {
     const meal = this.props.meal;
     return (
       <div className='container meal-details-page-container'>
+        <div id='page-overlay' className={this.state.pageOverlayClass}></div>
         {meal && (
           <React.Fragment>
             <div className='page-title'>

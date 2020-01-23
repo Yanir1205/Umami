@@ -45,7 +45,7 @@ class ReviewForm extends Component {
               <input type='email' placeholder='Email' name='email' onChange={this.onHandleChange} required></input>
             </div>
             <div className='review'>
-              <textarea className='' id='review' name='txt' onChange={this.onHandleChange} placeholder='Tell us what you think'></textarea>
+              <textarea className='' id='review' name='txt' onChange={this.onHandleChange} min='5' placeholder='Tell us what you think'></textarea>
             </div>
             <div className='save'>
               <button className='button btn-ghost'>SAVE</button>

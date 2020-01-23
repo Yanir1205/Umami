@@ -89,6 +89,8 @@ export class MealForm extends Component {
   };
 
   render() {
+    console.log('render in MealForm -> ',this.state);
+    
     return (
       <div>
         <form className='' onSubmit={this.onSaveMeal}>

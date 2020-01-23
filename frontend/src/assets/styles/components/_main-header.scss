@@ -18,8 +18,8 @@
       margin-left: 100px;
     }
 
-    & > a {
-      font-size: 1.3rem;
+    & * a {
+      font-size: 1.4rem;
       text-transform: uppercase;
       letter-spacing: 0.3rem;
       border: 1px solid transparent;
@@ -27,21 +27,25 @@
       cursor: pointer;
     }
 
-    & > a:hover {
+    & * a:hover {
       color: $clr3;
       border-bottom: 2px solid $clr3;
     }
   }
 
-  .header-controls > div a {
-    cursor: pointer;
-  }
+  .header-controls {
+    padding-right: 10px;
 
-  .header-controls > div:first-child {
-    margin-right: 10px;
-  }
+    & > div a {
+      cursor: pointer;
+    }
 
-  .header-controls > div:last-child {
-    margin-left: 10px;
+    & > div:first-child {
+      margin-right: 10px;
+    }
+
+    & > div:last-child {
+      margin-left: 10px;
+    }
   }
 }

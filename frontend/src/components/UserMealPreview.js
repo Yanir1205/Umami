@@ -16,7 +16,7 @@ class UserMealPreview extends Component {
 
         ],
         data: [
-            {  title: null, mealType: null, isActive: null, iAm: null, price: 58 },
+            // {  title: null, mealType: null, isActive: null, iAm: null, price: 58 },
         ],
     };
     componentDidMount() {
@@ -71,14 +71,14 @@ class UserMealPreview extends Component {
                     console.log("HIIIII ON EDIT");
                 }
             }
+            
 
         ]
     }
 
 
     render() {
-
-        return (<MaterialTable
+        return ( <MaterialTable
             title="Editable Example"
             columns={this.state.columns}
             data={this.state.data}

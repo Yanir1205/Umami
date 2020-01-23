@@ -1,14 +1,14 @@
 .main-site-container {
   margin: 0;
   padding: 0;
-  width: 100vw;
+  max-width: 100vw;
   min-height: 100vh;
 }
 
 .container {
   margin: 0 auto;
-  padding-left: 10px;
-  padding-right: 10px;
+  // padding-left: 10px;
+  // padding-right: 10px;
 
   @include for-narrow-layout {
     max-width: $mobile-breakpoint;

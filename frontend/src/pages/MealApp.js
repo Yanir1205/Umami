@@ -14,14 +14,26 @@ export class MealApp extends Component {
         renderType: ''
     }
 
-    componentDidMount() {
-        this.loadMeals()
+    async componentDidMount() {
+        await this.loadMeals()
     }
 
-    componentDidUpdate(prevProps) {
+    async componentDidUpdate(prevProps) {
         if (JSON.stringify(prevProps.location.pathname) !== JSON.stringify(this.props.location.pathname)) {
-            this.loadMeals()
+            await this.loadMeals()
         }
+    }
+
+    resetFilterDefinitions = () => {
+        this.props.setFilter({
+            userId: '',
+            at: '',
+            type: '',
+            location: {
+                city: '',
+                country: '',
+            }
+        })
     }
 
     getAvgRate = (reviews) => {
@@ -36,46 +48,48 @@ export class MealApp extends Component {
             badgeName = 'cuisine';
         }
         this.setBadges(badgeName);
-        this.setState({ renderType: badgeName });
+        await this.setState({ renderType: badgeName });
         if (badgeName === 'location') {
             const { location } = this.props.match.params
-            if (!location) {
-                this.props.loadMealsByLocation();
-            } else {
-                await this.props.setFilter({ ...this.props.filter, location: { city: location } })
-                this.props.load(this.props.filter);
+            if (!location) { //load meals grouped by location
+                await this.props.loadMealsByLocation();
+            } else { //load meals from specific location
+                // await this.props.setFilter({ ...this.props.filter, location: { ...this.props.location, city: location } })
+                await this.props.load(this.props.filter);
             }
         } else {
             const { cuisine } = this.props.match.params
-            if (!cuisine) {
+            if (!cuisine) { //load meals grouped by cuisine
                 this.props.loadMealsByCuisine();
-            } else {
-                await this.props.setFilter({ ...this.props.filter, type: cuisine })
-                this.props.load(this.props.filter)
+            } else { //load meals from specific cuisine
+                // await this.props.setFilter({ ...this.props.filter, type: cuisine })
+                await this.props.load(this.props.filter)
             }
         }
     }
 
-    setBadges = (badgeType) => {
-        if (badgeType === 'location') {
-            this.props.loadCities()
-        } else if (badgeType === 'cuisine') {
-            this.props.loadCuisines()
+    setBadges = async (badgeType) => {
+        if (badgeType === 'location' && !(this.props.cities.length > 0)) {
+            await this.props.loadCities()
+        } else if (badgeType === 'cuisine' && !(this.props.cuisines.length > 0)) {
+            await this.props.loadCuisines()
         }
     }
 
     onLocationClick = async (event) => {
         const city = event.target.innerText
+        await this.resetFilterDefinitions()
         await this.props.setFilter({ ...this.props.filter, location: { ...this.props.filter.location, city } })
         this.props.history.push(`/meal/location/${city}`);
-        this.loadMeals()
+        await this.loadMeals()
     }
 
     onCuisineClick = async (event) => {
         const cuisine = event.target.innerText;
+        await this.resetFilterDefinitions()
         await this.props.setFilter({ ...this.props.filter, type: cuisine })
         this.props.history.push(`/meal/cuisine/${cuisine}`)
-        this.loadMeals()
+        await this.loadMeals()
     }
 
     onCardClick = (id) => {

@@ -1,5 +1,4 @@
 .review-container {
-
   & blockquote {
     padding: 0;
     background: $basicClr1;
@@ -9,10 +8,6 @@
     padding: 15px 15px 10px 15px;
     position: relative;
     box-shadow: rgba($basicClr2, 0.025) 0 3px 20px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
     user-select: none;
     cursor: default;
   }
@@ -24,7 +19,7 @@
     position: absolute;
     top: 100%;
     left: 20px;
-    z-index: 250;
+    z-index: 10;
     background: transparent;
     height: 0;
     opacity: 1;
@@ -37,7 +32,7 @@
     position: absolute;
     top: 100%;
     left: 21px;
-    z-index: 500;
+    z-index: 20;
   }
   & blockquote header span i {
     color: $basicClr1;
