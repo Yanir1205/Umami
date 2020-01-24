@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 class ImageGallery extends Component {
   state = {
@@ -10,9 +9,8 @@ class ImageGallery extends Component {
     four: '',
   };
 
-   componentDidMount() {
-     
-     this.setState({
+  componentDidMount() {
+    this.setState({
       main: this.props.meal.imgUrls[0],
       one: this.props.meal.imgUrls[1],
       two: this.props.meal.imgUrls[2],
@@ -20,7 +18,6 @@ class ImageGallery extends Component {
       four: this.props.meal.imgUrls[4],
     });
   }
-
 
   swapWithMain = ev => {
     ev.preventDefault();
@@ -53,7 +50,4 @@ class ImageGallery extends Component {
   }
 }
 
-
-
-
-export default(ImageGallery);
+export default ImageGallery;

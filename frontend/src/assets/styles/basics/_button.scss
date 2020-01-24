@@ -6,7 +6,7 @@ button {
   background-color: transparent;
   border-radius: 2px;
   box-sizing: border-box;
-  border: 1px solid $basicClr3;
+  border: 1px solid $clr4;
   line-height: 2rem;
   font-size: 1rem;
   cursor: pointer;
@@ -23,11 +23,10 @@ button {
 
 .btn-mdd {
   width: 20%;
-  margin-bottom:20px;
-
+  margin-bottom: 20px;
 }
 
-.close-btn{
+.close-btn {
   // content: 'X'; // here is your X(cross) sign.
   color: rgb(0, 0, 0);
   // font-weight: 300;
@@ -37,12 +36,11 @@ button {
   display: flex;
   // border-radius: 30px;
   position: absolute;
-  top:2px;
-  right:2px;
+  top: 2px;
+  right: 2px;
   text-align: center;
-
 }
-.btn-x-lg{
+.btn-x-lg {
   width: 100%;
 }
 .btn-lg {
@@ -55,81 +53,81 @@ button {
 }
 
 .btn-cta {
-  background-color: $basicClr3;
-  color: $basicClr1;
+  background-color: $clr4;
+  color: $clr2;
   transition: 0.2s ease;
   cursor: pointer;
 }
 
 .btn-cta:hover {
-  background-color: rgba($basicClr3, 0.05);
-  color: $basicClr3;
+  background-color: rgba($clr4, 0.05);
+  color: $clr4;
   transition: 0.2s ease;
 }
 
 .btn-ghost {
-  background-color: $clr7;
+  background-color: $clr4;
   // background-color: transparent;
-  color: $basicClr2;
-  border: 1px solid $basicClr3;
+  color: $clr2;
+  border: 1px solid $clr4;
   transition: 0.2s ease;
   cursor: pointer;
   padding: 5px;
 }
 
 .btn-ghost:hover {
-  background-color: rgba($clr7, 0.04);
-  color: $basicClr2;
+  background-color: $clr6;
+  color: $clr3;
   transition: 0.2s ease;
 }
 
 .btn-secondary {
-  background-color: $basicClr1;
-  color: $basicClr3;
-  border: 1px solid $basicClr3;
+  background-color: $clr2;
+  color: $clr4;
+  border: 1px solid $clr4;
   transition: 0.2s ease;
   cursor: pointer;
   padding: 5px 4px 3px 5px;
 }
 
 .btn-secondary:hover {
-  background-color: $basicClr1;
+  background-color: $clr2;
   transition: 0.2s ease;
 }
 
 .btn-round {
   height: fit-content;
   padding: 0px 5px 2px 5px;
-  border: 1px solid $basicClr3;
-  background: $basicClr3;
+  border: 1px solid $clr4;
+  background: $clr4;
   border-radius: 50%;
   transition: all 0.3s ease-in-out;
-  color: $basicClr1;
+  color: $clr2;
 
   &:hover {
-    background: $basicClr1;
-    color: $basicClr3;
+    background: $clr2;
+    color: $clr4;
   }
 }
 
 .btn-round-sm {
   height: 25px;
   width: 25px;
-  border: 1px solid $basicClr3;
-  background: $basicClr3;
+  border: 1px solid $clr4;
+  background: $clr4;
   // border-radius: 50%;
   display: inline-block;
-  color: $basicClr1;
+  color: $clr2;
 
   &:hover {
-    background: $basicClr1;
-    color: $basicClr3;
+    background: $clr2;
+    color: $clr4;
   }
 }
 
 .btn-disabled {
-  color: $basicClr4;
-  background-color: $basicClr5;
+  color: $clr5;
+  background-color: $clr6;
 }
 
 .btn-disabled:hover {

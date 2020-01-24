@@ -89,8 +89,8 @@ export class MealForm extends Component {
   };
 
   render() {
-    console.log('render in MealForm -> ',this.state);
-    
+    console.log('render in MealForm -> ', this.state);
+
     return (
       <div>
         <form className='' onSubmit={this.onSaveMeal}>
@@ -103,11 +103,11 @@ export class MealForm extends Component {
             <div className='card-bottom-border flex column'>
               <div className='title'>
                 <label htmlFor='title'>Title</label>
-                <input type='text' placeholder='Event Name' id='title' name='title' id='title' value={this.state.title} onChange={this.onHandleChange} className='input-form' required></input>
+                <input type='text' placeholder='Event Name' id='title' name='title' value={this.state.title} onChange={this.onHandleChange} className='input-form' required></input>
               </div>
               <div className='description'>
                 <label htmlFor='description'>Description</label>
-                <textarea id='description' name='description' id='description' value={this.state.description} placeholder='Description' onChange={this.onHandleChange} className='textarea-form' required></textarea>
+                <textarea id='description' name='description' value={this.state.description} placeholder='Description' onChange={this.onHandleChange} className='textarea-form' required></textarea>
               </div>
               <div className='cuisineType'>
                 <label htmlFor='cuisineType'>Cuisine</label>
@@ -153,7 +153,7 @@ export class MealForm extends Component {
                     <div className='menu-item'>
                       <input type='text' placeholder='First course dish' name='firstCourse' className='input-form' onChange={this.onHandleMenuListChange} required></input>
                     </div>
-                    <a className='btn-round-sm' title='Add new menu item' href='' onClick={this.onAddInput} required>
+                    <a className='btn-round-sm' title='Add new menu item' href='#' onClick={this.onAddInput} required>
                       <i className='icon-small fas fa-plus'></i>
                     </a>
                   </div>

@@ -19,7 +19,6 @@ class MealDetails extends Component {
     const id = this.props.match.params.id;
     await this.props.getById(id);
     // console.log( 'DETELS->',this.props.meal.imgUrls);
-    
   }
 
   onEventRegistration = async registration => {
@@ -72,7 +71,7 @@ class MealDetails extends Component {
 
   render() {
     const meal = this.props.meal;
- 
+
     return (
       <div className='container meal-details-page-container'>
         <div id='page-overlay' className={this.state.pageOverlayClass}></div>
@@ -89,6 +88,7 @@ class MealDetails extends Component {
                 <ShowHideText text={meal.description} showRows={3}></ShowHideText>
                 <h3 id='menu'>Our menu</h3>
                 <MealMenu menu={meal.menu} onSelectedMenu={this.onSelectedMenu} />
+                <br></br>
                 <h3>Meet the other guests</h3>
                 <AttendeesList attendees={meal.occurrences[0].attendees}></AttendeesList>
                 <div className='reviews-title-wrapper'>
