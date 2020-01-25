@@ -2,12 +2,16 @@ const dbService = require('../../services/db.service');
 const ObjectId = require('mongodb').ObjectId;
 
 async function query(filterBy = {}) {
+
   const criteria = buildCriteria(filterBy);
   const collection = await dbService.getCollection('meal');
   try {
     if (!filterBy.group) {
       const meals = await collection.find(criteria).toArray();
+
       const resultMeals = filterResults(meals, filterBy);
+      console.log('meal.service -> query -> resultMeals',resultMeals);
+      
       return resultMeals;
     } else {
       //meaning there is a group operation needed:
@@ -78,26 +82,55 @@ async function add(meal) {
 }
 
 function filterMealsByUserId(userId, meals) {
-  var resultMeals = meals.filter(meal => {
-    const id = meal.hostedBy._id.toString();
-    if (id === userId) {
-      return meal;
-    }
-  }, []);
+  try {
 
-  meals.forEach(async meal => {
-    meal.occurrences.forEach(occurrence => {
-      occurrence.attendees.forEach(async attendee => {
-        if (attendee._id !== undefined) {
-          const id = attendee._id.toString();
-          if (id === userId) {
-            resultMeals.push(meal);
+    // const resultMeals = null
+    const resultMeals = meals.filter(meal => {// for Hosted 
+      if (meal.hostedBy._id == userId) {
+        meal.objForHosted = true
+        console.log('currMeal for HOSTED ->', meal);
+        return meal;
+      }
+    });
+    // resultMeals.push(currMeal)
+    // console.log('currMeal for filterMealsByUserId -> ', currMeal);
+    meals.forEach(async meal => {
+      meal.occurrences.forEach(occurrence => {
+        occurrence.attendees.forEach(async attendee => {
+          if (attendee._id !== undefined) {
+            const id = attendee._id;
+            if (id == userId) {//for attendees
+              const currMeal = { ...meal }
+              currMeal.objForHosted = false
+              delete currMeal.occurrences
+              currMeal.occurensId = occurrence.id
+              currMeal.date = occurrence.date
+              currMeal.userId = attendee._id
+              currMeal.userName = attendee.fullName
+              currMeal.total = attendee.numOfAttendees
+              
+              delete currMeal.capacity
+              delete currMeal.tags
+              delete currMeal.location
+              delete currMeal.imgUrls
+              delete currMeal.description
+              delete currMeal.reviews
+              delete currMeal.menu
+
+              console.log('currMeal for ATENDEES ->', currMeal);
+              resultMeals.push(currMeal);
+            }
           }
-        }
+        });
       });
     });
-  });
-  return resultMeals;
+
+    // console.log('meal.service -> currMeal ', currMeal);
+    return resultMeals;
+  } catch (err) {
+    console.log('err', err);
+
+  }
 }
 
 async function filterResults(meals, filterBy) {
@@ -129,7 +162,7 @@ function buildCriteria(filterBy) {
   if (filterBy.city) {
     // criteria.location = { $in: { city: filterBy.location.city } };
     // criteria.location = { { "location.city" : { $eq: filterBy.location.city} } };
-    criteria.location = { "location.city" : { $eq: filterBy.location.city} } 
+    criteria.location = { "location.city": { $eq: filterBy.location.city } }
 
     // db.inventory.find( { "item.name": { $eq: "ab" } } )
   }
