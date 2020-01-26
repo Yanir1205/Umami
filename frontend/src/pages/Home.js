@@ -13,8 +13,9 @@ export default class Home extends Component {
               <div className='right-border top-border'>
                 <div className='text'>
                   <p>
-                    Connecting people through unique culinary experiences in locations all around the world catered by our talented, hand-selected hosts. Your invited to enjoy an elegant dinner in Paris ,go on a delicious food tour in the exquisite markets of Marrakesh or discover the intriguing
+                    Connecting people through unique culinary experiences in locations all around the world. catered by our talented, hand-selected hosts. You're invited to enjoy an elegant dinner in Paris or discover the intriguing
                     world of preparing Uzbek Samosa
+                    {/* Connecting people through unique culinary experiences in locations all around the world. catered by our talented, hand-selected hosts. You're invited to enjoy an elegant dinner in Paris ,go on a delicious food tour on the exquisite markets of Marrakesh or discover the intriguing */}
                   </p>
                 </div>
               </div>

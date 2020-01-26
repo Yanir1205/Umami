@@ -7,6 +7,8 @@ import { setFilter } from '../actions/FilterActions';
 import MealList from '../components/MealList';
 import BadgeList from '../components/BadgeList';
 import Spinner from '../components/Spinner'
+import Notification from '../components/Notification'
+import SearchBar from '../components/SearchBar'
 
 export class MealApp extends Component {
 
@@ -114,10 +116,11 @@ export class MealApp extends Component {
     render() {
         const isResultsUrl = this.props.location.pathname.includes('results');
         return <div className='container'>
+            <SearchBar></SearchBar>
             {!this.props.meals.length && <div className="spinner-container"><Spinner type="spin"></Spinner></div>}
             {this.props.cuisines && this.state.renderType === 'cuisine' && !isResultsUrl && <BadgeList selectedBadge={this.state.selectedBadge} onBadgeClick={this.onCuisineClick} badges={this.props.cuisines}></BadgeList>}
             {this.props.cities && this.state.renderType === 'location' && !isResultsUrl && <BadgeList selectedBadge={this.state.selectedBadge} onBadgeClick={this.onLocationClick} badges={this.props.cities}></BadgeList>}
-
+            {/* <Notification open={true} msg={'test'}></Notification> */}
             {(this.props.meals.length > 0 && this.state.renderType) && <MealList onCardClick={this.onCardClick} onCuisineClick={this.onCuisineClick} onLocationClick={this.onLocationClick} renderType={this.state.renderType} meals={this.props.meals} getAvgRate={this.getAvgRate}></MealList>}
         </div>;
     }
