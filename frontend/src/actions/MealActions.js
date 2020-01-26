@@ -81,7 +81,6 @@ export function getById(id) {
   return async dispatch => {
     const meal = await MealService.getById(id);
     console.log('meal.Action ->getById -> meal -> ',meal);
-    
     dispatch({ type: 'GET_BY_ID', meal });
   };
 }

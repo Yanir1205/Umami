@@ -68,7 +68,6 @@ class MealPreview extends Component {
                 </div>
 
 
-                {/* <img className ="user-img" src={this.props.meal.hostedBy.imgUrl}></img> */}
                 <div className="flex space-between ">
                     <div>{this.props.meal.title}</div>
                     <div>{nextDate}</div>

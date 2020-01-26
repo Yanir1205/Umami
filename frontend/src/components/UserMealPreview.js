@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import MaterialTable from 'material-table';
 import { withRouter } from "react-router";
-import DatePicker from "react-datepicker";
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import Table from '@material-ui/core/Table';
-import Paper from '@material-ui/core/Paper';
-
+import { getById, add } from '../actions/MealActions';
+import { connect } from 'react-redux';
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -68,7 +64,22 @@ class UserMealPreview extends Component {
         this.props.history.push(`/meal/${data._id}`)
 
     }
+    // unRegister = async (mealId,occurensId) => {
+    //     await this.props.getById(mealId) 
+    //     const meal ={...this.props.meal}
+        
+    //     const occurrence = meal.occurrences.find(occurrence =>{
+    //          return occurrence.id === occurensId
+             
+    //     })
+    //     const attendeeIdx = occurrence.attendees.findIndex(user =>{
+    //         return user._id === this.props.userId  
+    //     })
+    //     meal.occurrences.splice( attendeeIdx , 1)
+    //     this.props.add(meal)  
+              
 
+    // }
     render() {
         console.log('UserMealPreview -> occurrences', this.state.occurrences);
 
@@ -91,6 +102,18 @@ class UserMealPreview extends Component {
 
                     }
                 }
+                // , {
+                //     icon: 'delete',
+                //     tooltip: 'delete',
+                //     onClick: (event, rowData) => {
+                //         event.stopPropagation()
+                //         if (!rowData.isHosted) {
+                //             console.log("rowData -> ", rowData , rowData.occurensId);
+                //             this.unRegister(rowData._id,rowData.occurensId)
+                //         }
+
+                //     }
+                // }
                 ]}
                 detailPanel={rowData => {
                     console.log('UserMealPreview rowData ->', rowData);
@@ -123,6 +146,17 @@ class UserMealPreview extends Component {
             }</div>
     }
 }
-export default withRouter(UserMealPreview);
+
+const mapStateToProps = state => ({
+    loggedInUser: state.user.loggedInUser,
+    meal: state.meal.selectedMeal,
+});
+
+const mapDispatchToProps = {
+    getById,
+    add,
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserMealPreview));
 
 
