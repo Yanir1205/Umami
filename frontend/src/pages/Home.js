@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SearchBar from '../components/SearchBar';
 
 export default class Home extends Component {
   render() {
@@ -40,6 +41,9 @@ export default class Home extends Component {
               </li>
             </ul>
           </div>
+        </div>
+        <div>
+          <SearchBar></SearchBar>
         </div>
       </>
     );
