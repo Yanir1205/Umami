@@ -49,7 +49,7 @@ class UserDetails extends Component {
           CREATE EVENT
         </button>
         </div>
-        {this.props.meals.length > 0 && <UserMealList meals={this.props.meals} userId={user._id}></UserMealList>}
+        {this.props.meals.length > 0 && <UserMealList meals={this.props.meals} userId={user._id} ></UserMealList>}
       </div>
     );
   }

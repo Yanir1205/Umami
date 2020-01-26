@@ -8,9 +8,9 @@ import Signup from './Signup';
 import { logout, login } from '../actions/UserActions';
 
 export class Header extends Component {
-  onLogout = async () => {
-    await this.props.logout();
-    this.props.history.push(`/`);
+  onLogout = () => {
+    this.props.logout();
+    this.props.history.push(`/`)
   };
 
   onLogIn = async user => {

@@ -30,8 +30,10 @@ async function deleteMeal(req, res) {
 }
 
 async function addMeal(req, res) {
+
   try {
     var meal = req.body;
+    
     meal = await mealsService.add(meal);
     res.send(meal);
   } catch (error) {
