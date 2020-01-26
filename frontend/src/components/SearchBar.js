@@ -1,14 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+
+import { setFilter } from '../actions/FilterActions';
 
 export class SearchBar extends Component {
-  render() {
-    return <div>Searchbar</div>;
-  }
+
+    state = {
+        val: ''
+    }
+
+    handleChange = async (event) => {
+        if (event.key !== 'Enter') {
+            this.setState({ val: event.target.value })
+        }
+    }
+
+    onSearchAction = async (event) => {
+        if (event.key === 'Enter' || event.type === 'click') {
+            const res = this.state.val
+            await this.setState({ val: '' })
+            this.props.history.push(`/meal/results/${res}`)
+        }
+    }
+
+    render() {
+        return <div className="search-bar container">
+            <input className="search-bar" type="text" onChange={this.handleChange} onKeyUp={this.onSearchAction} placeholder="Search Events..." value={this.state.val}></input>
+            <button className="btn" onClick={this.onSearchAction}>Search</button>
+        </div>
+    }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    filter: state.filter.filter
+});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    setFilter
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchBar));

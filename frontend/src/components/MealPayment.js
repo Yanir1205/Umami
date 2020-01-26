@@ -34,6 +34,7 @@ class MealPayment extends Component {
         totalPrice = 0;
 
       if (userOccurrences && userOccurrences.length > 0) {
+        debugger;
         activeOccurrence = userOccurrences[0].activeOccurrence;
         date = Moment(activeOccurrence.date).format('MM-DD-YY');
         attendees = userOccurrences[0].user.numOfAttendees;
