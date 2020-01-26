@@ -13,7 +13,7 @@ class MealPayment extends Component {
     let date = Moment(meal.occurrences[0].date).format('MM-DD-YY');
     let activeOccurrence = meal.occurrences[0];
     let availableSlots = parseInt(meal.capacity) - parseInt(activeOccurrence.total);
-    let availableText = `${availableSlots} available slots`;
+    let availableText = ''; //`${availableSlots} available slots`;
 
     if (!this.props.loggedInUser) {
       this.setState({
@@ -39,7 +39,7 @@ class MealPayment extends Component {
         attendees = userOccurrences[0].user.numOfAttendees;
         totalPrice = parseInt(attendees) * parseInt(meal.price);
         availableSlots = parseInt(meal.capacity) - parseInt(activeOccurrence.total);
-        availableText = `${availableSlots} available slots`;
+        availableText = ''; //`${availableSlots} available slots`;
       } else userOccurrences = [];
 
       this.setState({
