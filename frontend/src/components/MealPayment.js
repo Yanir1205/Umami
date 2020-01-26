@@ -58,8 +58,6 @@ class MealPayment extends Component {
     }
   }
 
-  componentDidUpdate() {}
-
   handleChange = ev => {
     ev.preventDefault();
     let name = ev.target.name;
@@ -78,6 +76,7 @@ class MealPayment extends Component {
   };
 
   onEventRegistration = ev => {
+    debugger;
     ev.preventDefault();
     if (this.state.registerCounter === 0) {
       let calcPrice = this.state.attendees * this.props.meal.price;

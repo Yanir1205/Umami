@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Notification from '../components/Notification';
 
 import { getById, add } from '../actions/MealActions';
 import ImageGallery from '../components/ImageGallery';
@@ -13,7 +14,7 @@ import ReviewList from '../components/ReviewList';
 import MealMap from '../components/MealMap';
 
 class MealDetails extends Component {
-  state = { pageOverlayClass: 'hide', displayReviewForm: 'hide', occurrenceAttendees: {} };
+  state = { pageOverlayClass: 'hide', displayReviewForm: 'hide', occurrenceAttendees: {}, showNotification: false, notificationMessage: '' };
 
   async componentDidMount() {
     const id = this.props.match.params.id;
@@ -37,6 +38,7 @@ class MealDetails extends Component {
 
         activeOccurrence.total = parseInt(activeOccurrence.total) + parseInt(registration.attendees);
         await this.props.add(meal);
+        this.setState({ showNotification: true, notificationMessage: 'You were successfully registered. ' });
       }
     }
   };
@@ -76,6 +78,7 @@ class MealDetails extends Component {
     else
       return (
         <div className='meal-details-page-container'>
+          <Notification open={this.state.showNotification} msg={this.state.notificationMessage}></Notification>
           <div id='page-overlay' className={this.state.pageOverlayClass}></div>
           {meal && (
             <React.Fragment>
