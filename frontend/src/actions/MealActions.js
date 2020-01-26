@@ -66,6 +66,17 @@ export function loadCuisines() {
   }
 }
 
+export function loadTags() {
+  const distinct = {
+    _id: "tags"
+  }
+  return async dispatch => {
+    const tags = await MealService.query(null, null, distinct)
+    // const cuisineTypesToReducer = cuisineTypes.map(cuisine => cuisine._id)
+    dispatch({ type: 'LOAD_TAGS', tags })
+  }
+}
+
 export function getById(id) {
   return async dispatch => {
     const meal = await MealService.getById(id);

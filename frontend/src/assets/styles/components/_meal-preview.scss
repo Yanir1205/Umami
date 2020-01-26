@@ -1,18 +1,20 @@
 .meal-list {
-  display: flex;
-  // column-count:4;
-  margin: 5px;
-  // row-gap: 5px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
 .meal-card {
-  display: flex;
-  width: 250px;
-  height: 340;
-  flex-direction: column;
-  // break-inside: avoid-column;
+  // display: flex;
+  // width: 250px;
+  // height: 340;
+  // flex-direction: column;
+  // // break-inside: avoid-column;
+  // position: relative;
+  // margin: 5px;
+  // // padding: 3px;
+  // cursor: pointer;
   position: relative;
-  margin: 5px;
-  // padding: 3px;
+  /* margin: 5px; */
   cursor: pointer;
 
   .item {
@@ -29,8 +31,8 @@
     box-shadow: 2px 2px 4px 0 #ccc;
 
     .img-meal {
-      width: 100%;
-      height: 150px;
+      height: 350px;
+      object-fit: cover;
     }
   }
   .user-img {
@@ -49,12 +51,13 @@
 
   .category {
     position: absolute;
-    top: absolute;
-    left: absolute;
-    background: $clr6;
-    padding: 3px 3px;
-    color: $clr4;
-    font-size: 11px;
+    top: 10px;
+    left: 10px;
+    // background: $clr6;
+    background: #ff0000;
+    padding: 1px 5px;
+    color: white;
+    font-size: 1rem;
     font-weight: 600;
     text-transform: uppercase;
 

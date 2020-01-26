@@ -6,7 +6,16 @@ import Moment from 'moment';
 import Utilities from '../services/UtilitiesService';
 
 class MealPayment extends Component {
-  state = { meal: [], activeOccurrence: 0, attendees: 0, date: '', totalPrice: 0, buttonText: 'REGISTER EVENT', registerCounter: 0, paymentClass: 'hide' };
+  state = {
+    meal: [],
+    activeOccurrence: 0,
+    attendees: 0,
+    date: '',
+    totalPrice: 0,
+    buttonText: 'REGISTER EVENT',
+    registerCounter: 0,
+    paymentClass: 'hide'
+  };
 
   componentDidMount() {
     const meal = { ...this.props.meal };
@@ -31,6 +40,7 @@ class MealPayment extends Component {
         totalPrice = 0;
 
       if (userOccurrences && userOccurrences.length > 0) {
+        debugger
         activeOccurrence = userOccurrences[0].activeOccurrence;
         date = Moment(activeOccurrence.date).format('MM-DD-YY');
         attendees = userOccurrences[0].user.numOfAttendees;

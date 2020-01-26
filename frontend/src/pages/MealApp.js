@@ -6,6 +6,7 @@ import { setFilter } from '../actions/FilterActions';
 
 import MealList from '../components/MealList';
 import BadgeList from '../components/BadgeList';
+import Spinner from '../components/Spinner'
 
 export class MealApp extends Component {
 
@@ -15,13 +16,20 @@ export class MealApp extends Component {
     }
 
     async componentDidMount() {
-        await this.loadMeals()
+        if (this.props.location.pathname.includes('results')) {
+            await this.setState({renderType: 'results'})
+            const { results } = this.props.match.params
+            await this.props.setFilter({ ...this.filter, tags: results })
+            await this.loadMeals()
+        } else {
+            await this.loadMeals()
+        }
     }
 
     async componentDidUpdate(prevProps) {
         if (JSON.stringify(prevProps.location.pathname) !== JSON.stringify(this.props.location.pathname)) {
             await this.loadMeals()
-        }
+        } 
     }
 
     resetFilterDefinitions = () => {
@@ -37,35 +45,42 @@ export class MealApp extends Component {
     }
 
     getAvgRate = (reviews) => {
-        return reviews.reduce((acc, currReview) => acc + currReview.rate, 0) / reviews.length;
+        return reviews.reduce((acc, currReview) => acc + parseInt(currReview.rate), 0) / reviews.length;
     }
 
     loadMeals = async () => {
-        let badgeName = '';
-        if (this.props.location.pathname.includes('location')) {
-            badgeName = 'location';
-        } else if (this.props.location.pathname.includes('cuisine')) {
-            badgeName = 'cuisine';
-        }
-        this.setBadges(badgeName);
-        await this.setState({ renderType: badgeName });
-        if (badgeName === 'location') {
-            const { location } = this.props.match.params
-            if (!location) { //load meals grouped by location
-                await this.props.loadMealsByLocation();
-            } else { //load meals from specific location
-                // await this.props.setFilter({ ...this.props.filter, location: { ...this.props.location, city: location } })
-                await this.props.load(this.props.filter);
-            }
+        if (this.props.location.pathname.includes('results')) {
+            const { results } = this.props.match.params
+            await this.props.setFilter({ ...this.filter, tags: results })
+            this.props.load(this.props.filter)
         } else {
-            const { cuisine } = this.props.match.params
-            if (!cuisine) { //load meals grouped by cuisine
-                this.props.loadMealsByCuisine();
-            } else { //load meals from specific cuisine
-                // await this.props.setFilter({ ...this.props.filter, type: cuisine })
-                await this.props.load(this.props.filter)
+            let badgeName = '';
+            if (this.props.location.pathname.includes('location')) {
+                badgeName = 'location';
+            } else if (this.props.location.pathname.includes('cuisine')) {
+                badgeName = 'cuisine';
+            }
+            this.setBadges(badgeName);
+            await this.setState({ renderType: badgeName });
+            if (badgeName === 'location') {
+                const { location } = this.props.match.params
+                if (!location) { //load meals grouped by location
+                    await this.props.loadMealsByLocation();
+                } else { //load meals from specific location
+                    // await this.props.setFilter({ ...this.props.filter, location: { ...this.props.location, city: location } })
+                    await this.props.load(this.props.filter);
+                }
+            } else {
+                const { cuisine } = this.props.match.params
+                if (!cuisine) { //load meals grouped by cuisine
+                    this.props.loadMealsByCuisine();
+                } else { //load meals from specific cuisine
+                    // await this.props.setFilter({ ...this.props.filter, type: cuisine })
+                    await this.props.load(this.props.filter)
+                }
             }
         }
+
     }
 
     setBadges = async (badgeType) => {
@@ -97,12 +112,13 @@ export class MealApp extends Component {
     }
 
     render() {
+        const isResultsUrl = this.props.location.pathname.includes('results');
         return <div className='container'>
-            {!this.props.meals.length && <div>LOADING...</div>}
-            {this.props.cuisines && this.state.renderType === 'cuisine' && <BadgeList selectedBadge={this.state.selectedBadge} onBadgeClick={this.onCuisineClick} badges={this.props.cuisines}></BadgeList>}
-            {this.props.cities && this.state.renderType === 'location' && <BadgeList selectedBadge={this.state.selectedBadge} onBadgeClick={this.onLocationClick} badges={this.props.cities}></BadgeList>}
+            {!this.props.meals.length && <Spinner type="spin"></Spinner>}
+            {this.props.cuisines && this.state.renderType === 'cuisine' && !isResultsUrl && <BadgeList selectedBadge={this.state.selectedBadge} onBadgeClick={this.onCuisineClick} badges={this.props.cuisines}></BadgeList>}
+            {this.props.cities && this.state.renderType === 'location' && !isResultsUrl && <BadgeList selectedBadge={this.state.selectedBadge} onBadgeClick={this.onLocationClick} badges={this.props.cities}></BadgeList>}
 
-            {this.props.meals.length && this.state.renderType && <MealList onCardClick={this.onCardClick} onCuisineClick={this.onCuisineClick} onLocationClick={this.onLocationClick} renderType={this.state.renderType} meals={this.props.meals} getAvgRate={this.getAvgRate}></MealList>}
+            {(this.props.meals.length > 0 && this.state.renderType) && <MealList onCardClick={this.onCardClick} onCuisineClick={this.onCuisineClick} onLocationClick={this.onLocationClick} renderType={this.state.renderType} meals={this.props.meals} getAvgRate={this.getAvgRate}></MealList>}
         </div>;
     }
 }

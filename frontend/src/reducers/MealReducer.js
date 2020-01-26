@@ -38,6 +38,8 @@ export default function MealReducer(state = initialState, action = {}) {
       return { ...state, cities: [...action.citiesToReducer] };
     case 'LOAD_CUISINES':
       return { ...state, cuisines: [...action.cuisineTypesToReducer] };
+    case 'LOAD_TAGS':
+      return { ...state, tags: [...action.tags] }
     default:
       return state;
   }

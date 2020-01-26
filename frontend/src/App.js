@@ -11,6 +11,7 @@ import MealFormWrapper from './pages/MealFormWrapper';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import SearchBar from './components/SearchBar';
 
 import './assets/css/all.min.css';
 import './assets/styles/global.scss';
@@ -23,12 +24,14 @@ export default class App extends Component {
       <React.Fragment>
         <Router history={history}>
           <Header></Header>
+          <SearchBar></SearchBar>
           <Switch>
             <Route component={Home} path='/' exact></Route>
             <Route component={MealFormWrapper} path='/meal/edit/:id?'></Route>
 
             <Route component={MealApp} path='/meal/location/:location?'></Route>
             <Route component={MealApp} path='/meal/cuisine/:cuisine?'></Route>
+            <Route component={MealApp} path='/meal/results/:results?'></Route>
             <Route component={MealDetails} path='/meal/:id' exact></Route>
             <Route component={UserDetails} path='/user/:id' exact></Route>
           </Switch>
