@@ -4,14 +4,14 @@
   margin: 30px auto;
 
   .frame {
-    box-shadow: 1px 2px 5px 0px rgba($basicClr2, 0.3);
+    box-shadow: 1px 2px 5px 0px rgba($clr3, 0.3);
     width: fit-content;
     margin-right: 30px;
   }
 
   .center {
     overflow: hidden;
-    box-shadow: 5px 5px 5px 0 rgba($basicClr2, 0.3);
+    box-shadow: 5px 5px 5px 0 rgba($clr3, 0.3);
   }
 }
 .profile {
@@ -33,7 +33,7 @@
       left: -3px;
       border-width: 1px;
       border-style: solid;
-      border-color: $basicClr3 $basicClr4 $basicClr3 transparent;
+      border-color: $clr4 $clr5 $clr4 transparent;
       border-radius: 50%;
       transition: all 1.5s ease-in-out;
     }
@@ -44,7 +44,7 @@
       height: 82px;
       top: -6px;
       left: -6px;
-      border-color: $basicClr3 transparent $basicClr4 $basicClr3;
+      border-color: $clr4 transparent $clr5 $clr4;
     }
 
     img {
@@ -77,14 +77,14 @@
     .btn {
       padding: 0px 10px;
       margin: 0 auto 10px auto;
-      border: 1px solid $basicClr3;
+      border: 1px solid $clr4;
       border-radius: 15px;
       transition: all 0.3s ease-in-out;
-      color: $basicClr3;
+      color: $clr4;
 
       &:hover {
-        background: $basicClr3;
-        color: $basicClr1;
+        background: $clr4;
+        color: $clr2;
       }
     }
   }

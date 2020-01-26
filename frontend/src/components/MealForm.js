@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import ImageUpload from './ImageUpload';
+import { connect } from 'react-redux';
 
+import ImageUpload from './ImageUpload';
+var id = 1;
 export class MealForm extends Component {
   state = {
     hostedBy: { _id: 0, fullName: '', imgUrl: '' },
@@ -10,16 +12,22 @@ export class MealForm extends Component {
     cuisineType: '',
     mealType: '',
     price: 0,
-    date: 0,
+    occurrences: [],
     capacity: 0,
     location: { address: '', city: '', country: '' },
     imgUrls: [],
   };
-
+  
   componentDidMount() {
     //TODO - get the 'loogedInUser' or the 'guest-mood' profile and init the 'hostedBy' object
+    this.setState({ hostedBy: this.props.loggedInUser })
+    debugger
+
     if (this.props.meal) {
-      this.setState({ meal: this.props.meal });
+      const meal = this.props.meal 
+      this.setState({meal});
+      debugger
+      
     }
   }
 
@@ -41,6 +49,27 @@ export class MealForm extends Component {
     let field = ev.target.name;
     let value = ev.target.value;
     this.setState({ [field]: value });
+    console.log('MealForm onHandleLocationChange -> ', this.state);
+  };
+  onHandleAdd = ev => {
+    ev.preventDefault();
+    let field = ev.target.name;
+    let date = ev.target.value;
+    // this.setState({ [field]: value });
+    if (date !== "") {
+      id += 1
+      const occurrences = {
+        id:id,
+        date: date,
+        attendees: [],
+
+      }
+      this.setState(prevState => ({
+        occurrences: [...prevState.occurrences ,occurrences ]
+      }))
+      
+    }
+
     console.log('MealForm onHandleLocationChange -> ', this.state);
   };
 
@@ -66,10 +95,13 @@ export class MealForm extends Component {
     this.setState({ menu: tempMenu });
   };
 
-  onSaveMeal = ev => {
-    ev.preventDefault();
+  onSaveMeal =(ev)   => {
+    // ev.preventDefault();
+    console.log('MealForm onSaveMeal -> this.props.loggedInUser' , this.props.loggedInUser);
+    
     let meal = {
       isActive: true,
+      isPromoted:false,
       hostedBy: this.state.hostedBy,
       menu: this.state.menu,
       location: this.state.location,
@@ -79,20 +111,20 @@ export class MealForm extends Component {
       cuisineType: this.state.cuisineType,
       mealType: this.state.mealType,
       price: this.state.price,
-      date: Date.parse(new Date(this.state.date)),
+      occurrences:this.state.occurrences,
       capacity: this.state.capacity,
       reviews: [],
-      attendees: [],
     };
 
     this.props.onSaveMeal(meal);
   };
 
   render() {
-    console.log('render in MealForm -> ',this.state);
-    
+    console.log('render in MealForm -> ', this.state);
+
     return (
       <div>
+        {/* <form className='' onSubmit={this.onSaveMeal}> */}
         <form className='' onSubmit={this.onSaveMeal}>
           <div className='image-container'>
             <h4>Images</h4>
@@ -103,11 +135,11 @@ export class MealForm extends Component {
             <div className='card-bottom-border flex column'>
               <div className='title'>
                 <label htmlFor='title'>Title</label>
-                <input type='text' placeholder='Event Name' id='title' name='title' id='title' value={this.state.title} onChange={this.onHandleChange} className='input-form' required></input>
+                <input type='text' placeholder='Event Name' id='title' name='title' value={this.state.title} onChange={this.onHandleChange} className='input-form' required></input>
               </div>
               <div className='description'>
                 <label htmlFor='description'>Description</label>
-                <textarea id='description' name='description' id='description' value={this.state.description} placeholder='Description' onChange={this.onHandleChange} className='textarea-form' required></textarea>
+                <textarea id='description' name='description' value={this.state.description} placeholder='Description' onChange={this.onHandleChange} className='textarea-form' required></textarea>
               </div>
               <div className='cuisineType'>
                 <label htmlFor='cuisineType'>Cuisine</label>
@@ -134,7 +166,9 @@ export class MealForm extends Component {
               <div className='flex row flex space-even'>
                 <div className='date flex-basis-1 margin-right-10'>
                   <label htmlFor='date'>Date</label>
-                  <input type='date' name='date' placeholder='Date' id='date' onChange={this.onHandleChange} value={this.state.date} className='input-date'></input>
+                  {/* <input type='date' name='date' placeholder='Date' id='date' onChange={this.onHandleChange} value={this.state.date} className='input-date'></input> */}
+                  <input type='date' name='date' placeholder='Date' id='date' onChange={this.onHandleAdd} value={this.state.date} className='input-date'></input>
+                  {this.state.occurrences && <div ><ul className = "clean-list "> {this.state.occurrences.map(occurrence => <li>{occurrence.date}</li>)}</ul></div>}
                 </div>
                 <div className='price flex-basis-1'>
                   <label htmlFor='price'>Price</label>
@@ -153,7 +187,7 @@ export class MealForm extends Component {
                     <div className='menu-item'>
                       <input type='text' placeholder='First course dish' name='firstCourse' className='input-form' onChange={this.onHandleMenuListChange} required></input>
                     </div>
-                    <a className='btn-round-sm' title='Add new menu item' href='' onClick={this.onAddInput} required>
+                    <a className='btn-round-sm' title='Add new menu item' href='#' onClick={this.onAddInput} required>
                       <i className='icon-small fas fa-plus'></i>
                     </a>
                   </div>
@@ -195,7 +229,7 @@ export class MealForm extends Component {
             </div>
           </div>
           <div className='save'>
-            <button type='submit' className='button btn-exlg btn-ghost' onSubmit={this.onSaveMeal}>
+            <button  className='button btn-exlg btn-ghost' onSaveMeal={this.onSaveMeal}>
               SAVE
             </button>
           </div>
@@ -204,5 +238,6 @@ export class MealForm extends Component {
     );
   }
 }
+
 
 export default MealForm;

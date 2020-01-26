@@ -19,6 +19,7 @@ export function signup(credentails) {
   };
 }
 export function logout() {
+  
   return async dispatch => {
     await UserService.logout();
     dispatch(_setUser(null));

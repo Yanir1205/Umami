@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from "react-router";
+import { withRouter } from 'react-router';
 import NavBar from './NavBar.js';
 import { Link } from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
 import { logout, login } from '../actions/UserActions';
 
-
 export class Header extends Component {
   onLogout = () => {
-    
     this.props.logout();
     this.props.history.push(`/`)
   };
 
   onLogIn = async user => {
-    const isLogin = await this.props.login(user);
+    await this.props.login(user);
   };
 
   render() {
@@ -24,15 +22,16 @@ export class Header extends Component {
       <div className='main-header-container'>
         <div className='header-container  flex'>
           <div className='header-logo flex-basis-30 flex'>
+            <div className='header-img'></div>
             <Link to='/'>
               <h1>umami</h1>
             </Link>
           </div>
           <NavBar></NavBar>
-          <div className='header-controls flex-basis-30 flex align-end justify-end'>
+          <div className='header-controls flex-basis-30 flex align-center justify-end'>
             {this.props.loggedInUser && (
               <>
-                <div className='margin-right-30'>
+                <div className=''>
                   <Link className='' to={`/user/${this.props.loggedInUser._id}`}>
                     <img style={{ width: '30px', height: '30px' }} src={require('../assets/img/layout/dish-cover.svg')} alt='' />
                   </Link>
@@ -67,4 +66,4 @@ const mapDispatchToProps = {
   login,
 };
 
-export default withRouter( connect(mapStateToProps, mapDispatchToProps)(Header));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

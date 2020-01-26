@@ -49,6 +49,8 @@ async function getById(mealId) {
   const collection = await dbService.getCollection('meal');
   try {
     const meal = await collection.findOne({ _id: ObjectId(mealId) });
+    console.log('meal.service -> getById -> ',meal);
+    
     return meal;
   } catch (err) {
     console.log(`ERROR: cannot find meal ${mealId}`);

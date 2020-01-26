@@ -66,8 +66,6 @@ class MealPreview extends Component {
                     </div>
                     <div className="description-tag">
                     <hr className="hr "></hr>
-                    <div className="text-description-tag">{description}</div>
-                    <hr className="hr"></hr>
                     </div>
                     <div className="price-tag flex align-end justify-end">{this.props.meal.price} $</div>
 

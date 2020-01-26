@@ -8,8 +8,8 @@ div:focus {
 
 input:focus,
 textarea:focus {
-  border: 1px solid $basicClr3;
-  background: rgba($basicClr3, 0.01);
+  border: 1px solid $clr4;
+  background: rgba($clr4, 0.01);
 }
 
 input:focus:not(:focus-visible),
@@ -22,7 +22,7 @@ input {
   display: inline-block;
   padding-left: 5px;
   box-sizing: border-box;
-  border: 1px solid $basicClr3;
+  border: 1px solid $clr4;
   border-radius: 0.25rem;
   line-height: 2rem;
   font-size: 1rem;
@@ -30,7 +30,7 @@ input {
 }
 
 input::placeholder {
-  color: $basicClr3;
+  color: $clr4;
   font-size: 1rem;
   letter-spacing: 1px;
   padding: 5px;
@@ -42,11 +42,11 @@ input::placeholder {
   font-variant: small-caps;
   // font-size: 1.8rem;
   letter-spacing: 2px;
-  border: 1px solid $basicClr7;
+  border: 1px solid $clr5;
 }
 
 .input-form::placeholder {
-  color: $basicClr7;
+  color: $clr5;
 }
 
 /* **** INPUT DATE**** */
@@ -54,7 +54,7 @@ input::placeholder {
 .input-date {
   display: inline-block;
   position: relative;
-  background: $basicClr1
+  background: $clr2
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='22' viewBox='0 0 20 22'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23688EBB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' transform='translate(1 1)'%3E%3Crect width='18' height='18' y='2' rx='2'/%3E%3Cpath d='M13 0L13 4M5 0L5 4M0 8L18 8'/%3E%3C/g%3E%3C/svg%3E")
     right 1rem center no-repeat;
 }
@@ -62,8 +62,8 @@ input::placeholder {
 .input-date:focus {
   outline: none;
   background: transparent;
-  border: 1px solid $basicClr3;
-  background: rgba($basicClr3, 0.01)
+  border: 1px solid $clr4;
+  background: rgba($clr4, 0.01)
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='22' viewBox='0 0 20 22'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23688EBB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' transform='translate(1 1)'%3E%3Crect width='18' height='18' y='2' rx='2'/%3E%3Cpath d='M13 0L13 4M5 0L5 4M0 8L18 8'/%3E%3C/g%3E%3C/svg%3E")
     right 1rem center no-repeat;
 }
@@ -71,7 +71,7 @@ input::placeholder {
 ::-webkit-datetime-edit-month-field:hover,
 ::-webkit-datetime-edit-day-field:hover,
 ::-webkit-datetime-edit-year-field:hover {
-  background: rgba($basicClr3, 0.01);
+  background: rgba($clr4, 0.01);
 }
 ::-webkit-datetime-edit-text {
   opacity: 0;
@@ -90,8 +90,8 @@ input::placeholder {
   bottom: 0;
   opacity: 0;
   cursor: pointer;
-  color: $basicClr3;
-  background: rgba($basicClr3, 0.01)
+  color: $clr4;
+  background: rgba($clr4, 0.01)
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='22' viewBox='0 0 20 22'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23688EBB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' transform='translate(1 1)'%3E%3Crect width='18' height='18' y='2' rx='2'/%3E%3Cpath d='M13 0L13 4M5 0L5 4M0 8L18 8'/%3E%3C/g%3E%3C/svg%3E")
     right 1rem center no-repeat;
 }
@@ -107,11 +107,11 @@ input::placeholder {
   font-variant: small-caps;
   // font-size: 1.8rem;
   letter-spacing: 2px;
-  border: 1px solid $basicClr7;
+  border: 1px solid $clr5;
 }
 
 .input-form-date::placeholder {
-  color: $basicClr7;
+  color: $clr5;
 }
 
 /* ****  INPUT WITH ICON **** */
@@ -151,7 +151,7 @@ textarea {
   display: inline-block;
   padding-left: 5px;
   box-sizing: border-box;
-  border: 1px solid $basicClr3;
+  border: 1px solid $clr4;
   border-radius: 0.25rem;
   vertical-align: top;
   line-height: 2rem;
@@ -162,7 +162,7 @@ textarea {
 }
 
 textarea::placeholder {
-  color: $basicClr3;
+  color: $clr4;
   font-size: 1rem;
   letter-spacing: 2px;
   padding: 5px;
@@ -172,11 +172,11 @@ textarea::placeholder {
   font-variant: small-caps;
   // font-size: 1.8rem;
   letter-spacing: 2px;
-  border: 1px solid $basicClr7;
+  border: 1px solid $clr5;
 }
 
 .textarea-form::placeholder {
-  color: $basicClr7;
+  color: $clr5;
 }
 
 .textarea-bottom-border {

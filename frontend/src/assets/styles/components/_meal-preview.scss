@@ -1,94 +1,81 @@
-
-
-.meal-list{
-    display: flex;
-    // column-count:4;
-    margin: 5px;
-    // row-gap: 5px;
-    
-    
+.meal-list {
+  display: flex;
+  // column-count:4;
+  margin: 5px;
+  // row-gap: 5px;
 }
 .meal-card {
+  display: flex;
+  width: 250px;
+  height: 340;
+  flex-direction: column;
+  // break-inside: avoid-column;
+  position: relative;
+  margin: 5px;
+  // padding: 3px;
+  cursor: pointer;
+
+  .item {
+    display: inline-block;
+
+    height: calc(100% + 180px);
+    // break-inside: avoid;
+    background: #fff;
+    // padding: 1em;
+    // margin: 0 0 1.5em;
+    // margin: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 4px 0 #ccc;
+
+    .img-meal {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+    }
+  }
+  .user-img {
+    width: 50px;
+    height: 50px;
     display: flex;
-    width: 250px;
-    height: 340;
-    flex-direction: column;
-    // break-inside: avoid-column;
-    position: relative;
-    margin: 5px;
-    // padding: 3px;
-    cursor: pointer;
-    
-    .item {
-        display: inline-block;
-        
-        height: calc(100% + 180px);
-        // break-inside: avoid;
-        background: #fff;
-        // padding: 1em;
-        // margin: 0 0 1.5em;
-        // margin: 15px;
-        width: 100%;
-        box-sizing: border-box;
-        box-shadow: 2px 2px 4px 0 #ccc;
-        
-        .img-meal{
-            width: 100%;
-            height: 150px;
-        }
-        
-      }
-      .user-img{
-        width: 50px;
-        height: 50px;
-        display: flex;
-        border-radius: 50px;
-    }   
-    .text-card{
-        padding: 5px;
-        font-size: 15px;
+    border-radius: 50px;
+  }
+  .text-card {
+    padding: 5px;
+    font-size: 15px;
+  }
+  .start {
+    font-size: 10px;
+  }
+
+  .category {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgb(255, 0, 0);
+    padding: 1px 5px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    .price-tag {
+      position: absolute;
+      bottom: 0px;
+      right: 20px;
     }
-    .start{
-        
-        font-size: 10px;
+    .description-tag {
+      // height: 40%;
+      height: 150px;
+
+      // flex-grow: 1 ;
+      text-overflow: ellipsis;
     }
-
-    .category {
-        position: absolute;
-        top: absolute;
-        left: absolute;
-        background: $clr7;
-        padding: 3px 3px;
-        color: $basicClr5;
-        font-size: 11px;
-        font-weight: 600;
-        text-transform: uppercase;
-    
-        .price-tag{
-            position: absolute;
-            bottom: 0px;
-            right: 20px;
-
-          }
-          .description-tag{
-            // height: 40%;
-            height:150px;
-
-            // flex-grow: 1 ;
-            text-overflow: ellipsis;
-        }      
-
-  
-        
-      }
-      .text-description-tag{
-        height: 120px;
-    }
-
-
+  }
+  .text-description-tag {
+    height: 120px;
+  }
 }
-
-
 
 // .note-list-container {
 

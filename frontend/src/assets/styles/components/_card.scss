@@ -2,31 +2,27 @@
   margin: 30px auto;
   padding: 20px;
   height: auto;
-  background-color: $basicClr1;
-  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.25), 0 2px 2px rgba(0, 0, 0, 0.2);
-  border-bottom: 2px solid $basicClr3;
+  background-color: $clr2;
+  border-bottom: 2px solid $clr4;
 
   .card-title {
     font-weight: 900;
     font-size: 2em;
     margin: 0.25em 0;
-    color: $basicClr3;
+    color: $clr4;
   }
 }
 
 .card-border {
-  // margin: 30px auto;
-  // padding: 20px;
   height: auto;
-  background-color: $basicClr1;
-  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.25), 0 2px 2px rgba(0, 0, 0, 0.2);
-  border: 1px solid $basicClr3;
+  background-color: $clr2;
+  border: 1px solid $clr4;
 
   .card-title {
     font-weight: 900;
     font-size: 2em;
     margin: 0.25em 0;
-    color: $basicClr3;
+    color: $clr4;
   }
 }
 
@@ -34,16 +30,13 @@
   margin: 30px auto;
   padding: 20px;
   height: auto;
-  background-color: $basicClr1;
-  box-shadow: 0 5px 5px rgba(88, 89, 91, 0.12), 0 5px 5px rgba(88, 89, 91, 0.24);
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 378 373' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.452 2.821l-3.171 367.05c125.311 2.569 250.666 2.673 376.055.905l.84-370.289c-124.617-.622-249.191.172-373.724 2.334z' fill='url(%23a)' /%3E%3Cdefs%3E%3ClinearGradient id='a' x2='1' gradientUnits='userSpaceOnUse' gradientTransform='matrix(377.176 -.281 .281 377.176 .281 .281)'%3E%3Cstop offset='0' stop-color='%23efeef3' /%3E%3Cstop offset='1' stop-color='%23E5E8ED' /%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E%0A")
-    center / cover no-repeat;
+  background-color: $clr2;
 
   .card-title {
     font-weight: 900;
     font-size: 2em;
     margin: 0.25em 0;
-    color: $basicClr3;
+    color: $clr4;
   }
 }
 
@@ -54,24 +47,24 @@
   width: 400px;
   z-index: 300;
   transform: translate(0%, 0%);
-  background-color: $basicClr4;
+  background-color: $clr5;
   background-clip: content-box;
   border-style: solid;
   padding: 0.3rem 0.3rem;
 
   &:before {
-    border-color: $basicClr4;
+    border-color: $clr5;
   }
 
   &:after {
-    border-color: $basicClr4;
+    border-color: $clr5;
   }
 }
 
 .card-background-lg {
   width: 93%;
   height: 80%;
-  background-color: $basicClr1;
+  background-color: $clr2;
   overflow: none;
   border-radius: 2px;
   margin: 10px 0px;
@@ -80,8 +73,8 @@
 
 .card-container-horizontal {
   border-width: 0 2px 0 2px;
-  border-left-color: $basicClr4;
-  border-right-color: $basicClr4;
+  border-left-color: $clr5;
+  border-right-color: $clr5;
 }
 
 .cuisine-card-container {
@@ -110,7 +103,6 @@
   break-inside: avoid-column;
   box-shadow: 2px 2px 4px 0 #ccc;
 }
-
 
 .filter-cuisine-card {
   display: flex;
@@ -144,7 +136,7 @@
 .badge-list-container {
   display: flex;
   // justify-content: space-evenly;
-  
+
   .badge-card-container {
     div {
       margin-right: 15px;

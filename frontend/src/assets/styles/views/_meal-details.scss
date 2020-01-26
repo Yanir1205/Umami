@@ -11,7 +11,7 @@
 
         .top-box > a {
           font-family: oswald-semi;
-          color: $basicClr2;
+          color: $clr3;
           margin: 0px 40px 10px 0px;
           font-size: 120%;
           letter-spacing: 3px;
@@ -19,13 +19,13 @@
           transition: all 0.2s;
         }
         & a:hover {
-          color: $basicClr3;
+          color: $clr4;
         }
 
         .bottom-box > div {
           margin: 10px 25px 20px 0px;
           text-transform: capitalize;
-          color: $basicClr3;
+          color: $clr4;
           font-weight: bolder;
           letter-spacing: 1px;
           word-spacing: 2px;
@@ -78,7 +78,7 @@
             flex-direction: column;
             margin-bottom: 20px;
             text-transform: capitalize;
-            color: $basicClr3;
+            color: $clr4;
             font-weight: bolder;
             letter-spacing: 1px;
             word-spacing: 2px;
@@ -87,7 +87,7 @@
           }
 
           .selected-date {
-            background-color: $basicClr7;
+            background-color: $clr5;
           }
 
           .payment ul {
@@ -97,7 +97,7 @@
           & ul > li {
             margin: 10px 0px 20px 0px;
             padding-bottom: 10px;
-            border-bottom: 1px solid $basicClr3;
+            border-bottom: 1px solid $clr4;
             font-weight: normal;
             display: flex;
             justify-content: space-between;

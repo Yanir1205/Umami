@@ -7,22 +7,27 @@ class MealFormWrapper extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     if (id) {
-      this.props.getById(id);
+       this.props.getById(id);  
+           
     }
   }
 
   onSaveMeal = meal => {
-    const { loggedInUser } = this.props;
+    const loggedInUser = { ... this.props.loggedInUser };
     meal.hostedBy = { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl };
+
     this.props.add(meal);
+
   };
 
   render() {
+    const loggedInUser = { ...this.props.loggedInUser }
+    debugger    
     return (
       <React.Fragment>
         <div className='container main-form-container'>
           <h2>Event</h2>
-          <MealForm onSaveMeal={this.onSaveMeal} meal={this.props.meal} />
+          <MealForm loggedInUser={loggedInUser} onSaveMeal={this.onSaveMeal} meal={this.props.meal} />
         </div>
       </React.Fragment>
     );

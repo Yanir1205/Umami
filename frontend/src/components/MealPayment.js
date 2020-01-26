@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Moment from 'moment';
+
 import Utilities from '../services/UtilitiesService';
 
 class MealPayment extends Component {
@@ -132,9 +133,8 @@ class MealPayment extends Component {
   }
 }
 
-export default MealPayment;
-
 const mapStateToProps = state => ({
-
   loggedInUser: state.user.loggedInUser,
 });
+
+export default connect(mapStateToProps, null)(MealPayment);

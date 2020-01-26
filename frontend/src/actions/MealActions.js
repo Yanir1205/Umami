@@ -69,6 +69,8 @@ export function loadCuisines() {
 export function getById(id) {
   return async dispatch => {
     const meal = await MealService.getById(id);
+    console.log('meal.Action ->getById -> meal -> ',meal);
+    
     dispatch({ type: 'GET_BY_ID', meal });
   };
 }
@@ -81,6 +83,8 @@ export function add(meal) {
       dispatch({ type: action, meal: newMeal });
     };
   } else {
+    console.log("MealAction  add meal ->"  ,meal);
+
     return async dispatch => {
       const newMeal = await MealService.add(meal);
       dispatch({ type: action, meal: newMeal });
