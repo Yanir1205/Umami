@@ -20,15 +20,15 @@ export class Header extends Component {
   render() {
     return (
       <div className='main-header-container'>
-        <div className='header-container  flex'>
-          <div className='header-logo flex-basis-30 flex'>
-            <div className='header-img'></div>
+        <div className='header-container container flex align-base'>
+          <div className='header-logo flex-basis-30 flex '>
             <Link to='/'>
               <h1>umami</h1>
+              {/* <h5>unlocking the senses</h5> */}
             </Link>
           </div>
           <NavBar></NavBar>
-          <div className='header-controls flex-basis-30 flex align-center justify-end'>
+          <div className='header-controls flex-basis-30 flex  justify-end'>
             {this.props.loggedInUser && (
               <>
                 <div className=''>
@@ -39,7 +39,7 @@ export class Header extends Component {
                 <span>|</span>
                 <div className=''>
                   <a href='' onClick={this.onLogout}>
-                    Logout
+                    logout
                   </a>
                 </div>
               </>

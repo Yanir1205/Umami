@@ -6,7 +6,7 @@ export class ReviewList extends Component {
   render() {
     const reviews = this.props.reviews;
     return (
-      <div className='main-reviews-container margin-bottom-40 note-list-container'>
+      <div className='main-reviews-container'>
         {reviews &&
           reviews.map((review, idx) => {
             return <ReviewPreview key={idx} review={review}></ReviewPreview>;

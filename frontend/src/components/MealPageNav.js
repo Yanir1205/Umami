@@ -33,19 +33,17 @@ class MealPageNav extends Component {
     return (
       <div className='nav-container'>
         <div className='top-box flex '>
-          <a className='underline-link' href='#menu'>
+          <a className='btn' href='#menu'>
             Menu
           </a>
-          <a className='underline-link' href='#reviews'>
+          <a className='btn' href='#reviews'>
             Reviews
           </a>
-          <a className='underline-link' href='#location'>
+          <a className='btn' href='#location'>
             Location
           </a>
         </div>
-        <div className='devider-box'>
-          <hr />
-        </div>
+      
         <div className='bottom-box flex'>
           <div className={this.state.rateClass}>
             <i className='icon-small fas fa-star'></i>

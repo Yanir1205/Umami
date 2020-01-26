@@ -52,7 +52,7 @@ export class Login extends Component {
   render() {
     return (
       <div>
-        <a onClick={this.openModal}>Login</a>
+        <a onClick={this.openModal}>login</a>
         <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel='Example Modal'>
           <h2 ref={subtitle => (this.subtitle = subtitle)}>Log-in </h2>
           <div className='log-in'>
@@ -61,11 +61,13 @@ export class Login extends Component {
             <p></p>
             <input type='text' placeholder='password' onChange={this.changeInput} name='password'></input>
             <p></p>
-           
-            <button className="btn-x-lg" onClick={this.onLogIn}>Log-in</button>
-          </div>
 
-          <button className="close-btn icon-medium color-gray fas fa-times"onClick={this.closeModal}></button>
+            <button className='btn-x-lg' onClick={this.onLogIn}>
+              Log-in
+            </button>
+          </div>
+         
+          <button className='close-btn icon-medium far fa-times-circle' onClick={this.closeModal}></button>
         </Modal>
       </div>
     );

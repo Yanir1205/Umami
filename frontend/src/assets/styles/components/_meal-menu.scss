@@ -1,4 +1,5 @@
 .menu-main-container {
+  margin: 7px auto 40px;
   .menu-container {
     padding: 20px;
   }
@@ -7,10 +8,11 @@
     margin-bottom: 20px;
 
     & h3 {
-      font-family: oswald-semi, lato;
+      font-family: raleway-bold;
       margin: 10px 0;
+      padding: 10px 15px;
       text-align: Center;
-      font-size: rem(20px);
+      font-size: 1.4rem;
       letter-spacing: 5px;
       word-spacing: 3px;
     }
@@ -18,10 +20,9 @@
     & div {
       margin: 15px 0;
       font-variant: small-caps;
-      font-size: rem(18px);
+      font-size: 1rem;
       text-align: Center;
       letter-spacing: 2px;
-      // border-bottom: 1px dotted rgb(213, 213, 213);
     }
   }
 }

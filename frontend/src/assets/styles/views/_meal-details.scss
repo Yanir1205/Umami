@@ -1,6 +1,10 @@
 .meal-details-page-container {
   .meal-details-container {
-    margin: 30px 0;
+    & * h3 {
+      font-family: raleway-bold;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
 
     .left-box {
       margin-right: 30px;
@@ -9,23 +13,26 @@
       .nav-container {
         margin: 30px 0;
 
-        .top-box > a {
-          font-family: oswald-semi;
-          color: $clr3;
-          margin: 0px 40px 10px 0px;
-          font-size: 120%;
-          letter-spacing: 3px;
-          word-spacing: 5px;
-          transition: all 0.2s;
-        }
-        & a:hover {
-          color: $clr4;
+        .top-box {
+          margin-bottom: 10px;
+          & > a {
+            background-color: $clr2;
+            margin-right: 30px;
+            padding: 10px 20px;
+            font-family: raleway-bold;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            word-spacing: 5px;
+            transition: all 0.2s;
+          }
+          & a:hover {
+            background-color: $clr7; //$clr6;
+          }
         }
 
         .bottom-box > div {
           margin: 10px 25px 20px 0px;
           text-transform: capitalize;
-          color: $clr4;
           font-weight: bolder;
           letter-spacing: 1px;
           word-spacing: 2px;
@@ -41,6 +48,10 @@
           margin-right: 20px;
         }
       }
+
+      .main-reviews-container {
+        margin-bottom: 40px;
+      }
     }
 
     .right-box {
@@ -51,9 +62,8 @@
       .payment-container {
         margin-bottom: 20px;
         .price {
-          padding: 30px 0px 0px 20px;
           margin-bottom: 10px;
-          font-family: oswald-semi;
+          font-family: raleway-bold;
           font-size: 120%;
           font-weight: normal;
           letter-spacing: 3px;
