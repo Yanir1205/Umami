@@ -6,16 +6,15 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 export class Notification extends Component {
   //this CMP will get the notification msg from props
-  //will be rendered inside each component which can cause any notification 
+  //will be rendered inside each component which can cause any notification
 
   state = {
     open: true,
     vertical: 'top',
-    horizontal: 'center'
-  }
+    horizontal: 'center',
+  };
 
   componentDidMount() {
-    debugger
     this.updateOpenState();
   }
 
@@ -24,10 +23,11 @@ export class Notification extends Component {
   }
 
   updateOpenState() {
-    this.setState({ ...this.state, open: this.props.open })
+    debugger;
+    this.setState({ ...this.state, open: this.props.open });
   }
 
-  handleClick = (newState) => {
+  handleClick = newState => {
     this.setState({ open: true, ...newState });
   };
 
@@ -37,15 +37,12 @@ export class Notification extends Component {
 
   render() {
     const { vertical, horizontal, open } = this.state;
-    return <div>
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        key={`${vertical},${horizontal}`}
-        open={open}
-        onClose={this.handleClose}
-        message={this.props.msg}
-      />
-    </div>
+
+    return (
+      <div>
+        <Snackbar anchorOrigin={{ vertical, horizontal }} key={`${vertical},${horizontal}`} open={open} onClose={this.handleClose} message={this.props.msg} />
+      </div>
+    );
   }
 }
 

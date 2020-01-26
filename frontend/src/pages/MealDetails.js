@@ -26,7 +26,7 @@ class MealDetails extends Component {
       const { loggedInUser } = this.props;
       const meal = { ...this.props.meal };
       const activeOccurrence = meal.occurrences.find(current => current.id === registration.id);
-
+      debugger;
       if (activeOccurrence && parseInt(meal.capacity) >= parseInt(activeOccurrence.total) + parseInt(registration.attendees)) {
         const currentUser = activeOccurrence.attendees.find(current => current._id === loggedInUser._id);
 
@@ -37,6 +37,7 @@ class MealDetails extends Component {
         }
 
         activeOccurrence.total = parseInt(activeOccurrence.total) + parseInt(registration.attendees);
+        debugger;
         await this.props.add(meal);
         this.setState({ showNotification: true, notificationMessage: 'You were successfully registered. ' });
       }
