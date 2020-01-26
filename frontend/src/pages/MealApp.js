@@ -17,7 +17,7 @@ export class MealApp extends Component {
 
     async componentDidMount() {
         if (this.props.location.pathname.includes('results')) {
-            await this.setState({renderType: 'results'})
+            await this.setState({ renderType: 'results' })
             const { results } = this.props.match.params
             await this.props.setFilter({ ...this.filter, tags: results })
             await this.loadMeals()
@@ -29,7 +29,7 @@ export class MealApp extends Component {
     async componentDidUpdate(prevProps) {
         if (JSON.stringify(prevProps.location.pathname) !== JSON.stringify(this.props.location.pathname)) {
             await this.loadMeals()
-        } 
+        }
     }
 
     resetFilterDefinitions = () => {
@@ -114,7 +114,7 @@ export class MealApp extends Component {
     render() {
         const isResultsUrl = this.props.location.pathname.includes('results');
         return <div className='container'>
-            {!this.props.meals.length && <Spinner type="spin"></Spinner>}
+            {!this.props.meals.length && <div className="spinner-container"><Spinner type="spin"></Spinner></div>}
             {this.props.cuisines && this.state.renderType === 'cuisine' && !isResultsUrl && <BadgeList selectedBadge={this.state.selectedBadge} onBadgeClick={this.onCuisineClick} badges={this.props.cuisines}></BadgeList>}
             {this.props.cities && this.state.renderType === 'location' && !isResultsUrl && <BadgeList selectedBadge={this.state.selectedBadge} onBadgeClick={this.onLocationClick} badges={this.props.cities}></BadgeList>}
 
