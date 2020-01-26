@@ -25,24 +25,24 @@ export default class Home extends Component {
           <div className='right-container flex-basis-40'>
             <ul className='slideshow clean-list'>
               <li>
-                <img src={require('../assets/img/layout/food-an-001.gif')} alt='Food'></img>
+                <img src='https://res.cloudinary.com/contentexs/image/upload/v1580045659/food-an-001.gif' alt='Food'></img>
               </li>
               <li>
-                <img src={require('../assets/img/layout/food-an-002.gif')} alt='Food'></img>
+                <img src='https://res.cloudinary.com/contentexs/image/upload/v1580045617/food-an-002.gif' alt='Food'></img>
               </li>
               <li>
-                <img src={require('../assets/img/layout/food-an-003.gif')} alt='Food'></img>
+                <img src='https://res.cloudinary.com/contentexs/image/upload/v1580045655/food-an-003.gif' alt='Food'></img>
               </li>
               <li>
-                <img src={require('../assets/img/layout/food-an-004.gif')} alt='Food'></img>
+                <img src='https://res.cloudinary.com/contentexs/image/upload/v1580045655/food-an-004.gif' alt='Food'></img>
               </li>
               <li>
-                <img src={require('../assets/img/layout/food-an-005.gif')} alt='Food'></img>
+                <img src='https://res.cloudinary.com/contentexs/image/upload/v1580045665/food-an-005.gif' alt='Food'></img>
               </li>
             </ul>
           </div>
         </div>
-        <div>
+        <div className='container flex align-center justify-center'>
           <SearchBar></SearchBar>
         </div>
       </>

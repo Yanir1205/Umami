@@ -15,7 +15,8 @@ class MealPageNav extends Component {
 
     if (totalRates > 0) {
       avgRate = meal.reviews.reduce((result, current) => result + parseInt(current.rate), 0) / meal.reviews.length;
-      rateClass = 'rate';
+
+      if (avgRate) rateClass = 'rate';
     }
 
     this.setState({
@@ -43,7 +44,7 @@ class MealPageNav extends Component {
             Location
           </a>
         </div>
-      
+
         <div className='bottom-box flex'>
           <div className={this.state.rateClass}>
             <i className='icon-small fas fa-star'></i>
