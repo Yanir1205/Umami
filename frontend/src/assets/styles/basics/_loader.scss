@@ -1,0 +1,93 @@
+/*** Config ***/
+/* Colors */
+/* used for row 1 & 2 */
+/* used for row 1 & 2 */
+/* Dimensions */
+/*** Animations / styles ***/
+@keyframes border-loading-indicator-row-1 {
+  0% {
+    border-color: rgba(0, 0, 0, 0.25);
+    border-top-color: black;
+  }
+  25% {
+    border-color: rgba(0, 0, 0, 0.25);
+    border-right-color: black;
+  }
+  50% {
+    border-color: rgba(0, 0, 0, 0.25);
+    border-bottom-color: black;
+  }
+  75% {
+    border-color: rgba(0, 0, 0, 0.25);
+    border-left-color: black;
+  }
+  100% {
+    border-color: rgba(0, 0, 0, 0.25);
+    border-top-color: black;
+  }
+}
+@keyframes border-loading-indicator-row-2 {
+  0% {
+    border-color: black rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.75);
+  }
+  25% {
+    border-color: rgba(0, 0, 0, 0.75) black rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    border-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.75) black rgba(0, 0, 0, 0.25);
+  }
+  75% {
+    border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.75) rgba(0, 0, 0, 0.75);
+  }
+  100% {
+    border-color: black rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.75);
+  }
+}
+.border-loading-indicator {
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  margin: -30px 0 -30px;
+  border: 0px solid black;
+  border-width: 30px 30px;
+}
+
+.border-loading-indicator.row-1 {
+  top: 25%;
+  animation: border-loading-indicator-row-1 750ms linear infinite;
+}
+
+.border-loading-indicator.row-2 {
+  top: 75%;
+  animation: border-loading-indicator-row-2 750ms linear infinite;
+}
+
+.border-loading-indicator.col-1 {
+  width: 30px;
+  height: 30px;
+  border-width: 15px 15px;
+  left: 25%;
+}
+
+.border-loading-indicator.col-2 {
+  left: 50%;
+}
+
+.border-loading-indicator.col-3 {
+  width: 0px;
+  height: 0px;
+  left: 75%;
+  border-radius: 30px 30px 30px 30px;
+}
+
+/*
+<!-- Border loading indicators -->
+<div class="border-loading-indicator col-1 row-1"></div>
+<div class="border-loading-indicator col-2 row-1"></div>
+<div class="border-loading-indicator col-3 row-1"></div>
+<div class="border-loading-indicator col-1 row-2"></div>
+<div class="border-loading-indicator col-2 row-2"></div>
+<div class="border-loading-indicator col-3 row-2"></div>
+
+
+*/

@@ -1,7 +1,6 @@
 /* **** BUTTONS **** */
 
 button {
-  font-family: oswald, raleway, lato, 'sans-serif';
   display: inline-block;
   background-color: transparent;
   border-radius: 2px;
@@ -67,7 +66,6 @@ button {
 
 .btn-ghost {
   background-color: $clr4;
-  // background-color: transparent;
   color: $clr2;
   border: 1px solid $clr4;
   transition: 0.2s ease;

@@ -6,14 +6,14 @@ async function query(filterBy = {}) {
   const criteria = buildCriteria(filterBy);
   const collection = await dbService.getCollection('meal');
   try {
-    if (!filterBy.group) {
+    if (!filterBy.group && !filterBy.distinct) {
       const meals = await collection.find(criteria).toArray();
 
       const resultMeals = filterResults(meals, filterBy);
       console.log('meal.service -> query -> resultMeals',resultMeals);
       
       return resultMeals;
-    } else {
+    } else if (!filterBy.distinct) {
       //meaning there is a group operation needed:
       if (!filterBy.meals) {
         const badges = await collection.aggregate([{ $group: { _id: filterBy.group } }]).toArray();
@@ -28,6 +28,9 @@ async function query(filterBy = {}) {
         });
         return mealsToReturn;
       }
+    } else {
+      const tags = await collection.distinct(filterBy.distinct)
+      return tags
     }
   } catch (err) {
     console.log('ERROR: cannot find Meals');
@@ -144,6 +147,7 @@ async function filterResults(meals, filterBy) {
 }
 
 function buildCriteria(filterBy) {
+  if (filterBy.city) console.log('inside build criteria! filter:')
   const criteria = {};
 
   // filtering by type of meal (working great!):
@@ -161,16 +165,15 @@ function buildCriteria(filterBy) {
   }
 
   //filtering by location:
-  if (filterBy.city) {
-    // criteria.location = { $in: { city: filterBy.location.city } };
-    // criteria.location = { { "location.city" : { $eq: filterBy.location.city} } };
-    criteria.location = { "location.city": { $eq: filterBy.location.city } }
-
-    // db.inventory.find( { "item.name": { $eq: "ab" } } )
+  if (filterBy.city) { // working great!
+    criteria["location.city"] = { $eq: filterBy.city }
   }
-  if (filterBy.country) {
-    if (!criteria.location) criteria.location = {};
-    criteria.location.country = filterBy.country;
+  if (filterBy.country) { // working great!
+    criteria["location.country"] = { $eq: filterBy.country }
+
+  }
+  if (filterBy.tags) {
+    criteria["tags"] = { $regex: `.*${filterBy.tags}.*`, $options: 'i' };
   }
   return criteria;
 }

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 
 class AttendeesPreview extends Component {
-
   render() {
     const { attendee } = this.props;
     return (
       <div className='frame'>
-        <div className='center'>
+        <div className='card-simple center'>
           <div className='profile'>
             <div className='image'>
               <div className='circle-1'></div>

@@ -11,7 +11,7 @@ class MealList extends Component {
       <section className="meal-list">
         {this.props.meals.map(meal => (
           <div className="meal-card " key={meal._id}>
-            <MealPreview  onCardClick={this.props.onCardClick} meal={meal} getAvgRate={this.props.getAvgRate} renderType={this.props.renderType} />
+            <MealPreview onCardClick={this.props.onCardClick} meal={meal} getAvgRate={this.props.getAvgRate} renderType={this.props.renderType} />
           </div>
         ))}
       </section>

@@ -18,7 +18,6 @@ class MealDetails extends Component {
   async componentDidMount() {
     const id = this.props.match.params.id;
     await this.props.getById(id);
-    // console.log( 'DETELS->',this.props.meal.imgUrls);
   }
 
   onEventRegistration = async registration => {
@@ -31,7 +30,7 @@ class MealDetails extends Component {
         const currentUser = activeOccurrence.attendees.find(current => current._id === loggedInUser._id);
 
         if (currentUser) {
-          currentUser.numOfAttendees = parseInt(currentUser.numOfAttendees) + parseInt(registration.attendees);
+          currentUser.attendees = parseInt(currentUser.attendees) + parseInt(registration.attendees);
         } else {
           activeOccurrence.attendees = [...activeOccurrence.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.attendees }];
         }
@@ -70,48 +69,51 @@ class MealDetails extends Component {
   };
 
   render() {
-    const meal = this.props.meal;
+    const { meal } = this.props;
+    console.log(meal);
 
-    return (
-      <div className='container meal-details-page-container'>
-        <div id='page-overlay' className={this.state.pageOverlayClass}></div>
-        {meal && (
-          <React.Fragment>
-            <div className='page-title'>
-              <h2>{meal.title}</h2>
-            </div>
-            <ImageGallery meal={meal}></ImageGallery>
-            <div className='meal-details-container flex'>
-              <div className='left-box flex-shrink-70'>
-                <MealPageNav meal={meal}></MealPageNav>
-                <h3>A word about the experience</h3>
-                <ShowHideText text={meal.description} showRows={3}></ShowHideText>
-                <h3 id='menu'>Our menu</h3>
-                <MealMenu menu={meal.menu} onSelectedMenu={this.onSelectedMenu} />
-                <br></br>
-                <h3>Meet the other guests</h3>
-                <AttendeesList attendees={meal.occurrences[0].attendees}></AttendeesList>
-                <div className='reviews-title-wrapper'>
-                  <h3 id='reviews'>Reviews</h3>
-                  <a className='btn-round' title='Review Us' href='' onClick={this.onDisplayReviewForm}>
-                    <i className='icon-medium fas fa-plus'></i>
-                  </a>
-                </div>
-                <div className={this.state.displayReviewForm}>
-                  <ReviewForm onSaveReviewForm={this.onSaveReviewForm} onCloseReviewForm={this.onCloseReviewForm}></ReviewForm>
-                </div>
-                {this.props.meal.reviews && <ReviewList reviews={this.props.meal.reviews}></ReviewList>}
-                <h3 id='location'>Location</h3>
-                <MealMap location={meal.location}></MealMap>
+    if (!meal) return <div className='border-loading-indicator col-2 row-1'></div>;
+    else
+      return (
+        <div className='meal-details-page-container'>
+          <div id='page-overlay' className={this.state.pageOverlayClass}></div>
+          {meal && (
+            <React.Fragment>
+              <div className='container page-title'>
+                <h2>{meal.title}</h2>
               </div>
-              <div className='right-box flex-shrink-30'>
-                <MealPayment meal={meal} onEventRegistration={this.onEventRegistration}></MealPayment>
+              <ImageGallery meal={meal}></ImageGallery>
+              <div className='container meal-details-container flex'>
+                <div className='left-box flex-shrink-70'>
+                  <MealPageNav meal={meal}></MealPageNav>
+                  <h3>A word about the experience</h3>
+                  <ShowHideText text={meal.description} showRows={3}></ShowHideText>
+                  <h3 id='menu'>Our menu</h3>
+                  <MealMenu menu={meal.menu} onSelectedMenu={this.onSelectedMenu} />
+
+                  <h3>Meet the other guests</h3>
+                  <AttendeesList attendees={meal.occurrences[0].attendees}></AttendeesList>
+                  <div className='reviews-title-wrapper'>
+                    <h3 id='reviews'>Reviews</h3>
+                    <a title='Review Us' href='' onClick={this.onDisplayReviewForm}>
+                      <i className='icon-large far fa-times-circle'></i>
+                    </a>
+                  </div>
+                  <div className={this.state.displayReviewForm}>
+                    <ReviewForm onSaveReviewForm={this.onSaveReviewForm} onCloseReviewForm={this.onCloseReviewForm}></ReviewForm>
+                  </div>
+                  {this.props.meal.reviews && <ReviewList reviews={this.props.meal.reviews}></ReviewList>}
+                  <h3 id='location'>Location</h3>
+                  <MealMap location={meal.location}></MealMap>
+                </div>
+                <div className='right-box flex-shrink-30'>
+                  <MealPayment meal={meal} onEventRegistration={this.onEventRegistration}></MealPayment>
+                </div>
               </div>
-            </div>
-          </React.Fragment>
-        )}
-      </div>
-    );
+            </React.Fragment>
+          )}
+        </div>
+      );
   }
 }
 

@@ -9,13 +9,14 @@ export default {
 
 const endpoint = 'meal';
 
-async function query(filter, groupBy) {
+async function query(filter, groupBy, distinctBy) {
   let params;
   if (filter) {
     params = {
       userId: filter.userId,
       at: filter.at,
       type: filter.type,
+      tags: filter.tags
     };
     if (filter.location) {
       params.city = filter.location.city;
@@ -33,6 +34,11 @@ async function query(filter, groupBy) {
       };
     }
   }
+  else if (distinctBy) {
+    params = {
+      distinct: distinctBy._id
+    }
+  }
   const meals = await HttpService.get(endpoint, filter, params);
 
   return meals;
@@ -41,13 +47,13 @@ async function query(filter, groupBy) {
 async function getById(id) {
   const meal = await HttpService.get(`${endpoint}/${id}`);
 
-  console.log('@@mealService -> getByIb',meal);
-  
+  console.log('@@mealService -> getByIb', meal);
+
   return meal;
 }
 
 async function add(meal) {
-  
+
   const addedMeal = await HttpService.post(`${endpoint}`, meal);
   
   return addedMeal;

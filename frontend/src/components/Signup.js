@@ -60,7 +60,7 @@ export class Singup extends Component {
   render() {
     return (
       <div>
-        <a onClick={this.openModal}>SignUp</a>
+        <a onClick={this.openModal}>signup</a>
         <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel='Example Modal'>
           <h2 ref={subtitle => (this.subtitle = subtitle)}>Log in </h2>
           <div className='log-in'>

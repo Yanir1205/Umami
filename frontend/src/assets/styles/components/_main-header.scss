@@ -1,50 +1,65 @@
 .main-header-container {
   max-width: 100vw;
   height: 100px;
-  margin: 0px 30px 30px 30px;
   border-bottom: 1px solid $clr4;
+  margin-bottom: 20px;
 
-  .header-logo {
-    font-size: 2.875rem;
-    color: $clr4;
-  }
+  .header-container {
+    .header-logo {
+      & * h1 {
+        font-family: righteous;
+      }
 
-  .main-menu {
-    width: 100%;
-    height: 100%;
-
-    & > *:not(:first-child) {
-      margin-left: 100px;
+      & * h5 {
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 0.76rem;
+        font-weight: 600;
+      }
     }
 
-    & * a {
-      font-size: 1.4rem;
-      text-transform: uppercase;
-      letter-spacing: 0.3rem;
-      border: 1px solid transparent;
-      transition: color 0.3s ease;
-      cursor: pointer;
+    .main-nav {
+      .nav-bar {
+        font-family: raleway-bold;
+
+        & > *:not(:first-child) {
+          margin-left: 100px;
+        }
+
+        & * a {
+          font-size: 1.4rem;
+          letter-spacing: 0.3rem;
+          border-bottom: 1px solid transparent;
+          transition: all 0.3s ease;
+        }
+
+        & * a:hover {
+          border-bottom: 1px solid $clr3;
+        }
+      }
     }
 
-    & * a:hover {
-      color: $clr4;
-      border-bottom: 2px solid $clr4;
-    }
-  }
+    .header-controls {
+      font-family: raleway-bold;
 
-  .header-controls {
-    padding-right: 10px;
+      & > div a {
+        font-size: 0.8rem;
+        letter-spacing: 0.3rem;
+        border-bottom: 1px solid transparent;
+        transition: all 0.3s ease;
+      }
 
-    & > div a {
-      cursor: pointer;
-    }
+      & > div a:hover {
+        border-bottom: 1px solid $clr3;
+      }
 
-    & > div:first-child {
-      margin-right: 10px;
-    }
+      & > div:first-child {
+        margin-right: 10px;
+      }
 
-    & > div:last-child {
-      margin-left: 10px;
+      & > div:last-child {
+        margin-left: 10px;
+      }
     }
   }
 }

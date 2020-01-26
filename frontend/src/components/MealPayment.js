@@ -1,29 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import Moment from 'moment';
 
 import Utilities from '../services/UtilitiesService';
 
 class MealPayment extends Component {
-  state = { meal: [], activeOccurrence: 0, attendees: 0, date: '', totalPrice: 0, buttonText: 'REGISTER EVENT', registerCounter: 0, paymentClass: 'hide' };
+  state = { meal: [], activeOccurrence: 0, attendees: 0, date: '', totalPrice: 0, availableSlots: 0, availableText: '', buttonText: 'REGISTER EVENT', registerCounter: 0, paymentClass: 'hide' };
 
   componentDidMount() {
     const meal = { ...this.props.meal };
     meal.occurrences.sort(Utilities.sortunction);
     let date = Moment(meal.occurrences[0].date).format('MM-DD-YY');
     let activeOccurrence = meal.occurrences[0];
+    let availableSlots = parseInt(meal.capacity) - parseInt(activeOccurrence.total);
+    let availableText = `${availableSlots} available slots`;
 
     if (!this.props.loggedInUser) {
       this.setState({
         meal: meal,
         activeOccurrence: activeOccurrence,
         date: date,
+        availableSlots: availableSlots,
+        availableText: availableText,
       });
     } else {
       let userOccurrences = meal.occurrences.reduce((result, current) => {
         let user = current.attendees.filter(attendee => attendee._id === this.props.loggedInUser._id);
-        if (user) result.push({ user: user[0], activeOccurrence: current });
+        if (user && user.length > 0) result.push({ user: user[0], activeOccurrence: current });
         return result;
       }, []);
 
@@ -31,10 +34,13 @@ class MealPayment extends Component {
         totalPrice = 0;
 
       if (userOccurrences && userOccurrences.length > 0) {
+        debugger;
         activeOccurrence = userOccurrences[0].activeOccurrence;
         date = Moment(activeOccurrence.date).format('MM-DD-YY');
         attendees = userOccurrences[0].user.numOfAttendees;
         totalPrice = parseInt(attendees) * parseInt(meal.price);
+        availableSlots = parseInt(meal.capacity) - parseInt(activeOccurrence.total);
+        availableText = `${availableSlots} available slots`;
       } else userOccurrences = [];
 
       this.setState({
@@ -43,12 +49,16 @@ class MealPayment extends Component {
         attendees: attendees,
         totalPrice: totalPrice,
         date: date,
+        availableSlots: availableSlots,
+        availableText: availableText,
         registerCounter: attendees === 0 ? 0 : 1,
         buttonText: attendees === 0 ? 'REGISTER EVENT' : 'UPDATE EVENT',
         paymentClass: attendees === 0 ? 'hide' : 'payment',
       });
     }
   }
+
+  componentDidUpdate() {}
 
   handleChange = ev => {
     ev.preventDefault();
@@ -73,7 +83,7 @@ class MealPayment extends Component {
       let calcPrice = this.state.attendees * this.props.meal.price;
       this.setState({ totalPrice: calcPrice, registerCounter: 1, buttonText: 'BOOK EVENT', paymentClass: 'payment' });
     } else if (this.state.registerCounter >= 1 && this.state.attendees !== 0) {
-      this.setState({ registerCounter: 0 });
+      this.setState({ registerCounter: 0, buttonText: 'UPDATE EVENT', paymentClass: 'payment' });
       this.props.onEventRegistration({ id: this.state.activeOccurrence.id, date: new Date(this.state.date).getTime(), attendees: this.state.attendees });
     }
   };
@@ -81,7 +91,7 @@ class MealPayment extends Component {
   render() {
     const { meal } = this.props;
     return (
-      <div className='card-border payment-container'>
+      <div className='card-simple payment-container'>
         <div className='price'>
           <span>${meal.price}</span>
           <small>per guest</small>
@@ -106,7 +116,7 @@ class MealPayment extends Component {
           <div className='guests'>
             <label htmlFor='attendees'>Number of Guests</label>
             <input type='number' placeholder='Number of Guests' min='1' name='attendees' onChange={this.handleChange} value={this.state.attendees === 0 ? '' : this.state.attendees}></input>
-            <span className='validity'></span>
+            <small className='small-text'>{this.state.availableText}</small>
           </div>
           <div className={this.state.paymentClass}>
             <ul className='clean-list'>

@@ -18,7 +18,6 @@ textarea:focus:not(:focus-visible) {
 }
 
 input {
-  font-family: oswald, raleway, lato, 'sans-serif';
   display: inline-block;
   padding-left: 5px;
   box-sizing: border-box;
@@ -40,7 +39,6 @@ input::placeholder {
 /* **** INPUT FORM**** */
 .input-form {
   font-variant: small-caps;
-  // font-size: 1.8rem;
   letter-spacing: 2px;
   border: 1px solid $clr5;
 }
@@ -105,7 +103,6 @@ input::placeholder {
 
 .input-form-date {
   font-variant: small-caps;
-  // font-size: 1.8rem;
   letter-spacing: 2px;
   border: 1px solid $clr5;
 }
@@ -147,7 +144,6 @@ input::placeholder {
 /* **** TEXT AREA **** */
 
 textarea {
-  font-family: oswald, raleway, lato, 'sans-serif';
   display: inline-block;
   padding-left: 5px;
   box-sizing: border-box;
@@ -170,7 +166,6 @@ textarea::placeholder {
 
 .textarea-form {
   font-variant: small-caps;
-  // font-size: 1.8rem;
   letter-spacing: 2px;
   border: 1px solid $clr5;
 }
@@ -178,26 +173,3 @@ textarea::placeholder {
 .textarea-form::placeholder {
   color: $clr5;
 }
-
-.textarea-bottom-border {
-  width: 95%;
-  line-height: 2rem;
-  border: none;
-  border-color: transparent;
-  border-bottom: 1px solid #47484a;
-}
-
-.textarea-bottom-border::placeholder {
-  color: #47484a;
-  font-size: 1rem;
-  letter-spacing: 2px;
-  padding: 0px 5px 1px 0px;
-}
-
-.textarea:invalid {
-  border: 1px dashed red;
-}
-
-/* .textarea:valid {
-	border-bottom: 1px solid #47484A;
-} */

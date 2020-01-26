@@ -8,15 +8,15 @@ export class NavBar extends Component {
   render() {
     return (
       <nav className='main-nav flex-basis-30'>
-        <ul className='main-menu clean-list flex-basis-1 flex justify-center align-center'>
+        <ul className='nav-bar clean-list flex-basis-1 flex'>
           <li>
             <NavLink activeClassName='active' to='/meal/cuisine' exact>
-              CUISINES
+              cuisines
             </NavLink>
           </li>
           <li>
             <NavLink activeClassName='active' to='/meal/location' exact>
-              LOCATIONS
+              locations
             </NavLink>
           </li>
         </ul>
