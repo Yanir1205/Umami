@@ -67,7 +67,6 @@ class MealPreview extends Component {
                 <div>{msg.type === 'location' ? this.props.meal.cuisineType : this.props.meal.location.city + ', ' + this.props.meal.location.country}</div>
 
 
-                {/* <img className ="user-img" src={this.props.meal.hostedBy.imgUrl}></img> */}
                 <div className="flex space-between ">
                     <div>{this.props.meal.title}</div>
                     <div>{nextDate}</div>

@@ -57,6 +57,9 @@
 .space-even {
   justify-content: space-evenly;
 }
+.space-around{
+  justify-content: space-around;
+}
 
 .justify-center {
   justify-content: center;
@@ -225,7 +228,7 @@
 }
 
 .hr {
-  width: 100%;
+  width: 100vh;
   height: 1px;
   background-color: #d4d4d4;
 

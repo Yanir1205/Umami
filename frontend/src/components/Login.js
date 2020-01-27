@@ -46,6 +46,8 @@ export class Login extends Component {
     const email = this.state.email;
     const password = this.state.password;
     const user = { email, password };
+    console.log("LogIn -> user ", user);
+    
     this.props.onLogIn(user);
   };
 

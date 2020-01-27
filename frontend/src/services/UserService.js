@@ -4,7 +4,9 @@ const authEndpoint = 'auth';
 const endpoint = 'user';
 
 async function login(credentails) {
+  
   const user = await HttpService.post(`${authEndpoint}/login`, credentails);
+  console.log("UserService -> login -> user",user);
   return _handleLogin(user);
 }
 async function signup(credentails) {

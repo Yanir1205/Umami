@@ -113,7 +113,7 @@ function filterMealsByUserId(userId, meals) {
               
               delete currMeal.capacity
               delete currMeal.tags
-              delete currMeal.location
+              // delete currMeal.location
               delete currMeal.imgUrls
               delete currMeal.description
               delete currMeal.reviews
