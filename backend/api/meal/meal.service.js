@@ -10,11 +10,9 @@ async function query(filterBy = {}) {
       const meals = await collection.find(criteria).toArray();
 
       const resultMeals = filterResults(meals, filterBy);
-      console.log('meal.service -> query -> resultMeals',resultMeals);
       
       return resultMeals;
     } else if (!filterBy.distinct) {
-      //meaning there is a group operation needed:
       if (!filterBy.meals) {
         const badges = await collection.aggregate([{ $group: { _id: filterBy.group } }]).toArray();
         return badges;
@@ -22,7 +20,6 @@ async function query(filterBy = {}) {
         const meals = await collection.aggregate([{ $group: { _id: filterBy.group, meals: { $push: filterBy.meals } } }]).toArray();
         let mealsToReturn = [];
 
-        //returning only 1 result per location:
         meals.forEach(meal => {
           mealsToReturn.push(meal.meals[0]);
         });
@@ -116,7 +113,7 @@ function filterMealsByUserId(userId, meals) {
               
               delete currMeal.capacity
               delete currMeal.tags
-              delete currMeal.location
+              // delete currMeal.location
               delete currMeal.imgUrls
               delete currMeal.description
               delete currMeal.reviews
@@ -150,12 +147,10 @@ function buildCriteria(filterBy) {
   if (filterBy.city) console.log('inside build criteria! filter:')
   const criteria = {};
 
-  // filtering by type of meal (working great!):
   if (filterBy.type) {
-    criteria.cuisineType = { $regex: `.*${filterBy.type}.*` };
+    criteria.cuisineType = { $regex: `.*${filterBy.type}.*`, $options: 'i' };
   }
 
-  //filtering by date: (working great!)
   if (filterBy.at) {
     const msPerDay = 86400 * 1000;
     let begining = filterBy.at - (filterBy.at % msPerDay);
@@ -164,11 +159,10 @@ function buildCriteria(filterBy) {
     criteria.date = { $gt: begining, $lt: ending };
   }
 
-  //filtering by location:
-  if (filterBy.city) { // working great!
+  if (filterBy.city) { 
     criteria["location.city"] = { $eq: filterBy.city }
   }
-  if (filterBy.country) { // working great!
+  if (filterBy.country) {
     criteria["location.country"] = { $eq: filterBy.country }
 
   }

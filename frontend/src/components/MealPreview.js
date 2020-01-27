@@ -53,7 +53,7 @@ class MealPreview extends Component {
     render() {
         // const description = this.props.meal.description
         const msg = this.getMainMsg();
-        const avgRate = this.props.getAvgRate([...this.props.meal.reviews])
+        const avgRate = this.props.meal ? this.props.getAvgRate(this.props.meal.reviews) : ''
         let nextDate = new Date(this.getNextDateFromNow().max.date)
         nextDate = nextDate.toDateString().split(' ').slice(1, 3).join(' ')
         return this.props.meal && <div className="item  meal-card flex" onClick={() => this.onCardClick(this.props.meal._id)}>
@@ -67,7 +67,6 @@ class MealPreview extends Component {
                 <div>{msg.type === 'location' ? this.props.meal.cuisineType : this.props.meal.location.city + ', ' + this.props.meal.location.country}</div>
 
 
-                {/* <img className ="user-img" src={this.props.meal.hostedBy.imgUrl}></img> */}
                 <div className="flex space-between ">
                     <div>{this.props.meal.title}</div>
                     <div>{nextDate}</div>

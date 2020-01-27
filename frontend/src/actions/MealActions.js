@@ -79,14 +79,13 @@ export function loadTags() {
 
 export function getById(id) {
   return async dispatch => {
-    const meal = await MealService.getById(id);
-    console.log('meal.Action ->getById -> meal -> ',meal);
-    
+    const meal = await MealService.getById(id);    
     dispatch({ type: 'GET_BY_ID', meal });
   };
 }
 
 export function add(meal) {
+  debugger
   const action = meal._id ? 'UPDATE' : 'ADD';
   if (action === 'UPDATE') {
     return async dispatch => {
@@ -94,8 +93,6 @@ export function add(meal) {
       dispatch({ type: action, meal: newMeal });
     };
   } else {
-    console.log("MealAction  add meal ->"  ,meal);
-
     return async dispatch => {
       const newMeal = await MealService.add(meal);
       dispatch({ type: action, meal: newMeal });

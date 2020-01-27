@@ -7,6 +7,7 @@ export function login(credentails) {
 
   return async dispatch => {
     const user = await UserService.login(credentails);
+    
     console.log('UserActions -> login -> user',user);
 
     dispatch(_setUser(user));
