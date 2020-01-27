@@ -17,17 +17,16 @@ export class MealForm extends Component {
     location: { address: '', city: '', country: '' },
     imgUrls: [],
   };
-  
+
   componentDidMount() {
     //TODO - get the 'loogedInUser' or the 'guest-mood' profile and init the 'hostedBy' object
-    this.setState({ hostedBy: this.props.loggedInUser })
-    debugger
+    this.setState({ hostedBy: this.props.loggedInUser });
+    debugger;
 
     if (this.props.meal) {
-      const meal = this.props.meal 
-      this.setState({meal});
-      debugger
-      
+      const meal = this.props.meal;
+      this.setState({ meal });
+      debugger;
     }
   }
 
@@ -56,18 +55,16 @@ export class MealForm extends Component {
     let field = ev.target.name;
     let date = ev.target.value;
     // this.setState({ [field]: value });
-    if (date !== "") {
-      id += 1
+    if (date !== '') {
+      id += 1;
       const occurrences = {
-        id:id,
+        id: id,
         date: date,
         attendees: [],
-
-      }
+      };
       this.setState(prevState => ({
-        occurrences: [...prevState.occurrences ,occurrences ]
-      }))
-      
+        occurrences: [...prevState.occurrences, occurrences],
+      }));
     }
 
     console.log('MealForm onHandleLocationChange -> ', this.state);
@@ -95,13 +92,13 @@ export class MealForm extends Component {
     this.setState({ menu: tempMenu });
   };
 
-  onSaveMeal =(ev)   => {
+  onSaveMeal = ev => {
     // ev.preventDefault();
-    console.log('MealForm onSaveMeal -> this.props.loggedInUser' , this.props.loggedInUser);
-    
+    console.log('MealForm onSaveMeal -> this.props.loggedInUser', this.props.loggedInUser);
+
     let meal = {
       isActive: true,
-      isPromoted:false,
+      isPromoted: false,
       hostedBy: this.state.hostedBy,
       menu: this.state.menu,
       location: this.state.location,
@@ -111,7 +108,7 @@ export class MealForm extends Component {
       cuisineType: this.state.cuisineType,
       mealType: this.state.mealType,
       price: this.state.price,
-      occurrences:this.state.occurrences,
+      occurrences: this.state.occurrences,
       capacity: this.state.capacity,
       reviews: [],
     };
@@ -168,7 +165,16 @@ export class MealForm extends Component {
                   <label htmlFor='date'>Date</label>
                   {/* <input type='date' name='date' placeholder='Date' id='date' onChange={this.onHandleChange} value={this.state.date} className='input-date'></input> */}
                   <input type='date' name='date' placeholder='Date' id='date' onChange={this.onHandleAdd} value={this.state.date} className='input-date'></input>
-                  {this.state.occurrences && <div ><ul className = "clean-list "> {this.state.occurrences.map(occurrence => <li>{occurrence.date}</li>)}</ul></div>}
+                  {this.state.occurrences && (
+                    <div>
+                      <ul className='clean-list '>
+                        {' '}
+                        {this.state.occurrences.map(occurrence => (
+                          <li>{occurrence.date}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
                 <div className='price flex-basis-1'>
                   <label htmlFor='price'>Price</label>
@@ -229,7 +235,7 @@ export class MealForm extends Component {
             </div>
           </div>
           <div className='save'>
-            <button  className='button btn-exlg btn-ghost' onSaveMeal={this.onSaveMeal}>
+            <button className='button btn-lg btn-main' onSaveMeal={this.onSaveMeal}>
               SAVE
             </button>
           </div>
@@ -238,6 +244,5 @@ export class MealForm extends Component {
     );
   }
 }
-
 
 export default MealForm;

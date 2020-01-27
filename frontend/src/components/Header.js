@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import NavBar from './NavBar.js';
 import { Link } from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
@@ -19,25 +18,28 @@ export class Header extends Component {
 
   render() {
     return (
-      <div className='main-header-container'>
-        <div className='header-container container flex align-base'>
-          <div className='header-logo flex-basis-30 flex '>
-            <Link to='/'>
-              <h1>umami</h1>
-              {/* <h5>unlocking the senses</h5> */}
-            </Link>
-          </div>
-          <NavBar></NavBar>
-          <div className='header-controls flex-basis-30 flex  justify-end'>
+      <div className='main-header-container flex align-center space-between'>
+        <div className='container logo flex-basis-60 '>
+          <Link to='/'>
+            <span>umami</span>
+          </Link>
+        </div>
+        <div className='nav-container container flex-basis-30 flex justify-end'>
+          <div className='controls flex-basis-1 flex row space-even'>
+            <div>
+              <Link to='/meal/edit'>
+                <span className='ellipse-link'>Become a Host</span>
+              </Link>
+            </div>
             {this.props.loggedInUser && (
               <>
-                <div className=''>
+                <div>
                   <Link className='' to={`/user/${this.props.loggedInUser._id}`}>
                     <img style={{ width: '30px', height: '30px' }} src='https://res.cloudinary.com/contentexs/image/upload/v1580045611/dish-cover.svg' alt='' />
                   </Link>
                 </div>
                 <span>|</span>
-                <div className=''>
+                <div>
                   <a href='' onClick={this.onLogout}>
                     logout
                   </a>

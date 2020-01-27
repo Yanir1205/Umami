@@ -25,17 +25,16 @@ class UserDetails extends Component {
     const host = [];
 
     const meals = [];
-      meals = [...this.props.meals]
-      await meals.forEach(async (meal) => {
-        if (meal.hostedBy._id.toString() === id) {
-          await host.push(meal);
-        } else {
-          await attended.push(meal);
-        }
-      })
-    return { host, attended }
-  }
-
+    meals = [...this.props.meals];
+    await meals.forEach(async meal => {
+      if (meal.hostedBy._id.toString() === id) {
+        await host.push(meal);
+      } else {
+        await attended.push(meal);
+      }
+    });
+    return { host, attended };
+  };
 
   render() {
     const user = this.props.loggedInUser;
@@ -44,12 +43,12 @@ class UserDetails extends Component {
         <div className='user-container'>
           <h3>Hello {user.fullName}</h3>
         </div>
-        <div className ="flex "> 
-        <button className='btn-cta btn-mdd align-end' onClick={this.onCreateMeal}>
-          CREATE EVENT
-        </button>
+        <div className='flex '>
+          <button className='btn-main btn-md align-end' onClick={this.onCreateMeal}>
+            CREATE EVENT
+          </button>
         </div>
-        {this.props.meals.length > 0 && <UserMealList meals={this.props.meals} userId={user._id} ></UserMealList>}
+        {this.props.meals.length > 0 && <UserMealList meals={this.props.meals} userId={user._id}></UserMealList>}
       </div>
     );
   }

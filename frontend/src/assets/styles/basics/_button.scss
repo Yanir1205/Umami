@@ -1,106 +1,58 @@
 /* **** BUTTONS **** */
 
 button {
+  font-family: raleway, lato, oswald, 'sans-serif';
   display: inline-block;
-  background-color: transparent;
-  border-radius: 2px;
   box-sizing: border-box;
+  background-color: transparent;
   border: 1px solid $clr4;
-  line-height: 2rem;
+  border-radius: 2px;
   font-size: 1rem;
+  line-height: 2rem;
   cursor: pointer;
 }
 
-.btn-small {
-  width: 35px;
-}
-
 .btn-md {
-  width: 4rem;
-  font-size: 1.2rem;
+  width: 20%;
 }
 
-.btn-mdd {
-  width: 20%;
-  margin-bottom: 20px;
+.btn-lg {
+  width: 100%;
 }
 
 .close-btn {
-  // content: 'X'; // here is your X(cross) sign.
   color: rgb(0, 0, 0);
-  // font-weight: 300;
-  // font-family: Arial, sans-serif;
-  // width: 30px;
-  // height: 30px;
   display: flex;
-  // border-radius: 30px;
   position: absolute;
   top: 2px;
   right: 2px;
   text-align: center;
-}
-.btn-x-lg {
-  width: 100%;
-}
-.btn-lg {
-  width: 40%;
-}
-
-.btn-exlg {
-  width: 300px;
-  float: right;
-}
-
-.btn-cta {
-  background-color: $clr4;
-  color: $clr2;
-  transition: 0.2s ease;
   cursor: pointer;
 }
 
-.btn-cta:hover {
-  background-color: rgba($clr4, 0.05);
-  color: $clr4;
-  transition: 0.2s ease;
-}
-
-.btn-ghost {
-  background-color: $clr4;
-  color: $clr2;
-  border: 1px solid $clr4;
-  transition: 0.2s ease;
-  cursor: pointer;
+.btn-main {
   padding: 5px;
+  border: 1px solid $clr4;
+  background-color: $clr4;
+  color: $clr2;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
-.btn-ghost:hover {
+.btn-main:hover {
   background-color: $clr6;
   color: $clr3;
-  transition: 0.2s ease;
-}
-
-.btn-secondary {
-  background-color: $clr2;
-  color: $clr4;
-  border: 1px solid $clr4;
-  transition: 0.2s ease;
-  cursor: pointer;
-  padding: 5px 4px 3px 5px;
-}
-
-.btn-secondary:hover {
-  background-color: $clr2;
-  transition: 0.2s ease;
 }
 
 .btn-round {
   height: fit-content;
   padding: 0px 5px 2px 5px;
+  border-radius: 50%;
   border: 1px solid $clr4;
   background: $clr4;
-  border-radius: 50%;
-  transition: all 0.3s ease-in-out;
   color: $clr2;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
 
   &:hover {
     background: $clr2;
@@ -109,37 +61,16 @@ button {
 }
 
 .btn-round-sm {
+  display: inline-block;
   height: 25px;
   width: 25px;
   border: 1px solid $clr4;
   background: $clr4;
-  // border-radius: 50%;
-  display: inline-block;
   color: $clr2;
+  cursor: pointer;
 
   &:hover {
     background: $clr2;
     color: $clr4;
-  }
-}
-
-.btn-disabled {
-  color: $clr5;
-  background-color: $clr6;
-}
-
-.btn-disabled:hover {
-  cursor: initial;
-}
-
-@media (max-width: 480px) {
-  .btn-sm {
-    width: 40%;
-  }
-  .btn-md {
-    width: 50%;
-  }
-  .btn-lg {
-    width: 90%;
   }
 }
