@@ -7,7 +7,7 @@ import { setFilter } from '../actions/FilterActions';
 import MealList from '../components/MealList';
 import BadgeList from '../components/BadgeList';
 import Spinner from '../components/Spinner'
-import Notification from '../components/Notification'
+// import Notification from '../components/Notification'
 import SearchBar from '../components/SearchBar'
 
 export class MealApp extends Component {

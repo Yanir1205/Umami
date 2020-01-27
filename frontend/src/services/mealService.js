@@ -46,9 +46,6 @@ async function query(filter, groupBy, distinctBy) {
 
 async function getById(id) {
   const meal = await HttpService.get(`${endpoint}/${id}`);
-
-  console.log('@@mealService -> getByIb', meal);
-
   return meal;
 }
 

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 
 class ImageUpload extends Component {
-  state = { files: [], displayed: [], drag: false, msgState: 'Drop Here' };
+  state = { files: [], displayed: [], drag: false, msgState: 'Drop Here', fileArray: [] };
 
   fileObj = [];
-  fileArray = [];
+  // fileArray = [];
 
   dropRef = React.createRef();
 
   componentDidMount() {
+    //on edit mode - images received in props shall be stored inside local state variable - files and then previewed 
     let div = this.dropRef.current;
     div.addEventListener('dragenter', this.handleDragIn);
     div.addEventListener('dragleave', this.handleDragOut);
@@ -22,8 +23,14 @@ class ImageUpload extends Component {
     div.removeEventListener('dragleave', this.handleDragOut);
     div.removeEventListener('dragover', this.handleDrag);
     div.removeEventListener('drop', this.handleDrop);
-
     //TODO - free memory return () => URL.revokeObjectURL(objectUrl)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.files !== this.props.files) {
+      // this.fileArray = [...this.props.files]
+      this.setState({ fileArray: [...this.props.files] })
+    }
   }
 
   handleDrag = ev => {
@@ -62,21 +69,32 @@ class ImageUpload extends Component {
     }
   };
 
+  checkExistingImages = (ev) => {
+    if (this.state.fileArray.length > 0) {
+      this.props.handleImageUpload(ev.target.files)
+      return true;
+    }
+    return false
+  }
+
   handleChange = ev => {
     ev.preventDefault();
     ev.stopPropagation();
-    this.setPreviewImages(ev.target.files);
-    this.props.handleImageUpload(ev.target.files);
+    if (!this.checkExistingImages(ev)) {
+      this.setPreviewImages(ev.target.files);
+      this.props.handleImageUpload(ev.target.files);
+    }
   };
 
   setPreviewImages = files => {
+    const { fileArray } = this.state
     this.fileObj.push(files);
     for (let i = 0; i < this.fileObj[0].length; i++) {
-      this.fileArray.push(URL.createObjectURL(this.fileObj[0][i]));
+      fileArray.push(URL.createObjectURL(this.fileObj[0][i]));
       // URL.revokeObjectURL(this.fileObj[0][i]);
     }
-
-    this.setState({ files: this.fileArray });
+    this.setState({ files: fileArray });
+    this.setState({ fileArray })
   };
 
   render() {
@@ -105,8 +123,11 @@ class ImageUpload extends Component {
                 </div> */}
               </div>
               <div className='box-body'>
-                {(this.fileArray || []).map((url, idx) => (
-                  <img key={idx} src={url} className='preview-image' alt='...' />
+                {(this.state.fileArray || []).map((url, idx) => (
+                  <div key={idx}>
+                    <img src={url} className='preview-image' alt='...' />
+                    <span onClick={(event) => this.props.onImgRemoval(event, url, idx)}>x</span>
+                  </div>
                 ))}
               </div>
             </div>

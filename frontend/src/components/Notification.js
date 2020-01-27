@@ -23,7 +23,6 @@ export class Notification extends Component {
   }
 
   updateOpenState() {
-    debugger;
     this.setState({ ...this.state, open: this.props.open });
   }
 
