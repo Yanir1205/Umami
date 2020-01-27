@@ -1,5 +1,6 @@
 .underline-link,
 .underline-link:visited {
+  font-family: raleway, lato, oswald, 'sans-serif';
   text-decoration: none;
   position: relative;
   color: $clr4;
@@ -26,5 +27,25 @@
     &:hover {
       background: $clr2;
     }
+  }
+}
+
+.ellipse-link,
+.ellipse-link:visited {
+  font-family: raleway-bold;
+  text-decoration: none;
+  height: fit-content;
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid $clr8;
+  background-color: $clr8;
+  color: $clr2;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background-color: transparent;
+    border: 1px solid $clr4;
+    color: $clr4;
   }
 }

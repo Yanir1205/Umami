@@ -6,8 +6,8 @@ class ReviewForm extends Component {
     email: '',
     txt: '',
     rate: 0,
-    starClass: 'icon-medium color-gray fas fa-star',
-    starSelected: 'icon-medium color-yellow fas fa-star',
+    starClass: 'icon-medium color-gray far fa-star',
+    starSelected: 'icon-medium color-yellow far fa-star',
   };
 
   onSaveReviewForm = ev => {
@@ -40,6 +40,7 @@ class ReviewForm extends Component {
                 return <i key={idx} id={idx + 1} className={idx < this.state.rate ? this.state.starSelected : this.state.starClass} name={idx + 1} onClick={this.onToggleStar}></i>;
               })}
             </div>
+
             <h3>We would love to hear what you think</h3>
             <div className='email'>
               <input type='email' placeholder='Email' name='email' onChange={this.onHandleChange} required></input>
@@ -48,7 +49,7 @@ class ReviewForm extends Component {
               <textarea className='' id='review' name='txt' onChange={this.onHandleChange} min='5' placeholder='Tell us what you think'></textarea>
             </div>
             <div className='save'>
-              <button className='button btn-ghost'>SAVE</button>
+              <button className='button btn-main'>SAVE</button>
             </div>
           </form>
           <h4 className='review-h5'>Thanks for your feedback</h4>

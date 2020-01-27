@@ -100,7 +100,7 @@ class MealDetails extends Component {
                   <div className='reviews-title-wrapper'>
                     <h3 id='reviews'>Reviews</h3>
                     <a title='Review Us' href='' onClick={this.onDisplayReviewForm}>
-                      <i className='icon-large far fa-times-circle'></i>
+                      <i className='icon-large far fa-plus-square'></i>
                     </a>
                   </div>
                   <div className={this.state.displayReviewForm}>

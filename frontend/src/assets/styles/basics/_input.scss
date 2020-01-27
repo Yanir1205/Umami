@@ -25,6 +25,7 @@ input {
   border-radius: 0.25rem;
   line-height: 2rem;
   font-size: 1rem;
+  font-family: raleway, lato, oswald, 'sans-serif';
   cursor: pointer;
 }
 
@@ -50,6 +51,8 @@ input::placeholder {
 /* **** INPUT DATE**** */
 
 .input-date {
+  font-family: raleway, lato, oswald, 'sans-serif';
+
   display: inline-block;
   position: relative;
   background: $clr2
@@ -155,6 +158,7 @@ textarea {
   font-size: 1rem;
   overflow: hidden;
   resize: none;
+  font-family: raleway, lato, oswald, 'sans-serif';
   cursor: pointer;
 }
 
