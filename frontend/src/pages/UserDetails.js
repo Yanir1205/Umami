@@ -40,21 +40,19 @@ class UserDetails extends Component {
   render() {
     const user = this.props.loggedInUser;
     return (
-      <div className='container'>
+      <div className='user-details-container container'>
         <div className='user-container'>
-          <h3>Hello {user.fullName}</h3>
+          <span>Hello, </span><span>{user.fullName}</span>
         </div>
-        <div className="flex ">
-        <button className='btn-cta btn-mdd align-end margin-right-10 ' onClick={this.onCreateMeal}>
-            Attended Events
-        </button>
-          <button className='btn-cta btn-mdd align-end margin-right-10 ' onClick={this.onCreateMeal}>
-            Hosted Events
-        </button>
-          <button className='btn-cta btn-mdd align-end margin-right-10 ' onClick={this.onCreateMeal}>
-            Create Event
-        </button>
-
+        <div className="controlls-container flex space-between " >
+          <div className="flex-shrink-50">
+            <span>Events </span>
+          </div>
+          <div className="flex-shrink-50 flex justify-end">
+            <button className='btn-cta btn-mdd align-end margin-right-10 ' onClick={this.onCreateMeal}>
+              Create Event
+            </button>
+          </div>
         </div>
         {this.props.meals.length > 0 && <UserMealList meals={this.props.meals} userId={user._id} ></UserMealList>}
       </div>
