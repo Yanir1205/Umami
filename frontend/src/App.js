@@ -24,7 +24,6 @@ export default class App extends Component {
       <React.Fragment>
         <Router history={history}>
           <Header></Header>
-          <SearchBar></SearchBar>
           <Switch>
             <Route component={Home} path='/' exact></Route>
             <Route component={MealFormWrapper} path='/meal/edit/:id?'></Route>

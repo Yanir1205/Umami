@@ -123,18 +123,19 @@ input::placeholder {
 
 .input-icon {
   position: absolute;
-  left: 3px;
+  left: 4px;
   top: calc(50% - 0.5em);
+
   /* Keep icon in center of input, regardless of the input height */
 }
 
 .input-with-icon {
   padding-left: 25px;
-  width: 15rem;
-  line-height: 2rem;
-  border: none;
-  border-color: transparent;
-  border-bottom: 2px solid #47484a;
+  width: 100%;
+  line-height: 3rem;
+  // border: none;
+  // border-color: transparent;
+  // border-bottom: 2px solid #47484a;
 }
 
 .input-wrapper {

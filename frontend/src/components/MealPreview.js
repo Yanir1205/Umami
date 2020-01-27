@@ -33,7 +33,7 @@ class MealPreview extends Component {
         let res;
         if (this.props.renderType === 'location') {
             res = {
-                val: this.props.meal.location.city,
+                val: this.props.meal.location.city + ', ' + this.props.meal.location.country,
                 type: 'location'
             }
             return res
@@ -55,17 +55,16 @@ class MealPreview extends Component {
         const msg = this.getMainMsg();
         const avgRate = this.props.getAvgRate([...this.props.meal.reviews])
         let nextDate = new Date(this.getNextDateFromNow().max.date)
-        console.log(nextDate)
         nextDate = nextDate.toDateString().split(' ').slice(1, 3).join(' ')
         return this.props.meal && <div className="item  meal-card flex" onClick={() => this.onCardClick(this.props.meal._id)}>
             <div className="category ">{this.getPromotionMsg()}</div>
             <img className="img-meal " src={this.props.meal.imgUrls[0]} alt=""></img>
             <div className="flex.column text-card">
                 <div className="flex space-between ">
-                    <div>{msg.val}</div>
-                    <div>{msg.type === 'location' ? this.props.meal.cuisineType : this.props.meal.location.city}</div>
-                    <div className="start">{avgRate ? Math.floor(avgRate) + '(⭐)' : '0(⭐)'}</div>
+                    <div className="card-main-msg">{msg.val}</div>
+                    <div className="star">{avgRate ? Math.floor(avgRate) + ' ⭐' : ''}</div>
                 </div>
+                <div>{msg.type === 'location' ? this.props.meal.cuisineType : this.props.meal.location.city + ', ' + this.props.meal.location.country}</div>
 
 
                 <div className="flex space-between ">

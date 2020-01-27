@@ -10,7 +10,7 @@ import { logout, login } from '../actions/UserActions';
 export class Header extends Component {
   onLogout = () => {
     this.props.logout();
-    this.props.history.push(`/`)
+    this.props.history.push(`/`);
   };
 
   onLogIn = async user => {
@@ -33,7 +33,7 @@ export class Header extends Component {
               <>
                 <div className=''>
                   <Link className='' to={`/user/${this.props.loggedInUser._id}`}>
-                    <img style={{ width: '30px', height: '30px' }} src={require('../assets/img/layout/dish-cover.svg')} alt='' />
+                    <img style={{ width: '30px', height: '30px' }} src='https://res.cloudinary.com/contentexs/image/upload/v1580045611/dish-cover.svg' alt='' />
                   </Link>
                 </div>
                 <span>|</span>

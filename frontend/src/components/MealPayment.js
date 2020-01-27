@@ -13,7 +13,7 @@ class MealPayment extends Component {
     let date = Moment(meal.occurrences[0].date).format('MM-DD-YY');
     let activeOccurrence = meal.occurrences[0];
     let availableSlots = parseInt(meal.capacity) - parseInt(activeOccurrence.total);
-    let availableText = `${availableSlots} available slots`;
+    let availableText = ''; //`${availableSlots} available slots`;
 
     if (!this.props.loggedInUser) {
       this.setState({
@@ -34,13 +34,12 @@ class MealPayment extends Component {
         totalPrice = 0;
 
       if (userOccurrences && userOccurrences.length > 0) {
-        debugger;
         activeOccurrence = userOccurrences[0].activeOccurrence;
         date = Moment(activeOccurrence.date).format('MM-DD-YY');
         attendees = userOccurrences[0].user.numOfAttendees;
         totalPrice = parseInt(attendees) * parseInt(meal.price);
         availableSlots = parseInt(meal.capacity) - parseInt(activeOccurrence.total);
-        availableText = `${availableSlots} available slots`;
+        availableText = ''; //`${availableSlots} available slots`;
       } else userOccurrences = [];
 
       this.setState({
@@ -57,8 +56,6 @@ class MealPayment extends Component {
       });
     }
   }
-
-  componentDidUpdate() {}
 
   handleChange = ev => {
     ev.preventDefault();
@@ -83,7 +80,7 @@ class MealPayment extends Component {
       let calcPrice = this.state.attendees * this.props.meal.price;
       this.setState({ totalPrice: calcPrice, registerCounter: 1, buttonText: 'BOOK EVENT', paymentClass: 'payment' });
     } else if (this.state.registerCounter >= 1 && this.state.attendees !== 0) {
-      this.setState({ registerCounter: 0, buttonText: 'UPDATE EVENT', paymentClass: 'payment' });
+      this.setState({ registerCounter: 0 });
       this.props.onEventRegistration({ id: this.state.activeOccurrence.id, date: new Date(this.state.date).getTime(), attendees: this.state.attendees });
     }
   };

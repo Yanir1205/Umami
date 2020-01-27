@@ -34,6 +34,13 @@
       height: 350px;
       object-fit: cover;
     }
+    .card-main-msg {
+      font-weight: bold;
+      font-size: 1.2rem;
+      .star {
+        font-size: 1rem;
+      }
+    }
   }
   .user-img {
     width: 50px;
@@ -43,7 +50,7 @@
   }
   .text-card {
     padding: 5px;
-    font-size: 15px;
+    font-size: 1rem;
   }
   .start {
     font-size: 10px;
@@ -78,7 +85,10 @@
     height: 120px;
   }
 }
-
+.price-tag {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
 // .note-list-container {
 
 //     column-gap: 1em;
