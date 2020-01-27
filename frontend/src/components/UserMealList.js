@@ -4,7 +4,6 @@ import UserMealPreview from './UserMealPreview'
 
 export default function UserMealList({ meals, userId }) {
     return <div>
-        {/* <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" /> */}
         <React.Fragment>
             <div className="row">
                 <div className="col">
@@ -32,6 +31,3 @@ export default function UserMealList({ meals, userId }) {
 
 
 
-//    {meals && meals.map(meal=>{
-//    return <UserMealPreview  meal={meal} userId={userId} />})}
-{/* {meals && <UserMealPreview  meals={meals} userId={userId} />} */ }

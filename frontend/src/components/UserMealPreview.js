@@ -6,60 +6,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import 'react-datepicker/dist/react-datepicker.css';
 
 class UserMealPreview extends Component {
-  state = {
-    isOnClikDate: false,
-    columns: [
-      // { title: 'Id', field: '_id' },
-      { title: 'Name', field: 'title' },
-      { title: 'Type', field: 'mealType' },
-      { title: 'Date', field: 'date', type: 'string' },
-      // { title: 'Time', field: 'time' },
-      { title: 'Status', field: 'isActive', type: 'boolean' },
-      { title: 'i am...', field: 'iAm' },
-      { title: 'price', field: 'price', type: 'numeric' },
-      { title: 'total ', field: 'total', type: 'numeric' },
-    ],
-    data: null,
-    occurrences: [],
-    dateShow: [],
-  };
+
   componentDidMount() {
-    // this.loadTable();
   }
-
-  // loadTable = () => {
-  //   const meals = [...this.props.meals];
-  //   const userId = this.props.userId;
-  //   delete meals.isPromoted;
-  //   delete meals.cuisineType;
-  //   delete meals.cuisineType;
-  //   const currMeal = {};
-  //   const currMeals = [];
-  //   meals.forEach(meal => {
-  //     if (meal.hostedBy._id === userId) {
-  //       meal.iAm = 'Hosted';
-  //       meal.isHosted = true;
-  //       meal.occurrences.forEach(occurrence => {
-  //         this.setState(prevState => ({ occurrences: [...prevState.occurrences, occurrence] }));
-  //       });
-  //     } else {
-  //       meal.iAm = 'Attendent';
-  //       meal.date = new Date(meal.date)
-  //         .toString()
-  //         .split(' ')
-  //         .slice(1, 4)
-  //         .join(' ');
-  //     }
-  //     currMeals.push(meal);
-  //   });
-
-  //   this.state.data.push({ currMeals })
-  //   this.setState({ data: meals });
-  // };
 
   onClickRow = (event, data) => {
     event.stopPropagation();
-    console.log('id -> ', data);
     this.props.history.push(`/meal/${this.props.meal._id}`);
   };
   onEditClick = (event) => {
@@ -85,12 +37,9 @@ class UserMealPreview extends Component {
                 <li><span> <EditIcon className=" cursor" onClick={this.onEditClick}></EditIcon> </span></li>
               </ul>
             </div>
-
           </div>
         })}
-      </React.Fragment>
-
-      )
+      </React.Fragment>)
     } else {
      const date = new Date(this.props.meal.date ).toLocaleDateString()
       return (!this.props.meal.objForHosted && <React.Fragment>
@@ -100,7 +49,6 @@ class UserMealPreview extends Component {
               <li><span>Hosted By:</span> <span>{this.props.meal.hostedBy.fullName}</span></li>
               <li><span>Date: </span><span>{date}</span></li>
             </ul>
-
             <ul className="clean-list flex justify-start">
               <li><span>Location: </span> <span>{this.props.meal.location.address}</span></li>
             </ul>
@@ -114,39 +62,7 @@ class UserMealPreview extends Component {
         </div>
       </React.Fragment>)
     }
-
-
   }
 }
 export default withRouter(UserMealPreview);
 
-
-        // return (
-//   <div>
-//     {this.state.occurrences && (
-//       <MaterialTable
-//         title='Editable Example'
-//         columns={this.state.columns}
-//         data={this.state.data}
-//         onRowClick={(event, data) => this.onClickRow(event, data)}
-//         editable={{ isShow: rowData => rowData.isHosted }}
-//         actions={[
-//           {
-//             icon: 'edit',
-//             tooltip: 'Edit',
-//             onClick: (event, rowData) => {
-//               event.stopPropagation();
-//               if (rowData.isHosted) {
-//                 this.props.history.push(`/meal/edit/${rowData._id}`);
-//               }
-//             },
-//           },
-//         ]}
-//         detailPanel={rowData => {
-//           console.log('UserMealPreview rowData ->', rowData);
-//           return <TableDetailsHost rowData={rowData}> </TableDetailsHost>
-//         }}
-//       />
-//     )}
-//   </div>
-// );
