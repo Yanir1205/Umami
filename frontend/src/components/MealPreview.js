@@ -53,7 +53,7 @@ class MealPreview extends Component {
     render() {
         // const description = this.props.meal.description
         const msg = this.getMainMsg();
-        const avgRate = this.props.getAvgRate([...this.props.meal.reviews])
+        const avgRate =  this.props.getAvgRate([...this.props.meal.reviews])
         let nextDate = new Date(this.getNextDateFromNow().max.date)
         nextDate = nextDate.toDateString().split(' ').slice(1, 3).join(' ')
         return this.props.meal && <div className="item  meal-card flex" onClick={() => this.onCardClick(this.props.meal._id)}>
