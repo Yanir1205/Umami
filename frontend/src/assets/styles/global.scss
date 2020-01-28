@@ -16,27 +16,22 @@
 @import 'basics/image.scss';
 @import 'basics/table.scss';
 
-
 /*Components*/
-@import "components/main-header.scss";
-@import "components/card.scss";
-@import "components/image-gallery.scss";
-@import "components/show-hide-text.scss";
-@import "components/meal-menu.scss";
-@import "components/review-item.scss";
-@import "components/review-form.scss";
-@import "components/attendees.scss";
-@import "components/meal-form.scss";
-@import "components/meal-preview.scss";
-@import "components/search-bar.scss";
-@import "components/spinner.scss";
-@import "components/previewHosted.scss";
-
-
-
+@import 'components/main-header.scss';
+@import 'components/card.scss';
+@import 'components/image-gallery.scss';
+@import 'components/show-hide-text.scss';
+@import 'components/meal-menu.scss';
+@import 'components/review-item.scss';
+@import 'components/review-form.scss';
+@import 'components/attendees.scss';
+@import 'components/meal-form.scss';
+@import 'components/meal-preview.scss';
+@import 'components/search-bar.scss';
+@import 'components/spinner.scss';
+@import 'components/previewHosted.scss';
 
 /* Views*/
 @import 'views/homepage.scss';
-@import "views/user-details.scss";
-
+@import 'views/user-details.scss';
 @import 'views/meal-details.scss';
