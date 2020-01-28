@@ -64,11 +64,11 @@ export class Login extends Component {
             <input type='text' placeholder='password' onChange={this.changeInput} name='password'></input>
             <p></p>
 
-            <button className='btn-x-lg' onClick={this.onLogIn}>
+            <button className='btn-lg' onClick={this.onLogIn}>
               Log-in
             </button>
           </div>
-         
+
           <button className='close-btn icon-medium far fa-times-circle' onClick={this.closeModal}></button>
         </Modal>
       </div>

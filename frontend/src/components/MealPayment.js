@@ -8,12 +8,31 @@ class MealPayment extends Component {
   state = { meal: [], activeOccurrence: 0, attendees: 0, date: '', totalPrice: 0, availableSlots: 0, availableText: '', buttonText: 'REGISTER EVENT', registerCounter: 0, paymentClass: 'hide' };
 
   componentDidMount() {
+    /*
+    todo:
+
+    check if there are available places in the dates
+    if there are no places - display a - 'sold-out' on the date - or do not display as one of the dates 
+    
+    if all dates are sold-out - the meal should not be displayed at all on the list - only accessable
+    fromthe user profile
+
+    handle - the rebooking process 
+
+    change reviews to comments/feedback - currently not used as a review 
+
+
+
+
+    
+    */
+
     const meal = { ...this.props.meal };
     meal.occurrences.sort(Utilities.sortunction);
     let date = Moment(meal.occurrences[0].date).format('MM-DD-YY');
     let activeOccurrence = meal.occurrences[0];
     let availableSlots = parseInt(meal.capacity) - parseInt(activeOccurrence.total);
-    let availableText = ''; //`${availableSlots} available slots`;
+    let availableText = `${availableSlots} available slots`;
 
     if (!this.props.loggedInUser) {
       this.setState({
@@ -39,7 +58,7 @@ class MealPayment extends Component {
         attendees = userOccurrences[0].user.numOfAttendees;
         totalPrice = parseInt(attendees) * parseInt(meal.price);
         availableSlots = parseInt(meal.capacity) - parseInt(activeOccurrence.total);
-        availableText = ''; //`${availableSlots} available slots`;
+        availableText = `${availableSlots} available slots`;
       } else userOccurrences = [];
 
       this.setState({
@@ -130,7 +149,7 @@ class MealPayment extends Component {
             </ul>
           </div>
           <div>
-            <button onClick={this.onEventRegistration} className='button btn-ghost'>
+            <button onClick={this.onEventRegistration} className='button btn-main'>
               {this.state.buttonText}
             </button>
           </div>

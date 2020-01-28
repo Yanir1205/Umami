@@ -47,7 +47,6 @@ export class MealApp extends Component {
     }
 
     getAvgRate = (reviews) => {
-        debugger
         return reviews.reduce((acc, currReview) => acc + parseInt(currReview.rate), 0) / reviews.length;
     }
 

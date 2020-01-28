@@ -25,16 +25,8 @@ export class SearchBar extends Component {
 
   render() {
     return (
-      <div className='main-search-container flex align-center justify-center'>
-        <div className='input-wrapper '>
-          <i className='icon-large color-gray input-icon fas fa-search'></i>
-          <input type='text' placeholder='Search' className='input input-bottom-border input-with-icon' value={this.state.val} onChange={this.handleChange} onKeyUp={this.onSearchAction}></input>
-        </div>
-        <div className='search-btn-wrapper'>
-          <button className='button btn-ghost' onClick={this.onSearchAction}>
-            Search
-          </button>
-        </div>
+      <div className='main-search-container'>
+        <input className='search-input' type='text' placeholder='Search' value={this.state.val} onChange={this.handleChange} onKeyUp={this.onSearchAction}></input>
       </div>
     );
   }

@@ -26,7 +26,7 @@ class MealDetails extends Component {
       const { loggedInUser } = this.props;
       const meal = { ...this.props.meal };
       const activeOccurrence = meal.occurrences.find(current => current.id === registration.id);
-      debugger;
+      
       if (activeOccurrence && parseInt(meal.capacity) >= parseInt(activeOccurrence.total) + parseInt(registration.attendees)) {
         const currentUser = activeOccurrence.attendees.find(current => current._id === loggedInUser._id);
 
@@ -37,7 +37,7 @@ class MealDetails extends Component {
         }
 
         activeOccurrence.total = parseInt(activeOccurrence.total) + parseInt(registration.attendees);
-        debugger;
+        
         await this.props.add(meal);
         this.setState({ showNotification: true, notificationMessage: 'You were successfully registered. ' });
       }
@@ -100,7 +100,7 @@ class MealDetails extends Component {
                   <div className='reviews-title-wrapper'>
                     <h3 id='reviews'>Reviews</h3>
                     <a title='Review Us' href='' onClick={this.onDisplayReviewForm}>
-                      <i className='icon-large far fa-times-circle'></i>
+                      <i className='icon-large far fa-plus-square'></i>
                     </a>
                   </div>
                   <div className={this.state.displayReviewForm}>

@@ -5,45 +5,32 @@ export default class Home extends Component {
   render() {
     return (
       <>
-        <div className='main-homepage-container container flex'>
-          <div className='left-container flex-basis-80 flex column space-between'>
-            <div className='left-border'>
-              <span className='home-title'>unlocking the senses</span>
+        <div className='hero-container'>
+          <div className='hero-box flex column align-center'>
+            <div className='text flex column align-center'>
+              <span>let's eat</span>
+              <span>Discover Home Cooking Around The World</span>
             </div>
-            <div className='text-container'>
-              <div className='right-border top-border'>
-                <div className='text'>
-                  <p>
-                    Connecting people through unique culinary experiences in locations all around the world. catered by our talented, hand-selected hosts. You're invited to enjoy an elegant dinner in Paris or discover the intriguing
-                    world of preparing Uzbek Samosa
-                    {/* Connecting people through unique culinary experiences in locations all around the world. catered by our talented, hand-selected hosts. You're invited to enjoy an elegant dinner in Paris ,go on a delicious food tour on the exquisite markets of Marrakesh or discover the intriguing */}
-                  </p>
-                </div>
-              </div>
+            <div className='how-to'>
+              <ul className='clean-list flex align-center justify-center margin-bottom-20'>
+                <li>
+                  <img src={require('../assets/img/layout/location.png')} alt='Food'></img>
+                  <span>1.Choose Location</span>
+                </li>
+                <li>
+                  <img src={require('../assets/img/layout/host.png')} alt='Food'></img>
+                  <span>2.Choose Hosted Event</span>
+                </li>
+                <li>
+                  <img src={require('../assets/img/layout/reservation.png')} alt='Food'></img>
+                  <span>3.Register</span>
+                </li>
+              </ul>
+            </div>
+            <div className='search-container'>
+              <SearchBar></SearchBar>
             </div>
           </div>
-          <div className='right-container flex-basis-40'>
-            <ul className='slideshow clean-list'>
-              <li>
-                <img src='https://res.cloudinary.com/contentexs/image/upload/v1580045659/food-an-001.gif' alt='Food'></img>
-              </li>
-              <li>
-                <img src='https://res.cloudinary.com/contentexs/image/upload/v1580045617/food-an-002.gif' alt='Food'></img>
-              </li>
-              <li>
-                <img src='https://res.cloudinary.com/contentexs/image/upload/v1580045655/food-an-003.gif' alt='Food'></img>
-              </li>
-              <li>
-                <img src='https://res.cloudinary.com/contentexs/image/upload/v1580045655/food-an-004.gif' alt='Food'></img>
-              </li>
-              <li>
-                <img src='https://res.cloudinary.com/contentexs/image/upload/v1580045665/food-an-005.gif' alt='Food'></img>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className='container flex align-center justify-center'>
-          <SearchBar></SearchBar>
         </div>
       </>
     );

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import cloudService from '../services/ExternalService'
+import cloudService from '../services/ExternalService';
 import { connect } from 'react-redux';
 
 import ImageUpload from './ImageUpload';
 var id = 1;
-const MAX_FILE_SIZE = 5000000 //max size is 5MB
+const MAX_FILE_SIZE = 5000000; //max size is 5MB
 export class MealForm extends Component {
-
   state = {
     _id: '',
     hostedBy: { _id: 0, fullName: '', imgUrl: '' },
@@ -33,48 +32,99 @@ export class MealForm extends Component {
     drinkTmp: '',
     reviews: [],
     currency: 'USD',
-    tags: [], //shall include all tags from user 
+    tags: [], //shall include all tags from user
     isActive: true,
-    isPromoted: false
+    isPromoted: false,
   };
 
   componentDidMount() {
-    //TODO - get the 'loogedInUser' or the 'guest-mood' profile and init the 'hostedBy' object
     if (!this.props.meal) {
-      this.setState({ hostedBy: this.props.loggedInUser })
+      this.setState({ hostedBy: this.props.loggedInUser });
     } else {
-      const meal = this.props.meal
-      this.setState({ hostedBy: { ...meal.hostedBy }, _id: meal._id, isActive: meal.isActive, isPromoted: meal.isPromoted, tags: [...meal.tags], title: meal.title, description: meal.description, firstCourse: [...meal.menu.firstCourse], mainCourse: [...meal.menu.mainCourse], desserts: [...meal.menu.desserts], beverages: [...meal.menu.beverages], cuisineType: meal.cuisineType, mealType: meal.mealType, price: meal.price, capacity: meal.capacity, occurrences: [...meal.occurrences], address: meal.location.address, city: meal.location.city, country: meal.location.country, lat: meal.location.lat, lng: meal.location.lng, reviews: [...meal.reviews], imgUrls: [...meal.imgUrls] });
+      const meal = this.props.meal;
+      this.setState({
+        hostedBy: { ...meal.hostedBy },
+        _id: meal._id,
+        isActive: meal.isActive,
+        isPromoted: meal.isPromoted,
+        tags: [...meal.tags],
+        title: meal.title,
+        description: meal.description,
+        firstCourse: [...meal.menu.firstCourse],
+        mainCourse: [...meal.menu.mainCourse],
+        desserts: [...meal.menu.desserts],
+        beverages: [...meal.menu.beverages],
+        cuisineType: meal.cuisineType,
+        mealType: meal.mealType,
+        price: meal.price,
+        capacity: meal.capacity,
+        occurrences: [...meal.occurrences],
+        address: meal.location.address,
+        city: meal.location.city,
+        country: meal.location.country,
+        lat: meal.location.lat,
+        lng: meal.location.lng,
+        reviews: [...meal.reviews],
+        imgUrls: [...meal.imgUrls],
+      });
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (JSON.stringify(prevProps.meal) !== JSON.stringify(this.props.meal) && this.props.meal) {//edit mode:
-      const meal = this.props.meal
-      this.setState({ hostedBy: { ...meal.hostedBy }, _id: meal._id, isActive: meal.isActive, isPromoted: meal.isPromoted, tags: [...meal.tags], title: meal.title, description: meal.description, firstCourse: [...meal.menu.firstCourse], mainCourse: [...meal.menu.mainCourse], desserts: [...meal.menu.desserts], beverages: [...meal.menu.beverages], cuisineType: meal.cuisineType, mealType: meal.mealType, price: meal.price, capacity: meal.capacity, occurrences: [...meal.occurrences], address: meal.location.address, city: meal.location.city, country: meal.location.country, lat: meal.location.lat, lng: meal.location.lng, reviews: [...meal.reviews], imgUrls: [...meal.imgUrls] });
+    if (JSON.stringify(prevProps.meal) !== JSON.stringify(this.props.meal) && this.props.meal) {
+      //edit mode:
+      const meal = this.props.meal;
+      this.setState({
+        hostedBy: { ...meal.hostedBy },
+        _id: meal._id,
+        isActive: meal.isActive,
+        isPromoted: meal.isPromoted,
+        tags: [...meal.tags],
+        title: meal.title,
+        description: meal.description,
+        firstCourse: [...meal.menu.firstCourse],
+        mainCourse: [...meal.menu.mainCourse],
+        desserts: [...meal.menu.desserts],
+        beverages: [...meal.menu.beverages],
+        cuisineType: meal.cuisineType,
+        mealType: meal.mealType,
+        price: meal.price,
+        capacity: meal.capacity,
+        occurrences: [...meal.occurrences],
+        address: meal.location.address,
+        city: meal.location.city,
+        country: meal.location.country,
+        lat: meal.location.lat,
+        lng: meal.location.lng,
+        reviews: [...meal.reviews],
+        imgUrls: [...meal.imgUrls],
+      });
     }
   }
 
-  handleImageUpload = async (files) => {
+  handleImageUpload = async files => {
     for (let i = 0; i < files.length; i++) {
       if (files[i].size > MAX_FILE_SIZE) {
-        console.log('file is too big!')
-        return
+        console.log('file is too big!');
+        return;
       } else if (!files[i].type.includes('jpeg') && !files[i].type.includes('jpg') && !files[i].type.includes('png')) {
-        console.log('file format not supported!')
-        return
+        console.log('file format not supported!');
+        return;
       }
     }
-    let imgUrls = await cloudService.uploadImages(files)
-    let prevImgUrls = this.state.imgUrls
-    const newImgUrls = prevImgUrls.concat(imgUrls)
-    this.setState({ imgUrls: newImgUrls })
+    let imgUrls = await cloudService.uploadImages(files);
+    let prevImgUrls = this.state.imgUrls;
+    const newImgUrls = prevImgUrls.concat(imgUrls);
+    this.setState({ imgUrls: newImgUrls });
   };
 
   onHandleChange = ev => {
     ev.preventDefault();
     let field = ev.target.name;
     let value = ev.target.value;
+    if (value === 'true') {
+      value = true;
+    } else if (value === 'false') value = false;
     this.setState({ [field]: value });
   };
 
@@ -83,16 +133,16 @@ export class MealForm extends Component {
     let field = ev.target.name;
     let date = ev.target.value;
     // this.setState({ [field]: value });
-    if (date !== "") {
-      id += 1
+    if (date !== '') {
+      id += 1;
       const occurrences = {
         id: id,
         date: Date.parse(date),
         attendees: [],
-      }
+      };
       this.setState(prevState => ({
-        occurrences: [...prevState.occurrences, occurrences]
-      }))
+        occurrences: [...prevState.occurrences, occurrences],
+      }));
     }
     console.log('MealForm onHandleLocationChange -> ', this.state);
   };
@@ -101,50 +151,50 @@ export class MealForm extends Component {
     ev.preventDefault();
     let field = ev.target.name;
     let value = ev.target.value;
-    let tmpFieldName = ''
+    let tmpFieldName = '';
     switch (field) {
       case 'firstCourse':
-        tmpFieldName = 'firstCourseTmp'
+        tmpFieldName = 'firstCourseTmp';
         break;
       case 'mainCourse':
-        tmpFieldName = 'mainCourseTmp'
+        tmpFieldName = 'mainCourseTmp';
         break;
       case 'desserts':
-        tmpFieldName = 'dessertTmp'
+        tmpFieldName = 'dessertTmp';
         break;
       default:
-        tmpFieldName = 'drinkTmp'
+        tmpFieldName = 'drinkTmp';
         break;
     }
-    this.setState({ [tmpFieldName]: value })
+    this.setState({ [tmpFieldName]: value });
   };
 
   setTags = () => {
     let newTags = [];
-    newTags.push(this.state.cuisineType)
-    newTags.push(this.state.mealType)
-    newTags.push(this.state.title)
-    newTags.push(this.state.price)
-    newTags.push(this.state.city)
-    newTags.push(this.state.country)
-    newTags.push(this.state.address)
-    newTags.push(this.state.hostedBy.fullName)
-    newTags.push(this.state.description)
-    newTags = newTags.concat(this.state.firstCourse)
-    newTags = newTags.concat(this.state.mainCourse)
-    newTags = newTags.concat(this.state.desserts)
-    newTags = newTags.concat(this.state.beverages)
-    this.state.occurrences.forEach(occurence => {
-      const dateToRender = new Date(occurence.date).toLocaleDateString()
-      newTags.push(dateToRender)
-    })
-    this.setState({ tags: newTags })
-  }
+    newTags.push(this.state.cuisineType);
+    newTags.push(this.state.mealType);
+    newTags.push(this.state.title);
+    newTags.push(this.state.price);
+    newTags.push(this.state.city);
+    newTags.push(this.state.country);
+    newTags.push(this.state.address);
+    newTags.push(this.state.hostedBy.fullName);
+    newTags.push(this.state.description);
+    newTags = newTags.concat(this.state.firstCourse);
+    newTags = newTags.concat(this.state.mainCourse);
+    newTags = newTags.concat(this.state.desserts);
+    newTags = newTags.concat(this.state.beverages);
+    this.state.occurrences.forEach(occurrence => {
+      const dateToRender = new Date(occurrence.date).toLocaleDateString();
+      newTags.push(dateToRender);
+    });
+    this.setState({ tags: newTags });
+  };
 
-  onSaveMeal = async (ev) => {
+  onSaveMeal = async ev => {
     // ev.preventDefault();
     console.log('MealForm onSaveMeal -> this.props.loggedInUser', this.props.loggedInUser);
-    const newAddress = await cloudService.getLatLngFromAddress(this.state.address + ', ' + this.state.city + ', ' + this.state.country)
+    const newAddress = await cloudService.getLatLngFromAddress(this.state.address + ', ' + this.state.city + ', ' + this.state.country);
     this.setTags();
     let meal = {
       _id: this.state._id,
@@ -155,14 +205,14 @@ export class MealForm extends Component {
         firstCourse: this.state.firstCourse,
         mainCourse: this.state.mainCourse,
         desserts: this.state.desserts,
-        beverages: this.state.beverages
+        beverages: this.state.beverages,
       },
       location: {
         city: this.state.city,
         country: this.state.country,
         address: this.state.address,
         lat: newAddress.lat,
-        lng: newAddress.lng
+        lng: newAddress.lng,
       },
       imgUrls: this.state.imgUrls,
       title: this.state.title,
@@ -174,60 +224,60 @@ export class MealForm extends Component {
       capacity: this.state.capacity,
       reviews: this.state.reviews,
       currency: this.state.currency,
-      tags: this.state.tags
+      tags: this.state.tags,
     };
     this.props.onSaveMeal(meal);
   };
 
-  handleItemRemoval = (occurrences, occurenceIdx) => { //removes a chosen event date occurence by the host
-    const newOccurrences = occurrences.splice(occurenceIdx, 1)
-    this.setState({ ...this.state, occurences: newOccurrences })
-  }
+  handleItemRemoval = (occurrences, occurrenceIdx) => {
+    //removes a chosen event date occurrence by the host
+    const newOccurrences = occurrences.splice(occurrenceIdx, 1);
+    this.setState({ ...this.state, occurrences: newOccurrences });
+  };
 
-  onAddMenuItem = (event) => {
-    event.preventDefault()
+  onAddMenuItem = event => {
+    event.preventDefault();
     let field;
     switch (event.target.nodeName) {
       case 'I':
-        field = event.target.parentNode.name
+        field = event.target.parentNode.name;
         break;
       default:
-        field = event.target.name
+        field = event.target.name;
     }
     let value;
     switch (field) {
       case 'firstCourse':
-        value = this.state.firstCourseTmp
-        this.setState({ firstCourseTmp: '' })
+        value = this.state.firstCourseTmp;
+        this.setState({ firstCourseTmp: '' });
         break;
       case 'mainCourse':
-        value = this.state.mainCourseTmp
-        this.setState({ mainCourseTmp: '' })
+        value = this.state.mainCourseTmp;
+        this.setState({ mainCourseTmp: '' });
         break;
       case 'desserts':
-        value = this.state.dessertTmp
-        this.setState({ dessertTmp: '' })
+        value = this.state.dessertTmp;
+        this.setState({ dessertTmp: '' });
         break;
       default:
-        value = this.state.drinkTmp
-        this.setState({ drinkTmp: '' })
+        value = this.state.drinkTmp;
+        this.setState({ drinkTmp: '' });
     }
-    let course = this.state[field]
-    let newCourse = [...course]
-    newCourse.push(value)
-    this.setState({ [field]: newCourse })
-  }
+    let course = this.state[field];
+    let newCourse = [...course];
+    newCourse.push(value);
+    this.setState({ [field]: newCourse });
+  };
 
   onImgRemoval = (event, url, idx) => {
-    let newImgUrls = [...this.state.imgUrls]
+    let newImgUrls = [...this.state.imgUrls];
     newImgUrls.splice(idx, 1);
-    this.setState({ imgUrls: newImgUrls })
-  }
+    this.setState({ imgUrls: newImgUrls });
+  };
 
   render() {
     return (
       <div>
-        {/* <form className='' onSubmit={this.onSaveMeal}> */}
         <form className='' onSubmit={this.onSaveMeal}>
           <div className='image-container'>
             <h4>Images</h4>
@@ -271,11 +321,35 @@ export class MealForm extends Component {
                   <label htmlFor='date'>Date</label>
                   {/* <input type='date' name='date' placeholder='Date' id='date' onChange={this.onHandleChange} value={this.state.date} className='input-date'></input> <i className='icon-small fas fa-plus'></i> */}
                   <input type='date' name='date' placeholder='Date' id='date' onChange={this.onHandleDateAdd} value={this.state.occurences} className='input-date'></input>
-                  {this.state.occurrences && <div ><ul className="clean-list "> {this.state.occurrences.map((occurrence, idx) => { const dateToRender = new Date(occurrence.date).toLocaleDateString(); return <li key={idx}>{dateToRender}<i className="icon-small fas fa-minus" onClick={() => this.handleItemRemoval(this.state.occurrences, idx)}></i></li> })}</ul></div>}
+                  {this.state.occurrences && (
+                    <div>
+                      <ul className='clean-list '>
+                        {' '}
+                        {this.state.occurrences.map((occurrence, idx) => {
+                          const dateToRender = new Date(occurrence.date).toLocaleDateString();
+                          return (
+                            <li key={idx}>
+                              {dateToRender}
+                              <i className='icon-small fas fa-minus' onClick={() => this.handleItemRemoval(this.state.occurrences, idx)}></i>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  )}
                 </div>
                 <div className='price flex-basis-1'>
                   <label htmlFor='price'>Price</label>
                   <input type='text' placeholder='Price' id='price' name='price' value={this.state.price} onChange={this.onHandleChange} className='input-form' required></input>
+                </div>
+                <div className='capacity flex-basis-1'>
+                  <label htmlFor='capacity'>How many people</label>
+                  <input type='number' placeholder='Capacity' id='capacity' name='capacity' value={this.state.capacity} onChange={this.onHandleChange} className='input-form' required></input>
+                </div>
+                <div className='promotion flex-basis-1'>
+                  <label htmlFor='promotion'>would you like to promote your event?</label>
+                  <input type='checkbox' id='promotion' name='isPromoted' value={true} checked={this.state.isPromoted === true} onChange={this.onHandleChange} className='input-form' required></input>
+                  {/* <input type='radio' id='promotion' name='isPromoted' value={false} checked={this.state.isPromoted === false} onChange={this.onHandleChange} className='input-form' required></input><div>No</div> */}
                 </div>
               </div>
             </div>
@@ -290,10 +364,22 @@ export class MealForm extends Component {
                     <div className='menu-item'>
                       <input type='text' placeholder='First course dish' name='firstCourse' value={this.state.firstCourseTmp} className='input-form' onChange={this.onHandleMenuListChange} required></input>
                       {/* {this.state.occurrences && <div ><ul className="clean-list "> {this.state.occurrences.map((occurrence, idx) => <li>{occurrence.date}<i className="icon-small fas fa-minus" onClick={() => this.handleOccurenceRemoval(this.state.occurrences, idx)}></i></li>)}</ul></div>} */}
-                      {this.state.firstCourse && <div ><ul className="clean-list "> {this.state.firstCourse.map((course, idx) => <li key={idx}>{course}<i className="icon-small fas fa-minus" onClick={() => this.handleItemRemoval(this.state.firstCourse, idx)}></i></li>)}</ul></div>}
+                      {this.state.firstCourse && (
+                        <div>
+                          <ul className='clean-list '>
+                            {' '}
+                            {this.state.firstCourse.map((course, idx) => (
+                              <li key={idx}>
+                                {course}
+                                <i className='icon-small fas fa-minus' onClick={() => this.handleItemRemoval(this.state.firstCourse, idx)}></i>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
-                    <a name="firstCourse" className='btn-round-sm' title='Add new menu item' href='#' onClick={this.onAddMenuItem} required>
-                      <i name="firstCourse" className='icon-small fas fa-plus'></i>
+                    <a name='firstCourse' className='btn-round-sm' title='Add new menu item' href='#' onClick={this.onAddMenuItem} required>
+                      <i name='firstCourse' className='icon-small fas fa-plus'></i>
                     </a>
                   </div>
                 </div>
@@ -302,10 +388,22 @@ export class MealForm extends Component {
                   <div className='course-title-wrapper flex-inline align-center justify-center'>
                     <div className='menu-item'>
                       <input type='text' placeholder='Main course dish' name='mainCourse' value={this.state.mainCourseTmp} className='input-form' onChange={this.onHandleMenuListChange} required></input>
-                      {this.state.mainCourse && <div ><ul className="clean-list "> {this.state.mainCourse.map((course, idx) => <li key={idx}>{course}<i className="icon-small fas fa-minus" onClick={() => this.handleItemRemoval(this.state.mainCourse, idx)}></i></li>)}</ul></div>}
+                      {this.state.mainCourse && (
+                        <div>
+                          <ul className='clean-list '>
+                            {' '}
+                            {this.state.mainCourse.map((course, idx) => (
+                              <li key={idx}>
+                                {course}
+                                <i className='icon-small fas fa-minus' onClick={() => this.handleItemRemoval(this.state.mainCourse, idx)}></i>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
-                    <a name="mainCourse" className='btn-round-sm' title='Add new menu item' href='' onClick={this.onAddMenuItem}>
-                      <i name="mainCourse" className='icon-small  fas fa-plus'></i>
+                    <a name='mainCourse' className='btn-round-sm' title='Add new menu item' href='' onClick={this.onAddMenuItem}>
+                      <i name='mainCourse' className='icon-small  fas fa-plus'></i>
                     </a>
                   </div>
                 </div>
@@ -314,10 +412,22 @@ export class MealForm extends Component {
                   <div className='course-title-wrapper flex-inline align-center justify-center'>
                     <div className='menu-item'>
                       <input type='text' placeholder='Dessert' name='desserts' className='input-form' value={this.state.dessertTmp} onChange={this.onHandleMenuListChange} required></input>
-                      {this.state.desserts && <div ><ul className="clean-list "> {this.state.desserts.map((course, idx) => <li key={idx}>{course}<i className="icon-small fas fa-minus" onClick={() => this.handleItemRemoval(this.state.desserts, idx)}></i></li>)}</ul></div>}
+                      {this.state.desserts && (
+                        <div>
+                          <ul className='clean-list '>
+                            {' '}
+                            {this.state.desserts.map((course, idx) => (
+                              <li key={idx}>
+                                {course}
+                                <i className='icon-small fas fa-minus' onClick={() => this.handleItemRemoval(this.state.desserts, idx)}></i>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
-                    <a name="desserts" className='btn-round-sm' title='Add new menu item' href='' onClick={this.onAddMenuItem}>
-                      <i name="desserts" className='icon-small  fas fa-plus'></i>
+                    <a name='desserts' className='btn-round-sm' title='Add new menu item' href='' onClick={this.onAddMenuItem}>
+                      <i name='desserts' className='icon-small  fas fa-plus'></i>
                     </a>
                   </div>
                 </div>
@@ -326,10 +436,21 @@ export class MealForm extends Component {
                   <div className='course-title-wrapper flex-inline align-center justify-center'>
                     <div className='menu-item'>
                       <input type='text' placeholder='Beverage' name='beverages' className='input-form' value={this.state.drinkTmp} onChange={this.onHandleMenuListChange} required></input>
-                      {this.state.beverages && <div ><ul className="clean-list "> {this.state.beverages.map((course, idx) => <li key={idx}>{course}<i className="icon-small fas fa-minus" onClick={() => this.handleItemRemoval(this.state.beverages, idx)}></i></li>)}</ul></div>}
+                      {this.state.beverages && (
+                        <div>
+                          <ul className='clean-list '>
+                            {this.state.beverages.map((course, idx) => (
+                              <li key={idx}>
+                                {course}
+                                <i className='icon-small fas fa-minus' onClick={() => this.handleItemRemoval(this.state.beverages, idx)}></i>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
-                    <a name="beverages" className='btn-round-sm' title='Add new menu item' href='' onClick={this.onAddMenuItem}>
-                      <i name="beverages" className='icon-small fas fa-plus'></i>
+                    <a name='beverages' className='btn-round-sm' title='Add new menu item' href='' onClick={this.onAddMenuItem}>
+                      <i name='beverages' className='icon-small fas fa-plus'></i>
                     </a>
                   </div>
                 </div>
@@ -337,7 +458,7 @@ export class MealForm extends Component {
             </div>
           </div>
           <div className='save'>
-            <button className='button btn-exlg btn-ghost' onClick={this.onSaveMeal}>
+            <button className='button btn-lg btn-main' onClick={this.onSaveMeal}>
               SAVE
             </button>
           </div>
