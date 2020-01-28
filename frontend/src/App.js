@@ -16,9 +16,9 @@ import SearchBar from './components/SearchBar';
 import './assets/css/all.min.css';
 import './assets/styles/global.scss';
 
-const history = createBrowserHistory();
+  const history = createBrowserHistory();
 
-export default class App extends Component {
+  export default class App extends Component {
   render() {
     return (
       <React.Fragment>
