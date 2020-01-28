@@ -25,17 +25,17 @@ export class Header extends Component {
           </Link>
         </div>
         <div className='nav-container container flex-basis-30 flex justify-end'>
-          <div className='controls flex-basis-1 flex row space-even'>
-            <div>
+          <div className='controls flex-basis-1 flex row align-center justify-center'>
+            <div className='margin-right-10'>
               <Link to='/meal/edit'>
                 <span className='ellipse-link'>Become a Host</span>
               </Link>
             </div>
             {this.props.loggedInUser && (
               <>
-                <div>
+                <div className='logged-user-container'>
                   <Link className='' to={`/user/${this.props.loggedInUser._id}`}>
-                    <img style={{ width: '30px', height: '30px' }} src='https://res.cloudinary.com/contentexs/image/upload/v1580045611/dish-cover.svg' alt='' />
+                    <img style={{ width: '60px', height: '60px' }} src='https://res.cloudinary.com/contentexs/image/upload/v1580171634/user-round.svg' alt='' />
                   </Link>
                 </div>
                 <span>|</span>

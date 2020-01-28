@@ -2,7 +2,7 @@ const dbService = require('../../services/db.service');
 const ObjectId = require('mongodb').ObjectId;
 
 async function query(filterBy = {}) {
-
+  debugger;
   const criteria = buildCriteria(filterBy);
   const collection = await dbService.getCollection('meal');
   try {
@@ -10,7 +10,7 @@ async function query(filterBy = {}) {
       const meals = await collection.find(criteria).toArray();
 
       const resultMeals = filterResults(meals, filterBy);
-      
+
       return resultMeals;
     } else if (!filterBy.distinct) {
       if (!filterBy.meals) {
@@ -26,8 +26,8 @@ async function query(filterBy = {}) {
         return mealsToReturn;
       }
     } else {
-      const tags = await collection.distinct(filterBy.distinct)
-      return tags
+      const tags = await collection.distinct(filterBy.distinct);
+      return tags;
     }
   } catch (err) {
     console.log('ERROR: cannot find Meals');
@@ -49,8 +49,8 @@ async function getById(mealId) {
   const collection = await dbService.getCollection('meal');
   try {
     const meal = await collection.findOne({ _id: ObjectId(mealId) });
-    console.log('meal.service -> getById -> ',meal);
-    
+    console.log('meal.service -> getById -> ', meal);
+
     return meal;
   } catch (err) {
     console.log(`ERROR: cannot find meal ${mealId}`);
@@ -85,11 +85,11 @@ async function add(meal) {
 
 function filterMealsByUserId(userId, meals) {
   try {
-
     // const resultMeals = null
-    const resultMeals = meals.filter(meal => {// for Hosted 
+    const resultMeals = meals.filter(meal => {
+      // for Hosted
       if (meal.hostedBy._id == userId) {
-        meal.objForHosted = true
+        meal.objForHosted = true;
         console.log('currMeal for HOSTED ->', meal);
         return meal;
       }
@@ -101,37 +101,33 @@ function filterMealsByUserId(userId, meals) {
         occurrence.attendees.forEach(async attendee => {
           if (attendee._id !== undefined) {
             const id = attendee._id;
-            if (id == userId) {//for attendees
-              const currMeal = { ...meal }
-              currMeal.objForHosted = false
-              delete currMeal.occurrences
-              currMeal.occurensId = occurrence.id
-              currMeal.date = occurrence.date
-              currMeal.userId = attendee._id
-              currMeal.userName = attendee.fullName
-              currMeal.total = attendee.numOfAttendees
-              
-              delete currMeal.capacity
-              delete currMeal.tags
-              // delete currMeal.location
-              delete currMeal.imgUrls
-              delete currMeal.description
-              delete currMeal.reviews
-              delete currMeal.menu
+            if (id == userId) {
+              //for attendees
+              const currMeal = { ...meal };
+              currMeal.objForHosted = false;
+              delete currMeal.occurrences;
+              currMeal.occurensId = occurrence.id;
+              currMeal.date = occurrence.date;
+              currMeal.userId = attendee._id;
+              currMeal.userName = attendee.fullName;
+              currMeal.total = attendee.numOfAttendees;
 
-              console.log('currMeal for ATENDEES ->', currMeal);
+              delete currMeal.capacity;
+              delete currMeal.tags;
+              // delete currMeal.location
+              delete currMeal.imgUrls;
+              delete currMeal.description;
+              delete currMeal.reviews;
+              delete currMeal.menu;
               resultMeals.push(currMeal);
             }
           }
         });
       });
     });
-
-    // console.log('meal.service -> currMeal ', currMeal);
     return resultMeals;
   } catch (err) {
     console.log('err', err);
-
   }
 }
 
@@ -144,7 +140,7 @@ async function filterResults(meals, filterBy) {
 }
 
 function buildCriteria(filterBy) {
-  if (filterBy.city) console.log('inside build criteria! filter:')
+  if (filterBy.city) console.log('inside build criteria! filter:');
   const criteria = {};
 
   if (filterBy.type) {
@@ -159,15 +155,14 @@ function buildCriteria(filterBy) {
     criteria.date = { $gt: begining, $lt: ending };
   }
 
-  if (filterBy.city) { 
-    criteria["location.city"] = { $eq: filterBy.city }
+  if (filterBy.city) {
+    criteria['location.city'] = { $eq: filterBy.city };
   }
   if (filterBy.country) {
-    criteria["location.country"] = { $eq: filterBy.country }
-
+    criteria['location.country'] = { $eq: filterBy.country };
   }
   if (filterBy.tags) {
-    criteria["tags"] = { $regex: `.*${filterBy.tags}.*`, $options: 'i' };
+    criteria['tags'] = { $regex: `.*${filterBy.tags}.*`, $options: 'i' };
   }
   return criteria;
 }

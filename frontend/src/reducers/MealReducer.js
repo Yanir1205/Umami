@@ -12,16 +12,11 @@ export default function MealReducer(state = initialState, action = {}) {
         ...state,
         meals: action.meals,
       };
-
     case 'GET_BY_ID':
-      console.log('MealReducer ->  action.meal', action.meal);
-      
       return {
         ...state,
-        // meal: action.meal,
         selectedMeal: action.meal,
       };
-
     case 'ADD':
       return {
         ...state,
@@ -41,7 +36,7 @@ export default function MealReducer(state = initialState, action = {}) {
     case 'LOAD_CUISINES':
       return { ...state, cuisines: [...action.cuisineTypesToReducer] };
     case 'LOAD_TAGS':
-      return { ...state, tags: [...action.tags] }
+      return { ...state, tags: [...action.tags] };
     default:
       return state;
   }
