@@ -122,6 +122,9 @@ export class MealForm extends Component {
     ev.preventDefault();
     let field = ev.target.name;
     let value = ev.target.value;
+    if (value === 'true') {
+      value = true;
+    } else if (value === 'false') value = false;
     this.setState({ [field]: value });
   };
 
@@ -339,6 +342,15 @@ export class MealForm extends Component {
                   <label htmlFor='price'>Price</label>
                   <input type='text' placeholder='Price' id='price' name='price' value={this.state.price} onChange={this.onHandleChange} className='input-form' required></input>
                 </div>
+                <div className='capacity flex-basis-1'>
+                  <label htmlFor='capacity'>How many people</label>
+                  <input type='number' placeholder='Capacity' id='capacity' name='capacity' value={this.state.capacity} onChange={this.onHandleChange} className='input-form' required></input>
+                </div>
+                <div className='promotion flex-basis-1'>
+                  <label htmlFor='promotion'>would you like to promote your event?</label>
+                  <input type='checkbox' id='promotion' name='isPromoted' value={true} checked={this.state.isPromoted === true} onChange={this.onHandleChange} className='input-form' required></input>
+                  {/* <input type='radio' id='promotion' name='isPromoted' value={false} checked={this.state.isPromoted === false} onChange={this.onHandleChange} className='input-form' required></input><div>No</div> */}
+                </div>
               </div>
             </div>
           </div>
@@ -455,5 +467,6 @@ export class MealForm extends Component {
     );
   }
 }
+
 
 export default MealForm;
