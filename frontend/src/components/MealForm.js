@@ -349,14 +349,3 @@ export class MealForm extends Component {
 
 
 export default MealForm;
-
-// this.setState({
-    //   imgUrls: [
-    //     'https://i.pinimg.com/564x/ea/16/38/ea163859e57fd49a35219038bc771c07.jpg',
-    //     'https://i.pinimg.com/564x/9a/6e/01/9a6e012ea78b5e55eb3fa7c1af4c44e6.jpg',
-    //     'https://i.pinimg.com/236x/65/6f/d9/656fd9dd5018de65828656412365bba4.jpg',
-    //     'https://i.pinimg.com/564x/20/62/e7/2062e780dccca8f2aeb0cf01dc8cab78.jpg',
-    //     'https://i.pinimg.com/564x/0a/1a/85/0a1a85bfddea381574da7ddfce59cb64.jpg',
-    //     'https://i.pinimg.com/564x/98/e1/f6/98e1f67a5f740665ba9a7f16c463bdf5.jpg',
-    //   ],
-    // });

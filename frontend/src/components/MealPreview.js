@@ -53,6 +53,7 @@ class MealPreview extends Component {
     render() {
         // const description = this.props.meal.description
         const msg = this.getMainMsg();
+        debugger
         const avgRate = this.props.meal ? this.props.getAvgRate(this.props.meal.reviews) : ''
         let nextDate = new Date(this.getNextDateFromNow().max.date)
         nextDate = nextDate.toDateString().split(' ').slice(1, 3).join(' ')
