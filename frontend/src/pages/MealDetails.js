@@ -73,7 +73,6 @@ class MealDetails extends Component {
 
   render() {
     const { meal } = this.props;
-    console.log(meal);
 
     if (!meal) return <div className='border-loading-indicator col-2 row-1'></div>;
     else

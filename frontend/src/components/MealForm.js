@@ -37,6 +37,7 @@ export class MealForm extends Component {
     tags: [], //shall include all tags from user
     isActive: true,
     isPromoted: false,
+    isBtnEnabled: true
   };
 
   componentDidMount() {
@@ -104,9 +105,11 @@ export class MealForm extends Component {
     }
   }
 
+
   handleImageUpload = async files => {
     for (let i = 0; i < files.length; i++) {
       if (files[i].size > MAX_FILE_SIZE) {
+
         console.log('file is too big!');
         return;
       } else if (!files[i].type.includes('jpeg') && !files[i].type.includes('jpg') && !files[i].type.includes('png')) {
@@ -114,11 +117,16 @@ export class MealForm extends Component {
         return;
       }
     }
+    this.setState({ isBtnEnabled: false })
     let imgUrls = await cloudService.uploadImages(files);
     let prevImgUrls = this.state.imgUrls;
     const newImgUrls = prevImgUrls.concat(imgUrls);
-    this.setState({ imgUrls: newImgUrls });
+    this.setState({ imgUrls: newImgUrls }, this.enableBtn);
   };
+
+  enableBtn = () => {
+    this.setState({ isBtnEnabled: true })
+  }
 
   onHandleChange = ev => {
     ev.preventDefault();
@@ -129,11 +137,6 @@ export class MealForm extends Component {
     }
     this.setState({ [field]: value });
   };
-
-  //   handleChange = (event) => {
-  //     debugger
-  //     this.setState({ checked: event.target.checked });
-  // }
 
   onHandleDateAdd = ev => {
     ev.preventDefault();
@@ -153,7 +156,7 @@ export class MealForm extends Component {
     }
   };
 
-  onHandleMenuListChange = ev => {
+  onHandleAddMenuItem = ev => {
     ev.preventDefault();
     let field = ev.target.name;
     let value = ev.target.value;
@@ -231,14 +234,32 @@ export class MealForm extends Component {
       currency: this.state.currency,
       tags: this.state.tags,
     };
+    if (!this.props.meal) { //create mode
+      delete meal._id
+    }
     this.props.onSaveMeal(meal);
   };
 
-  handleItemRemoval = (occurrences, occurrenceIdx) => {
+  handleDateRemoval = (occurrences, occurrenceIdx) => {
     //removes a chosen event date occurrence by the host
-    const newOccurrences = occurrences.splice(occurrenceIdx, 1);
+    const newOccurrences = [...occurrences]
+    newOccurrences.splice(occurrenceIdx, 1);
     this.setState({ ...this.state, occurrences: newOccurrences });
   };
+
+  handleMenuItemRemoval = (ev, list, idx) => {
+    let field;
+    switch (ev.target.nodeName) {
+      case 'I':
+        field = ev.target.classList[0]
+        break;
+      default:
+        field = ev.target.name;
+    }
+    const newList = [...list];
+    newList.splice(idx, 1);
+    this.setState({ [field]: newList })
+  }
 
   onAddMenuItem = event => {
     event.preventDefault();
@@ -335,7 +356,9 @@ export class MealForm extends Component {
                           return (
                             <li key={idx}>
                               {dateToRender}
-                              <i className='icon-small fas fa-minus' onClick={() => this.handleItemRemoval(this.state.occurrences, idx)}></i>
+                              <span>
+                                <i className='icon-small fas fa-minus' onClick={() => this.handleDateRemoval(this.state.occurrences, idx)}></i>
+                              </span>
                             </li>
                           );
                         })}
@@ -365,16 +388,16 @@ export class MealForm extends Component {
                   <h3>First Course</h3>
                   <div className='course-title-wrapper  flex-inline align-center justify-center'>
                     <div className='menu-item'>
-                      <input type='text' placeholder='First course dish' name='firstCourse' value={this.state.firstCourseTmp} className='input-form' onChange={this.onHandleMenuListChange} required></input>
+                      <input type='text' placeholder='First course dish' name='firstCourse' value={this.state.firstCourseTmp} className='input-form' onChange={this.onHandleAddMenuItem} required></input>
                       {/* {this.state.occurrences && <div ><ul className="clean-list "> {this.state.occurrences.map((occurrence, idx) => <li>{occurrence.date}<i className="icon-small fas fa-minus" onClick={() => this.handleOccurenceRemoval(this.state.occurrences, idx)}></i></li>)}</ul></div>} */}
                       {this.state.firstCourse && (
                         <div>
                           <ul className='clean-list '>
                             {' '}
                             {this.state.firstCourse.map((course, idx) => (
-                              <li key={idx}>
+                              <li name='firstCourse' key={idx}>
                                 {course}
-                                <i className='icon-small fas fa-minus' onClick={() => this.handleItemRemoval(this.state.firstCourse, idx)}></i>
+                                <i className='firstCourse icon-small fas fa-minus' name='firstCourse' onClick={(ev) => this.handleMenuItemRemoval(ev, this.state.firstCourse, idx)}></i>
                               </li>
                             ))}
                           </ul>
@@ -390,15 +413,15 @@ export class MealForm extends Component {
                   <h3>Main Course</h3>
                   <div className='course-title-wrapper flex-inline align-center justify-center'>
                     <div className='menu-item'>
-                      <input type='text' placeholder='Main course dish' name='mainCourse' value={this.state.mainCourseTmp} className='input-form' onChange={this.onHandleMenuListChange} required></input>
+                      <input type='text' placeholder='Main course dish' name='mainCourse' value={this.state.mainCourseTmp} className='input-form' onChange={this.onHandleAddMenuItem} required></input>
                       {this.state.mainCourse && (
                         <div>
                           <ul className='clean-list '>
                             {' '}
                             {this.state.mainCourse.map((course, idx) => (
-                              <li key={idx}>
+                              <li name='mainCourse' key={idx}>
                                 {course}
-                                <i className='icon-small fas fa-minus' onClick={() => this.handleItemRemoval(this.state.mainCourse, idx)}></i>
+                                <i className='mainCourse icon-small fas fa-minus' name='mainCourse' onClick={(ev) => this.handleMenuItemRemoval(ev, this.state.mainCourse, idx)}></i>
                               </li>
                             ))}
                           </ul>
@@ -414,15 +437,15 @@ export class MealForm extends Component {
                   <h3>Dessert</h3>
                   <div className='course-title-wrapper flex-inline align-center justify-center'>
                     <div className='menu-item'>
-                      <input type='text' placeholder='Dessert' name='desserts' className='input-form' value={this.state.dessertTmp} onChange={this.onHandleMenuListChange} required></input>
+                      <input type='text' placeholder='Dessert' name='desserts' className='input-form' value={this.state.dessertTmp} onChange={this.onHandleAddMenuItem} required></input>
                       {this.state.desserts && (
                         <div>
                           <ul className='clean-list '>
                             {' '}
                             {this.state.desserts.map((course, idx) => (
-                              <li key={idx}>
+                              <li name='desserts' key={idx}>
                                 {course}
-                                <i className='icon-small fas fa-minus' onClick={() => this.handleItemRemoval(this.state.desserts, idx)}></i>
+                                <i className='desserts icon-small fas fa-minus' name='desserts' onClick={(ev) => this.handleMenuItemRemoval(ev, this.state.desserts, idx)}></i>
                               </li>
                             ))}
                           </ul>
@@ -438,14 +461,14 @@ export class MealForm extends Component {
                   <h3>Beverage</h3>
                   <div className='course-title-wrapper flex-inline align-center justify-center'>
                     <div className='menu-item'>
-                      <input type='text' placeholder='Beverage' name='beverages' className='input-form' value={this.state.drinkTmp} onChange={this.onHandleMenuListChange} required></input>
+                      <input type='text' placeholder='Beverage' name='beverages' className='input-form' value={this.state.drinkTmp} onChange={this.onHandleAddMenuItem} required></input>
                       {this.state.beverages && (
                         <div>
                           <ul className='clean-list '>
                             {this.state.beverages.map((course, idx) => (
-                              <li key={idx}>
+                              <li name='beverages' key={idx}>
                                 {course}
-                                <i className='icon-small fas fa-minus' onClick={() => this.handleItemRemoval(this.state.beverages, idx)}></i>
+                                <i className='beverages icon-small fas fa-minus' name='beverages' onClick={(ev) => this.handleMenuItemRemoval(ev, this.state.beverages, idx)}></i>
                               </li>
                             ))}
                           </ul>
@@ -461,7 +484,7 @@ export class MealForm extends Component {
             </div>
           </div>
           <div className='save'>
-            <button className='button btn-lg btn-main' onClick={this.onSaveMeal}>
+            <button className='button btn-lg btn-main' onClick={this.onSaveMeal} disabled={!this.state.isBtnEnabled}>
               SAVE
             </button>
           </div>

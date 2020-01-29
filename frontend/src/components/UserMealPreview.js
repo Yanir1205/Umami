@@ -19,14 +19,26 @@ class UserMealPreview extends Component {
 
     this.props.history.push(`/meal/edit/${this.props.meal._id}`)
   }
+
+  onDelete = (event) => {
+    event.stopPropagation();
+
+    const { id } = this.props.match.params;
+    const userId = id
+    const mealId = this.props.meal._id
+    const occurensId = this.props.meal.occurensId
+
+    this.props.onDelete(userId,mealId,occurensId)
+  }
+
   render() {
     const occurrences = this.props.meal.occurrences
-
+    
     if (this.props.meal.objForHosted) {
       return (<React.Fragment>
         {occurrences && occurrences.map((occurrence) => {
           const date = new Date(occurrence.date).toLocaleDateString()
-          return <div className="tab-content ">
+          return <div key={"Key" + occurrences.id} className="tab-content ">
             <div className=" ">
               <ul className="host-list flex space-around clean-list">
                 <li><span>Date: </span><span>{date}</span></li>
@@ -41,13 +53,14 @@ class UserMealPreview extends Component {
         })}
       </React.Fragment>)
     } else {
-     const date = new Date(this.props.meal.date ).toLocaleDateString()
+      const date = new Date(this.props.meal.date).toLocaleDateString()
       return (!this.props.meal.objForHosted && <React.Fragment>
         <div className="tab-content cursor " onClick={this.onClickRow} title="Click me to see event">
           <ul className="guest-list clean-list">
             <ul className="clean-list flex space-between  ">
               <li><span>Hosted By:</span> <span>{this.props.meal.hostedBy.fullName}</span></li>
               <li><span>Date: </span><span>{date}</span></li>
+              <li><span onClick={this.onDelete} title="delete me from event">🗑️</span></li>
             </ul>
             <ul className="clean-list flex justify-start">
               <li><span>Location: </span> <span>{this.props.meal.location.address}</span></li>

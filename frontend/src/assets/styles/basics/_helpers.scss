@@ -247,3 +247,6 @@
 .square-ratio {
   @include aspect-ratio(1, 1);
 }
+.cursor-pointer{
+  cursor: pointer;
+}

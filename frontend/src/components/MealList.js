@@ -7,7 +7,6 @@ import MealPreview from './MealPreview'
 class MealList extends Component {
 
   render() {
-    debugger
     return (
       <section className="meal-list">
         {this.props.meals.map(meal => (

@@ -120,7 +120,6 @@ export class MealApp extends Component {
     }
 
     render() {
-        debugger
         const isResultsUrl = this.props.location.pathname.includes('results');
         return <div className='container'>
             <SearchBar></SearchBar>
