@@ -18,8 +18,9 @@ export class MealApp extends Component {
     }
 
     async componentDidMount() {
+        await this.resetFilterDefinitions()
         if (this.props.location.pathname.includes('results')) {
-            await this.setState({ renderType: 'results' })
+            this.setState({ renderType: 'results' })
             const { results } = this.props.match.params
             await this.props.setFilter({ ...this.filter, tags: results })
             await this.loadMeals()
@@ -34,15 +35,20 @@ export class MealApp extends Component {
         }
     }
 
-    resetFilterDefinitions = () => {
-        this.props.setFilter({
+    async componentWillUnmount() {
+        await this.resetFilterDefinitions();
+    }
+
+    resetFilterDefinitions = async () => {
+        await this.props.setFilter({
             userId: '',
             at: '',
             type: '',
             location: {
                 city: '',
                 country: '',
-            }
+            },
+            tags: ''
         })
     }
 
@@ -63,7 +69,7 @@ export class MealApp extends Component {
                 badgeName = 'cuisine';
             }
             this.setBadges(badgeName);
-            await this.setState({ renderType: badgeName });
+            this.setState({ renderType: badgeName });
             if (badgeName === 'location') {
                 const { location } = this.props.match.params
                 if (!location) { //load meals grouped by location
@@ -114,6 +120,7 @@ export class MealApp extends Component {
     }
 
     render() {
+        debugger
         const isResultsUrl = this.props.location.pathname.includes('results');
         return <div className='container'>
             <SearchBar></SearchBar>

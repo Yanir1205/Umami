@@ -52,7 +52,7 @@ async function getById(id) {
 async function add(meal) {
 
   const addedMeal = await HttpService.post(`${endpoint}`, meal);
-  
+
   return addedMeal;
 }
 

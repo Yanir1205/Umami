@@ -13,9 +13,7 @@ export default function MealReducer(state = initialState, action = {}) {
         meals: action.meals,
       };
 
-    case 'GET_BY_ID':
-      console.log('MealReducer ->  action.meal', action.meal);
-      
+    case 'GET_BY_ID':      
       return {
         ...state,
         // meal: action.meal,

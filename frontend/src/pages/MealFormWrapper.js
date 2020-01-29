@@ -27,7 +27,7 @@ class MealFormWrapper extends Component {
       <React.Fragment>
         <div className='container main-form-container'>
           <h2>Event</h2>
-          {((id && this.props.meal) || !id) && <MealForm loggedInUser={loggedInUser} onSaveMeal={this.onSaveMeal} meal={this.props.meal} />}
+          {((id && this.props.meal) || !id) && <MealForm loggedInUser={loggedInUser} onSaveMeal={this.onSaveMeal} meal={id ? this.props.meal : ''} />}
         </div>
       </React.Fragment>
     );

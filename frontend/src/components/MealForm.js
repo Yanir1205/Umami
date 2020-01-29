@@ -3,6 +3,8 @@ import cloudService from '../services/ExternalService';
 import { connect } from 'react-redux';
 
 import ImageUpload from './ImageUpload';
+import PromotionCheckbox from './PromotionCheckbox'
+
 var id = 1;
 const MAX_FILE_SIZE = 5000000; //max size is 5MB
 export class MealForm extends Component {
@@ -122,11 +124,16 @@ export class MealForm extends Component {
     ev.preventDefault();
     let field = ev.target.name;
     let value = ev.target.value;
-    if (value === 'true') {
-      value = true;
-    } else if (value === 'false') value = false;
+    if (field === 'isPromoted') {
+      value = !this.state.isPromoted
+    }
     this.setState({ [field]: value });
   };
+
+  //   handleChange = (event) => {
+  //     debugger
+  //     this.setState({ checked: event.target.checked });
+  // }
 
   onHandleDateAdd = ev => {
     ev.preventDefault();
@@ -144,7 +151,6 @@ export class MealForm extends Component {
         occurrences: [...prevState.occurrences, occurrences],
       }));
     }
-    console.log('MealForm onHandleLocationChange -> ', this.state);
   };
 
   onHandleMenuListChange = ev => {
@@ -193,13 +199,12 @@ export class MealForm extends Component {
 
   onSaveMeal = async ev => {
     // ev.preventDefault();
-    console.log('MealForm onSaveMeal -> this.props.loggedInUser', this.props.loggedInUser);
     const newAddress = await cloudService.getLatLngFromAddress(this.state.address + ', ' + this.state.city + ', ' + this.state.country);
     this.setTags();
     let meal = {
       _id: this.state._id,
       isActive: true,
-      isPromoted: false,
+      isPromoted: this.state.isPromoted,
       hostedBy: this.state.hostedBy,
       menu: {
         firstCourse: this.state.firstCourse,
@@ -347,9 +352,7 @@ export class MealForm extends Component {
                   <input type='number' placeholder='Capacity' id='capacity' name='capacity' value={this.state.capacity} onChange={this.onHandleChange} className='input-form' required></input>
                 </div>
                 <div className='promotion flex-basis-1'>
-                  <label htmlFor='promotion'>would you like to promote your event?</label>
-                  <input type='checkbox' id='promotion' name='isPromoted' value={true} checked={this.state.isPromoted === true} onChange={this.onHandleChange} className='input-form' required></input>
-                  {/* <input type='radio' id='promotion' name='isPromoted' value={false} checked={this.state.isPromoted === false} onChange={this.onHandleChange} className='input-form' required></input><div>No</div> */}
+                  <PromotionCheckbox label={'Would you like to promote your event?'} handleChange={this.onHandleChange} isPromoted={this.state.isPromoted}></PromotionCheckbox>
                 </div>
               </div>
             </div>

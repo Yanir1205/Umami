@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 
 class MealPreview extends Component {
@@ -51,8 +50,9 @@ class MealPreview extends Component {
     }
 
     render() {
-        // const description = this.props.meal.description
+        debugger
         const msg = this.getMainMsg();
+        console.log('reviews: ', this.props.meal.reviews) // after viewing create event and edit event, trying to search a tag leads to error!!!
         const reviews =[...this.props.meal.reviews]
         const avgRate = (this.props.meal && reviews) ? this.props.getAvgRate(reviews) : ''
         let nextDate = new Date(this.getNextDateFromNow().max.date)
