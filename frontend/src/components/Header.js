@@ -13,6 +13,7 @@ export class Header extends Component {
   };
 
   onLogIn = async user => {
+    
     await this.props.login(user);
   };
 
@@ -48,8 +49,9 @@ export class Header extends Component {
             )}
             {!this.props.loggedInUser && (
               <>
-                <Login onLogIn={this.onLogIn}></Login> <span>|</span>
-                <Signup></Signup>
+              <Link className =' ' to = {'/user/log-in'}  onLogIn={this.onLogIn}>log-in</Link>
+                {/* <Login onLogIn={this.onLogIn}></Login> <span>|</span> */}
+                {/* <Signup></Signup> */}
               </>
             )}
           </div>

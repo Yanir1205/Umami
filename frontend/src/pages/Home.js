@@ -7,7 +7,6 @@ import MealCategoryList from '../components/MealCategoryList';
 
 class Home extends Component {
   componentDidMount() {
-    debugger;
     this.props.load();
   }
 

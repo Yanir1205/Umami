@@ -38,11 +38,10 @@ function getCategoriesInfo(mealsArray, type) {
   categories = {};
   //const startDateRange = new Date().getTime();
   // const endDateRange = new Date().setDate(new Date().getDate() + 7);
-  debugger;
   mealsArray.reduce(function(result, meal) {
-    debugger;
+
     if (!result[meal[categoryType.field]]) {
-      debugger;
+  
       result[meal[categoryType.field]] = {
         name: meal[categoryType.field],
         cuisines: [].push({

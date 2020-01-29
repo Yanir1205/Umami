@@ -1,5 +1,6 @@
 let initialState = {
   meals: [],
+  userMeals:[],
   selectedMeal: null,
   cities: [],
   cuisines: [],
@@ -37,6 +38,12 @@ export default function MealReducer(state = initialState, action = {}) {
       return { ...state, cuisines: [...action.cuisineTypesToReducer] };
     case 'LOAD_TAGS':
       return { ...state, tags: [...action.tags] };
+    case 'LOAD_USER_MEAL':
+      return {
+        ...state,
+        userMeals: action.userMeals,
+      };
+
     default:
       return state;
   }

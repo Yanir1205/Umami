@@ -101,10 +101,12 @@ export class MealForm extends Component {
       });
     }
   }
+  
 
   handleImageUpload = async files => {
     for (let i = 0; i < files.length; i++) {
       if (files[i].size > MAX_FILE_SIZE) {
+        
         console.log('file is too big!');
         return;
       } else if (!files[i].type.includes('jpeg') && !files[i].type.includes('jpg') && !files[i].type.includes('png')) {
@@ -144,7 +146,6 @@ export class MealForm extends Component {
         occurrences: [...prevState.occurrences, occurrences],
       }));
     }
-    console.log('MealForm onHandleLocationChange -> ', this.state);
   };
 
   onHandleMenuListChange = ev => {
@@ -193,7 +194,7 @@ export class MealForm extends Component {
 
   onSaveMeal = async ev => {
     // ev.preventDefault();
-    console.log('MealForm onSaveMeal -> this.props.loggedInUser', this.props.loggedInUser);
+  
     const newAddress = await cloudService.getLatLngFromAddress(this.state.address + ', ' + this.state.city + ', ' + this.state.country);
     this.setTags();
     let meal = {
