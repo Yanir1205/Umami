@@ -7,6 +7,7 @@ export default {
   remove,
   loadCities,
   loadCuisines,
+  loadUserMeal,
   loadMealsByLocation,
   loadMealsByCuisine,
 };
@@ -15,6 +16,13 @@ export function load(filter) {
   return async dispatch => {
     const meals = await MealService.query(filter);
     dispatch({ type: 'LOAD', meals });
+  };
+}
+
+export function loadUserMeal(filter) {
+  return async dispatch => {
+    const userMeals = await MealService.query(filter);
+    dispatch({ type: 'LOAD_USER_MEAL', userMeals });
   };
 }
 
@@ -78,8 +86,10 @@ export function loadTags() {
 }
 
 export function getById(id) {
+
   return async dispatch => {
     const meal = await MealService.getById(id);
+    
     dispatch({ type: 'GET_BY_ID', meal });
   };
 }

@@ -61,7 +61,6 @@ function _getImageByCategoryType(categoryType, categoryInstance) {
   if (categoryType.type === 'Location') {
     imgUrl = mapCitiesImages[categoryInstance.toLowerCase()] ? mapCitiesImages[categoryInstance.toLowerCase()] : mapCitiesImages['default'];
   }
-
   return imgUrl;
 }
 

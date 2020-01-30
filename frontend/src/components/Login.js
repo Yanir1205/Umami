@@ -1,27 +1,22 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
+import { login } from '../actions/UserActions';
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
+import { connect } from 'react-redux';
+import Signup from '../components/Signup';
+import { Button } from '@material-ui/core';
 
-export class Login extends Component {
+class Login extends Component {
   state = {
-    modalIsOpen: false,
     email: '',
     password: '',
+    isHide: true,
   };
 
-  openModal = this.openModal.bind(this);
-  afterOpenModal = this.afterOpenModal.bind(this);
-  closeModal = this.closeModal.bind(this);
+  // openModal = this.openModal.bind(this);
+  // afterOpenModal = this.afterOpenModal.bind(this);
+  // closeModal = this.closeModal.bind(this);
 
   changeInput = ev => {
     let field = ev.target.name;
@@ -29,49 +24,73 @@ export class Login extends Component {
     this.setState({ [field]: value });
   };
 
-  openModal() {
-    this.setState({ modalIsOpen: true });
-  }
+  // openModal() {
+  //   this.setState({ modalIsOpen: true });
+  // }
 
-  afterOpenModal() {
-    // references are now synced and can be accessed.
-    this.subtitle.style.color = '#f00';
-  }
+  // afterOpenModal() {
+  //   // references are now synced and can be accessed.
+  //   this.subtitle.style.color = '#f00';
+  // }
 
-  closeModal() {
-    this.setState({ modalIsOpen: false });
-  }
+  // closeModal() {
+  //   this.setState({ modalIsOpen: false });
+  // }
 
-  onLogIn = () => {
+  onLogInUser = async () => {
     const email = this.state.email;
     const password = this.state.password;
     const user = { email, password };
-    this.props.onLogIn(user);
+
+    // this.props.onLogIn(user);\
+    await this.props.login(user);
+    this.props.history.push(`/`);
+  };
+
+  changeForm = () => {
+    this.setState(prevState => ({ isHide: !prevState.isHide }));
   };
 
   render() {
+    const hideSignup = this.state.isHide ? 'hide' : 'show-block';
+    const hideLogIn = !this.state.isHide ? 'hide' : 'show-block';
     return (
-      <div>
-        <a onClick={this.openModal}>login</a>
-        <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel='Example Modal'>
-          <h2 ref={subtitle => (this.subtitle = subtitle)}>Log-in </h2>
-          <div className='log-in'>
-            {/* <p>User-Name</p> */}
-            <input type='email' placeholder='email' onChange={this.changeInput} name='email'></input>
-            <p></p>
-            <input type='text' placeholder='password' onChange={this.changeInput} name='password'></input>
-            <p></p>
-
-            <button className='btn-lg' onClick={this.onLogIn}>
-              Log-in
-            </button>
+      <div className='flex column align-center justify-center'>
+        {/* <Navbar styleNavBar={styleNavBar} ></Navbar> */}
+        <div>Log-in</div>
+        <div className={hideLogIn}>
+          <div>
+            {' '}
+            <input name='email' onChange={this.changeInput} value={this.state.email} type='text' className='login-input' placeholder=' email'></input>
           </div>
-
-          <button className='close-btn icon-medium far fa-times-circle' onClick={this.closeModal}></button>
-        </Modal>
+          <div>
+            {' '}
+            <input name='password' onChange={this.changeInput} value={this.state.password} type='password' className='login-input' placeholder=' Password'></input>
+          </div>
+          <div className='login-btns-warpper'>
+            <div className='btn-container'>
+              <button className='btn-lg btn-action' onClick={this.onLogInUser}>
+                Login
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className={hideSignup}>
+          <Signup></Signup>
+        </div>
+        <span className='cursor-pointer' onClick={this.changeForm}>
+          If you are not registered click here to register
+        </span>
       </div>
     );
   }
 }
+const mapStateToProps = state => ({
+  loggedInUser: state.user.loggedInUser,
+});
 
-export default Login;
+const mapDispatchToProps = {
+  login,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -7,12 +7,15 @@ import Signup from './Signup';
 import { logout, login } from '../actions/UserActions';
 
 export class Header extends Component {
-  onLogout = () => {
+
+  onLogout = (ev) => {
+    ev.preventDefault()
     this.props.logout();
     this.props.history.push(`/`);
   };
 
   onLogIn = async user => {
+
     await this.props.login(user);
   };
 
@@ -48,8 +51,9 @@ export class Header extends Component {
             )}
             {!this.props.loggedInUser && (
               <>
-                <Login onLogIn={this.onLogIn}></Login> <span>|</span>
-                <Signup></Signup>
+                <Link className=' ' to={'/user/log-in'} onLogIn={this.onLogIn}>log-in</Link>
+                {/* <Login onLogIn={this.onLogIn}></Login> <span>|</span> */}
+                {/* <Signup></Signup> */}
               </>
             )}
           </div>
