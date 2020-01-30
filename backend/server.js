@@ -12,7 +12,7 @@ const io = require('socket.io')(http);
 const authRoutes = require('./api/auth/auth.routes');
 const userRoutes = require('./api/user/user.routes');
 const mealRoutes = require('./api/meal/meal.routes');
-// const connectSockets = require('./api/socket/socket.routes')
+const connectSockets = require('./api/socket/socket.routes')
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -36,10 +36,12 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // routes
+console.log('server Befor Route');
+
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/meal', mealRoutes);
-// connectSockets(io)
+connectSockets(io)
 
 const logger = require('./services/logger.service');
 const port = process.env.PORT || 3030;

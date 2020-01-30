@@ -3,17 +3,28 @@ module.exports = connectSockets
 
 function connectSockets(io) {
     io.on('connection', socket => {
-        socket.on('chat newMsg', msg=>{
-            // io.emit('chat addMsg', msg)
+        console.log("SOcKET - HII ->0",socket.on);
+
+        socket.on('reviewNew', msg=>{
+            // io.emit('review NewReview', msg)
             // emits only to sockets in the same room
-            io.to(socket.myTopic).emit('chat addMsg', msg)
+            
+            console.log("SOcKET - HII -> msg->1 ",msg);
+            io.to(socket.myTopic).emit('review addMsg', msg)
+            console.log("SOcKET - socket.myTopic ->1",socket.myTopic);
+            
         })
-        socket.on('chat topic', topic=>{
+        socket.on('reviewNew', topic=>{
             if (socket.myTopic) {
                 socket.leave(socket.myTopic)
+                // console.log("SOKET - HII ->2",msg);
+
             }
             socket.join(topic)
             socket.myTopic = topic;
+            console.log("SOcKET - HII ->3");
+            
         })
+        console.log("SOcKET - HII ->4");
     })
 }

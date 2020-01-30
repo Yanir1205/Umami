@@ -70,8 +70,6 @@ class UserDetails extends Component {
 
   render() {
     const user = this.props.loggedInUser;
- 
-
     return (
       <div className='user-details-container container'>
         <div className='user-container'>

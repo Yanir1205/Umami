@@ -5,12 +5,19 @@ import { Link } from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
 import { logout, login } from '../actions/UserActions';
+import SocketService from '../services/SocketService';
+import { addMsg } from '../actions/SocketAction';
+
 
 export class Header extends Component {
+  
+  
+
   onLogout = () => {
     this.props.logout();
     this.props.history.push(`/`);
   };
+
 
   onLogIn = async user => {
     
@@ -18,6 +25,7 @@ export class Header extends Component {
   };
 
   render() {
+    
     return (
       <div className='main-header-container flex align-center space-between'>
         <div className='container logo flex-basis-60 '>
@@ -50,8 +58,6 @@ export class Header extends Component {
             {!this.props.loggedInUser && (
               <>
               <Link className =' ' to = {'/user/log-in'}  onLogIn={this.onLogIn}>log-in</Link>
-                {/* <Login onLogIn={this.onLogIn}></Login> <span>|</span> */}
-                {/* <Signup></Signup> */}
               </>
             )}
           </div>
@@ -63,11 +69,14 @@ export class Header extends Component {
 
 const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
+  msg :state.socket.msg
+
 });
 
 const mapDispatchToProps = {
   logout,
   login,
+  addMsg
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
