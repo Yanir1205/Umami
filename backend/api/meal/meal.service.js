@@ -2,15 +2,13 @@ const dbService = require('../../services/db.service');
 const ObjectId = require('mongodb').ObjectId;
 
 async function query(filterBy = {}) {
-  debugger;
   const criteria = buildCriteria(filterBy);
   const collection = await dbService.getCollection('meal');
+
   try {
     if (!filterBy.group && !filterBy.distinct) {
       const meals = await collection.find(criteria).toArray();
-
       const resultMeals = filterResults(meals, filterBy);
-
       return resultMeals;
     } else if (!filterBy.distinct) {
       if (!filterBy.meals) {
@@ -23,6 +21,7 @@ async function query(filterBy = {}) {
         meals.forEach(meal => {
           mealsToReturn.push(meal.meals[0]);
         });
+
         return mealsToReturn;
       }
     } else {
@@ -30,7 +29,7 @@ async function query(filterBy = {}) {
       return tags;
     }
   } catch (err) {
-    console.log('ERROR: cannot find Meals');
+    console.log({ ERROR: 'Meal.Service/query - returned an error:', err });
     throw err;
   }
 }
@@ -49,8 +48,6 @@ async function getById(mealId) {
   const collection = await dbService.getCollection('meal');
   try {
     const meal = await collection.findOne({ _id: ObjectId(mealId) });
-    console.log('meal.service -> getById -> ', meal);
-
     return meal;
   } catch (err) {
     console.log(`ERROR: cannot find meal ${mealId}`);
@@ -85,17 +82,13 @@ async function add(meal) {
 
 function filterMealsByUserId(userId, meals) {
   try {
-    // const resultMeals = null
     const resultMeals = meals.filter(meal => {
       // for Hosted
       if (meal.hostedBy._id == userId) {
         meal.objForHosted = true;
-        console.log('currMeal for HOSTED ->', meal);
         return meal;
       }
     });
-    // resultMeals.push(currMeal)
-    // console.log('currMeal for filterMealsByUserId -> ', currMeal);
     meals.forEach(async meal => {
       meal.occurrences.forEach(occurrence => {
         occurrence.attendees.forEach(async attendee => {
@@ -127,7 +120,7 @@ function filterMealsByUserId(userId, meals) {
     });
     return resultMeals;
   } catch (err) {
-    console.log('err', err);
+    console.log('ERROR', err);
   }
 }
 
@@ -140,7 +133,6 @@ async function filterResults(meals, filterBy) {
 }
 
 function buildCriteria(filterBy) {
-  if (filterBy.city) console.log('inside build criteria! filter:');
   const criteria = {};
 
   if (filterBy.type) {

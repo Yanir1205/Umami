@@ -16,7 +16,7 @@ async function query(filter, groupBy, distinctBy) {
       userId: filter.userId,
       at: filter.at,
       type: filter.type,
-      tags: filter.tags
+      tags: filter.tags,
     };
     if (filter.location) {
       params.city = filter.location.city;
@@ -33,14 +33,12 @@ async function query(filter, groupBy, distinctBy) {
         group: groupBy._id,
       };
     }
-  }
-  else if (distinctBy) {
+  } else if (distinctBy) {
     params = {
-      distinct: distinctBy._id
-    }
+      distinct: distinctBy._id,
+    };
   }
   const meals = await HttpService.get(endpoint, filter, params);
-
   return meals;
 }
 
@@ -50,9 +48,7 @@ async function getById(id) {
 }
 
 async function add(meal) {
-
   const addedMeal = await HttpService.post(`${endpoint}`, meal);
-  
   return addedMeal;
 }
 

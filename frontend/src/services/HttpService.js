@@ -25,8 +25,6 @@ export default {
 
 async function ajax(endpoint, method = 'get', data = null, params = null, dispatch) {
   try {
-    console.log("HttpService -> ajax -> ",endpoint,method,data,params);
-    
     const res = await axios({
       url: `${BASE_URL}${endpoint}`,
       method,
