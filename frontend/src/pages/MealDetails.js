@@ -22,6 +22,7 @@ class MealDetails extends Component {
   }
 
   onEventRegistration = async registration => {
+    debugger
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       const meal = { ...this.props.meal };
@@ -39,6 +40,7 @@ class MealDetails extends Component {
         activeOccurrence.total = parseInt(activeOccurrence.total) + parseInt(registration.attendees);
 
         await this.props.add(meal);
+        debugger
         this.setState({ showNotification: true, notificationMessage: 'You were successfully registered. ' });
       }
     }

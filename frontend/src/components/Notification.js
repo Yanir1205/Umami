@@ -37,6 +37,7 @@ export class Notification extends Component {
   render() {
     const { vertical, horizontal, open } = this.state;
 
+    debugger
     return (
       <div>
         <Snackbar anchorOrigin={{ vertical, horizontal }} key={`${vertical},${horizontal}`} open={open} onClose={this.handleClose} message={this.props.msg} />
