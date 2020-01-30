@@ -113,14 +113,6 @@ class ImageUpload extends Component {
           <div className='preview-zone hidden'>
             <div className='box box-solid'>
               <div className='box-header with-border'>
-                {/* <div>
-                  <h4>Preview</h4>
-                </div> */}
-                {/* <div className='box-tools pull-right'>
-                  <button type='button' className='btn btn-danger btn-xs remove-preview'>
-                    <i className='fas fa-times'></i> Reset This Form
-                  </button>
-                </div> */}
               </div>
               <div className='box-body'>
                 {(this.state.fileArray || []).map((url, idx) => (

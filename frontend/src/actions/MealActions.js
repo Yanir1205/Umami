@@ -19,6 +19,15 @@ export function load(filter) {
   };
 }
 
+export function loadMealsToList(meals) {
+  //this method gets the full list of meals as received from the backend (and stored in the global state)
+  //and filters the meals to contain only the meals with releveant occurrances (dates which didn't pass already, occurrances which are not fully occuppied)
+  return async dispatch => {
+    const filteredMeals = await MealService.filter(meals);
+    dispatch({ type: 'LOAD_FILTERED_MEALS', filteredMeals })
+  }
+}
+
 export function loadUserMeal(filter) {
   return async dispatch => {
     const userMeals = await MealService.query(filter);
@@ -89,7 +98,7 @@ export function getById(id) {
 
   return async dispatch => {
     const meal = await MealService.getById(id);
-    
+
     dispatch({ type: 'GET_BY_ID', meal });
   };
 }
