@@ -4,28 +4,14 @@
   gap: 10px;
 }
 .meal-card {
-  // display: flex;
-  // width: 250px;
-  // height: 340;
-  // flex-direction: column;
-  // // break-inside: avoid-column;
-  // position: relative;
-  // margin: 5px;
-  // // padding: 3px;
-  // cursor: pointer;
   position: relative;
-  /* margin: 5px; */
   cursor: pointer;
 
   .item {
     display: inline-block;
 
     height: calc(100% + 180px);
-    // break-inside: avoid;
     background: #fff;
-    // padding: 1em;
-    // margin: 0 0 1.5em;
-    // margin: 15px;
     width: 100%;
     box-sizing: border-box;
     box-shadow: 2px 2px 4px 0 #ccc;

@@ -7,12 +7,11 @@ import { connect } from 'react-redux';
 import Signup from '../components/Signup';
 import { Button } from '@material-ui/core';
 
-
 class Login extends Component {
   state = {
     email: '',
     password: '',
-    isHide: true
+    isHide: true,
   };
 
   // openModal = this.openModal.bind(this);
@@ -46,35 +45,42 @@ class Login extends Component {
     // this.props.onLogIn(user);\
     await this.props.login(user);
     this.props.history.push(`/`);
-
-
   };
+
   changeForm = () => {
-    this.setState(prevState => ({ isHide: !prevState.isHide }))
-  }
+    this.setState(prevState => ({ isHide: !prevState.isHide }));
+  };
 
   render() {
-    const hideSignup = (this.state.isHide) ? 'hide' : 'show-block'
-    const hideLogIn = (!this.state.isHide) ? 'hide' : 'show-block'
+    const hideSignup = this.state.isHide ? 'hide' : 'show-block';
+    const hideLogIn = !this.state.isHide ? 'hide' : 'show-block';
     return (
-      <div className="flex column align-center justify-center">
+      <div className='flex column align-center justify-center'>
         {/* <Navbar styleNavBar={styleNavBar} ></Navbar> */}
-      <div>Log-in</div>
+        <div>Log-in</div>
         <div className={hideLogIn}>
-          <div> <input name="email" onChange={this.changeInput} value={this.state.email} type="text" className="login-input" placeholder=" email"></input></div>
-          <div> <input name="password" onChange={this.changeInput} value={this.state.password} type="password" className="login-input" placeholder=" Password"></input></div>
-          <div className="login-btns-warpper">
-            <div className="btn-container">
-              <button className="btn-lg btn-action" onClick={this.onLogInUser} >Login</button>
+          <div>
+            {' '}
+            <input name='email' onChange={this.changeInput} value={this.state.email} type='text' className='login-input' placeholder=' email'></input>
+          </div>
+          <div>
+            {' '}
+            <input name='password' onChange={this.changeInput} value={this.state.password} type='password' className='login-input' placeholder=' Password'></input>
+          </div>
+          <div className='login-btns-warpper'>
+            <div className='btn-container'>
+              <button className='btn-lg btn-action' onClick={this.onLogInUser}>
+                Login
+              </button>
             </div>
-
           </div>
         </div>
         <div className={hideSignup}>
-
-          <Signup ></Signup>
+          <Signup></Signup>
         </div>
-        <span className="cursor-pointer" onClick={this.changeForm}>If you are not registered click here to register</span>
+        <span className='cursor-pointer' onClick={this.changeForm}>
+          If you are not registered click here to register
+        </span>
       </div>
     );
   }

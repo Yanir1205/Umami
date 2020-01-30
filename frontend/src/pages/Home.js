@@ -4,6 +4,7 @@ import { load } from '../actions/MealActions';
 
 import SearchBar from '../components/SearchBar';
 import MealCategoryList from '../components/MealCategoryList';
+import MeetOurHosts from '../components/MeetOurHosts';
 
 class Home extends Component {
   componentDidMount() {
@@ -11,7 +12,6 @@ class Home extends Component {
   }
 
   render() {
-    if (!this.props.meals) return <div className='border-loading-indicator col-2 row-1'></div>;
     return (
       <>
         <div className='hero-container'>
@@ -31,7 +31,7 @@ class Home extends Component {
                 <li>
                   <img src='https://res.cloudinary.com/contentexs/image/upload/v1580171632/event.svg' alt='Food'></img>
                   <span>
-                    <span>2.</span>Choose Hosted Event
+                    <span>2.</span>Select Event
                   </span>
                 </li>
                 <li>
@@ -43,12 +43,36 @@ class Home extends Component {
               </ul>
             </div>
             <div className='search-container'>
-              <SearchBar></SearchBar>
+              <SearchBar placeholder='Where to ?  What are you craving ? '></SearchBar>
             </div>
           </div>
         </div>
-        <div className='top-box-container'>{this.props.meal && <MealCategoryList meals={this.props.meals} category='Location'></MealCategoryList>}</div>
-        <div className='top-box-container'>{this.props.meal && <MealCategoryList meals={this.props.meals} category='Cuisine'></MealCategoryList>}</div>
+        <div className='section-container'>
+          {this.props.meals.length > 0 && (
+            <>
+              <div className='section-title-container'>
+                <h2>Browse Our Top Locations</h2>
+              </div>
+              <MealCategoryList meals={this.props.meals} displayCategory='Location'></MealCategoryList>
+            </>
+          )}
+        </div>
+        <div className='section-container'>
+          {this.props.meals.length > 0 && (
+            <>
+              <div className='section-title-container'>
+                <h2>View Our Exciting Cuisines</h2>
+              </div>
+              <MealCategoryList meals={this.props.meals} displayCategory='Cuisine'></MealCategoryList>
+            </>
+          )}
+        </div>
+        <div className='section-container'>
+          <div className='section-title-container'>
+            <h2>Meet Our Hosts</h2>
+          </div>
+          <MeetOurHosts></MeetOurHosts>
+        </div>
       </>
     );
   }

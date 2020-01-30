@@ -28,6 +28,9 @@ export function getById() {
       const user = await UserService.getById();
       dispatch(_setUser(user));
     } catch (err) {
+      console.log('UserActions: ERROR in getById', err);
+      // example for rerouting - after changing the store
+      // history.push('/some/path');
     } finally {
       dispatch(doneLoading());
     }

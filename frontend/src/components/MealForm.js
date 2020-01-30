@@ -3,7 +3,7 @@ import cloudService from '../services/ExternalService';
 import { connect } from 'react-redux';
 
 import ImageUpload from './ImageUpload';
-import PromotionCheckbox from './PromotionCheckbox'
+import PromotionCheckbox from './PromotionCheckbox';
 
 var id = 1;
 const MAX_FILE_SIZE = 5000000; //max size is 5MB
@@ -37,7 +37,7 @@ export class MealForm extends Component {
     tags: [], //shall include all tags from user
     isActive: true,
     isPromoted: false,
-    isBtnEnabled: true
+    isBtnEnabled: true,
   };
 
   componentDidMount() {
@@ -105,19 +105,15 @@ export class MealForm extends Component {
     }
   }
 
-
   handleImageUpload = async files => {
     for (let i = 0; i < files.length; i++) {
       if (files[i].size > MAX_FILE_SIZE) {
-
-        console.log('file is too big!');
         return;
       } else if (!files[i].type.includes('jpeg') && !files[i].type.includes('jpg') && !files[i].type.includes('png')) {
-        console.log('file format not supported!');
         return;
       }
     }
-    this.setState({ isBtnEnabled: false })
+    this.setState({ isBtnEnabled: false });
     let imgUrls = await cloudService.uploadImages(files);
     let prevImgUrls = this.state.imgUrls;
     const newImgUrls = prevImgUrls.concat(imgUrls);
@@ -125,15 +121,15 @@ export class MealForm extends Component {
   };
 
   enableBtn = () => {
-    this.setState({ isBtnEnabled: true })
-  }
+    this.setState({ isBtnEnabled: true });
+  };
 
   onHandleChange = ev => {
     ev.preventDefault();
     let field = ev.target.name;
     let value = ev.target.value;
     if (field === 'isPromoted') {
-      value = !this.state.isPromoted
+      value = !this.state.isPromoted;
     }
     this.setState({ [field]: value });
   };
@@ -234,15 +230,16 @@ export class MealForm extends Component {
       currency: this.state.currency,
       tags: this.state.tags,
     };
-    if (!this.props.meal) { //create mode
-      delete meal._id
+    if (!this.props.meal) {
+      //create mode
+      delete meal._id;
     }
     this.props.onSaveMeal(meal);
   };
 
   handleDateRemoval = (occurrences, occurrenceIdx) => {
     //removes a chosen event date occurrence by the host
-    const newOccurrences = [...occurrences]
+    const newOccurrences = [...occurrences];
     newOccurrences.splice(occurrenceIdx, 1);
     this.setState({ ...this.state, occurrences: newOccurrences });
   };
@@ -251,15 +248,15 @@ export class MealForm extends Component {
     let field;
     switch (ev.target.nodeName) {
       case 'I':
-        field = ev.target.classList[0]
+        field = ev.target.classList[0];
         break;
       default:
         field = ev.target.name;
     }
     const newList = [...list];
     newList.splice(idx, 1);
-    this.setState({ [field]: newList })
-  }
+    this.setState({ [field]: newList });
+  };
 
   onAddMenuItem = event => {
     event.preventDefault();
@@ -397,7 +394,7 @@ export class MealForm extends Component {
                             {this.state.firstCourse.map((course, idx) => (
                               <li name='firstCourse' key={idx}>
                                 {course}
-                                <i className='firstCourse icon-small fas fa-minus' name='firstCourse' onClick={(ev) => this.handleMenuItemRemoval(ev, this.state.firstCourse, idx)}></i>
+                                <i className='firstCourse icon-small fas fa-minus' name='firstCourse' onClick={ev => this.handleMenuItemRemoval(ev, this.state.firstCourse, idx)}></i>
                               </li>
                             ))}
                           </ul>
@@ -421,7 +418,7 @@ export class MealForm extends Component {
                             {this.state.mainCourse.map((course, idx) => (
                               <li name='mainCourse' key={idx}>
                                 {course}
-                                <i className='mainCourse icon-small fas fa-minus' name='mainCourse' onClick={(ev) => this.handleMenuItemRemoval(ev, this.state.mainCourse, idx)}></i>
+                                <i className='mainCourse icon-small fas fa-minus' name='mainCourse' onClick={ev => this.handleMenuItemRemoval(ev, this.state.mainCourse, idx)}></i>
                               </li>
                             ))}
                           </ul>
@@ -445,7 +442,7 @@ export class MealForm extends Component {
                             {this.state.desserts.map((course, idx) => (
                               <li name='desserts' key={idx}>
                                 {course}
-                                <i className='desserts icon-small fas fa-minus' name='desserts' onClick={(ev) => this.handleMenuItemRemoval(ev, this.state.desserts, idx)}></i>
+                                <i className='desserts icon-small fas fa-minus' name='desserts' onClick={ev => this.handleMenuItemRemoval(ev, this.state.desserts, idx)}></i>
                               </li>
                             ))}
                           </ul>
@@ -468,7 +465,7 @@ export class MealForm extends Component {
                             {this.state.beverages.map((course, idx) => (
                               <li name='beverages' key={idx}>
                                 {course}
-                                <i className='beverages icon-small fas fa-minus' name='beverages' onClick={(ev) => this.handleMenuItemRemoval(ev, this.state.beverages, idx)}></i>
+                                <i className='beverages icon-small fas fa-minus' name='beverages' onClick={ev => this.handleMenuItemRemoval(ev, this.state.beverages, idx)}></i>
                               </li>
                             ))}
                           </ul>
@@ -493,6 +490,5 @@ export class MealForm extends Component {
     );
   }
 }
-
 
 export default MealForm;

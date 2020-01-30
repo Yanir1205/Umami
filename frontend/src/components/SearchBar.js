@@ -26,7 +26,7 @@ export class SearchBar extends Component {
   render() {
     return (
       <div className='main-search-container'>
-        <input className='search-input' type='text' placeholder='Where to? What are you craving?  ' value={this.state.val} onChange={this.handleChange} onKeyUp={this.onSearchAction}></input>
+        <input className='search-input' type='text' placeholder={this.props.placeholder} value={this.state.val} onChange={this.handleChange} onKeyUp={this.onSearchAction}></input>
       </div>
     );
   }
