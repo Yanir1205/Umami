@@ -24,6 +24,7 @@ class MealDetails extends Component {
   }
 
   onEventRegistration = async registration => {
+    debugger;
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       let meal = { ...this.props.meal.storeMeal };

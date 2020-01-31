@@ -183,6 +183,11 @@ function buildCriteria(filterBy) {
   return criteria;
 }
 
+
+//getting all meals with relevant dates and limiting to 4 results:
+// db.getCollection('meal').find({"occurrences.date":{"$gt":1580375368440}}).limit(4)
+//db.getCollection('meal').find({"occurrences.date":{"$gt":1580375368440},"occurrences.attendees":{"$size": 1}}).limit(4)
+
 module.exports = {
   query,
   getById,

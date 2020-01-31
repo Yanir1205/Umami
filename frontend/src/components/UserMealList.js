@@ -4,13 +4,9 @@ import UserMealPreview from './UserMealPreview'
 
 export default function UserMealList({ meals, userId ,onDelete}) {
     
-    return <div>
-        <React.Fragment>
-            <div className="row">
+    return <div className="row">
                 <div className="col">
                     {meals && meals.map((meal, idx) => {
-                       
-                        
                         return <div key={idx}>
 
                             <div className="preview-title "> {meal.objForHosted && <span >I'm Hosting </span>}{!meal.objForHosted && <span>I'm a Guest </span>}</div>
@@ -26,9 +22,7 @@ export default function UserMealList({ meals, userId ,onDelete}) {
                     })}
                 </div>
             </div>
-        </React.Fragment>
 
-    </div>
 
 }
 
