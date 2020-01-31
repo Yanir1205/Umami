@@ -1,6 +1,6 @@
 let initialState = {
   meals: [],
-  userMeals:[],
+  userMeals: [],
   selectedMeal: null,
   cities: [],
   cuisines: [],

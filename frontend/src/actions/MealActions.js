@@ -86,10 +86,8 @@ export function loadTags() {
 }
 
 export function getById(id) {
-
   return async dispatch => {
     const meal = await MealService.getById(id);
-    
     dispatch({ type: 'GET_BY_ID', meal });
   };
 }

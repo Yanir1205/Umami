@@ -15,6 +15,21 @@ function formatDate(date) {
   return new Intl.DateTimeFormat('en-US', options).format(new Date(date));
 }
 
+function findAllByKey(obj, keyToFind) {
+  return Object.entries(obj).reduce((acc, [key, value]) => (key === keyToFind ? acc.concat(value) : typeof value === 'object' ? acc.concat(findAllByKey(value, keyToFind)) : acc), []);
+}
+
+function getItemsInRange(items, startDate, endDate = null) {
+  if (endDate === null)
+    return items.filter(item => {
+      return item.date > startDate;
+    });
+  else
+    return items.filter(item => {
+      return item.date > startDate && item.date <= endDate;
+    });
+}
+
 function _addCategoryInstanceVariety(instance, categoryType, cuisine, city) {
   let variations = [];
 
@@ -64,47 +79,56 @@ function _getImageByCategoryType(categoryType, categoryInstance) {
   return imgUrl;
 }
 
+function getNextOccurrenceDate(occurrences) {
+  const today = new Date();
+  return occurrences.reduce((result, value) => (result.date - today < value.date - today ? result.date : value.date), today);
+}
+
+function getAttendeesCounter(occurrences) {
+  return occurrences.reduce((result, value) => (result += parseInt(value.total)), 0);
+}
+
+function getOccurrencesInRange(occurrences, startDate, endDate) {
+  return occurrences.reduce((result, value) => {
+    return value.date > startDate && value.date <= endDate ? (result += 1) : result;
+  }, 0);
+}
+
+function getOccurrencesCounter(occurrences, minDate) {
+  return occurrences.reduce((result, value) => {
+    return value.date > minDate ? (result += 1) : result;
+  }, 0);
+}
+
 function getCategoriesInfo(meals, category) {
   let categories = [];
   const categoryType = category === 'Cuisine' ? { type: category, property: 'cuisineType' } : { type: category, property: 'location.city' };
-  const startDateRange = addDaysToDate(new Date(), -1);
-  const endDateRange = addDaysToDate(startDateRange, 9);
+  const startDate = addDaysToDate(new Date(), -1);
+  const endDate = addDaysToDate(startDate, 9);
 
   meals.forEach(current => {
     //categoryInstance -> Berlin / Italian
     const categoryInstance = categoryType.property.split('.').reduce((result, value) => {
       return result ? result[value] : undefined;
     }, current);
-
     if (!categoryInstance) return;
 
-    const today = new Date();
-    let closest = current.occurrences.reduce((result, value) => (result.date - today < value.date - today ? result.date : value.date), today);
-    let totalAttendees = current.occurrences.reduce((result, value) => (result += parseInt(value.total)), 0);
+    let nextDate = getNextOccurrenceDate(current.occurrences);
+    let totalAttendees = getAttendeesCounter(current.occurrences);
+    if (parseInt(totalAttendees) < parseInt(current.capacity) && nextDate < new Date()) return;
 
-    //if there are no available slots or dates -> continue
-    if (parseInt(totalAttendees) < parseInt(current.capacity) && closest < new Date()) return;
-
-    let currentWeekOccurrences = current.occurrences.reduce((result, value) => {
-      return value.date > startDateRange && value.date <= endDateRange ? (result += 1) : result;
-    }, 0);
-
-    let totalOccurrences = current.occurrences.reduce((result, value) => {
-      return value.date > today ? (result += 1) : result;
-    }, 0);
-
+    let currentWeekOccurrences = getOccurrencesInRange(current.occurrences, startDate, endDate);
+    let totalOccurrences = getOccurrencesCounter(current.occurrences, new Date());
     let instance = categories.find(current => current.name === categoryInstance);
 
     if (instance) {
       instance.nextAvailableDate = {
-        date: instance.nextAvailableDate.date > closest ? formatDate(closest) : formatDate(instance.nextAvailableDate.date),
+        date: instance.nextAvailableDate.date > nextDate ? formatDate(nextDate) : formatDate(instance.nextAvailableDate.date),
         city: current.location.city,
         country: current.location.country,
         cuisine: current.cuisineType,
       };
-
       instance.variations = _addCategoryInstanceVariety(instance, categoryType, current.cuisineType, current.location.city);
-
       instance.totalOccurrences += parseInt(totalOccurrences);
       instance.currentWeekOccurrences += parseInt(currentWeekOccurrences);
       instance.totalEvents += 1;
@@ -113,7 +137,7 @@ function getCategoriesInfo(meals, category) {
     } else {
       instance = {
         name: categoryInstance,
-        nextAvailableDate: { date: formatDate(closest), city: current.location.city, country: current.location.country, cuisine: current.cuisineType },
+        nextAvailableDate: { date: formatDate(nextDate), city: current.location.city, country: current.location.country, cuisine: current.cuisineType },
         variations: categoryType === 'Cuisine' ? [current.location.city] : [current.cuisineType],
         totalOccurrences: parseInt(totalOccurrences),
         currentWeekOccurrences: parseInt(currentWeekOccurrences),
@@ -132,6 +156,8 @@ function getCategoriesInfo(meals, category) {
 export default {
   sortByDate,
   getCategoriesInfo,
+  getItemsInRange,
+  findAllByKey,
   addDaysToDate,
   formatDate,
 };

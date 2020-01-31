@@ -36,25 +36,25 @@ class MealCategoryPreview extends Component {
         <img src={this.state.category.imgUrl} alt='category' className='card-img'></img>
         <h5 className='card-name'>{this.state.category.name}</h5>
         <div className='card-total-one'>
-          <img src={this.state.variationIcon}></img>
+          <img src={this.state.variationIcon} alt='icon'></img>
           <div>
             <span>{this.state.variationTxt}</span>
           </div>
         </div>
         <div className='card-hosted'>
-          <img src='https://res.cloudinary.com/contentexs/image/upload/v1580170530/dinner-round.svg'></img>
+          <img src='https://res.cloudinary.com/contentexs/image/upload/v1580170530/dinner-round.svg' alt='dinner icon'></img>
           <div>
             <span> {this.state.hostedTxt} </span>
           </div>
         </div>
         <div className='card-next-date'>
-          <img src='https://res.cloudinary.com/contentexs/image/upload/v1580170530/calender-round.svg'></img>
+          <img src='https://res.cloudinary.com/contentexs/image/upload/v1580170530/calender-round.svg' alt='calender icon'></img>
           <div>
             <span className='title'>Next Event Is On, </span> <span>{this.state.category.nextAvailableDate.date}</span>
           </div>
         </div>
         <div className='card-avg-price'>
-          <img src='https://res.cloudinary.com/contentexs/image/upload/v1580328925/money.svg'></img>
+          <img src='https://res.cloudinary.com/contentexs/image/upload/v1580328925/money.svg' alt='money icon'></img>
           <div>
             <span className='title'>Avg Price Is, </span>
             <span>
@@ -64,7 +64,7 @@ class MealCategoryPreview extends Component {
           </div>
         </div>
         <div className='card-btn'>
-          <Link to={`/meal/${this.props.displayCategory}`} className='btn'>
+          <Link to={`/meal/${this.props.displayCategory.toLowerCase()}`} className='btn'>
             <span className=''>View Events</span>
           </Link>
         </div>
