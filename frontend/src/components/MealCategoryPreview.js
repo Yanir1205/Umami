@@ -2,39 +2,69 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class MealCategoryPreview extends Component {
-  render() {
+  state = { category: null, displayCategory: '', toggleIcon: '', toggleTxt: '', hostedTxt: '', txtPeriod: '' };
+  componentDidMount() {
     const { category } = this.props;
+    this.setState({
+      category: {
+        nextAvailableDate: {
+          date: category.nextAvailableDate.date,
+          city: category.nextAvailableDate.city,
+          country: category.nextAvailableDate.country,
+          cuisine: category.nextAvailableDate.cuisine,
+        },
+        name: category.name,
+        variations: category.variations,
+        totalOccurrences: category.totalOccurrences,
+        currentWeekOccurrences: category.currentWeekOccurrences,
+        totalEvents: category.totalEvents,
+        totalPrice: category.totalPrice,
+        priceAvg: category.priceAvg,
+        imgUrl: category.imgUrl,
+      },
+      variationIcon: this.props.displayCategory === 'Cuisine' ? 'https://res.cloudinary.com/contentexs/image/upload/v1580171634/location.svg' : 'https://res.cloudinary.com/contentexs/image/upload/v1580170530/dish-round.svg',
+      variationTxt: this.props.displayCategory === 'Cuisine' ? `On ${category.variations.length} Different Locations` : `${category.variations.length} Different Cuisine Types`,
+      hostedTxt: category.currentWeekOccurrences > 0 ? `${category.currentWeekOccurrences} Hosted Events` : `${category.totalOccurrences} Hosted Events`,
+      txtPeriod: category.currentWeekOccurrences > 0 ? 'This Week' : '',
+    });
+  }
+
+  render() {
+    if (!this.state.category) return <div></div>;
     return (
-      <div className='card'>
-        <img src={category.img} alt='category' class='card-img'></img>
-        <h5 className='card-name'>{category.name}</h5>
+      <div className='category-card'>
+        <img src={this.state.category.imgUrl} alt='category' className='card-img'></img>
+        <h5 className='card-name'>{this.state.category.name}</h5>
         <div className='card-total-one'>
-          <img src={category.toggleIcon}></img>
-          <p>
-            {category.toggleTxt} 5 Different types of Cuisines <small>(this week)</small>
-          </p>
+          <img src={this.state.variationIcon}></img>
+          <div>
+            <span>{this.state.variationTxt}</span>
+          </div>
         </div>
         <div className='card-hosted'>
           <img src='https://res.cloudinary.com/contentexs/image/upload/v1580170530/dinner-round.svg'></img>
-          <p>
-            {category.hostedTxt}30 Hosted events <small>(this week)</small>
-          </p>
+          <div>
+            <span> {this.state.hostedTxt} </span>
+          </div>
         </div>
         <div className='card-next-date'>
           <img src='https://res.cloudinary.com/contentexs/image/upload/v1580170530/calender-round.svg'></img>
-          <p>
-            Closest hosted event: <span> {category.nextAvailableDate} March 15, 2020</span>
-          </p>
+          <div>
+            <span className='title'>Next Event Is On, </span> <span>{this.state.category.nextAvailableDate.date}</span>
+          </div>
         </div>
         <div className='card-avg-price'>
-          <img src='https://res.cloudinary.com/contentexs/image/upload/v1580171634/money.svg'></img>
-          <p>
-            Avg price: <span>{category.avgPrice}$35</span>
-            <small>(per guest)</small>
-          </p>
+          <img src='https://res.cloudinary.com/contentexs/image/upload/v1580328925/money.svg'></img>
+          <div>
+            <span className='title'>Avg Price Is, </span>
+            <span>
+              ${this.state.category.priceAvg}
+              <small> (per guest)</small>
+            </span>
+          </div>
         </div>
-        <div>
-          <Link to={`/meal/${category.type}`} className='btn card-btn'>
+        <div className='card-btn'>
+          <Link to={`/meal/${this.props.displayCategory}`} className='btn'>
             <span className=''>View Events</span>
           </Link>
         </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SocketService from '../services/SocketService';
 import { addMsg } from '../actions/SocketAction';
-
+var id =1
 class ReviewForm extends Component {
   state = {
     email: '',
@@ -13,35 +13,10 @@ class ReviewForm extends Component {
     msgs: ''
   };
 
-
-  componentDidMount() {
-    SocketService.setup();
-    SocketService.emit('reviewNew','hey');
-    SocketService.on('review addMsg', this.addMsg);
-  }//
-
-  // componentWillUnmount() {
-  //   SocketService.off('reviewNew', this.addMsg);
-  //   SocketService.terminate();
-  // }//
-
-  addMsg = newMsg => {
-    console.log('TEST addMsg -> ',newMsg);
-
-     this.props.addMsg(newMsg)
-    console.log("addMsg -> props",this.props.msg);
-    debugger
-    this.setState({ msgs: newMsg });
-  };//
-
-
-
   onSaveReviewForm = ev => {
-
     ev.preventDefault();
-
     this.props.onSaveReviewForm({ email: this.state.email, txt: this.state.txt, rate: this.state.rate });
-    SocketService.emit('reviewNew', 'review-msg  ');
+
   };
 
   onToggleStar = ev => {
@@ -56,15 +31,8 @@ class ReviewForm extends Component {
     let value = ev.target.value;
     this.setState({ [name]: value });
   };
-  x = () => {
-    console.log('TEST TEST -> ');
 
-    SocketService.emit('review addMsg', 'review-msg');
-
-  }
   render() {
-    // console.log("ReviewForm SOCKET ",this.state.msgs);
-    console.log("addMsg ->render -> props",this.props.msg);
     return (
       <div className='card-container-lg card-container-horizontal flex align-center justify-center'>
         <div className='card-background-lg main-review-form-container flex column align-end'>
@@ -76,7 +44,7 @@ class ReviewForm extends Component {
                 return <i key={idx} id={idx + 1} className={idx < this.state.rate ? this.state.starSelected : this.state.starClass} name={idx + 1} onClick={this.onToggleStar}></i>;
               })}
             </div>
-              <span>{this.props.msg}</span>
+              <span>{this.state.msgs}</span>
             <h3>We would love to hear what you think</h3>
             <div className='email'>
               <input type='email' placeholder='Email' name='email' onChange={this.onHandleChange} required></input>
@@ -90,7 +58,7 @@ class ReviewForm extends Component {
           </form>
           <h4 className='review-h5'>Thanks for your feedback</h4>
         </div>
-        <button onClick={this.x} className='button btn-main'>SAVE1</button>
+    
 
       </div>
     );

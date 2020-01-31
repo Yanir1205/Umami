@@ -6,8 +6,8 @@ async function getMeals(req, res) {
     const meals = await mealsService.query(req.query);
     res.send(meals);
   } catch (err) {
-    logger.error('Cannot get meals', err);
-    res.status(500).send({ error: 'cannot get meals' });
+    logger.error('Meal.Controller/getMeals - returned an error:', err);
+    res.status(500).send({ error: 'Meal.Controller/getMeals - returned an error:', err });
   }
 }
 async function getById(req, res) {
@@ -30,10 +30,8 @@ async function deleteMeal(req, res) {
 }
 
 async function addMeal(req, res) {
-
   try {
     var meal = req.body;
-    
     meal = await mealsService.add(meal);
     res.send(meal);
   } catch (error) {

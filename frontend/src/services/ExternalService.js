@@ -16,7 +16,6 @@ function _uploadImg(file) {
     })
         .then(res => res.json())
         .then(res => {
-            console.log(res)
             return res
         })
         .catch(err => console.error(err))

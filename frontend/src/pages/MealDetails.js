@@ -1,32 +1,47 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Notification from '../components/Notification';
 
+import Notification from '../components/Notification';
 import { getById, add } from '../actions/MealActions';
 import ImageGallery from '../components/ImageGallery';
+
 import MealPageNav from '../components/MealPageNav';
 import MealPayment from '../components/MealPayment';
 import ShowHideText from '../components/ShowHideText';
 import MealMenu from '../components/MealMenu';
+
 import AttendeesList from '../components/AttendeesList';
 import ReviewForm from '../components/ReviewForm';
 import ReviewList from '../components/ReviewList';
+import SocketService from '../services/SocketService';
 import MealMap from '../components/MealMap';
 
 class MealDetails extends Component {
-  state = { pageOverlayClass: 'hide', displayReviewForm: 'hide', occurrenceAttendees: {}, showNotification: false, notificationMessage: '' };
+  state = { pageOverlayClass: 'hide', displayReviewForm: 'hide', occurrenceAttendees: {} };
 
   async componentDidMount() {
     const id = this.props.match.params.id;
     await this.props.getById(id);
+    SocketService.setup();
+    const hostedId = this.props.meal.hostedBy._id
+    console.log("hostedId->",hostedId);
+    
+    SocketService.emit('newChannel',`onEventRegistration${hostedId}`);
+    SocketService.on('addMsg', this.addMsg);
   }
 
+  componentWillUnmount() {
+    SocketService.off('addMsg', this.addMsg);
+    SocketService.terminate();
+  }//
+
   onEventRegistration = async registration => {
+    debugger
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       const meal = { ...this.props.meal };
       const activeOccurrence = meal.occurrences.find(current => current.id === registration.id);
-      
+
       if (activeOccurrence && parseInt(meal.capacity) >= parseInt(activeOccurrence.total) + parseInt(registration.attendees)) {
         const currentUser = activeOccurrence.attendees.find(current => current._id === loggedInUser._id);
 
@@ -37,12 +52,16 @@ class MealDetails extends Component {
         }
 
         activeOccurrence.total = parseInt(activeOccurrence.total) + parseInt(registration.attendees);
-        
         await this.props.add(meal);
-        this.setState({ showNotification: true, notificationMessage: 'You were successfully registered. ' });
+        SocketService.emit('newMsg',{meal,loggedInUser})
       }
     }
   };
+
+  addMsg = newMsg => {
+    console.log('TEST addMsg -> ',newMsg);
+
+  };//
 
   onDisplayReviewForm = ev => {
     ev.preventDefault();
@@ -78,7 +97,6 @@ class MealDetails extends Component {
     else
       return (
         <div className='meal-details-page-container'>
-          <Notification open={this.state.showNotification} msg={this.state.notificationMessage}></Notification>
           <div id='page-overlay' className={this.state.pageOverlayClass}></div>
           {meal && (
             <React.Fragment>

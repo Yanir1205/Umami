@@ -2,36 +2,61 @@ const dbService = require('../../services/db.service');
 const ObjectId = require('mongodb').ObjectId;
 
 async function query(filterBy = {}) {
-  const criteria = buildCriteria(filterBy);
   const collection = await dbService.getCollection('meal');
+
   try {
     if (!filterBy.group && !filterBy.distinct) {
-      const meals = await collection.find(criteria).toArray();
-      
-      const resultMeals = filterResults(meals, filterBy);
-
-      return resultMeals;
+      //getting all meals according to the filter definitions
+      const meals = await _getMealsByFilter(collection, filterBy);
+      return meals;
     } else if (!filterBy.distinct) {
       if (!filterBy.meals) {
-        const badges = await collection.aggregate([{ $group: { _id: filterBy.group } }]).toArray();
+        //getting the badges:
+        const badges = await _getBadges(collection, filterBy);
         return badges;
       } else {
-        const meals = await collection.aggregate([{ $group: { _id: filterBy.group, meals: { $push: filterBy.meals } } }]).toArray();
-        let mealsToReturn = [];
-
-        meals.forEach(meal => {
-          mealsToReturn.push(meal.meals[0]);
-        });
-        return mealsToReturn;
+        //grouping all meals by location or by cuisine
+        const meals = await _getMealsByGroup(collection, filterBy);
+        return meals;
       }
     } else {
-      const tags = await collection.distinct(filterBy.distinct);
+      //getting the distinct list of tags of all meals (not required):
+      const tags = await _getDistinctTags(collection, filterBy);
       return tags;
     }
   } catch (err) {
-    console.log('ERROR: cannot find Meals');
+    console.log({ ERROR: 'Meal.Service/query - returned an error:', err });
     throw err;
   }
+}
+
+async function _getMealsByFilter(collection, filterBy) {
+  const criteria = buildCriteria(filterBy);
+  const meals = await collection.find(criteria).toArray();
+  //filtering by userId:
+  const resultMeals = filterResults(meals, filterBy);
+  return resultMeals;
+}
+
+async function _getBadges(collection, filterBy) {
+  const badges = await collection.aggregate([{ $group: { _id: filterBy.group } }]).toArray();
+  return badges;
+}
+
+async function _getMealsByGroup(collection, filterBy) {
+  //returns one meal for each group name (by location or by cuisine)
+  const meals = await collection.aggregate([{ $group: { _id: filterBy.group, meals: { $push: filterBy.meals } } }]).toArray();
+  let mealsToReturn = [];
+  //for each group taking only the first meal to display
+  meals.forEach(meal => {
+    mealsToReturn.push(meal.meals[0]);
+  });
+  return mealsToReturn;
+}
+
+async function _getDistinctTags(collection, filterBy) {
+  const tags = await collection.distinct(filterBy.distinct);
+  return tags;
 }
 
 async function remove(mealId) {
@@ -48,7 +73,6 @@ async function getById(mealId) {
   const collection = await dbService.getCollection('meal');
   try {
     const meal = await collection.findOne({ _id: ObjectId(mealId) });
-
     return meal;
   } catch (err) {
     console.log(`ERROR: cannot find meal ${mealId}`);
@@ -83,7 +107,6 @@ async function add(meal) {
 
 function filterMealsByUserId(userId, meals) {
   try {
-    // const resultMeals = null
     const resultMeals = meals.filter(meal => {
       // for Hosted
       if (meal.hostedBy._id == userId) {
@@ -91,54 +114,49 @@ function filterMealsByUserId(userId, meals) {
         return meal;
       }
     });
-
-
-    meals.forEach( meal => {
+    meals.forEach(meal => {
       meal.occurrences.forEach(occurrence => {
-        occurrence.attendees.forEach( attendee => {
+        occurrence.attendees.forEach(attendee => {
           // if (attendee._id !== undefined) {
-            // const id = attendee._id;
-            if (attendee._id == userId) {
-              //for attendees             
-              const currMeal = { ...meal };
-              currMeal.objForHosted = false;
-              delete currMeal.occurrences;
-              currMeal.occurensId = occurrence.id;
-              currMeal.date = occurrence.date;
-              currMeal.userId = attendee._id;
-              currMeal.userName = attendee.fullName;
-              currMeal.total = attendee.numOfAttendees;
-              delete currMeal.capacity;
-              delete currMeal.tags;
-              delete currMeal.imgUrls;
-              delete currMeal.description;
-              delete currMeal.reviews;
-              delete currMeal.menu;
-              resultMeals.push(currMeal);
-            }
+          // const id = attendee._id;
+          if (attendee._id == userId) {
+            //for attendees
+            const currMeal = { ...meal };
+            currMeal.objForHosted = false;
+            delete currMeal.occurrences;
+            currMeal.occurensId = occurrence.id;
+            currMeal.date = occurrence.date;
+            currMeal.userId = attendee._id;
+            currMeal.userName = attendee.fullName;
+            currMeal.total = attendee.numOfAttendees;
+            delete currMeal.capacity;
+            delete currMeal.tags;
+            delete currMeal.imgUrls;
+            delete currMeal.description;
+            delete currMeal.reviews;
+            delete currMeal.menu;
+            resultMeals.push(currMeal);
+          }
           // }
         });
       });
     });
-    
+
     return resultMeals;
   } catch (err) {
-    console.log('err', err);
+    console.log('ERROR', err);
   }
 }
 
 async function filterResults(meals, filterBy) {
   let resultMeals = [...meals];
   if (filterBy.userId) {
-    // console.log('query -> resultMeals ->',resultMeals);
-
     resultMeals = await filterMealsByUserId(filterBy.userId, resultMeals);
   }
   return resultMeals;
 }
 
 function buildCriteria(filterBy) {
-  if (filterBy.city) console.log('inside build criteria! filter:');
   const criteria = {};
 
   if (filterBy.type) {

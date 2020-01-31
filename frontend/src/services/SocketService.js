@@ -31,7 +31,6 @@ function off(eventName, cb) {
 }
 
 function emit(eventName, data) { 
-  console.log("SoketService -> data and eventName",eventName,data);
    
   socket.emit(eventName, data);
 }

@@ -3,28 +3,27 @@ module.exports = connectSockets
 
 function connectSockets(io) {
     io.on('connection', socket => {
-        console.log("SOcKET - HII ->0",socket.on);
-
-        socket.on('reviewNew', msg=>{
+        socket.on('newMsg', msg=>{
             // io.emit('review NewReview', msg)
-            // emits only to sockets in the same room
-            
-            console.log("SOcKET - HII -> msg->1 ",msg);
-            io.to(socket.myTopic).emit('review addMsg', msg)
-            console.log("SOcKET - socket.myTopic ->1",socket.myTopic);
-            
+            // emits only to sockets in the same room            
+            console.log("socket - test msg -> ",msg);
+            console.log("socket connection to  myChannel ->",socket.myChannel);
+            io.to(socket.myChannel).emit('addMsg', msg)
         })
-        socket.on('reviewNew', topic=>{
-            if (socket.myTopic) {
-                socket.leave(socket.myTopic)
+
+        socket.on('newChannel', channel=>{
+            console.log("enter to reviewNew change channel");
+            
+            if (socket.myChannel) {
+                socket.leave(socket.myChannel)
                 // console.log("SOKET - HII ->2",msg);
 
             }
-            socket.join(topic)
-            socket.myTopic = topic;
-            console.log("SOcKET - HII ->3");
+            socket.join(channel)
+            socket.myChannel = channel;
+            console.log("signed to channel: -> myChannel ->",socket.myChannel);
             
         })
-        console.log("SOcKET - HII ->4");
+        console.log("socket->4");
     })
 }

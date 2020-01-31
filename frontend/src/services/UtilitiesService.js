@@ -4,83 +4,134 @@ function sortByDate(a, b) {
   return dateA > dateB ? 1 : -1;
 }
 
-function getCategoriesInfo(mealsArray, type) {
-  let categories = {};
+function addDaysToDate(date, days) {
+  const copy = new Date(Number(date));
+  copy.setDate(date.getDate() + days);
+  return copy;
+}
 
-  /*
-  {
-    'Cuisine':{
-      'Italian' : {},
-      'Mexican' : {}
-    },
-    'Location':{
-      'Berlin' :{country: 'Germany'}
-    }
+function formatDate(date) {
+  let options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Intl.DateTimeFormat('en-US', options).format(new Date(date));
+}
+
+function _addCategoryInstanceVariety(instance, categoryType, cuisine, city) {
+  let variations = [];
+
+  if (categoryType.type === 'Cuisine') {
+    variations = instance.variations.includes(city) ? [...instance.variations, city] : instance.variations;
   }
-  */
 
-  // let category = {
-  //   img: img,
-  //   name: name,
-  //   cuisines: [],
-  //   locations:[{city:'',country:''}]
-  //   toggleIcon: toggleIcon,
-  //   toggleTxt: toggleTxt, -> either sums - # of different cuisines or # of different cities
-  //   hostedTxt: hostedTxt,
-  //   nextAvailableDate: nextAvailableDate,
-  //   avgPrice: avgPrice,
-  //   type: type,
-  // };
+  if (categoryType.type === 'Location') {
+    variations = instance.variations.includes(cuisine) ? [...instance.variations, cuisine] : instance.variations;
+  }
 
-  //categories =
-  const categoryType = type === 'Cuisine' ? { type: type, field: 'cuisineType' } : { type: type, field: 'location[city]', fieldTwo: 'location[country]' };
+  return variations;
+}
 
-  categories = {};
-  //const startDateRange = new Date().getTime();
-  // const endDateRange = new Date().setDate(new Date().getDate() + 7);
-  mealsArray.reduce(function(result, meal) {
+function _getImageByCategoryType(categoryType, categoryInstance) {
+  let imgUrl = '';
 
-    if (!result[meal[categoryType.field]]) {
-  
-      result[meal[categoryType.field]] = {
-        name: meal[categoryType.field],
-        cuisines: [].push({
-          cuisine: meal[categoryType.field],
-          location: [].push({
-            city: meal.location.city,
-            country: meal.location.country,
-            events: meal.occurrences.length,
-            // eventsThisWeek: meal.occurrences.reduce((result, event) => {
-            //   if (new Date(event.date).getTime() >= startDateRange && new Date(event.date).getTime() <= endDateRange) return result++;
-            // }, 0),
-            nextAvailableDate: meal.occurrences.sort(sortByDate)[0],
-            price: meal.price,
-            priceAvg: meal.price,
-          }),
-        }),
-        locations: [].push({
-          city: meal.location.city,
-          country: meal.location.country,
-          cuisines: [].push({
-            cuisine: meal.cuisine,
-            events: meal.occurrences.length,
-            eventsThisWeek: '',
-            nextAvailableDate: '',
-            price: meal.price,
-            priceAvg: meal.price,
-          }),
-        }),
+  const mapCuisinesImages = {
+    default: 'https://res.cloudinary.com/contentexs/image/upload/v1580324681/default-c.jpg',
+    'tex-mex': 'https://res.cloudinary.com/contentexs/image/upload/v1580322135/tex-mex.jpg',
+    asian: 'https://res.cloudinary.com/contentexs/image/upload/v1580322135/asian.jpg',
+    spanish: 'https://res.cloudinary.com/contentexs/image/upload/v1580324681/barcelona.jpg',
+    italian: 'https://res.cloudinary.com/contentexs/image/upload/v1580322135/italian.jpg',
+    greek: 'https://res.cloudinary.com/contentexs/image/upload/v1580326079/greek.jpg',
+    moroccan: 'https://res.cloudinary.com/contentexs/image/upload/v1580322135/moroccan.jpg',
+    indian: 'https://res.cloudinary.com/contentexs/image/upload/v1580322135/indian.jpg',
+  };
+
+  const mapCitiesImages = {
+    default: 'https://res.cloudinary.com/contentexs/image/upload/v1580322153/default.jpg',
+    dallas: 'https://res.cloudinary.com/contentexs/image/upload/v1580322153/dallas.jpg',
+    barcelona: 'https://res.cloudinary.com/contentexs/image/upload/v1580322153/barcelona.jpg',
+    duino: 'https://res.cloudinary.com/contentexs/image/upload/v1580322154/duino.jpg',
+    athens: 'https://res.cloudinary.com/contentexs/image/upload/v1580322153/athens.jpg',
+    marrakech: 'https://res.cloudinary.com/contentexs/image/upload/v1580322154/marrakech.jpg',
+    delhi: 'https://res.cloudinary.com/contentexs/image/upload/v1580322153/delhi.jpg',
+    bangkok: 'https://res.cloudinary.com/contentexs/image/upload/v1580322153/bangkok.jpg',
+  };
+
+  if (categoryType.type === 'Cuisine') {
+    imgUrl = mapCuisinesImages[categoryInstance.toLowerCase()] ? mapCuisinesImages[categoryInstance.toLowerCase()] : mapCuisinesImages['default'];
+  }
+
+  if (categoryType.type === 'Location') {
+    imgUrl = mapCitiesImages[categoryInstance.toLowerCase()] ? mapCitiesImages[categoryInstance.toLowerCase()] : mapCitiesImages['default'];
+  }
+  return imgUrl;
+}
+
+function getCategoriesInfo(meals, category) {
+  let categories = [];
+  const categoryType = category === 'Cuisine' ? { type: category, property: 'cuisineType' } : { type: category, property: 'location.city' };
+  const startDateRange = addDaysToDate(new Date(), -1);
+  const endDateRange = addDaysToDate(startDateRange, 9);
+
+  meals.forEach(current => {
+    //categoryInstance -> Berlin / Italian
+    const categoryInstance = categoryType.property.split('.').reduce((result, value) => {
+      return result ? result[value] : undefined;
+    }, current);
+
+    if (!categoryInstance) return;
+
+    const today = new Date();
+    let closest = current.occurrences.reduce((result, value) => (result.date - today < value.date - today ? result.date : value.date), today);
+    let totalAttendees = current.occurrences.reduce((result, value) => (result += parseInt(value.total)), 0);
+
+    //if there are no available slots or dates -> continue
+    if (parseInt(totalAttendees) < parseInt(current.capacity) && closest < new Date()) return;
+
+    let currentWeekOccurrences = current.occurrences.reduce((result, value) => {
+      return value.date > startDateRange && value.date <= endDateRange ? (result += 1) : result;
+    }, 0);
+
+    let totalOccurrences = current.occurrences.reduce((result, value) => {
+      return value.date > today ? (result += 1) : result;
+    }, 0);
+
+    let instance = categories.find(current => current.name === categoryInstance);
+
+    if (instance) {
+      instance.nextAvailableDate = {
+        date: instance.nextAvailableDate.date > closest ? formatDate(closest) : formatDate(instance.nextAvailableDate.date),
+        city: current.location.city,
+        country: current.location.country,
+        cuisine: current.cuisineType,
       };
+
+      instance.variations = _addCategoryInstanceVariety(instance, categoryType, current.cuisineType, current.location.city);
+
+      instance.totalOccurrences += parseInt(totalOccurrences);
+      instance.currentWeekOccurrences += parseInt(currentWeekOccurrences);
+      instance.totalEvents += 1;
+      instance.totalPrice += parseFloat(current.price);
+      instance.priceAvg = Math.floor(parseFloat(instance.totalPrice) / parseInt(instance.totalEvents));
     } else {
+      instance = {
+        name: categoryInstance,
+        nextAvailableDate: { date: formatDate(closest), city: current.location.city, country: current.location.country, cuisine: current.cuisineType },
+        variations: categoryType === 'Cuisine' ? [current.location.city] : [current.cuisineType],
+        totalOccurrences: parseInt(totalOccurrences),
+        currentWeekOccurrences: parseInt(currentWeekOccurrences),
+        totalEvents: 1,
+        totalPrice: parseFloat(current.price),
+        priceAvg: Math.floor(parseFloat(current.price)),
+        imgUrl: _getImageByCategoryType(categoryType, categoryInstance),
+      };
+
+      categories = [...categories, instance];
     }
-
-    //if (!current['Location'].includes({ city: meal.Location.city, country: meal.location.country })) current['Location'] = { city: meal.Location.city, country: meal.location.country };
-  }, categories);
-
+  });
   return categories;
 }
 
 export default {
   sortByDate,
   getCategoriesInfo,
+  addDaysToDate,
+  formatDate,
 };

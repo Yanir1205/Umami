@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import SocketService from '../services/SocketService';
 import { getById,loadUserMeal,load, add } from '../actions/MealActions';
-
 import { setFilter } from '../actions/FilterActions';
 import UserMealList from '../components/UserMealList';
 
 class UserDetails extends Component {
+  
   async componentDidMount() {
     this.resetFilterDefinitions()
     // await this.props.setFilter({ ...this.props.filter, userId: this.props.match.params.id });
