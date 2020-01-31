@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Notification from '../components/Notification';
 
 import { getById, add } from '../actions/MealActions';
-import { getValidMeal } from '../reducers/MealSelector';
+import { getMealDetails } from '../reducers/MealSelector';
 
 import ImageGallery from '../components/ImageGallery';
 import MealPageNav from '../components/MealPageNav';
@@ -121,7 +121,7 @@ class MealDetails extends Component {
 
 const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
-  meal: getValidMeal(state),
+  meal: getMealDetails(state),
 });
 
 const mapDispatchToProps = {

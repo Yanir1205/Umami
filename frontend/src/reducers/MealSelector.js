@@ -5,7 +5,7 @@ import UtilitiesService from '../services/UtilitiesService';
 const loggedInUserSelector = state => state.user.loggedInUser;
 const selectedMealSelector = state => state.meal.selectedMeal;
 
-export const getValidMeal = createSelector([selectedMealSelector, loggedInUserSelector], (selectedMeal, loggedInUser) => {
+export const getMealDetails = createSelector([selectedMealSelector, loggedInUserSelector], (selectedMeal, loggedInUser) => {
   let detailsMeal = {},
     availableOccurrences = [];
 
