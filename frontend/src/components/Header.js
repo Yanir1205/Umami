@@ -27,7 +27,6 @@ export class Header extends Component {
 
 
   onLogIn = async user => {
-
     await this.props.login(user);
   };
 

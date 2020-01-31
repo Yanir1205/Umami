@@ -42,6 +42,7 @@ export class Notification extends Component {
   render() {
     const { vertical, horizontal, open } = this.state;
 
+    debugger
     return (
       <div>
         <Snackbar  autoCloseDuration={3000} anchorOrigin={{ vertical, horizontal }} key={`${vertical},${horizontal}`} open={open} onClose={this.handleClose}  >

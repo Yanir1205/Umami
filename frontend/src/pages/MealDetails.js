@@ -53,15 +53,13 @@ class MealDetails extends Component {
 
         activeOccurrence.total = parseInt(activeOccurrence.total) + parseInt(registration.attendees);
         await this.props.add(meal);
-        SocketService.emit('newMsg',{meal,loggedInUser})
+        debugger
+        this.setState({ showNotification: true, notificationMessage: 'You were successfully registered. ' });
       }
     }
   };
 
-  addMsg = newMsg => {
-    console.log('TEST addMsg -> ',newMsg);
 
-  };//
 
   onDisplayReviewForm = ev => {
     ev.preventDefault();
