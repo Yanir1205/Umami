@@ -11,6 +11,7 @@ export default function NotificationMsg(props) {
             <span>Just now</span>
             <span > {props.user.fullName}</span>
             <span>has just signed-in to your event</span>
+            <span>{props.user.titelHost}</span>
         </div>
     </div>
     );

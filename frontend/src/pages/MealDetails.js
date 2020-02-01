@@ -25,39 +25,50 @@ class MealDetails extends Component {
     const id = this.props.match.params.id;
     await this.props.getById(id);
     SocketService.setup();
-    // const hostedId = this.props.meal.hostedBy._id
-    // console.log("hostedId->",hostedId);
+    console.log('MealDetails -> componentDidMount',this.props.meal);
+    debugger
+    const hostedId = this.props.meal.storeMeal.hostedBy._id
+    console.log("hostedId->",hostedId);
     
-    // SocketService.emit('newChannel',`onEventRegistration${hostedId}`);
-    // SocketService.on('addMsg', this.addMsg);
+    SocketService.emit('newChannel',`onEventRegistration${hostedId}`);
+    SocketService.on('addMsg', this.addMsg);
   }
 
   componentWillUnmount() {
-    // SocketService.off('addMsg', this.addMsg);
-    // SocketService.terminate();
-  }//
+    SocketService.off('addMsg', this.addMsg);
+    SocketService.terminate();
+  } //
 
   onEventRegistration = async registration => {
-    debugger;
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       let meal = { ...this.props.meal.storeMeal };
 
       let selectedOccurance = meal.occurrences.find(current => current.id === registration.id);
+      if (!selectedOccurance) {
+        console.log("onEventRegistration: couldn't find selected occurrence", registration);
+        return;
+      }
+
       let userReservation = selectedOccurance.attendees.find(attendee => attendee._id === loggedInUser._id);
 
       if (userReservation) {
         userReservation.numOfAttendees = parseInt(userReservation.numOfAttendees) + parseInt(registration.numOfAttendees);
       } else {
-        selectedOccurance = [...selectedOccurance.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.numOfAttendees }];
+        selectedOccurance.attendees = [...selectedOccurance.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.numOfAttendees }];
       }
       selectedOccurance.total = parseInt(selectedOccurance.total) + parseInt(registration.numOfAttendees);
 
-      await this.props.add(meal);
+      // await this.props.add(meal);
+      loggedInUser.titelHost = meal.title
+      SocketService.emit('newMsg',{meal,loggedInUser})
     }
   };
 
 
+  addMsg = newMsg => {
+    console.log('TEST addMsg -> ',newMsg);
+  };//
 
   onDisplayReviewForm = ev => {
     ev.preventDefault();
@@ -82,7 +93,10 @@ class MealDetails extends Component {
         at: Date.now(),
       };
       meal.reviews = [...meal.reviews, newReview];
+
       await this.props.add(meal);
+
+
     }
   };
 
@@ -119,7 +133,7 @@ class MealDetails extends Component {
                   </div>
                   {meal.hostReviews && <ReviewList reviews={meal.hostReviews}></ReviewList>}
                   <h3 id='location'>Location</h3>
-                  <MealMap location={meal.location}></MealMap>
+                  {/* <MealMap location={meal.location}></MealMap> */}
                 </div>
                 <div className='right-box flex-shrink-30'>
                   <MealPayment meal={meal} onEventRegistration={this.onEventRegistration}></MealPayment>
@@ -136,6 +150,7 @@ class MealDetails extends Component {
 const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
   meal: getMealDetails(state),
+
 });
 
 const mapDispatchToProps = {

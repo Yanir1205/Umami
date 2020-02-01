@@ -4,7 +4,7 @@ class MealPageNav extends Component {
   render() {
     let { hostRating, eventSetup } = this.props;
     return (
-      <div className='nav-container'>
+      <div className='card-simple nav-container'>
         <div className='top-box flex '>
           <a className='btn' href='#menu'>
             Menu

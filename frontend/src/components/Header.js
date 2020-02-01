@@ -21,6 +21,7 @@ export class Header extends Component {
   async componentDidMount() {
     if (this.props.loggedInUser) {
       this.signToSocketEvent(this.props.loggedInUser._id)
+
     }
   }
 
@@ -32,14 +33,18 @@ export class Header extends Component {
   signToSocketEvent = (userId) => {
     SocketService.setup();
     console.log('userId', userId);
-
     SocketService.emit('newChannel', `onEventRegistration${userId}`);
     SocketService.on('addMsg', this.addMsg);
   }
 
   addMsg = newMsg => {
+    
     this.setState({ showNotification: true ,registeredUser:newMsg.loggedInUser})
+    setTimeout(this.resetNotification , 3000)
   };//
+  resetNotification =()=>{
+    this.setState({ showNotification: false ,registeredUser:''})
+  }
 
 
   onLogout = (ev) => {
