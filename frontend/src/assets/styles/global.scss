@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /*Setup*/
 @import 'setup/variables.scss';
 @import 'setup/functions.scss';
@@ -34,7 +36,6 @@
 @import 'components/category-list.scss';
 @import 'components/meet-hosts.scss';
 @import 'components/notificationMsg.scss';
-
 
 /* Views*/
 @import 'views/homepage.scss';

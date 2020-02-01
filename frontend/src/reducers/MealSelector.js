@@ -27,7 +27,9 @@ export const getMealDetails = createSelector([selectedMealSelector, loggedInUser
       noAvailableOccurrence: 'We are sorry, It seems we made a mistake and this event is not active. You will be redirected to our events page to continue browsing.',
       eventSoldOut: 'We are sorry, It seems we made a mistake and this event is all sold out. You will be redirected to our events page to continue browsing.',
       hasAttendees: 'Meet the other guests',
-      noAttendees: 'We will be delighted to have you as our guest. You can register now.',
+      noAttendees: 'We will be delighted to have you as our guest. Please register now.',
+      userRegistered: 'You are booked to this event',
+      pleaseLogin: 'Please login before proceeding.',
     },
     registrationCart: {},
     selectedOccurance: {},
@@ -89,8 +91,8 @@ function setOccurrences(occurrences, price, capacity, userId) {
             fullName: attendee.fullName,
             imgUrl: attendee.imgUrl,
           },
-          totalAttendees: parseInt(attendee.numOfAttendees),
-          totalPrice: parseInt(attendee.numOfAttendees) * parseInt(price),
+          occurrenceAttendees: parseInt(attendee.numOfAttendees),
+          occurrenceTotalPrice: parseInt(attendee.numOfAttendees) * parseInt(price),
           isLoggedInUser: userId === attendee._id ? true : false,
         };
       }),
@@ -116,9 +118,15 @@ function setSelectedOccurance(occurrences, selectedDate = null) {
 }
 
 function setAvailableDates(occurrences, selectedOccurance) {
-  return occurrences.map(occurrence => {
-    return { date: occurrence.date, isSelected: selectedOccurance && occurrence.id === selectedOccurance.id };
-  });
+  var result = [];
+  return occurrences.reduce((acc, occurrence) => {
+    if (!result.includes(occurrence.date)) {
+      result.push(occurrence.date);
+      let isSelected = selectedOccurance && occurrence.id === selectedOccurance.id;
+      acc.push({ date: occurrence.date, isSelected: isSelected });
+    }
+    return acc;
+  }, []);
 }
 
 function setHostRating(reviews) {

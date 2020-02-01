@@ -62,7 +62,6 @@ class MealDetails extends Component {
   }
 
   onEventRegistration = async registration => {
-    
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       let meal = { ...this.props.meal.storeMeal };
@@ -83,15 +82,14 @@ class MealDetails extends Component {
       selectedOccurance.total = parseInt(selectedOccurance.total) + parseInt(registration.numOfAttendees);
 
       await this.props.add(meal);
-      loggedInUser.titelHost = meal.title
-      SocketService.emit('newMsg',{meal,loggedInUser})
+      loggedInUser.titleHost = meal.title;
+      SocketService.emit('newMsg', { meal, loggedInUser });
     }
   };
 
-
   addMsg = newMsg => {
-    console.log('TEST addMsg -> ',newMsg);
-  };//
+    console.log('TEST addMsg -> ', newMsg);
+  }; //
 
   onDisplayReviewForm = ev => {
     ev.preventDefault();
@@ -118,8 +116,6 @@ class MealDetails extends Component {
       meal.reviews = [...meal.reviews, newReview];
 
       await this.props.add(meal);
-
-
     }
   };
 
@@ -155,9 +151,9 @@ class MealDetails extends Component {
                     <ReviewForm onSaveReviewForm={this.onSaveReviewForm} onCloseReviewForm={this.onCloseReviewForm}></ReviewForm>
                   </div>
                   {meal.hostReviews && <ReviewList reviews={meal.hostReviews}></ReviewList>}
-                  <div  className='google-map-container'>
-                  <h3 id='location'>Location</h3>
-                  <MealMap   location={meal.location}></MealMap>
+                  <div className='google-map-container'>
+                    <h3 id='location'>Location</h3>
+                    <MealMap location={meal.location}></MealMap>
                   </div>
                 </div>
                 <div className='right-box flex-shrink-30'>
@@ -175,7 +171,6 @@ class MealDetails extends Component {
 const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
   meal: getMealDetails(state),
-
 });
 
 const mapDispatchToProps = {
