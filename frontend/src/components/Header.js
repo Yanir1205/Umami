@@ -42,11 +42,11 @@ export class Header extends Component {
     
     this.setState({ showNotification: true ,registeredUser:newMsg.loggedInUser})
     setTimeout(this.resetNotification , 3000)
-  };//
+  }
+
   resetNotification =()=>{
     this.setState({ showNotification: false ,registeredUser:''})
   }
-
 
   onLogout = (ev) => {
     ev.preventDefault()

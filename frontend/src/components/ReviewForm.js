@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import SocketService from '../services/SocketService';
 import { addMsg } from '../actions/SocketAction';
 var id =1
+
 class ReviewForm extends Component {
   state = {
     email: '',
@@ -12,35 +13,6 @@ class ReviewForm extends Component {
     starSelected: 'icon-medium color-yellow far fa-star',
     msgs: ''
   };
-
-  componentDidMount() {
-    //socket setup
-    //sign in to a new channel called 'review'
-    //whenever a new msg arrives on socket from the backend - link to to the addMsg method
-
-    SocketService.setup();
-    SocketService.emit('newChannel', 'review');
-    SocketService.on('addMsg', this.addMsg);
-  }
-
-  componentWillUnmount() {
-    //unlink the addMsg method from the addMsg announcment
-    //terminate the socket
-    SocketService.off('addMsg', this.addMsg);
-    SocketService.terminate();
-  }
-
-  addMsg = newMsg => {
-    //open a notification showing a msg
-
-    console.log(newMsg)
-    // console.log('TEST addMsg -> ', newMsg);
-    // this.setState({ showNotification: true })
-    //  this.props.addMsg(newMsg)
-    // console.log("addMsg -> props",this.props.msg);
-
-    // this.setState({ msgs: newMsg });
-  };//
 
   onSaveReviewForm = ev => {
     ev.preventDefault();

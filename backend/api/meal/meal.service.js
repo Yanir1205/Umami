@@ -39,7 +39,7 @@ async function _getMealsByFilter(collection, filterBy) {
 }
 
 async function _getBadges(collection, filterBy) {
-  const badges = await collection.aggregate([{ $group: { _id: filterBy.group } }]).toArray();
+  const badges = await collection.aggregate([{ $group: { _id: filterBy.group } }]).limit(8).toArray();
   return badges;
 }
 

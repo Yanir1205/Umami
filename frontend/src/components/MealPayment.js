@@ -62,63 +62,62 @@ class MealPayment extends Component {
   };
 
   render() {
-    debugger
     const { meal } = this.props;
-    console.log('MealPayment - props', this.props);
-    console.log('MealPayment - state', this.state);
-
-    return (
-      <div className='card-simple payment-container'>
-        <div className='price'>
-          <span>$</span>
-          {meal.price}
-          <small>per guest</small>
-        </div>
-        <div>
-          <hr />
-        </div>
-        <div className='details-container'>
-          <div className='date'>
-            <label htmlFor='date'>Date</label>
-            <input name='date' list='occurrences' placeholder='Select Event Date' value={this.state.date} onChange={this.handleChange} title='Select one of the event dates' className='input-date'></input>
-            <datalist id='occurrences'>
-              {meal.availableDates.map((current, idx) => {
-                // if (current != this.state.date)
-                return (
-                  <option key={idx} value={Moment(current.date).format('MM-DD-YY')}>
-                    {Moment(current.date).format('MM-DD-YY')}
-                  </option>
-                );
-              })}
-            </datalist>
-          </div>
-          <div className='guests'>
-            <label htmlFor='numOfAttendees'>Number of Guests</label>
-            <input type='number' placeholder='Number of Guests' min='1' name='numOfAttendees' onChange={this.handleChange} value={this.state.numOfAttendees === 0 ? '' : this.state.numOfAttendees}></input>
-            <small className='small-text'>{this.state.availableText}</small>
-          </div>
-          <div className={this.state.paymentClass}>
-            <ul className='clean-list'>
-              <li>
-                <span>
-                  ${meal.price} x {this.state.numOfAttendees}
-                </span>
-                <span>guests</span>
-              </li>
-              <li>
-                <span>Total</span>
-                <span>${this.state.totalPrice}</span>
-              </li>
-            </ul>
+    if (meal) {
+      return (
+        <div className='card-simple payment-container'>
+          <div className='price'>
+            <span>$</span>
+            {meal.price}
+            <small>per guest</small>
           </div>
           <div>
-            <button onClick={this.onEventRegistration} className='button btn-main'>
-              {this.state.buttonText}
-            </button>
+            <hr />
+          </div>
+          <div className='details-container'>
+            <div className='date'>
+              <label htmlFor='date'>Date</label>
+              <input name='date' list='occurrences' placeholder='Select Event Date' value={this.state.date} onChange={this.handleChange} title='Select one of the event dates' className='input-date'></input>
+              <datalist id='occurrences'>
+                {meal.availableDates.map((current, idx) => {
+                  // if (current != this.state.date)
+                  return (
+                    <option key={idx} value={Moment(current.date).format('MM-DD-YY')}>
+                      {Moment(current.date).format('MM-DD-YY')}
+                    </option>
+                  );
+                })}
+              </datalist>
+            </div>
+            <div className='guests'>
+              <label htmlFor='numOfAttendees'>Number of Guests</label>
+              <input type='number' placeholder='Number of Guests' min='1' name='numOfAttendees' onChange={this.handleChange} value={this.state.numOfAttendees === 0 ? '' : this.state.numOfAttendees}></input>
+              <small className='small-text'>{this.state.availableText}</small>
+            </div>
+            <div className={this.state.paymentClass}>
+              <ul className='clean-list'>
+                <li>
+                  <span>
+                    ${meal.price} x {this.state.numOfAttendees}
+                  </span>
+                  <span>guests</span>
+                </li>
+                <li>
+                  <span>Total</span>
+                  <span>${this.state.totalPrice}</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <button onClick={this.onEventRegistration} className='button btn-main'>
+                {this.state.buttonText}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
+    else return <div>loading</div>
   }
 }
 
