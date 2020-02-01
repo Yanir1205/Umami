@@ -23,11 +23,8 @@ class MealDetails extends Component {
     await this.props.getById(id);
   }
 
-  componentDidUpdate(prevProps) {
-    console.log('componentDidUpdate prevProps-', prevProps, 'this.props ', this.props);
-  }
-
   onEventRegistration = async registration => {
+    debugger;
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       let meal = { ...this.props.meal.storeMeal };

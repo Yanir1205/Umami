@@ -3,27 +3,30 @@ import { connect } from 'react-redux';
 import Moment from 'moment';
 
 class MealPayment extends Component {
-  state = { meal: [], selectedOccurance: {}, numOfAttendees: 0, totalPrice: 0, date: '', availableSeats: 0, availableText: '', registerCounter: 0, buttonText: '', paymentClass: 'hide' };
+  state = { meal: [], selectedOccurance: {}, numOfAttendees: 0, totalPrice: 0, date: '', availableSeats: 0, availableText: '', registerCounter: 0, buttonText: '', paymentClass: 'hide', displayMsg: 'hide', msg: '' };
 
   componentDidMount() {
-    let { meal, loggedInUser } = this.props;
-    let loggedUserOccurrence = meal.selectedOccurance.reservations.find(reservation => reservation.isLoggedInUser);
+    let { meal } = this.props;
+    let userOccurrence = meal.selectedOccurance.reservations.find(reservation => reservation.isLoggedInUser);
 
     this.setState({
       meal: meal,
+      msg: userOccurrence && userOccurrence.isLoggedInUser ? meal.messages.userRegistered : '',
+      displayMsg: userOccurrence && userOccurrence.isLoggedInUser ? '' : 'hide',
       selectedOccurance: meal.selectedOccurance,
-      numOfAttendees: loggedUserOccurrence && loggedUserOccurrence.isLoggedInUser ? loggedUserOccurrence.totalAttendees : 0,
-      totalPrice: loggedUserOccurrence && loggedUserOccurrence.isLoggedInUser ? loggedUserOccurrence.totalPrice : 0,
+      numOfAttendees: userOccurrence && userOccurrence.isLoggedInUser ? userOccurrence.occurrenceAttendees : 0,
+      totalPrice: userOccurrence && userOccurrence.isLoggedInUser ? userOccurrence.occurrenceTotalPrice : 0,
       date: Moment(meal.selectedOccurance.date).format('MM-DD-YY'),
       availableSeats: parseInt(meal.selectedOccurance.seatsLeft),
       availableText: `${meal.selectedOccurance.seatsLeft} available seats`,
       registerCounter: 0,
-      buttonText: loggedUserOccurrence && loggedUserOccurrence.isLoggedInUser ? 'UPDATE EVENT' : 'REGISTER EVENT',
-      paymentClass: loggedUserOccurrence && loggedUserOccurrence.isLoggedInUser ? 'payment' : 'hide',
+      buttonText: userOccurrence && userOccurrence.isLoggedInUser ? 'UPDATE EVENT' : 'REGISTER EVENT',
+      paymentClass: userOccurrence && userOccurrence.isLoggedInUser ? 'payment' : 'hide',
     });
   }
 
   handleChange = ev => {
+    debugger;
     ev.preventDefault();
     let name = ev.target.name;
     let value = ev.target.value;
@@ -35,17 +38,25 @@ class MealPayment extends Component {
         availableText: `${parseInt(this.state.availableSeats) - parseInt(value)} available seats`,
       });
     } else {
-      if (this.state.date !== Moment(value).format('MM-DD-YY')) {
-        let selectedOccurance = this.state.meal.occurrences.find(current => {
-          return Moment(current.date).format('MM-DD-YY') === Moment(value).format('MM-DD-YY');
+      debugger;
+      if (this.state.date !== value) {
+        debugger;
+        let selectedOccurance = this.props.meal.occurrences.find(current => {
+          return Moment(current.date).format('MM-DD-YY') === value;
         });
 
-        let userReservation = selectedOccurance.reservations.find(reservation => reservation.user._id === this.props.loggedInUser._id);
-        if (userReservation) userReservation.isLoggedInUser = true;
+        if (this.props.loggedInUser) {
+          let userOccurrence = selectedOccurance.reservations.find(reservation => reservation.user._id === this.props.loggedInUser._id);
+          if (userOccurrence) userOccurrence.isLoggedInUser = true;
+        }
 
         this.setState({
           date: value,
           selectedOccurance: selectedOccurance,
+          availableSeats: parseInt(selectedOccurance.seatsLeft) - parseInt(this.state.numOfAttendees),
+          availableText: `${parseInt(selectedOccurance.seatsLeft) - parseInt(this.state.numOfAttendees)} available seats`,
+          msg: '',
+          displayMsg: 'hide',
         });
       }
     }
@@ -53,11 +64,18 @@ class MealPayment extends Component {
 
   onEventRegistration = ev => {
     ev.preventDefault();
+    debugger;
     if (this.state.registerCounter === 0) {
       this.setState({ registerCounter: 1, buttonText: 'BOOK EVENT', paymentClass: 'payment' });
     } else if (this.state.registerCounter >= 1 && this.state.numOfAttendees !== 0) {
-      this.setState({ registerCounter: 0 });
-      this.props.onEventRegistration({ id: this.state.selectedOccurance.id, date: new Date(this.state.date).getTime(), numOfAttendees: this.state.numOfAttendees });
+      if (!this.props.loggedInUser) {
+        console.log('Meal Reservation - user not logged in');
+        this.setState({ msg: this.state.meal.messages.pleaseLogin, displayMsg: '' });
+        return;
+      }
+      debugger;
+      this.setState({ registerCounter: 0, msg: '', displayMsg: 'hide' });
+      this.props.onEventRegistration({ id: this.state.selectedOccurance.id, date: +Moment(this.state.date, 'MM-DD-YY'), numOfAttendees: this.state.numOfAttendees });
     }
   };
 
@@ -77,19 +95,20 @@ class MealPayment extends Component {
           <hr />
         </div>
         <div className='details-container'>
+          <div className='msg'>
+            <span className={this.state.displayMsg}>{this.state.msg}</span>
+          </div>
           <div className='date'>
             <label htmlFor='date'>Date</label>
-            <input name='date' list='occurrences' placeholder='Select Event Date' value={this.state.date} onChange={this.handleChange} title='Select one of the event dates' className='input-date'></input>
-            <datalist id='occurrences'>
+            <select name='date' onChange={this.handleChange} value={this.state.date}>
               {meal.availableDates.map((current, idx) => {
-                // if (current != this.state.date)
                 return (
                   <option key={idx} value={Moment(current.date).format('MM-DD-YY')}>
                     {Moment(current.date).format('MM-DD-YY')}
                   </option>
                 );
               })}
-            </datalist>
+            </select>
           </div>
           <div className='guests'>
             <label htmlFor='numOfAttendees'>Number of Guests</label>
