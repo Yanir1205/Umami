@@ -133,8 +133,10 @@ class MealDetails extends Component {
                     <ReviewForm onSaveReviewForm={this.onSaveReviewForm} onCloseReviewForm={this.onCloseReviewForm}></ReviewForm>
                   </div>
                   {meal.hostReviews && <ReviewList reviews={meal.hostReviews}></ReviewList>}
+                  <div  className='google-map-container'>
                   <h3 id='location'>Location</h3>
-                  <MealMap location={meal.location}></MealMap>
+                  <MealMap   location={meal.location}></MealMap>
+                  </div>
                 </div>
                 <div className='right-box flex-shrink-30'>
                   <MealPayment meal={meal} onEventRegistration={this.onEventRegistration}></MealPayment>
