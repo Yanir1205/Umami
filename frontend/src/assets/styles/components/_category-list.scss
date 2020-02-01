@@ -11,14 +11,28 @@
   background-color: $clr2;
   border: 1px solid #deb200;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2,  1fr);
   grid-row-gap: 1rem;
-
+  // width: 22rem;
   & .card-img {
     grid-row: 1 / 2;
     grid-column: 1 / -1;
     z-index: 1;
     object-fit: cover;
+  }
+
+  .super-host-preview {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    // background: $clr6;
+    background: #ff0000;
+    padding: 1px 5px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    z-index: 2;
   }
 
   & .card-name {

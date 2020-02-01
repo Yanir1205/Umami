@@ -19,18 +19,20 @@ export class Header extends Component {
   }
 
   componentDidMount() {
-
+debugger
     if (this.props.loggedInUser) {
       this.signToSocketEvent(this.props.loggedInUser._id)
     }
   }
   componentDidUpdate(prevProps) {
+    debugger
     if (prevProps.loggedInUser !== this.props.loggedInUser && this.props.loggedInUser) {
       this.signToSocketEvent(this.props.loggedInUser._id)
     }
   }
 
   componentWillUnmount() {
+    
     this.unSignToSocketEvent()
   }//
 
@@ -60,9 +62,10 @@ export class Header extends Component {
   }
 
   onLogout = (ev) => {
+    debugger
     ev.preventDefault()
-    this.props.logout();
     this.unSignToSocketEvent()
+    this.props.logout();
     this.props.history.push(`/`);
   };
 
