@@ -4,7 +4,7 @@ import ReviewPreview from './ReviewPreview';
 
 export class ReviewList extends Component {
   render() {
-    const reviews = this.props.reviews;
+    const { reviews } = this.props;
     return (
       <div className='main-reviews-container'>
         {reviews &&

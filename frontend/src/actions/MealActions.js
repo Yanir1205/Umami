@@ -24,8 +24,8 @@ export function loadMealsToList(meals) {
   //and filters the meals to contain only the meals with releveant occurrances (dates which didn't pass already, occurrances which are not fully occuppied)
   return async dispatch => {
     const filteredMeals = await MealService.filter(meals);
-    dispatch({ type: 'LOAD_FILTERED_MEALS', filteredMeals })
-  }
+    dispatch({ type: 'LOAD_FILTERED_MEALS', filteredMeals });
+  };
 }
 
 export function loadUserMeal(filter) {
@@ -95,10 +95,8 @@ export function loadTags() {
 }
 
 export function getById(id) {
-
   return async dispatch => {
     const meal = await MealService.getById(id);
-
     dispatch({ type: 'GET_BY_ID', meal });
   };
 }

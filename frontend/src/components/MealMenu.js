@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class MealMenu extends Component {
   render() {
-    const menu = this.props.menu;
+    const { menu } = this.props;
     return (
       <div className=' menu-main-container'>
         <div className='card-simple menu-container'>

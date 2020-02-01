@@ -10,9 +10,26 @@ class UserDetails extends Component {
   
   async componentDidMount() {
     this.resetFilterDefinitions()
-    // await this.props.setFilter({ ...this.props.filter, userId: this.props.match.params.id });
-    // await this.loadMeals();
+    this.signToSocketEvent(this.props.loggedInUser._id)
   }
+
+  componentWillUnmount() {
+    SocketService.off('addMsg', this.addMsg);
+    SocketService.terminate();
+  }//
+
+  signToSocketEvent = (userId) => {
+    SocketService.setup();
+    console.log('userId', userId);
+
+    SocketService.emit('newChannel', `onEventRegistration${userId}`);
+    SocketService.on('addMsg', this.addMsg);
+  }
+
+  saddMsg = newMsg => {
+    console.log('TEST addMsg -> ', newMsg);
+    this.loadMeals()    
+  };//
 
   resetFilterDefinitions = async () => {
     await this.props.setFilter({
@@ -71,8 +88,7 @@ class UserDetails extends Component {
 
   render() {
     const user = this.props.loggedInUser;
-    return (
-      <div className='user-details-container container'>
+    return (user && <div className='user-details-container container'>
         <div className='user-container'>
           <span>Hello, </span>
           <span>{user.fullName}</span>

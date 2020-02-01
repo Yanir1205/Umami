@@ -18,13 +18,35 @@ export class Header extends Component {
     registeredUser: {}
   }
 
+  async componentDidMount() {
+    if (this.props.loggedInUser) {
+      this.signToSocketEvent(this.props.loggedInUser._id)
+    }
+  }
+
+  componentWillUnmount() {
+    SocketService.off('addMsg', this.addMsg);
+    SocketService.terminate();
+  }//
+
+  signToSocketEvent = (userId) => {
+    SocketService.setup();
+    console.log('userId', userId);
+
+    SocketService.emit('newChannel', `onEventRegistration${userId}`);
+    SocketService.on('addMsg', this.addMsg);
+  }
+
+  addMsg = newMsg => {
+    this.setState({ showNotification: true ,registeredUser:newMsg.loggedInUser})
+  };//
+
 
   onLogout = (ev) => {
     ev.preventDefault()
     this.props.logout();
     this.props.history.push(`/`);
   };
-
 
   onLogIn = async user => {
     await this.props.login(user);
@@ -64,7 +86,7 @@ export class Header extends Component {
           )}
           {!this.props.loggedInUser && (
             <>
-              <Link className=' ' to={'/user/log-in'} onLogIn={this.onLogIn}>log-in</Link>
+              <Link className=' ' to={'/user/login'} onLogIn={this.onLogIn}>log-in</Link>
             </>
           )}
         </div>
