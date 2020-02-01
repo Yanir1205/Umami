@@ -133,7 +133,7 @@ class MealDetails extends Component {
                   </div>
                   {meal.hostReviews && <ReviewList reviews={meal.hostReviews}></ReviewList>}
                   <h3 id='location'>Location</h3>
-                  {/* <MealMap location={meal.location}></MealMap> */}
+                  <MealMap className='map-container' location={meal.location}></MealMap>
                 </div>
                 <div className='right-box flex-shrink-30'>
                   <MealPayment meal={meal} onEventRegistration={this.onEventRegistration}></MealPayment>
