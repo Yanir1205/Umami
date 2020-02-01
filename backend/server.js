@@ -36,6 +36,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // routes
+console.log('server Befor Route');
+
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/meal', mealRoutes);

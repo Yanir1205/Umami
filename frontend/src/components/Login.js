@@ -14,35 +14,17 @@ class Login extends Component {
     isHide: true,
   };
 
-  // openModal = this.openModal.bind(this);
-  // afterOpenModal = this.afterOpenModal.bind(this);
-  // closeModal = this.closeModal.bind(this);
-
   changeInput = ev => {
     let field = ev.target.name;
     let value = ev.target.value;
     this.setState({ [field]: value });
   };
 
-  // openModal() {
-  //   this.setState({ modalIsOpen: true });
-  // }
-
-  // afterOpenModal() {
-  //   // references are now synced and can be accessed.
-  //   this.subtitle.style.color = '#f00';
-  // }
-
-  // closeModal() {
-  //   this.setState({ modalIsOpen: false });
-  // }
-
   onLogInUser = async () => {
     const email = this.state.email;
     const password = this.state.password;
     const user = { email, password };
 
-    // this.props.onLogIn(user);\
     await this.props.login(user);
     this.props.history.push(`/`);
   };

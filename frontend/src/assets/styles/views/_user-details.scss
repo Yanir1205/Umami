@@ -2,45 +2,41 @@
     display: flex;
     justify-content: center;
   }
-  .user-img-propile{
+  .user-img-profile{
     width: 50px;
     height: 50px;
     display: flex;
     border-radius: 50px;
 }
 
+.user-details-container {
+  margin-top: 50px;
 
-
-.user-details-container{
-  
-  .user-container{
+  .user-container {
     margin-bottom: 20px;
-    & > span{
+    & > span {
       font-family: raleway-bold;
       font-size: 1.3rem;
       letter-spacing: 2px;
-      word-spacing: 3px;    
+      word-spacing: 3px;
     }
-    & > span:last-child{
-       color: $clr8;
+    & > span:last-child {
+      color: $clr8;
     }
   }
 
-  .controlls-container * span{
+  .controlls-container * span {
     text-transform: uppercase;
     font-family: raleway-bold;
     font-size: 1.5em;
     letter-spacing: 5px;
-
   }
 
-
-  .preview-title{
-    margin-top:20px ;
+  .preview-title {
+    margin-top: 20px;
     font-family: raleway-bold;
     font-size: 1rem;
     letter-spacing: 2px;
     word-spacing: 3px;
   }
-
 }

@@ -1,11 +1,14 @@
 .footer-container {
-  width: 100%;
+  max-width: 100vw;
   height: 65px;
   margin-top: 20px;
-  background-color: $clr4;
+  background-color: $clr1;
+  // position: fixed;
+  bottom: 0;
+  z-index: 1;
+
 }
 
 .footer-container .small {
   margin-bottom: 2rem;
-
 }

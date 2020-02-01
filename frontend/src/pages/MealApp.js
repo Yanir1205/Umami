@@ -83,7 +83,7 @@ export class MealApp extends Component {
           this.setState({ isLoading: false })
         } else {
           //load meals from specific location
-          // await this.props.setFilter({ ...this.props.filter, location: { ...this.props.location, city: location } })
+          await this.props.setFilter({ ...this.props.filter, location: { ...this.props.location, city: location } })
           this.setState({ isLoading: true })
           await this.load();
           this.setState({ isLoading: false })
@@ -95,6 +95,7 @@ export class MealApp extends Component {
           this.props.loadMealsByCuisine();
           this.setState({ isLoading: false })
         } else {
+          await this.props.setFilter({ ...this.props.filter, type: cuisine })
           //load meals from specific cuisine
           this.setState({ isLoading: true })
           await this.load();

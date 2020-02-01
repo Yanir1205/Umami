@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { load } from '../actions/MealActions';
+import SocketService from '../services/SocketService';
 
 import SearchBar from '../components/SearchBar';
 import MealCategoryList from '../components/MealCategoryList';
@@ -9,6 +10,7 @@ import MeetOurHosts from '../components/MeetOurHosts';
 class Home extends Component {
   componentDidMount() {
     this.props.load();
+
   }
 
   render() {
@@ -82,10 +84,12 @@ const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
   filter: state.filter.filter,
   meals: state.meal.meals,
+  msg :state.socket.msg,
 });
 
 const mapDispatchToProps = {
   load,
+  
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

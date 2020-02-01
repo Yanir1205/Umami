@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Snackbar from '@material-ui/core/Snackbar';
+import { SnackbarContent } from '@material-ui/core';
 
 export class Notification extends Component {
   //this CMP will get the notification msg from props
@@ -11,6 +12,10 @@ export class Notification extends Component {
     open: true,
     vertical: 'top',
     horizontal: 'center',
+    style:{
+      backgroundColor: '#c0c0c0',
+      // color:'white'
+    }
   };
 
   componentDidMount() {
@@ -18,7 +23,7 @@ export class Notification extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    //if the prevprops open property is defferent from the current state's open property, update it
+    //if the prevprops open property is different from the current state's open property, update it
   }
 
   updateOpenState() {
@@ -37,7 +42,11 @@ export class Notification extends Component {
     const { vertical, horizontal, open } = this.state;
     return (
       <div>
-        <Snackbar anchorOrigin={{ vertical, horizontal }} key={`${vertical},${horizontal}`} open={open} onClose={this.handleClose} message={this.props.msg} />
+        <Snackbar  autoCloseDuration={3000} anchorOrigin={{ vertical, horizontal }} key={`${vertical},${horizontal}`} open={open} onClose={this.handleClose}  >
+          <SnackbarContent style={this.state.style} message={this.props.msg}>
+            
+          </SnackbarContent>
+        </Snackbar>
       </div>
     );
   }

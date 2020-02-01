@@ -11,8 +11,7 @@ import MealFormWrapper from './pages/MealFormWrapper';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Login from './components/Login'
-
+import Login from './components/Login';
 
 import './assets/css/all.min.css';
 import './assets/styles/global.scss';
@@ -31,7 +30,8 @@ export default class App extends Component {
             <Route component={MealApp} path='/meal/location/:location?'></Route>
             <Route component={MealApp} path='/meal/cuisine/:cuisine?'></Route>
             <Route component={MealApp} path='/meal/results/:results?'></Route>
-            <Route component={Login} path='/user/log-in' exact></Route>
+            <Route component={Login} path='/user/login' exact></Route>
+            {/* <Route component={Signup} path='/user/signup' exact></Route> */}
             <Route component={MealDetails} path='/meal/:id' exact></Route>
             <Route component={UserDetails} path='/user/:id' exact></Route>
           </Switch>

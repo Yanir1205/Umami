@@ -1,53 +1,73 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getById, add, getMealForRegistration } from '../actions/MealActions';
+import { getById, add } from '../actions/MealActions';
+import { getMealDetails } from '../reducers/MealSelector';
+
 import ImageGallery from '../components/ImageGallery';
+
 import MealPageNav from '../components/MealPageNav';
 import MealPayment from '../components/MealPayment';
 import ShowHideText from '../components/ShowHideText';
 import MealMenu from '../components/MealMenu';
+
 import AttendeesList from '../components/AttendeesList';
 import ReviewForm from '../components/ReviewForm';
 import ReviewList from '../components/ReviewList';
+import SocketService from '../services/SocketService';
 import MealMap from '../components/MealMap';
 
 class MealDetails extends Component {
   state = { pageOverlayClass: 'hide', displayReviewForm: 'hide', occurrenceAttendees: {} };
 
-  //meal payment CMP should get the meal containing only the relevant occurrences (new object)
-  //the front end service shall include a method to return such an object containing the following:
-    //only dates which didn't already pass
-    //only occurrences which have at least 1 room left
-
   async componentDidMount() {
     const id = this.props.match.params.id;
     await this.props.getById(id);
-    this.props.getMealForRegistration(this.props.meal)
+    SocketService.setup();
+    console.log('MealDetails -> componentDidMount',this.props.meal);
+    debugger
+    const hostedId = this.props.meal.storeMeal.hostedBy._id
+    console.log("hostedId->",hostedId);
+    
+    SocketService.emit('newChannel',`onEventRegistration${hostedId}`);
+    SocketService.on('addMsg', this.addMsg);
   }
+
+  componentWillUnmount() {
+    SocketService.off('addMsg', this.addMsg);
+    SocketService.terminate();
+  } //
 
   onEventRegistration = async registration => {
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
-      const meal = { ...this.props.meal };
-      const activeOccurrence = meal.occurrences.find(current => current.id === registration.id);
+      let meal = { ...this.props.meal.storeMeal };
 
-      if (activeOccurrence && parseInt(meal.capacity) >= parseInt(activeOccurrence.total) + parseInt(registration.attendees)) {
-        const currentUser = activeOccurrence.attendees.find(current => current._id === loggedInUser._id);
-
-        if (currentUser) {
-          currentUser.attendees = parseInt(currentUser.attendees) + parseInt(registration.attendees);
-        } else {
-          activeOccurrence.attendees = [...activeOccurrence.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.attendees }];
-        }
-
-        activeOccurrence.total = parseInt(activeOccurrence.total) + parseInt(registration.attendees);
-
-        await this.props.add(meal);
-        this.setState({ showNotification: true, notificationMessage: 'You were successfully registered. ' });
+      let selectedOccurance = meal.occurrences.find(current => current.id === registration.id);
+      if (!selectedOccurance) {
+        console.log("onEventRegistration: couldn't find selected occurrence", registration);
+        return;
       }
+
+      let userReservation = selectedOccurance.attendees.find(attendee => attendee._id === loggedInUser._id);
+
+      if (userReservation) {
+        userReservation.numOfAttendees = parseInt(userReservation.numOfAttendees) + parseInt(registration.numOfAttendees);
+      } else {
+        selectedOccurance.attendees = [...selectedOccurance.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.numOfAttendees }];
+      }
+      selectedOccurance.total = parseInt(selectedOccurance.total) + parseInt(registration.numOfAttendees);
+
+      // await this.props.add(meal);
+      loggedInUser.titelHost = meal.title
+      SocketService.emit('newMsg',{meal,loggedInUser})
     }
   };
+
+
+  addMsg = newMsg => {
+    console.log('TEST addMsg -> ',newMsg);
+  };//
 
   onDisplayReviewForm = ev => {
     ev.preventDefault();
@@ -72,38 +92,47 @@ class MealDetails extends Component {
         at: Date.now(),
       };
       meal.reviews = [...meal.reviews, newReview];
+
       await this.props.add(meal);
+
+
     }
   };
 
   render() {
-    const  meal  = this.props.filteredMeal;
-    if (!meal) return <div className='border-loading-indicator col-2 row-1'></div>;
-    console.log('notification status: ', this.state.showNotification)
-    return (
-      <div className='meal-details-page-container'>
-        <div id='page-overlay' className={this.state.pageOverlayClass}></div>
-        {meal && (
-          <React.Fragment>
-            <div className='container page-title'>
-              <h2>{meal.title}</h2>
-            </div>
-            <ImageGallery meal={meal}></ImageGallery>
-            <div className='container meal-details-container flex'>
-              <div className='left-box flex-shrink-70'>
-                <MealPageNav meal={meal}></MealPageNav>
-                <h3>A word about the experience</h3>
-                <ShowHideText text={meal.description} showRows={3}></ShowHideText>
-                <h3 id='menu'>Our menu</h3>
-                <MealMenu menu={meal.menu} onSelectedMenu={this.onSelectedMenu} />
-
-                <h3>Meet the other guests</h3>
-                <AttendeesList attendees={meal.occurrences[0].attendees}></AttendeesList>
-                <div className='reviews-title-wrapper'>
-                  <h3 id='reviews'>Reviews</h3>
-                  <a title='Review Us' href='' onClick={this.onDisplayReviewForm}>
-                    <i className='icon-large far fa-plus-square'></i>
-                  </a>
+    if (!this.props.meal) return <div className='border-loading-indicator col-2 row-1'></div>;
+    else {
+      const { meal } = this.props;
+      return (
+        <div className='meal-details-page-container'>
+          <div id='page-overlay' className={this.state.pageOverlayClass}></div>
+          {meal && (
+            <>
+              <div className='container page-title'>
+                <h2>{meal.title}</h2>
+              </div>
+              <ImageGallery images={meal.images}></ImageGallery>
+              <div className='container meal-details-container flex'>
+                <div className='left-box flex-shrink-70'>
+                  <MealPageNav eventSetup={meal.eventSetup} hostRating={meal.hostRating}></MealPageNav>
+                  <h3>A word about the experience</h3>
+                  <ShowHideText text={meal.description} showRows={3}></ShowHideText>
+                  <h3 id='menu'>Our menu</h3>
+                  <MealMenu menu={meal.eventMenu} />
+                  <h3>{meal.eventAttendees && meal.eventAttendees.length > 0 ? meal.messages.hasAttendees : meal.messages.noAttendees}</h3>
+                  <AttendeesList attendees={meal.eventAttendees}></AttendeesList>
+                  <div className='reviews-title-wrapper'>
+                    <h3 id='reviews'>Reviews</h3>
+                    <a title='Review Us' href='' onClick={this.onDisplayReviewForm}>
+                      <i className='icon-large far fa-plus-square'></i>
+                    </a>
+                  </div>
+                  <div className={this.state.displayReviewForm}>
+                    <ReviewForm onSaveReviewForm={this.onSaveReviewForm} onCloseReviewForm={this.onCloseReviewForm}></ReviewForm>
+                  </div>
+                  {meal.hostReviews && <ReviewList reviews={meal.hostReviews}></ReviewList>}
+                  <h3 id='location'>Location</h3>
+                  {/* <MealMap location={meal.location}></MealMap> */}
                 </div>
                 <div className={this.state.displayReviewForm}>
                   <ReviewForm onSaveReviewForm={this.onSaveReviewForm} onCloseReviewForm={this.onCloseReviewForm}></ReviewForm>
@@ -115,24 +144,23 @@ class MealDetails extends Component {
               <div className='right-box flex-shrink-30'>
                 <MealPayment meal={this.props.filteredMeal} onEventRegistration={this.onEventRegistration}></MealPayment>
               </div>
-            </div>
-          </React.Fragment>
-        )}
-      </div>
-    );
+            </>
+          )}
+        </div>
+      );
+    }
   }
 }
 
 const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
-  meal: state.meal.selectedMeal,
-  filteredMeal: state.meal.filteredMeal
+  meal: getMealDetails(state),
+
 });
 
 const mapDispatchToProps = {
   getById,
-  add,
-  getMealForRegistration
+  add
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealDetails);

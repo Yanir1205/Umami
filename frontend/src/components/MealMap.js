@@ -8,6 +8,7 @@ const mapContainerStyle = {
   height: '60vh',
   margin: '20px 0px 20px 0px',
   zIndex: 0,
+
 };
 
 class MealMap extends Component {
@@ -26,7 +27,8 @@ class MealMap extends Component {
     delete location.country;
     return (
       <div className='google-map-container'>
-        <Map className='card-container-horizontal ' style={mapContainerStyle} google={this.props.google} initialCenter={location} zoom={14}>
+        <Map className='card-container-horizontal '
+        style={mapContainerStyle} google={this.props.google} initialCenter={location} zoom={14}>
           <Marker name={'Current location'} />
         </Map>
       </div>

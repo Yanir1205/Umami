@@ -3,31 +3,27 @@ module.exports = connectSockets
 
 function connectSockets(io) {
     io.on('connection', socket => {
-
-        socket.on('newMsg', msg => { //getting a new msg through the socket port
+        socket.on('newMsg', msg=>{
             // io.emit('review NewReview', msg)
-            // emits only to sockets in the same room
-            // console.log("enter to reviewNewMsg");
-
-            // console.log("SOcKET - HII -> msg->1 ",msg);
-            // console.log("SOcKET - socket.myTopic ->1",socket.myTopic);
-
-            //emitting the received msg only to the channel which was opened!
-            io.to(socket.myTopic).emit('addMsg', msg)
+            // emits only to sockets in the same room            
+            console.log("socket - test msg -> ",msg);
+            console.log("socket connection to  myChannel ->",socket.myChannel);
+            io.to(socket.myChannel).emit('addMsg', msg)
         })
 
-        socket.on('newChannel', topic => { //signing to a new socket port 
-            console.log("new channel opened!");
-
-            if (socket.myTopic) { // if already signed to this chennel - leave the channel
-                socket.leave(socket.myTopic)
+        socket.on('newChannel', channel=>{
+            console.log("enter to reviewNew change channel");
+            
+            if (socket.myChannel) {
+                socket.leave(socket.myChannel)
                 // console.log("SOKET - HII ->2",msg);
 
-            } //else - join the new channel
-            socket.join(topic)
-            socket.myTopic = topic;
-            console.log("signed to a new channel: ", socket.myTopic);
-
+            }
+            socket.join(channel)
+            socket.myChannel = channel;
+            console.log("signed to channel: -> myChannel ->",socket.myChannel);
+            
         })
+        console.log("socket->4");
     })
 }

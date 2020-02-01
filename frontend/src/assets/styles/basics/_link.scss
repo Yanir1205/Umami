@@ -38,13 +38,14 @@
   padding: 8px 13px;
   border-radius: 20px;
   background-color: $clr2;
-  border: 1px solid $clr4;
-  color: $clr4;
+  color: $clr3;
+  // border: 1px solid $clr4;
+  // color: $clr4;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 
   &:hover {
-    border: 1px solid $clr8;
+    // border: 1px solid $clr8;
     background-color: $clr8;
     color: $clr2;
   }
