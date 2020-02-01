@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Notification from '../components/Notification';
 import { getById, add } from '../actions/MealActions';
 import { getMealDetails } from '../reducers/MealSelector';
 
@@ -25,7 +26,7 @@ class MealDetails extends Component {
     await this.props.getById(id);
     SocketService.setup();
     console.log('MealDetails -> componentDidMount',this.props.meal);
-    debugger
+    
     const hostedId = this.props.meal.storeMeal.hostedBy._id
     console.log("hostedId->",hostedId);
     
@@ -39,6 +40,7 @@ class MealDetails extends Component {
   } //
 
   onEventRegistration = async registration => {
+    
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       let meal = { ...this.props.meal.storeMeal };
@@ -58,7 +60,7 @@ class MealDetails extends Component {
       }
       selectedOccurance.total = parseInt(selectedOccurance.total) + parseInt(registration.numOfAttendees);
 
-      // await this.props.add(meal);
+      await this.props.add(meal);
       loggedInUser.titelHost = meal.title
       SocketService.emit('newMsg',{meal,loggedInUser})
     }
@@ -132,17 +134,11 @@ class MealDetails extends Component {
                   </div>
                   {meal.hostReviews && <ReviewList reviews={meal.hostReviews}></ReviewList>}
                   <h3 id='location'>Location</h3>
-                  <MealMap className='map-container' location={meal.location}></MealMap>
+                  <MealMap location={meal.location}></MealMap>
                 </div>
-                <div className={this.state.displayReviewForm}>
-                  <ReviewForm onSaveReviewForm={this.onSaveReviewForm} onCloseReviewForm={this.onCloseReviewForm}></ReviewForm>
+                <div className='right-box flex-shrink-30'>
+                  <MealPayment meal={meal} onEventRegistration={this.onEventRegistration}></MealPayment>
                 </div>
-                {this.props.meal.reviews && <ReviewList reviews={this.props.meal.reviews}></ReviewList>}
-                <h3 id='location'>Location</h3>
-                <MealMap location={meal.location}></MealMap>
-              </div>
-              <div className='right-box flex-shrink-30'>
-                <MealPayment meal={this.props.filteredMeal} onEventRegistration={this.onEventRegistration}></MealPayment>
               </div>
             </>
           )}
@@ -160,7 +156,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   getById,
-  add
+  add,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealDetails);

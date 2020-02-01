@@ -42,7 +42,7 @@ export class Notification extends Component {
     const { vertical, horizontal, open } = this.state;
     return (
       <div>
-        <Snackbar  autoCloseDuration={3000} anchorOrigin={{ vertical, horizontal }} key={`${vertical},${horizontal}`} open={open} onClose={this.handleClose}  >
+        <Snackbar  anchorOrigin={{ vertical, horizontal }} key={`${vertical},${horizontal}`} open={open} onClose={this.handleClose}  >
           <SnackbarContent style={this.state.style} message={this.props.msg}>
             
           </SnackbarContent>

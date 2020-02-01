@@ -26,9 +26,11 @@ class UserDetails extends Component {
     SocketService.on('addMsg', this.addMsg);
   }
 
+
+  
   addMsg = newMsg => {
     console.log('TEST addMsg -> ', newMsg);
-    
+
     this.loadMeals()    
   };//
 

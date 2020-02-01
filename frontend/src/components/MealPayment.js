@@ -62,7 +62,7 @@ class MealPayment extends Component {
   };
 
   render() {
-    debugger
+    
     const { meal } = this.props;
     console.log('MealPayment - props', this.props);
     console.log('MealPayment - state', this.state);
