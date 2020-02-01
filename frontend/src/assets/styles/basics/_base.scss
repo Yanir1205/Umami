@@ -9,11 +9,12 @@
 }
 
 html {
-  font-family: raleway, lato, oswald, 'sans-serif';
+  min-height: 100vh;
+  font-family: raleway, lato, 'sans-serif';
   color: clr3;
   font-size: 16px;
   line-height: 1.6;
-  background-color: $clr1;
+  // background-color: $clr1;
   scroll-behavior: smooth;
 }
 

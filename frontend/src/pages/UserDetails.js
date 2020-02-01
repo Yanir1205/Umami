@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getById,loadUserMeal,load, add } from '../actions/MealActions';
+import { getById, loadUserMeal, load, add } from '../actions/MealActions';
 
 import { setFilter } from '../actions/FilterActions';
 import UserMealList from '../components/UserMealList';
 
 class UserDetails extends Component {
   async componentDidMount() {
-    this.resetFilterDefinitions()
+    this.resetFilterDefinitions();
     // await this.props.setFilter({ ...this.props.filter, userId: this.props.match.params.id });
     // await this.loadMeals();
   }
@@ -22,8 +22,7 @@ class UserDetails extends Component {
         city: '',
         country: '',
       },
-      tags: ''
-
+      tags: '',
     });
     this.loadMeals();
   };
@@ -34,7 +33,6 @@ class UserDetails extends Component {
 
   onCreateMeal = () => {
     this.props.history.push('/meal/edit');
-
   };
 
   mealsToShow = async () => {
@@ -54,26 +52,25 @@ class UserDetails extends Component {
     return { host, attended };
   };
 
-  onDelete =async (userId,mealId,occurensId) => {
-    await this.props.getById(mealId)
-    const meal = {...this.props.meal}
+  onDelete = async (userId, mealId, occurensId) => {
+    await this.props.getById(mealId);
+    const meal = { ...this.props.meal };
     const occurrence = meal.occurrences.find(occurrence => {
-      return occurrence.id == occurensId
-    })
+      return occurrence.id == occurensId;
+    });
     const idx = occurrence.attendees.findIndex(attendee => {
-      return attendee._id == userId
-    })
-    occurrence.attendees.splice(idx,1)
-    await this.props.add(meal)
-    this.loadMeals()
-  }
+      return attendee._id == userId;
+    });
+    occurrence.attendees.splice(idx, 1);
+    await this.props.add(meal);
+    this.loadMeals();
+  };
 
   render() {
     const user = this.props.loggedInUser;
- 
 
     return (
-      <div className='user-details-container container'>
+      <div className='user-details-container container card-simple'>
         <div className='user-container'>
           <span>Hello, </span>
           <span>{user.fullName}</span>
@@ -107,7 +104,7 @@ const mapDispatchToProps = {
   setFilter,
   add,
   load,
-  getById
+  getById,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetails);

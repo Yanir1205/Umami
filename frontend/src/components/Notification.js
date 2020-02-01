@@ -19,7 +19,7 @@ export class Notification extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    //if the prevprops open property is defferent from the current state's open property, update it
+    //if the prevprops open property is different from the current state's open property, update it
   }
 
   updateOpenState() {
@@ -36,8 +36,6 @@ export class Notification extends Component {
 
   render() {
     const { vertical, horizontal, open } = this.state;
-
-    debugger
     return (
       <div>
         <Snackbar anchorOrigin={{ vertical, horizontal }} key={`${vertical},${horizontal}`} open={open} onClose={this.handleClose} message={this.props.msg} />

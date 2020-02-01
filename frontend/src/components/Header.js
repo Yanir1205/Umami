@@ -25,8 +25,8 @@ export class Header extends Component {
             <span>umami</span>
           </Link>
         </div>
-        <div className='nav-container container flex-basis-30 flex justify-end'>
-          <div className='controls flex-basis-1 flex row align-center justify-center'>
+        <div className='nav-container container flex-basis-40 flex justify-end'>
+          <div className='controls flex-basis-1 flex row align-center justify-end'>
             <div className='margin-right-10'>
               <Link to='/meal/edit'>
                 <span className='ellipse-link'>Become a Host</span>
@@ -41,7 +41,7 @@ export class Header extends Component {
                 </div>
                 <span>|</span>
                 <div>
-                  <a href='' onClick={this.onLogout}>
+                  <a href='#' onClick={this.onLogout}>
                     logout
                   </a>
                 </div>
@@ -49,11 +49,7 @@ export class Header extends Component {
             )}
             {!this.props.loggedInUser && (
               <>
-                <Link className=' ' to={'/user/login'}>
-                  login
-                </Link>
-                {/* <Login onLogIn={this.onLogIn}></Login> <span>|</span> */}
-                {/* <Signup></Signup> */}
+                <Link to={'/user/login'}>login</Link>
               </>
             )}
           </div>

@@ -15,13 +15,13 @@
     .controls {
       font-family: raleway-bold;
 
-      & > div:not(:first-child) a {
+      & > div:last-child a {
         letter-spacing: 0.3rem;
         border-bottom: 1px solid transparent;
         transition: all 0.3s ease;
       }
 
-      & > div:not(:first-child) a:hover {
+      & > div:last-child a:hover {
         border-bottom: 1px solid $clr3;
       }
 

@@ -6,41 +6,53 @@ class MealPayment extends Component {
   state = { meal: [], selectedOccurance: {}, numOfAttendees: 0, totalPrice: 0, date: '', availableSeats: 0, availableText: '', registerCounter: 0, buttonText: '', paymentClass: 'hide' };
 
   componentDidMount() {
-    debugger;
-    let { meal } = this.props;
+    let { meal, loggedInUser } = this.props;
+    let loggedUserOccurrence = meal.selectedOccurance.reservations.find(reservation => reservation.isLoggedInUser);
+
     this.setState({
       meal: meal,
       selectedOccurance: meal.selectedOccurance,
-      numOfAttendees: meal.selectedOccurance.isLoggedInUser ? meal.selectedOccurance.totalAttendees : 0,
-      totalPrice: meal.selectedOccurance.isLoggedInUser ? meal.selectedOccurance.totalPrice : 0,
+      numOfAttendees: loggedUserOccurrence && loggedUserOccurrence.isLoggedInUser ? loggedUserOccurrence.totalAttendees : 0,
+      totalPrice: loggedUserOccurrence && loggedUserOccurrence.isLoggedInUser ? loggedUserOccurrence.totalPrice : 0,
       date: Moment(meal.selectedOccurance.date).format('MM-DD-YY'),
       availableSeats: parseInt(meal.selectedOccurance.seatsLeft),
       availableText: `${meal.selectedOccurance.seatsLeft} available seats`,
       registerCounter: 0,
-      buttonText: meal.selectedOccurance.isLoggedInUser ? 'UPDATE EVENT' : 'REGISTER EVENT',
-      paymentClass: meal.selectedOccurance.isLoggedInUser ? 'payment' : 'hide',
+      buttonText: loggedUserOccurrence && loggedUserOccurrence.isLoggedInUser ? 'UPDATE EVENT' : 'REGISTER EVENT',
+      paymentClass: loggedUserOccurrence && loggedUserOccurrence.isLoggedInUser ? 'payment' : 'hide',
     });
   }
 
   handleChange = ev => {
-    debugger;
     ev.preventDefault();
     let name = ev.target.name;
     let value = ev.target.value;
     if (name === 'numOfAttendees' && this.state.numOfAttendees !== value) {
-      let totalPrice = parseInt(value) * parseInt(this.state.meal.price);
-      this.setState({ numOfAttendees: parseInt(value), totalPrice: totalPrice });
-    } else {
-      let selectedOccurance = this.state.meal.occurrences.find(current => {
-        return Moment(current.date).format('MM-DD-YY') === Moment(value).format('MM-DD-YY');
+      this.setState({
+        numOfAttendees: parseInt(value),
+        totalPrice: parseInt(value) * parseInt(this.state.meal.price),
+        availableSeats: parseInt(this.state.availableSeats) - parseInt(value),
+        availableText: `${parseInt(this.state.availableSeats) - parseInt(value)} available seats`,
       });
-      this.setState({ date: value, selectedOccurance: selectedOccurance }); //todo update the rest of the fields
+    } else {
+      if (this.state.date !== Moment(value).format('MM-DD-YY')) {
+        let selectedOccurance = this.state.meal.occurrences.find(current => {
+          return Moment(current.date).format('MM-DD-YY') === Moment(value).format('MM-DD-YY');
+        });
+
+        let userReservation = selectedOccurance.reservations.find(reservation => reservation.user._id === this.props.loggedInUser._id);
+        if (userReservation) userReservation.isLoggedInUser = true;
+
+        this.setState({
+          date: value,
+          selectedOccurance: selectedOccurance,
+        });
+      }
     }
   };
 
   onEventRegistration = ev => {
     ev.preventDefault();
-    debugger;
     if (this.state.registerCounter === 0) {
       this.setState({ registerCounter: 1, buttonText: 'BOOK EVENT', paymentClass: 'payment' });
     } else if (this.state.registerCounter >= 1 && this.state.numOfAttendees !== 0) {
@@ -57,7 +69,8 @@ class MealPayment extends Component {
     return (
       <div className='card-simple payment-container'>
         <div className='price'>
-          <span>${meal.price}</span>
+          <span>$</span>
+          {meal.price}
           <small>per guest</small>
         </div>
         <div>

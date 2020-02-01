@@ -23,19 +23,27 @@ class MealDetails extends Component {
     await this.props.getById(id);
   }
 
+  componentDidUpdate(prevProps) {
+    console.log('componentDidUpdate prevProps-', prevProps, 'this.props ', this.props);
+  }
+
   onEventRegistration = async registration => {
-    debugger;
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       let meal = { ...this.props.meal.storeMeal };
 
       let selectedOccurance = meal.occurrences.find(current => current.id === registration.id);
+      if (!selectedOccurance) {
+        console.log("onEventRegistration: couldn't find selected occurrence", registration);
+        return;
+      }
+
       let userReservation = selectedOccurance.attendees.find(attendee => attendee._id === loggedInUser._id);
 
       if (userReservation) {
         userReservation.numOfAttendees = parseInt(userReservation.numOfAttendees) + parseInt(registration.numOfAttendees);
       } else {
-        selectedOccurance = [...selectedOccurance.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.numOfAttendees }];
+        selectedOccurance.attendees = [...selectedOccurance.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.numOfAttendees }];
       }
       selectedOccurance.total = parseInt(selectedOccurance.total) + parseInt(registration.numOfAttendees);
 
@@ -105,7 +113,7 @@ class MealDetails extends Component {
                   </div>
                   {meal.hostReviews && <ReviewList reviews={meal.hostReviews}></ReviewList>}
                   <h3 id='location'>Location</h3>
-                  <MealMap location={meal.location}></MealMap>
+                  {/* <MealMap location={meal.location}></MealMap> */}
                 </div>
                 <div className='right-box flex-shrink-30'>
                   <MealPayment meal={meal} onEventRegistration={this.onEventRegistration}></MealPayment>

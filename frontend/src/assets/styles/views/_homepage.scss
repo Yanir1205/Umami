@@ -13,9 +13,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba($clr2, 0.7);
+    background-color: rgba($clr2, 0.85);
     border-radius: 5px;
-    width: 55vw;
+    width: 70vw;
     padding-bottom: 30px;
 
     .text {
@@ -31,10 +31,10 @@
       }
 
       & > span:last-child {
-        font-family: raleway-bold;
-        font-size: 1.2rem;
+        //font-family: raleway-bold;
+        font-size: 1.4rem;
         text-transform: uppercase;
-        letter-spacing: 2px;
+        letter-spacing: 4px;
         word-spacing: 4px;
       }
     }
@@ -48,7 +48,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
 
         & > img {
           width: 50px;
