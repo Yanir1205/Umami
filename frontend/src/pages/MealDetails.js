@@ -1,30 +1,45 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Notification from '../components/Notification';
 
+import Notification from '../components/Notification';
 import { getById, add } from '../actions/MealActions';
 import { getMealDetails } from '../reducers/MealSelector';
 
 import ImageGallery from '../components/ImageGallery';
+
 import MealPageNav from '../components/MealPageNav';
 import MealPayment from '../components/MealPayment';
 import ShowHideText from '../components/ShowHideText';
 import MealMenu from '../components/MealMenu';
+
 import AttendeesList from '../components/AttendeesList';
 import ReviewForm from '../components/ReviewForm';
 import ReviewList from '../components/ReviewList';
+import SocketService from '../services/SocketService';
 import MealMap from '../components/MealMap';
 
 class MealDetails extends Component {
-  state = { pageOverlayClass: 'hide', displayReviewForm: 'hide', occurrenceAttendees: {}, showNotification: false, notificationMessage: '' };
+  state = { pageOverlayClass: 'hide', displayReviewForm: 'hide', occurrenceAttendees: {} };
 
   async componentDidMount() {
     const id = this.props.match.params.id;
     await this.props.getById(id);
+    SocketService.setup();
+    console.log('MealDetails -> componentDidMount', this.props.meal);
+
+    const hostedId = this.props.meal.storeMeal.hostedBy._id;
+    console.log('hostedId->', hostedId);
+
+    SocketService.emit('newChannel', `onEventRegistration${hostedId}`);
+    SocketService.on('addMsg', this.addMsg);
+  }
+
+  componentWillUnmount() {
+    SocketService.off('addMsg', this.addMsg);
+    SocketService.terminate();
   }
 
   onEventRegistration = async registration => {
-    debugger;
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       let meal = { ...this.props.meal.storeMeal };
@@ -45,9 +60,14 @@ class MealDetails extends Component {
       selectedOccurance.total = parseInt(selectedOccurance.total) + parseInt(registration.numOfAttendees);
 
       await this.props.add(meal);
-      this.setState({ showNotification: true, notificationMessage: 'You were successfully registered. ' });
+      loggedInUser.titleHost = meal.title;
+      SocketService.emit('newMsg', { meal, loggedInUser });
     }
   };
+
+  addMsg = newMsg => {
+    console.log('TEST addMsg -> ', newMsg);
+  }; //
 
   onDisplayReviewForm = ev => {
     ev.preventDefault();
@@ -72,6 +92,7 @@ class MealDetails extends Component {
         at: Date.now(),
       };
       meal.reviews = [...meal.reviews, newReview];
+
       await this.props.add(meal);
     }
   };
@@ -82,7 +103,6 @@ class MealDetails extends Component {
       const { meal } = this.props;
       return (
         <div className='meal-details-page-container'>
-          <Notification open={this.state.showNotification} msg={this.state.notificationMessage}></Notification>
           <div id='page-overlay' className={this.state.pageOverlayClass}></div>
           {meal && (
             <>
@@ -109,8 +129,10 @@ class MealDetails extends Component {
                     <ReviewForm onSaveReviewForm={this.onSaveReviewForm} onCloseReviewForm={this.onCloseReviewForm}></ReviewForm>
                   </div>
                   {meal.hostReviews && <ReviewList reviews={meal.hostReviews}></ReviewList>}
-                  <h3 id='location'>Location</h3>
-                  {/* <MealMap location={meal.location}></MealMap> */}
+                  <div className='google-map-container'>
+                    <h3 id='location'>Location</h3>
+                    <MealMap location={meal.location}></MealMap>
+                  </div>
                 </div>
                 <div className='right-box flex-shrink-30'>
                   <MealPayment meal={meal} onEventRegistration={this.onEventRegistration}></MealPayment>

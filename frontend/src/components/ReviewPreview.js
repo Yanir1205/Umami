@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Moment from 'moment';
+import SocketService from '../services/SocketService';
 
 class ReviewPreview extends Component {
+
+
   render() {
     const { review } = this.props;
     return (

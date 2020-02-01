@@ -1,12 +1,12 @@
 .MuiPickersBasePicker-container {
-  display: flex;
-  justify-content: center;
-}
-.user-img-propile {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  border-radius: 50px;
+    display: flex;
+    justify-content: center;
+  }
+  .user-img-profile{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    border-radius: 50px;
 }
 
 .user-details-container {
@@ -39,4 +39,12 @@
     letter-spacing: 2px;
     word-spacing: 3px;
   }
+}
+
+.google-map-container{
+  height: 40vh;
+  width: 500px;
+  clear: both;
+  position: relative;
+
 }

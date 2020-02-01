@@ -27,7 +27,6 @@ export default class App extends Component {
           <Switch>
             <Route component={Home} path='/' exact></Route>
             <Route component={MealFormWrapper} path='/meal/edit/:id?'></Route>
-
             <Route component={MealApp} path='/meal/location/:location?'></Route>
             <Route component={MealApp} path='/meal/cuisine/:cuisine?'></Route>
             <Route component={MealApp} path='/meal/results/:results?'></Route>

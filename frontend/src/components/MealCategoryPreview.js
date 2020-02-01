@@ -64,7 +64,7 @@ class MealCategoryPreview extends Component {
           </div>
         </div>
         <div className='card-btn'>
-          <Link to={`/meal/${this.props.displayCategory.toLowerCase()}`} className='btn'>
+          <Link to={`/meal/${this.props.displayCategory.toLowerCase()}/${this.props.category.name}`} className='btn'>
             <span className=''>View Events</span>
           </Link>
         </div>

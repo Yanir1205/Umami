@@ -1,0 +1,17 @@
+.msg-notification-container{
+    // background-color: rgb(143, 143, 143);
+    display: flex;
+    align-items: center;
+    // .notification-img{
+        
+        // }
+    .user-info-notification{
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        & > :first-child{
+            font-size: 0.7rem;
+        }
+    }
+}

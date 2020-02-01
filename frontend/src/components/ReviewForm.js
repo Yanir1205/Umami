@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import SocketService from '../services/SocketService';
+import { addMsg } from '../actions/SocketAction';
+var id =1
 class ReviewForm extends Component {
   state = {
     email: '',
@@ -8,7 +10,17 @@ class ReviewForm extends Component {
     rate: 0,
     starClass: 'icon-medium color-gray far fa-star',
     starSelected: 'icon-medium color-yellow far fa-star',
+    msgs: ''
   };
+
+  componentDidMount() {
+
+  }
+
+  componentWillUnmount() {
+
+  }
+
 
   onSaveReviewForm = ev => {
     ev.preventDefault();
@@ -40,7 +52,7 @@ class ReviewForm extends Component {
                 return <i key={idx} id={idx + 1} className={idx < this.state.rate ? this.state.starSelected : this.state.starClass} name={idx + 1} onClick={this.onToggleStar}></i>;
               })}
             </div>
-
+              <span>{this.state.msgs}</span>
             <h3>We would love to hear what you think</h3>
             <div className='email'>
               <input type='email' placeholder='Email' name='email' onChange={this.onHandleChange} required></input>
@@ -54,6 +66,8 @@ class ReviewForm extends Component {
           </form>
           <h4 className='review-h5'>Thanks for your feedback</h4>
         </div>
+    
+
       </div>
     );
   }
@@ -61,7 +75,10 @@ class ReviewForm extends Component {
 
 const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
+  msg :state.socket.msg
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  addMsg
+};
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);
