@@ -118,7 +118,7 @@ class ImageUpload extends Component {
                 {(this.state.fileArray || []).map((url, idx) => (
                   <div key={idx}>
                     <img src={url} className='preview-image' alt='...' />
-                    <span onClick={(event) => this.props.onImgRemoval(event, url, idx)}>x</span>
+                    <i className='far fa-times-circle icon-large' onClick={(event) => this.props.onImgRemoval(event, url, idx)}></i>
                   </div>
                 ))}
               </div>
@@ -164,6 +164,16 @@ function uploadFile(file, i) {
   formData.append('file', file)
   xhr.send(formData)
 }
+
+
+<i class="far fa-window-close"></i>
+
+
+
+
+
+6:30
+icon-medium
 
 
 */

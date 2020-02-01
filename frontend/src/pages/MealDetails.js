@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Notification from '../components/Notification';
 import { getById, add } from '../actions/MealActions';
 import { getMealDetails } from '../reducers/MealSelector';
 
@@ -135,9 +134,15 @@ class MealDetails extends Component {
                   <h3 id='location'>Location</h3>
                   <MealMap className='map-container' location={meal.location}></MealMap>
                 </div>
-                <div className='right-box flex-shrink-30'>
-                  <MealPayment meal={meal} onEventRegistration={this.onEventRegistration}></MealPayment>
+                <div className={this.state.displayReviewForm}>
+                  <ReviewForm onSaveReviewForm={this.onSaveReviewForm} onCloseReviewForm={this.onCloseReviewForm}></ReviewForm>
                 </div>
+                {this.props.meal.reviews && <ReviewList reviews={this.props.meal.reviews}></ReviewList>}
+                <h3 id='location'>Location</h3>
+                <MealMap location={meal.location}></MealMap>
+              </div>
+              <div className='right-box flex-shrink-30'>
+                <MealPayment meal={this.props.filteredMeal} onEventRegistration={this.onEventRegistration}></MealPayment>
               </div>
             </>
           )}
@@ -155,7 +160,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   getById,
-  add,
+  add
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealDetails);

@@ -122,3 +122,10 @@ export function remove(id) {
     dispatch({ type: 'REMOVE', id });
   };
 }
+
+export function getMealForRegistration(meal) { //this method does not turn to the backend therefore it is not async!
+  return dispatch => {
+    const newMeal = MealService.getMealForRegistration(meal);
+    dispatch({ type: 'LOAD_MEAL_FOR_REGISTRATION', filteredMeal: newMeal })
+  }
+}

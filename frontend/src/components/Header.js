@@ -11,6 +11,7 @@ import SocketService from '../services/SocketService';
 import { addMsg } from '../actions/SocketAction';
 import NotificationMsg from './NotificationMsg'
 
+
 export class Header extends Component {
 
   state = {

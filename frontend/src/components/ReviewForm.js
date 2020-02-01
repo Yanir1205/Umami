@@ -13,10 +13,38 @@ class ReviewForm extends Component {
     msgs: ''
   };
 
+  componentDidMount() {
+    //socket setup
+    //sign in to a new channel called 'review'
+    //whenever a new msg arrives on socket from the backend - link to to the addMsg method
+
+    SocketService.setup();
+    SocketService.emit('newChannel', 'review');
+    SocketService.on('addMsg', this.addMsg);
+  }
+
+  componentWillUnmount() {
+    //unlink the addMsg method from the addMsg announcment
+    //terminate the socket
+    SocketService.off('addMsg', this.addMsg);
+    SocketService.terminate();
+  }
+
+  addMsg = newMsg => {
+    //open a notification showing a msg
+
+    console.log(newMsg)
+    // console.log('TEST addMsg -> ', newMsg);
+    // this.setState({ showNotification: true })
+    //  this.props.addMsg(newMsg)
+    // console.log("addMsg -> props",this.props.msg);
+
+    // this.setState({ msgs: newMsg });
+  };//
+
   onSaveReviewForm = ev => {
     ev.preventDefault();
     this.props.onSaveReviewForm({ email: this.state.email, txt: this.state.txt, rate: this.state.rate });
-
   };
 
   onToggleStar = ev => {

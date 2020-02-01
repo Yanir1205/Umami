@@ -12,13 +12,13 @@ const mapContainerStyle = {
 };
 
 class MealMap extends Component {
-  defaultProps = {
-    center: {
-      lat: this.props.location.lat,
-      lng: this.props.location.lng,
-    },
-    zoom: 20,
-  };
+  // defaultProps = {
+  //   center: {
+  //     lat: this.props.location.lat,
+  //     lng: this.props.location.lng,
+  //   },
+  //   zoom: 20,
+  // };
 
   render() {
     const location = { ...this.props.location };
