@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import Login from './Login';
-import Signup from './Signup';
 import { logout, login } from '../actions/UserActions';
+
 
 export class Header extends Component {
 
@@ -52,8 +51,6 @@ export class Header extends Component {
             {!this.props.loggedInUser && (
               <>
                 <Link className=' ' to={'/user/log-in'} onLogIn={this.onLogIn}>log-in</Link>
-                {/* <Login onLogIn={this.onLogIn}></Login> <span>|</span> */}
-                {/* <Signup></Signup> */}
               </>
             )}
           </div>

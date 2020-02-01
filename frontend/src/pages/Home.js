@@ -43,7 +43,7 @@ class Home extends Component {
               </ul>
             </div>
             <div className='search-container'>
-              <SearchBar placeholder='Where to ?  What are you craving ? '></SearchBar>
+              <SearchBar placeholder='Where to ?  What are you craving for? '></SearchBar>
             </div>
           </div>
         </div>

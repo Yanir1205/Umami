@@ -11,16 +11,15 @@ import MealFormWrapper from './pages/MealFormWrapper';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
-import SearchBar from './components/SearchBar';
 import Login from './components/Login'
 
 
 import './assets/css/all.min.css';
 import './assets/styles/global.scss';
 
-  const history = createBrowserHistory();
+const history = createBrowserHistory();
 
-  export default class App extends Component {
+export default class App extends Component {
   render() {
     return (
       <React.Fragment>
@@ -29,12 +28,10 @@ import './assets/styles/global.scss';
           <Switch>
             <Route component={Home} path='/' exact></Route>
             <Route component={MealFormWrapper} path='/meal/edit/:id?'></Route>
-
             <Route component={MealApp} path='/meal/location/:location?'></Route>
             <Route component={MealApp} path='/meal/cuisine/:cuisine?'></Route>
             <Route component={MealApp} path='/meal/results/:results?'></Route>
             <Route component={Login} path='/user/log-in' exact></Route>
-            {/* <Route component={Signup} path='/user/signup' exact></Route> */}
             <Route component={MealDetails} path='/meal/:id' exact></Route>
             <Route component={UserDetails} path='/user/:id' exact></Route>
           </Switch>

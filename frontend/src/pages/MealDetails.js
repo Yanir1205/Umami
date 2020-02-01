@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Notification from '../components/Notification';
 
-import { getById, add } from '../actions/MealActions';
+import { getById, add, getMealForRegistration } from '../actions/MealActions';
 import ImageGallery from '../components/ImageGallery';
 import MealPageNav from '../components/MealPageNav';
 import MealPayment from '../components/MealPayment';
@@ -14,15 +13,20 @@ import ReviewList from '../components/ReviewList';
 import MealMap from '../components/MealMap';
 
 class MealDetails extends Component {
-  state = { pageOverlayClass: 'hide', displayReviewForm: 'hide', occurrenceAttendees: {}, showNotification: false, notificationMessage: '' };
+  state = { pageOverlayClass: 'hide', displayReviewForm: 'hide', occurrenceAttendees: {} };
+
+  //meal payment CMP should get the meal containing only the relevant occurrences (new object)
+  //the front end service shall include a method to return such an object containing the following:
+    //only dates which didn't already pass
+    //only occurrences which have at least 1 room left
 
   async componentDidMount() {
     const id = this.props.match.params.id;
     await this.props.getById(id);
+    this.props.getMealForRegistration(this.props.meal)
   }
 
   onEventRegistration = async registration => {
-    debugger
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       const meal = { ...this.props.meal };
@@ -40,7 +44,6 @@ class MealDetails extends Component {
         activeOccurrence.total = parseInt(activeOccurrence.total) + parseInt(registration.attendees);
 
         await this.props.add(meal);
-        debugger
         this.setState({ showNotification: true, notificationMessage: 'You were successfully registered. ' });
       }
     }
@@ -74,62 +77,62 @@ class MealDetails extends Component {
   };
 
   render() {
-    const { meal } = this.props;
-
+    const  meal  = this.props.filteredMeal;
     if (!meal) return <div className='border-loading-indicator col-2 row-1'></div>;
-    else
-      return (
-        <div className='meal-details-page-container'>
-          <Notification open={this.state.showNotification} msg={this.state.notificationMessage}></Notification>
-          <div id='page-overlay' className={this.state.pageOverlayClass}></div>
-          {meal && (
-            <React.Fragment>
-              <div className='container page-title'>
-                <h2>{meal.title}</h2>
-              </div>
-              <ImageGallery meal={meal}></ImageGallery>
-              <div className='container meal-details-container flex'>
-                <div className='left-box flex-shrink-70'>
-                  <MealPageNav meal={meal}></MealPageNav>
-                  <h3>A word about the experience</h3>
-                  <ShowHideText text={meal.description} showRows={3}></ShowHideText>
-                  <h3 id='menu'>Our menu</h3>
-                  <MealMenu menu={meal.menu} onSelectedMenu={this.onSelectedMenu} />
+    console.log('notification status: ', this.state.showNotification)
+    return (
+      <div className='meal-details-page-container'>
+        <div id='page-overlay' className={this.state.pageOverlayClass}></div>
+        {meal && (
+          <React.Fragment>
+            <div className='container page-title'>
+              <h2>{meal.title}</h2>
+            </div>
+            <ImageGallery meal={meal}></ImageGallery>
+            <div className='container meal-details-container flex'>
+              <div className='left-box flex-shrink-70'>
+                <MealPageNav meal={meal}></MealPageNav>
+                <h3>A word about the experience</h3>
+                <ShowHideText text={meal.description} showRows={3}></ShowHideText>
+                <h3 id='menu'>Our menu</h3>
+                <MealMenu menu={meal.menu} onSelectedMenu={this.onSelectedMenu} />
 
-                  <h3>Meet the other guests</h3>
-                  <AttendeesList attendees={meal.occurrences[0].attendees}></AttendeesList>
-                  <div className='reviews-title-wrapper'>
-                    <h3 id='reviews'>Reviews</h3>
-                    <a title='Review Us' href='' onClick={this.onDisplayReviewForm}>
-                      <i className='icon-large far fa-plus-square'></i>
-                    </a>
-                  </div>
-                  <div className={this.state.displayReviewForm}>
-                    <ReviewForm onSaveReviewForm={this.onSaveReviewForm} onCloseReviewForm={this.onCloseReviewForm}></ReviewForm>
-                  </div>
-                  {this.props.meal.reviews && <ReviewList reviews={this.props.meal.reviews}></ReviewList>}
-                  <h3 id='location'>Location</h3>
-                  <MealMap location={meal.location}></MealMap>
+                <h3>Meet the other guests</h3>
+                <AttendeesList attendees={meal.occurrences[0].attendees}></AttendeesList>
+                <div className='reviews-title-wrapper'>
+                  <h3 id='reviews'>Reviews</h3>
+                  <a title='Review Us' href='' onClick={this.onDisplayReviewForm}>
+                    <i className='icon-large far fa-plus-square'></i>
+                  </a>
                 </div>
-                <div className='right-box flex-shrink-30'>
-                  <MealPayment meal={meal} onEventRegistration={this.onEventRegistration}></MealPayment>
+                <div className={this.state.displayReviewForm}>
+                  <ReviewForm onSaveReviewForm={this.onSaveReviewForm} onCloseReviewForm={this.onCloseReviewForm}></ReviewForm>
                 </div>
+                {this.props.meal.reviews && <ReviewList reviews={this.props.meal.reviews}></ReviewList>}
+                <h3 id='location'>Location</h3>
+                <MealMap location={meal.location}></MealMap>
               </div>
-            </React.Fragment>
-          )}
-        </div>
-      );
+              <div className='right-box flex-shrink-30'>
+                <MealPayment meal={this.props.filteredMeal} onEventRegistration={this.onEventRegistration}></MealPayment>
+              </div>
+            </div>
+          </React.Fragment>
+        )}
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
   meal: state.meal.selectedMeal,
+  filteredMeal: state.meal.filteredMeal
 });
 
 const mapDispatchToProps = {
   getById,
   add,
+  getMealForRegistration
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealDetails);

@@ -5,76 +5,83 @@ import Moment from 'moment';
 import Utilities from '../services/UtilitiesService';
 
 class MealPayment extends Component {
-  state = { meal: [], activeOccurrence: 0, attendees: 0, date: '', totalPrice: 0, availableSlots: 0, availableText: '', buttonText: 'REGISTER EVENT', registerCounter: 0, paymentClass: 'hide' };
+  state = {
+    meal: [],
+    activeOccurrence: 0,
+    attendees: 0,
+    date: '',
+    totalPrice: 0,
+    availableSlots: 0,
+    availableText: '',
+    buttonText: 'REGISTER EVENT',
+    registerCounter: 0,
+    paymentClass: 'hide'
+  };
 
   componentDidMount() {
-    /*
-    todo:
-
-    check if there are available places in the dates
-    if there are no places - display a - 'sold-out' on the date - or do not display as one of the dates 
-    
-    if all dates are sold-out - the meal should not be displayed at all on the list - only accessable
-    fromthe user profile
-
-    handle - the rebooking process 
-
-    change reviews to comments/feedback - currently not used as a review 
-
-
-
-
-    
-    */
-
     const meal = { ...this.props.meal };
     meal.occurrences.sort(Utilities.sortunction);
     let date = Moment(meal.occurrences[0].date).format('MM-DD-YY');
     let activeOccurrence = meal.occurrences[0];
     let availableSlots = parseInt(meal.capacity) - parseInt(activeOccurrence.total);
-    let availableText = `${availableSlots} available slots`;
-
-    if (!this.props.loggedInUser) {
-      this.setState({
-        meal: meal,
-        activeOccurrence: activeOccurrence,
-        date: date,
-        availableSlots: availableSlots,
-        availableText: availableText,
-      });
-    } else {
-      let userOccurrences = meal.occurrences.reduce((result, current) => {
-        let user = current.attendees.filter(attendee => attendee._id === this.props.loggedInUser._id);
-        if (user && user.length > 0) result.push({ user: user[0], activeOccurrence: current });
-        return result;
-      }, []);
-
-      let attendees = 0,
-        totalPrice = 0;
-
-      if (userOccurrences && userOccurrences.length > 0) {
-        activeOccurrence = userOccurrences[0].activeOccurrence;
-        date = Moment(activeOccurrence.date).format('MM-DD-YY');
-        attendees = userOccurrences[0].user.numOfAttendees;
-        totalPrice = parseInt(attendees) * parseInt(meal.price);
-        availableSlots = parseInt(meal.capacity) - parseInt(activeOccurrence.total);
-        availableText = `${availableSlots} available slots`;
-      } else userOccurrences = [];
-
-      this.setState({
-        meal: meal,
-        activeOccurrence: activeOccurrence,
-        attendees: attendees,
-        totalPrice: totalPrice,
-        date: date,
-        availableSlots: availableSlots,
-        availableText: availableText,
-        registerCounter: attendees === 0 ? 0 : 1,
-        buttonText: attendees === 0 ? 'REGISTER EVENT' : 'UPDATE EVENT',
-        paymentClass: attendees === 0 ? 'hide' : 'payment',
-      });
-    }
+    this.setState({
+      meal, //the meal object (filtered)
+      date, //the active date
+      activeOccurrence, //the closet occurrence to now
+      availableSlots, // how meany seats are left
+      availableText: `${availableSlots} available slots` //the text to display regarding the seats left
+    })
   }
+
+  // componentDidMount() {
+  //   const meal = { ...this.props.meal };
+  //   meal.occurrences.sort(Utilities.sortunction);
+  //   let date = Moment(meal.occurrences[0].date).format('MM-DD-YY');
+  //   let activeOccurrence = meal.occurrences[0];
+  //   let availableSlots = parseInt(meal.capacity) - parseInt(activeOccurrence.total);
+  //   let availableText = `${availableSlots} available slots`;
+
+  //   if (!this.props.loggedInUser) {
+  //     this.setState({
+  //       meal: meal,
+  //       activeOccurrence: activeOccurrence,
+  //       date: date,
+  //       availableSlots: availableSlots,
+  //       availableText: availableText,
+  //     });
+  //   } else {
+  //     let userOccurrences = meal.occurrences.reduce((result, current) => {
+  //       let user = current.attendees.filter(attendee => attendee._id === this.props.loggedInUser._id);
+  //       if (user && user.length > 0) result.push({ user: user[0], activeOccurrence: current });
+  //       return result;
+  //     }, []);
+
+  //     let attendees = 0,
+  //       totalPrice = 0;
+
+  //     if (userOccurrences && userOccurrences.length > 0) {
+  //       activeOccurrence = userOccurrences[0].activeOccurrence;
+  //       date = Moment(activeOccurrence.date).format('MM-DD-YY');
+  //       attendees = userOccurrences[0].user.numOfAttendees;
+  //       totalPrice = parseInt(attendees) * parseInt(meal.price);
+  //       availableSlots = parseInt(meal.capacity) - parseInt(activeOccurrence.total);
+  //       availableText = `${availableSlots} available slots`;
+  //     } else userOccurrences = [];
+
+  //     this.setState({
+  //       meal: meal,
+  //       activeOccurrence: activeOccurrence,
+  //       attendees: attendees,
+  //       totalPrice: totalPrice,
+  //       date: date,
+  //       availableSlots: availableSlots,
+  //       availableText: availableText,
+  //       registerCounter: attendees === 0 ? 0 : 1,
+  //       buttonText: attendees === 0 ? 'REGISTER EVENT' : 'UPDATE EVENT',
+  //       paymentClass: attendees === 0 ? 'hide' : 'payment',
+  //     });
+  //   }
+  // }
 
   handleChange = ev => {
     ev.preventDefault();
@@ -93,18 +100,19 @@ class MealPayment extends Component {
     }
   };
 
-  onEventRegistration = ev => {
-    ev.preventDefault();
-    if (this.state.registerCounter === 0) {
-      let calcPrice = this.state.attendees * this.props.meal.price;
-      this.setState({ totalPrice: calcPrice, registerCounter: 1, buttonText: 'BOOK EVENT', paymentClass: 'payment' });
-    } else if (this.state.registerCounter >= 1 && this.state.attendees !== 0) {
-      this.setState({ registerCounter: 0 });
-      this.props.onEventRegistration({ id: this.state.activeOccurrence.id, date: new Date(this.state.date).getTime(), attendees: this.state.attendees });
-    }
-  };
+  // onEventRegistration = ev => {
+  //   ev.preventDefault();
+  //   if (this.state.registerCounter === 0) {
+  //     let calcPrice = this.state.attendees * this.props.meal.price;
+  //     this.setState({ totalPrice: calcPrice, registerCounter: 1, buttonText: 'BOOK EVENT', paymentClass: 'payment' });
+  //   } else if (this.state.registerCounter >= 1 && this.state.attendees !== 0) {
+  //     this.setState({ registerCounter: 0 });
+  //     this.props.onEventRegistration({ id: this.state.activeOccurrence.id, date: new Date(this.state.date).getTime(), attendees: this.state.attendees });
+  //   }
+  // };
 
   render() {
+    debugger
     const { meal } = this.props;
     return (
       <div className='card-simple payment-container'>
@@ -123,7 +131,7 @@ class MealPayment extends Component {
               {meal.occurrences.map((occurrence, idx) => {
                 return (
                   <option key={idx} value={Moment(occurrence.date).format('MM-DD-YY')}>
-                    {Moment(occurrence.date).format('MM-DD-YY')}
+                    {/* {Moment(occurrence.date).format('MM-DD-YY')} */}
                   </option>
                 );
               })}

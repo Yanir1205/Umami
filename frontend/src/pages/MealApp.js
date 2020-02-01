@@ -7,13 +7,13 @@ import { setFilter } from '../actions/FilterActions';
 import MealList from '../components/MealList';
 import BadgeList from '../components/BadgeList';
 import Spinner from '../components/Spinner';
-// import Notification from '../components/Notification'
 import SearchBar from '../components/SearchBar';
 
 export class MealApp extends Component {
   state = {
     selectedBadge: '',
     renderType: '',
+    isLoading: true
   };
 
   async componentDidMount() {
@@ -49,17 +49,23 @@ export class MealApp extends Component {
       },
       tags: '',
     });
-  };
+  }
 
   getAvgRate = reviews => {
     return reviews.reduce((acc, currReview) => acc + parseInt(currReview.rate), 0) / reviews.length;
   };
 
+  load = async () => {
+    await this.props.load(this.props.filter)
+  }
+
   loadMeals = async () => {
     if (this.props.location.pathname.includes('results')) {
       const { results } = this.props.match.params;
       await this.props.setFilter({ ...this.filter, tags: results });
-      this.props.load(this.props.filter);
+      this.setState({ isLoading: true })
+      await this.load();
+      this.setState({ isLoading: false })
     } else {
       let badgeName = '';
       if (this.props.location.pathname.includes('location')) {
@@ -74,20 +80,25 @@ export class MealApp extends Component {
         if (!location) {
           //load meals grouped by location
           await this.props.loadMealsByLocation();
+          this.setState({ isLoading: false })
         } else {
           //load meals from specific location
           // await this.props.setFilter({ ...this.props.filter, location: { ...this.props.location, city: location } })
-          await this.props.load(this.props.filter);
+          this.setState({ isLoading: true })
+          await this.load();
+          this.setState({ isLoading: false })
         }
       } else {
         const { cuisine } = this.props.match.params;
         if (!cuisine) {
           //load meals grouped by cuisine
           this.props.loadMealsByCuisine();
+          this.setState({ isLoading: false })
         } else {
           //load meals from specific cuisine
-          // await this.props.setFilter({ ...this.props.filter, type: cuisine })
-          await this.props.load(this.props.filter);
+          this.setState({ isLoading: true })
+          await this.load();
+          this.setState({ isLoading: false })
         }
       }
     }
@@ -126,15 +137,15 @@ export class MealApp extends Component {
     return (
       <div className='container'>
         <SearchBar></SearchBar>
-        {!this.props.meals.length && (
+        {this.state.isLoading && (
           <div className='spinner-container'>
             <Spinner type='spin'></Spinner>
           </div>
         )}
         {this.props.cuisines && this.state.renderType === 'cuisine' && !isResultsUrl && <BadgeList selectedBadge={this.state.selectedBadge} onBadgeClick={this.onCuisineClick} badges={this.props.cuisines}></BadgeList>}
         {this.props.cities && this.state.renderType === 'location' && !isResultsUrl && <BadgeList selectedBadge={this.state.selectedBadge} onBadgeClick={this.onLocationClick} badges={this.props.cities}></BadgeList>}
-        {/* <Notification open={true} msg={'test'}></Notification> */}
-        {this.props.meals.length > 0 && this.state.renderType && <MealList onCardClick={this.onCardClick} onCuisineClick={this.onCuisineClick} onLocationClick={this.onLocationClick} renderType={this.state.renderType} meals={this.props.meals} getAvgRate={this.getAvgRate}></MealList>}
+        {this.props.meals.length > 0 && this.state.renderType && !this.state.isLoading && <MealList onCardClick={this.onCardClick} onCuisineClick={this.onCuisineClick} onLocationClick={this.onLocationClick} renderType={this.state.renderType} meals={this.props.meals} getAvgRate={this.getAvgRate}></MealList>}
+        {!this.state.isLoading && this.props.meals.length === 0 && isResultsUrl && <div>Your search has no results</div>}
       </div>
     );
   }

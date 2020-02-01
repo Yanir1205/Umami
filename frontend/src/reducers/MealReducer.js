@@ -1,9 +1,10 @@
 let initialState = {
   meals: [],
-  userMeals:[],
+  userMeals: [],
   selectedMeal: null,
   cities: [],
   cuisines: [],
+  filteredMeal: null //holds the meal for the registration CMP (contains only relevant occurrences)
 };
 
 export default function MealReducer(state = initialState, action = {}) {
@@ -43,7 +44,10 @@ export default function MealReducer(state = initialState, action = {}) {
         ...state,
         userMeals: action.userMeals,
       };
-
+    case 'LOAD_MEAL_FOR_REGISTRATION':
+      return {
+        ...state, filteredMeal: action.filteredMeal
+      }
     default:
       return state;
   }

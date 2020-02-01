@@ -41,6 +41,88 @@
   width: 100%;
 }
 
+.box-body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 10px;
+
+  div {
+    height: 200px;
+    margin: 10px;
+    position: relative;
+    i {
+      color: black;
+      cursor: pointer;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      visibility: hidden;
+    }
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  div:before {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 0%;
+    width: 100%;
+    top: 0;
+    transition: height 0.5s ease-out;
+    background: linear-gradient(to top, transparent 0%, rgb(255, 255, 255) 150%);
+  }
+  div:hover:before {
+    height: 40%;
+  }
+  div:hover {
+    i {
+      visibility: visible;
+    }
+  }
+}
+
+.input-date {
+  text-align: left;
+}
+
+.occurrence-date {
+  border: 1px solid black;
+  display: inline-block;
+  padding: 2px;
+  border-radius: 5px;
+  width: 5.2rem;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  position: relative;
+  i {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 2px;
+  }
+}
+
+.icon-larger {
+  font-size: 2rem;
+  margin-top: 1px;
+}
+
+.menu-list-courses {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  i{
+    cursor: pointer;
+  }
+}
+
+.occurrence-list {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .box-header {
   color: #444;
   display: block;

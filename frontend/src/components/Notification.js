@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 
 export class Notification extends Component {
@@ -36,8 +35,6 @@ export class Notification extends Component {
 
   render() {
     const { vertical, horizontal, open } = this.state;
-
-    debugger
     return (
       <div>
         <Snackbar anchorOrigin={{ vertical, horizontal }} key={`${vertical},${horizontal}`} open={open} onClose={this.handleClose} message={this.props.msg} />

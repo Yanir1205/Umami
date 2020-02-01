@@ -5,6 +5,7 @@ export default {
   getById,
   add,
   update,
+  getMealForRegistration
 };
 
 const endpoint = 'meal';
@@ -55,4 +56,22 @@ async function add(meal) {
 async function update(meal) {
   const updatedMeal = await HttpService.put(`${endpoint}/${meal._id}`, meal);
   return updatedMeal;
+}
+
+function getMealForRegistration(meal) {
+  //this method gets a regular meal object
+  //returns a new meal containing only the following occurrences:
+  //dates that didn't already pass
+  //occurrences which have more room left
+
+  const newMeal = { ...meal }
+  const now = Date.now()
+  const newOccurrences = []
+  newMeal.occurrences.forEach(occurrence => {
+    if (occurrence.total < newMeal.capacity && occurrence.date > now) {
+      newOccurrences.push(occurrence)
+    }
+  })
+  newMeal.occurrences = newOccurrences
+  return newMeal;
 }

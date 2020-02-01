@@ -171,7 +171,7 @@ export class MealForm extends Component {
         tmpFieldName = 'drinkTmp';
         break;
     }
-    this.setState({ [tmpFieldName]: value });
+    if (value) this.setState({ [tmpFieldName]: value });
   };
 
   setTags = () => {
@@ -286,10 +286,12 @@ export class MealForm extends Component {
         value = this.state.drinkTmp;
         this.setState({ drinkTmp: '' });
     }
-    let course = this.state[field];
-    let newCourse = [...course];
-    newCourse.push(value);
-    this.setState({ [field]: newCourse });
+    if (value) {
+      let course = this.state[field];
+      let newCourse = [...course];
+      newCourse.push(value);
+      this.setState({ [field]: newCourse });
+    }
   };
 
   onImgRemoval = (event, url, idx) => {
@@ -339,31 +341,8 @@ export class MealForm extends Component {
                   <input type='text' placeholder='City' name='city' id='city' value={this.state.city} onChange={this.onHandleChange} className='input-form' required></input>
                 </div>
               </div>
-              <div className='flex row flex space-even'>
-                <div className='date flex-basis-1 margin-right-10'>
-                  <label htmlFor='date'>Date</label>
-                  {/* <input type='date' name='date' placeholder='Date' id='date' onChange={this.onHandleChange} value={this.state.date} className='input-date'></input> <i className='icon-small fas fa-plus'></i> */}
-                  <input type='date' name='date' placeholder='Date' id='date' onChange={this.onHandleDateAdd} value={this.state.occurences} className='input-date'></input>
-                  {this.state.occurrences && (
-                    <div>
-                      <ul className='clean-list '>
-                        {' '}
-                        {this.state.occurrences.map((occurrence, idx) => {
-                          const dateToRender = new Date(occurrence.date).toLocaleDateString();
-                          return (
-                            <li key={idx}>
-                              {dateToRender}
-                              <span>
-                                <i className='icon-small fas fa-minus' onClick={() => this.handleDateRemoval(this.state.occurrences, idx)}></i>
-                              </span>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-                <div className='price flex-basis-1'>
+              <div className='price-capacity flex'>
+                <div className='price flex-basis-1 margin-right-20'>
                   <label htmlFor='price'>Price</label>
                   <input type='text' placeholder='Price' id='price' name='price' value={this.state.price} onChange={this.onHandleChange} className='input-form' required></input>
                 </div>
@@ -371,9 +350,40 @@ export class MealForm extends Component {
                   <label htmlFor='capacity'>How many people</label>
                   <input type='number' placeholder='Capacity' id='capacity' name='capacity' value={this.state.capacity} onChange={this.onHandleChange} className='input-form' required></input>
                 </div>
-                <div className='promotion flex-basis-1'>
-                  <PromotionCheckbox label={'Would you like to promote your event?'} handleChange={this.onHandleChange} isPromoted={this.state.isPromoted}></PromotionCheckbox>
+              </div>
+              <div className='flex row flex space-even'>
+                <div className='date flex-basis-1 margin-right-20'>
+                  <div className='flex align-center'>
+                    <div className='flex column margin-right-20 width-50'>
+                      <label htmlFor='date'>Date</label>
+                      <input className='input-date' type='date' name='date' placeholder='Date' id='date' onChange={this.onHandleDateAdd} value={this.state.occurences} className='input-date'></input>
+                    </div>
+                    <div className='promotion flex-basis-1'>
+                      <PromotionCheckbox label={'Would you like to promote your event?'} handleChange={this.onHandleChange} isPromoted={this.state.isPromoted}></PromotionCheckbox>
+                    </div>
+                  </div>
+                  <div className='width-50'>
+                    {this.state.occurrences && (
+                      <div>
+                        <ul className='clean-list occurrence-list'>
+                          {' '}
+                          {this.state.occurrences.map((occurrence, idx) => {
+                            const dateToRender = new Date(occurrence.date).toLocaleDateString();
+                            return (
+                              <li className='occurrence-date' key={idx}>
+                                {dateToRender}
+                                <span>
+                                  <i className='far fa-times-circle icon-small' onClick={() => this.handleDateRemoval(this.state.occurrences, idx)}></i>
+                                </span>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>
@@ -383,7 +393,7 @@ export class MealForm extends Component {
               <div className='menu-container'>
                 <div className='card-title menu-section flex column'>
                   <h3>First Course</h3>
-                  <div className='course-title-wrapper  flex-inline align-center justify-center'>
+                  <div className='course-title-wrapper flex justify-center'>
                     <div className='menu-item'>
                       <input type='text' placeholder='First course dish' name='firstCourse' value={this.state.firstCourseTmp} className='input-form' onChange={this.onHandleAddMenuItem} required></input>
                       {/* {this.state.occurrences && <div ><ul className="clean-list "> {this.state.occurrences.map((occurrence, idx) => <li>{occurrence.date}<i className="icon-small fas fa-minus" onClick={() => this.handleOccurenceRemoval(this.state.occurrences, idx)}></i></li>)}</ul></div>} */}
@@ -392,23 +402,23 @@ export class MealForm extends Component {
                           <ul className='clean-list '>
                             {' '}
                             {this.state.firstCourse.map((course, idx) => (
-                              <li name='firstCourse' key={idx}>
+                              <li className='menu-list-courses' name='firstCourse' key={idx}>
                                 {course}
-                                <i className='firstCourse icon-small fas fa-minus' name='firstCourse' onClick={ev => this.handleMenuItemRemoval(ev, this.state.firstCourse, idx)}></i>
+                                <i className='firstCourse far fa-times-circle icon-small' name='firstCourse' onClick={ev => this.handleMenuItemRemoval(ev, this.state.firstCourse, idx)}></i>
                               </li>
                             ))}
                           </ul>
                         </div>
                       )}
                     </div>
-                    <a name='firstCourse' className='btn-round-sm' title='Add new menu item' href='#' onClick={this.onAddMenuItem} required>
-                      <i name='firstCourse' className='icon-small fas fa-plus'></i>
+                    <a name='firstCourse' className='' title='Add new menu item' href='#' onClick={this.onAddMenuItem} required>
+                      <i name='firstCourse' className='icon-larger fas fa-plus-square'></i>
                     </a>
                   </div>
                 </div>
                 <div className='card-title menu-section flex column'>
                   <h3>Main Course</h3>
-                  <div className='course-title-wrapper flex-inline align-center justify-center'>
+                  <div className='course-title-wrapper flex justify-center'>
                     <div className='menu-item'>
                       <input type='text' placeholder='Main course dish' name='mainCourse' value={this.state.mainCourseTmp} className='input-form' onChange={this.onHandleAddMenuItem} required></input>
                       {this.state.mainCourse && (
@@ -416,23 +426,23 @@ export class MealForm extends Component {
                           <ul className='clean-list '>
                             {' '}
                             {this.state.mainCourse.map((course, idx) => (
-                              <li name='mainCourse' key={idx}>
+                              <li className='menu-list-courses' name='mainCourse' key={idx}>
                                 {course}
-                                <i className='mainCourse icon-small fas fa-minus' name='mainCourse' onClick={ev => this.handleMenuItemRemoval(ev, this.state.mainCourse, idx)}></i>
+                                <i className='mainCourse far fa-times-circle icon-small' name='mainCourse' onClick={ev => this.handleMenuItemRemoval(ev, this.state.mainCourse, idx)}></i>
                               </li>
                             ))}
                           </ul>
                         </div>
                       )}
                     </div>
-                    <a name='mainCourse' className='btn-round-sm' title='Add new menu item' href='' onClick={this.onAddMenuItem}>
-                      <i name='mainCourse' className='icon-small  fas fa-plus'></i>
+                    <a name='mainCourse' className='' title='Add new menu item' href='' onClick={this.onAddMenuItem}>
+                      <i name='mainCourse' className='icon-larger fas fa-plus-square'></i>
                     </a>
                   </div>
                 </div>
                 <div className='card-title menu-section flex column'>
                   <h3>Dessert</h3>
-                  <div className='course-title-wrapper flex-inline align-center justify-center'>
+                  <div className='course-title-wrapper flex justify-center'>
                     <div className='menu-item'>
                       <input type='text' placeholder='Dessert' name='desserts' className='input-form' value={this.state.dessertTmp} onChange={this.onHandleAddMenuItem} required></input>
                       {this.state.desserts && (
@@ -440,40 +450,40 @@ export class MealForm extends Component {
                           <ul className='clean-list '>
                             {' '}
                             {this.state.desserts.map((course, idx) => (
-                              <li name='desserts' key={idx}>
+                              <li className='menu-list-courses' name='desserts' key={idx}>
                                 {course}
-                                <i className='desserts icon-small fas fa-minus' name='desserts' onClick={ev => this.handleMenuItemRemoval(ev, this.state.desserts, idx)}></i>
+                                <i className='desserts far fa-times-circle icon-small' name='desserts' onClick={ev => this.handleMenuItemRemoval(ev, this.state.desserts, idx)}></i>
                               </li>
                             ))}
                           </ul>
                         </div>
                       )}
                     </div>
-                    <a name='desserts' className='btn-round-sm' title='Add new menu item' href='' onClick={this.onAddMenuItem}>
-                      <i name='desserts' className='icon-small  fas fa-plus'></i>
+                    <a name='desserts' className='' title='Add new menu item' href='' onClick={this.onAddMenuItem}>
+                      <i name='desserts' className='icon-larger fas fa-plus-square'></i>
                     </a>
                   </div>
                 </div>
                 <div className='card-title menu-section flex column'>
                   <h3>Beverage</h3>
-                  <div className='course-title-wrapper flex-inline align-center justify-center'>
+                  <div className='course-title-wrapper flex justify-center'>
                     <div className='menu-item'>
                       <input type='text' placeholder='Beverage' name='beverages' className='input-form' value={this.state.drinkTmp} onChange={this.onHandleAddMenuItem} required></input>
                       {this.state.beverages && (
                         <div>
                           <ul className='clean-list '>
                             {this.state.beverages.map((course, idx) => (
-                              <li name='beverages' key={idx}>
+                              <li className='menu-list-courses' name='beverages' key={idx}>
                                 {course}
-                                <i className='beverages icon-small fas fa-minus' name='beverages' onClick={ev => this.handleMenuItemRemoval(ev, this.state.beverages, idx)}></i>
+                                <i className='beverages far fa-times-circle icon-small' name='beverages' onClick={ev => this.handleMenuItemRemoval(ev, this.state.beverages, idx)}></i>
                               </li>
                             ))}
                           </ul>
                         </div>
                       )}
                     </div>
-                    <a name='beverages' className='btn-round-sm' title='Add new menu item' href='' onClick={this.onAddMenuItem}>
-                      <i name='beverages' className='icon-small fas fa-plus'></i>
+                    <a name='beverages' className='' title='Add new menu item' href='' onClick={this.onAddMenuItem}>
+                      <i name='beverages' className='icon-larger fas fa-plus-square'></i>
                     </a>
                   </div>
                 </div>
