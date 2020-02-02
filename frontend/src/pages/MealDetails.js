@@ -78,7 +78,7 @@ class MealDetails extends Component {
       }
       selectedOccurance.total = parseInt(selectedOccurance.total) + parseInt(registration.numOfAttendees);
 
-      // await this.props.add(meal);
+      await this.props.add(meal);
       loggedInUser.titleHost = meal.title;
       SocketService.emit('newMsg', { meal, loggedInUser });
     }
