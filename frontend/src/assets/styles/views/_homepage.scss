@@ -32,9 +32,9 @@
 
       & > span:last-child {
         //font-family: raleway-bold;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         text-transform: uppercase;
-        letter-spacing: 4px;
+        /* letter-spacing: 4px; */
         word-spacing: 4px;
       }
     }
@@ -43,12 +43,16 @@
       margin-bottom: 30px;
       width: 100%;
 
+      & > ul > li:first-child {
+        margin-left: 30px;
+      }
+
       & > ul > li {
         margin-right: 30px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-between;
+        // justify-content: space-between;
 
         & > img {
           width: 50px;

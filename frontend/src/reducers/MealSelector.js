@@ -74,6 +74,7 @@ export const getMealDetails = createSelector([selectedMealSelector, loggedInUser
   detailsMeal.availableDates = setAvailableDates(detailsMeal.occurrences, detailsMeal.selectedOccurance);
   detailsMeal.eventAttendees = getEventAttendees(detailsMeal.selectedOccurance);
   detailsMeal.hostRating = setHostRating(detailsMeal.hostReviews);
+
   return detailsMeal;
 });
 
@@ -110,10 +111,13 @@ function setSelectedOccurance(occurrences, selectedDate = null) {
       let isLoggedIn = UtilitiesService.findAllByKey(occurrence, 'isLoggedInUser');
       return isLoggedIn === true;
     });
-    if (selectedOccurance) return selectedOccurance;
-    else {
-      return occurrences.find(occurrence => occurrence.seatsLeft > 0);
+    if (!selectedOccurance) {
+      selectedOccurance = occurrences.find(occurrence => occurrence.seatsLeft > 0);
     }
+
+    if (!selectedOccurance && occurrences.length > 0) selectedOccurance = occurrences[0];
+
+    return selectedOccurance;
   }
 }
 
@@ -140,6 +144,7 @@ function setHostRating(reviews) {
 
 function getEventAttendees(occurrence) {
   var result = [];
+  if (!occurrence) return result;
   return occurrence.reservations.reduce((acc, reservation) => {
     if (!result.includes(reservation.user._id)) {
       result.push(reservation.user._id);

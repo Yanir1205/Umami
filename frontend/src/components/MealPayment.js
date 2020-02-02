@@ -7,26 +7,58 @@ class MealPayment extends Component {
 
   componentDidMount() {
     let { meal } = this.props;
-    let userOccurrence = meal.selectedOccurance.reservations.find(reservation => reservation.isLoggedInUser);
+    let userOccurrence = null;
+    if (meal.selectedOccurance && meal.selectedOccurance.reservations && meal.selectedOccurance.reservations.length > 0) {
+      userOccurrence = meal.selectedOccurance.reservations.find(reservation => reservation.isLoggedInUser);
 
-    this.setState({
-      meal: meal,
-      msg: userOccurrence && userOccurrence.isLoggedInUser ? meal.messages.userRegistered : '',
-      displayMsg: userOccurrence && userOccurrence.isLoggedInUser ? '' : 'hide',
-      selectedOccurance: meal.selectedOccurance,
-      numOfAttendees: userOccurrence && userOccurrence.isLoggedInUser ? userOccurrence.occurrenceAttendees : 0,
-      totalPrice: userOccurrence && userOccurrence.isLoggedInUser ? userOccurrence.occurrenceTotalPrice : 0,
-      date: Moment(meal.selectedOccurance.date).format('MM-DD-YY'),
-      availableSeats: parseInt(meal.selectedOccurance.seatsLeft),
-      availableText: `${meal.selectedOccurance.seatsLeft} available seats`,
-      registerCounter: 0,
-      buttonText: userOccurrence && userOccurrence.isLoggedInUser ? 'UPDATE EVENT' : 'REGISTER EVENT',
-      paymentClass: userOccurrence && userOccurrence.isLoggedInUser ? 'payment' : 'hide',
-    });
+      this.setState({
+        meal: meal,
+        msg: userOccurrence && userOccurrence.isLoggedInUser ? meal.messages.userRegistered : '',
+        displayMsg: userOccurrence && userOccurrence.isLoggedInUser ? '' : 'hide',
+        selectedOccurance: meal.selectedOccurance,
+        numOfAttendees: userOccurrence && userOccurrence.isLoggedInUser ? userOccurrence.occurrenceAttendees : 0,
+        totalPrice: userOccurrence && userOccurrence.isLoggedInUser ? userOccurrence.occurrenceTotalPrice : 0,
+        date: Moment(meal.selectedOccurance.date).format('MM-DD-YY'),
+        availableSeats: parseInt(meal.selectedOccurance.seatsLeft),
+        availableText: `${meal.selectedOccurance.seatsLeft} available seats`,
+        registerCounter: 0,
+        buttonText: userOccurrence && userOccurrence.isLoggedInUser ? 'Update Event' : 'Register Event',
+        paymentClass: userOccurrence && userOccurrence.isLoggedInUser ? 'payment' : 'hide',
+      });
+    } else if (meal.selectedOccurance) {
+      this.setState({
+        meal: meal,
+        msg: '',
+        displayMsg: 'hide',
+        selectedOccurance: meal.selectedOccurance,
+        numOfAttendees: 0,
+        totalPrice: 0,
+        date: Moment(meal.selectedOccurance.date).format('MM-DD-YY'),
+        availableSeats: parseInt(meal.selectedOccurance.seatsLeft),
+        availableText: `${meal.selectedOccurance.seatsLeft} available seats`,
+        registerCounter: 0,
+        buttonText: 'Register Event',
+        paymentClass: 'hide',
+      });
+    } else {
+      this.setState({
+        meal: meal,
+        msg: '',
+        displayMsg: 'hide',
+        selectedOccurance: {},
+        numOfAttendees: 0,
+        totalPrice: 0,
+        date: Moment(new Date()).format('MM-DD-YY'),
+        availableSeats: 0,
+        availableText: `There are no available seats`,
+        registerCounter: 0,
+        buttonText: 'Event',
+        paymentClass: 'hide',
+      });
+    }
   }
 
   handleChange = ev => {
-    debugger;
     ev.preventDefault();
     let name = ev.target.name;
     let value = ev.target.value;
@@ -38,14 +70,12 @@ class MealPayment extends Component {
         availableText: `${parseInt(this.state.availableSeats) - parseInt(value)} available seats`,
       });
     } else {
-      debugger;
       if (this.state.date !== value) {
-        debugger;
         let selectedOccurance = this.props.meal.occurrences.find(current => {
           return Moment(current.date).format('MM-DD-YY') === value;
         });
 
-        if (this.props.loggedInUser) {
+        if (this.props.loggedInUser && selectedOccurance.reservations && selectedOccurance.reservations.length > 0) {
           let userOccurrence = selectedOccurance.reservations.find(reservation => reservation.user._id === this.props.loggedInUser._id);
           if (userOccurrence) userOccurrence.isLoggedInUser = true;
         }
@@ -66,7 +96,7 @@ class MealPayment extends Component {
     ev.preventDefault();
     debugger;
     if (this.state.registerCounter === 0) {
-      this.setState({ registerCounter: 1, buttonText: 'BOOK EVENT', paymentClass: 'payment' });
+      this.setState({ registerCounter: 1, buttonText: 'Book Event', paymentClass: 'payment' });
     } else if (this.state.registerCounter >= 1 && this.state.numOfAttendees !== 0) {
       if (!this.props.loggedInUser) {
         console.log('Meal Reservation - user not logged in');

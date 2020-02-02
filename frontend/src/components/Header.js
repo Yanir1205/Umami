@@ -21,7 +21,6 @@ export class Header extends Component {
     }
   }
   componentDidUpdate(prevProps) {
-    debugger;
     if (prevProps.loggedInUser !== this.props.loggedInUser && this.props.loggedInUser) {
       this.signToSocketEvent(this.props.loggedInUser._id);
     }
@@ -49,10 +48,10 @@ export class Header extends Component {
     this.setState({ showNotification: false, registeredUser: '' });
   };
 
-  unSignToSocketEvent = () => {
-    SocketService.off('addMsg', this.addMsg);
-    SocketService.terminate();
-  };
+  // unSignToSocketEvent = () => {
+  //   SocketService.off('addMsg', this.addMsg);
+  //   SocketService.terminate();
+  // };
 
   onLogout = ev => {
     ev.preventDefault();

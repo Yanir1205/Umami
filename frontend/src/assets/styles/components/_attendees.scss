@@ -10,7 +10,9 @@
 
   .center {
     overflow: hidden;
-    box-shadow: 5px 5px 5px 0 rgba($clr3, 0.3);
+    background: linear-gradient(to bottom, $bkg1, $bkg2, $bkg3);
+
+    // box-shadow: 5px 5px 5px 0 rgba($clr3, 0.3);
   }
 }
 .profile {

@@ -14,6 +14,8 @@ class Home extends Component {
   }
 
   render() {
+    console.log('home page', this.props.meals);
+
     return (
       <>
         <div className='hero-container'>
@@ -45,7 +47,7 @@ class Home extends Component {
               </ul>
             </div>
             <div className='search-container'>
-              <SearchBar placeholder='Where to ?  What are you craving for? '></SearchBar>
+              <SearchBar placeholder='Where to ?  '></SearchBar>
             </div>
           </div>
         </div>
@@ -75,7 +77,7 @@ class Home extends Component {
               <div className='section-title-container'>
                 <h2>Here Are Our New Events</h2>
               </div>
-              <MealEventList meals={this.props.meals} displayCategory='Cuisine'></MealEventList>
+              <MealEventList meals={this.props.meals}></MealEventList>
             </>
           )}
         </div>

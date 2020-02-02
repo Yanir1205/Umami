@@ -28,10 +28,10 @@ class MealDetails extends Component {
     const hostedId = this.props.meal.storeMeal.hostedBy._id;
 
     this.signToSocketEvent(hostedId);
-    // console.log("hostedId->",hostedId);
+    console.log('hostedId->', hostedId);
 
-    // SocketService.emit('newChannel',`onEventRegistration${hostedId}`);
-    // SocketService.on('addMsg', this.addMsg);
+    SocketService.emit('newChannel', `onEventRegistration${hostedId}`);
+    SocketService.on('addMsg', this.addMsg);
   }
 
   signToSocketEvent = hostedId => {
@@ -41,15 +41,14 @@ class MealDetails extends Component {
     SocketService.on('addMsg', this.addMsg);
   };
 
-  // componentWillUnmount(){
-  //   // debugger
-  //   // if(!this.props.loggedInUser){
-  //     this.unSignToSocketEvent()
-  //   // }
-  // }
+  componentWillUnmount() {
+    // debugger
+    // if(!this.props.loggedInUser){
+    //this.unSignToSocketEvent()
+    // }
+  }
 
   // componentWillUnmount() {
-
   //   SocketService.off('addMsg', this.addMsg);
   //   SocketService.terminate();
   // } //
@@ -87,7 +86,7 @@ class MealDetails extends Component {
 
   addMsg = newMsg => {
     console.log('TEST addMsg -> ', newMsg);
-  }; //
+  };
 
   onDisplayReviewForm = ev => {
     ev.preventDefault();
@@ -125,18 +124,17 @@ class MealDetails extends Component {
         <div className='meal-details-page-container'>
           {meal && (
             <>
-              <ImageGallery images={meal.images}></ImageGallery>
+              {meal.images && meal.images.length > 0 && <ImageGallery images={meal.images}></ImageGallery>}
               <div className='container page-title'>
                 <h2>{meal.title}</h2>
               </div>
               <div className='container meal-details-container flex'>
                 <div className='left-box flex-shrink-70'>
                   <MealPageNav eventSetup={meal.eventSetup} hostRating={meal.hostRating}></MealPageNav>
-
                   <ShowHideText text={meal.description} showRows={3}></ShowHideText>
                   <MealMenu menu={meal.eventMenu} />
                   <h3>{meal.eventAttendees && meal.eventAttendees.length > 0 ? meal.messages.hasAttendees : meal.messages.noAttendees}</h3>
-                  <AttendeesList attendees={meal.eventAttendees}></AttendeesList>
+                  {meal.eventAttendees && meal.eventAttendees.length > 0 && <AttendeesList attendees={meal.eventAttendees}></AttendeesList>}
                   <div className='reviews-title-wrapper'>
                     <h3 id='reviews'>Reviews</h3>
                     <a title='Review Us' href='' onClick={this.onDisplayReviewForm}>

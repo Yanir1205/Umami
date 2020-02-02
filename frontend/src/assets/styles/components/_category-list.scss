@@ -1,6 +1,5 @@
 .category-cards {
   margin: 0 rem(50px) rem(50px);
-
   grid-column: center-start / center-end;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
@@ -13,7 +12,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(9rem, 1fr));
   grid-row-gap: 1rem;
-  min-width: 21rem;
+  min-width: 18rem;
 
   .img-wrapper {
     grid-row: 1 / 2;
@@ -65,15 +64,13 @@
     margin-left: 10px;
     display: flex;
     align-items: center;
+    justify-content: center;
 
     img {
       color: $clr4;
       height: 2rem;
       width: 2rem;
       margin-right: 10px;
-    }
-    small {
-      font-size: 0.6rem;
     }
   }
 
@@ -113,8 +110,10 @@
   background-color: $clr2;
   border: 1px solid $crd3;
 
-  & .card-img {
+  img {
     object-fit: cover;
+    min-width: 12rem;
+    height: auto;
   }
 
   & .card-name {

@@ -104,21 +104,19 @@ function getOccurrencesCounter(occurrences, minDate) {
   }, 0);
 }
 
-function getTopEventsInfo(meals, eventCounter = 3) {
-  let idx = 0;
+function getTopEventsInfo(meals, eventCounter = 4) {
   let tmpMeals = [...meals];
   let eventMeals = [];
-  while (idx < eventCounter) {
-    let rnd = getRandomInt(tmpMeals.length);
-    if (!eventMeals.includes(tmpMeals[rnd])) {
-      eventMeals.push(tmpMeals[rnd]);
-      idx += 1;
+  if (tmpMeals.length > 0) {
+    let length = tmpMeals.length >= eventCounter ? eventCounter : tmpMeals.length;
+    for (let index = 0; index < length; index++) {
+      eventMeals.push(tmpMeals[index]);
     }
   }
   return eventMeals;
 }
 
-function getCategoriesInfo(meals, category, returnCounter = 3) {
+function getCategoriesInfo(meals, category, returnCounter = 4) {
   let categories = [];
   const categoryType = category === 'Cuisine' ? { type: category, property: 'cuisineType' } : { type: category, property: 'location.city' };
   const startDate = addDaysToDate(new Date(), -1);
@@ -170,7 +168,7 @@ function getCategoriesInfo(meals, category, returnCounter = 3) {
   });
 
   if (returnCounter != 0) {
-    return categories.slice(0, 3);
+    return categories.slice(0, 4);
   }
 }
 
