@@ -24,10 +24,10 @@ class MealDetails extends Component {
   async componentDidMount() {
     const id = this.props.match.params.id;
     await this.props.getById(id);
-    console.log('MealDetails -> componentDidMount', this.props.meal);
-    const hostedId = this.props.meal.storeMeal.hostedBy._id;
+    console.log('MealDetails -> componentDidMount',this.props.meal);
+    const hostedId = this.props.meal.storeMeal.hostedBy._id
 
-    this.signToSocketEvent(hostedId);
+    this.signToSocketEvent(hostedId) 
     // console.log("hostedId->",hostedId);
 
     // SocketService.emit('newChannel',`onEventRegistration${hostedId}`);
@@ -40,12 +40,11 @@ class MealDetails extends Component {
     SocketService.on('addMsg', this.addMsg);
   };
 
-  // componentWillUnmount(){
-  //   // debugger
-  //   // if(!this.props.loggedInUser){
-  //     this.unSignToSocketEvent()
-  //   // }
-  // }
+// componentWillUnmount(){
+//   if(!this.props.loggedInUser){
+//     this.unSignToSocketEvent()
+//   }
+// }
 
   // componentWillUnmount() {
 
@@ -53,10 +52,11 @@ class MealDetails extends Component {
   //   SocketService.terminate();
   // } //
 
-  unSignToSocketEvent = () => {
-    SocketService.off('addMsg', this.addMsg);
-    SocketService.terminate();
-  };
+  // unSignToSocketEvent = () => {
+    
+  //   SocketService.off('addMsg', this.addMsg);
+  //   SocketService.terminate();
+  // }
 
   onEventRegistration = async registration => {
     if (this.props.loggedInUser) {
@@ -78,14 +78,13 @@ class MealDetails extends Component {
       }
       selectedOccurance.total = parseInt(selectedOccurance.total) + parseInt(registration.numOfAttendees);
 
-      await this.props.add(meal);
+      // await this.props.add(meal);
       loggedInUser.titleHost = meal.title;
       SocketService.emit('newMsg', { meal, loggedInUser });
     }
   };
 
   addMsg = newMsg => {
-
   }; //
 
   onDisplayReviewForm = ev => {

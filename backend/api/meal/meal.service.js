@@ -110,7 +110,7 @@ function filterMealsByUserId(userId, meals) {
     const resultMeals = meals.filter(meal => {
       // for Hosted
       if (meal.hostedBy._id == userId) {
-        meal.objForHosted = true;
+        meal.isHosted = true;
         return meal;
       }
     });
@@ -122,7 +122,7 @@ function filterMealsByUserId(userId, meals) {
           if (attendee._id == userId) {
             //for attendees
             const currMeal = { ...meal };
-            currMeal.objForHosted = false;
+            currMeal.isHosted = false;
             delete currMeal.occurrences;
             currMeal.occurensId = occurrence.id;
             currMeal.date = occurrence.date;

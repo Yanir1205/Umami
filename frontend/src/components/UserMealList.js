@@ -9,7 +9,7 @@ export default function UserMealList({ meals, userId ,onDelete}) {
                     {meals && meals.map((meal, idx) => {
                         return <div key={idx}>
 
-                            <div className="preview-title "> {meal.objForHosted && <span >I'm Hosting </span>}{!meal.objForHosted && <span>I'm a Guest </span>}</div>
+                            <div className="preview-title "> <span>{meal.isHosted? 'I Am Hosting': 'I Am A Guest'} </span></div>
                             <div className="tabs-container">
                                 <div className="tab">
                                     <input className= "checkbox-arrow" type="checkbox" id={`chck${idx}`} />

@@ -10,10 +10,12 @@ import MeetOurHosts from '../components/MeetOurHosts';
 
 class Home extends Component {
   componentDidMount() {
+    debugger
     this.props.load();
   }
 
   render() {
+    debugger
     return (
       <>
         <div className='hero-container'>

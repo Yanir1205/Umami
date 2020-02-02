@@ -12,10 +12,10 @@ class MealEventList extends Component {
   render() {
     return (
       <div className='main-categories-container category-cards'>
-        {this.state.meals &&
+        {/* {this.state.meals &&
           this.state.meals.map((meal, idx) => {
             return <MealEventPreview key={idx} meal={meal}></MealEventPreview>;
-          })}
+          })} */}
       </div>
     );
   }

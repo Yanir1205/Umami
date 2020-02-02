@@ -37,11 +37,11 @@ export class Header extends Component {
   };
 
   addMsg = newMsg => {
-    
-    
-    this.setState({ showNotification: true, registeredUser: newMsg.loggedInUser })
-    setTimeout(this.resetNotification, 3000)
-  };//
+    console.log('Header -> ', newMsg);
+
+    this.setState({ showNotification: true, registeredUser: newMsg.loggedInUser });
+    setTimeout(this.resetNotification, 20000);
+  };
 
   resetNotification = () => {
     this.setState({ showNotification: false, registeredUser: '' });
@@ -60,6 +60,7 @@ export class Header extends Component {
   };
 
   render() {
+    debugger
     return [
       this.state.showNotification && <Notification open={true} msg={<NotificationMsg user={this.state.registeredUser}></NotificationMsg>}></Notification>,
       <div className='main-header-container flex align-center space-between'>
