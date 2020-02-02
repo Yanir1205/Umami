@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import SocketService from '../services/SocketService';
 import { addMsg } from '../actions/SocketAction';
 var id =1
 

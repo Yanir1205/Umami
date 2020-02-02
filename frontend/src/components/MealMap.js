@@ -5,9 +5,9 @@ const GOOGLE_API_KEY = 'AIzaSyDt708aK1FKYJTOT61i_xrzY9R3UD3_6Lw&&';
 
 const mapContainerStyle = {
   width: '48vw',
-  height: '60vh',
-  margin: '20px 0px 20px 0px',
-  zIndex: 0,
+  height: '35vh',
+  marginBottom: '60vh',
+  zIndex: -1,
 
 };
 
@@ -25,16 +25,15 @@ class MealMap extends Component {
     delete location.address;
     delete location.city;
     delete location.country;
-    return (
-      <div className='google-map-container'>
-        <Map className='card-container-horizontal '
-        style={mapContainerStyle} google={this.props.google} initialCenter={location} zoom={14}>
-          <Marker name={'Current location'} />
-        </Map>
-      </div>
+    return (<Map
+      style={mapContainerStyle} google={this.props.google} initialCenter={location} zoom={14}>
+      <Marker name={'Current location'} />
+    </Map>
     );
   }
 }
+
 export default GoogleApiWrapper({
   apiKey: GOOGLE_API_KEY,
 })(MealMap);
+// className='card-container-horizontal '

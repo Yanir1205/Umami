@@ -36,7 +36,7 @@ class MealPreview extends Component {
         let res;
         if (this.props.renderType === 'location') {
             res = {
-                val: this.props.meal.location.city + ', ' + this.props.meal.location.country,
+                val: this.props.meal.location.city,
                 type: 'location'
             }
             return res
@@ -49,103 +49,60 @@ class MealPreview extends Component {
         }
     }
 
-    onCardClick = (id) => {
-        this.props.onCardClick(id)
-    }
+    // onCardClick = (id) => {
+    //     this.props.onCardClick(id)
+    // }
 
     render() {
         const msg = this.getMainMsg();
         const reviews = [...this.props.meal.reviews]
-        const promotionMsg = this.getPromotionMsg()
+        const variationIcon = (msg.type === 'location') ? 'https://res.cloudinary.com/contentexs/image/upload/v1580170530/dish-round.svg' : 'https://res.cloudinary.com/contentexs/image/upload/v1580171634/location.svg'
         const avgRate = (this.props.meal && reviews) ? this.props.getAvgRate(reviews) : ''
         let nextDate = new Date(this.getNextDateFromNow().max.date)
+        const promotionMsg = this.getPromotionMsg()
         nextDate = nextDate.toDateString().split(' ').slice(1, 3).join(' ')
-        // return this.props.meal && <div className="item meal-card flex" onClick={() => this.onCardClick(this.props.meal._id)}>
-        //     {promotionMsg && <div className="category ">{promotionMsg}</div>}
-        //     <img className="" src={this.props.meal.imgUrls[0]} alt=""></img>
-        //     <div className="">
-        //         <div className="">
-        //             <div className="">{msg.val}</div>
-        //             <div className="star">{avgRate ? Math.floor(avgRate) + ' ⭐' : ''}</div>
-        //         </div>
-        //         <h5 className="card-name">{msg.type === 'location' ? this.props.meal.cuisineType : this.props.meal.location.city}</h5>
-
-
-        //         <div className="">
-        //             <div>{this.props.meal.title}</div>
-        //             <div>{nextDate}</div>
-        //         </div>
-        //         <div className="description-tag">
-        //             <hr className="hr"></hr>
-        //         </div>
-        //         <div className="price-tag flex align-end justify-end">${this.props.meal.price} (per guest)</div>
-
-        //     </div>
-        // </div>
-        return (this.props.meal && <div className="item  meal-card flex" onClick={() => this.onCardClick(this.props.meal._id)}>
-        {promotionMsg && <div className="super-host-preview">{promotionMsg}</div>}
-        <div className='category-card'>
-          <img src={this.props.meal.imgUrls[0]} alt='category' className='card-img'></img>
-          <h5 className='card-name'>{msg.val}</h5>
-          <div className='card-total-one'>
-            {/* <img src={this.state.variationIcon} alt='icon'></img> */}
-            <div>
-              {/* <span>{this.state.variationTxt}</span> */}
+        return this.props.meal && <div className="">
+            <div className='category-card-prev'>
+                <div className='image-with-superhost'>
+                    {promotionMsg && <div className="super-host-preview ">{promotionMsg}</div>}
+                    <img src={this.props.meal.imgUrls[0]} alt='category' className='card-img-prev'></img>
+                </div>
+                <h5 className='card-name-prev'>{msg.val}</h5>
+                <div className='card-total-one-prev'>
+                    <img src={variationIcon} alt='icon'></img>
+                    <div>
+                        <span>{msg.type === 'location' ? this.props.meal.cuisineType : this.props.meal.location.city + ', ' + this.props.meal.location.country}</span>
+                    </div>
+                </div>
+                <div className='card-hosted-prev'>
+                    <img src='https://res.cloudinary.com/contentexs/image/upload/v1580170530/dinner-round.svg' alt='dinner icon'></img>
+                    <div>
+                        <span> {this.props.meal.title} </span>
+                    </div>
+                </div>
+                <div className='card-next-date-prev'>
+                    <img src='https://res.cloudinary.com/contentexs/image/upload/v1580170530/calender-round.svg' alt='calender icon'></img>
+                    <div>
+                        <span className='title-prev'>Next Event Is On, </span> <span>{nextDate}</span>
+                    </div>
+                </div>
+                <div className='card-avg-price-prev'>
+                    <img src='https://res.cloudinary.com/contentexs/image/upload/v1580328925/money.svg' alt='money icon'></img>
+                    <div>
+                        <span className='title-prev'>Price is </span>
+                        <span>
+                            ${this.props.meal.price}
+                            <small> (per guest)</small>
+                        </span>
+                    </div>
+                </div>
+                <div className='card-btn-prev'>
+                    <Link to={`/meal/${this.props.meal._id}`} className='btn'>
+                        <span className=''>View Events</span>
+                    </Link>
+                </div>
             </div>
-          </div>
-          <div className='card-hosted'>
-            {/* <img src='https://res.cloudinary.com/contentexs/image/upload/v1580170530/dinner-round.svg' alt='dinner icon'></img> */}
-            <div>
-              {/* <span> {this.state.hostedTxt} </span> */}
-            </div>
-          </div>
-          <div className="meal-preview-title">
-              <span className="title">{this.props.meal.title}</span>
-              </div>
-          <div className='card-next-date'>
-            <img src='https://res.cloudinary.com/contentexs/image/upload/v1580170530/calender-round.svg' alt='calender icon'></img>
-            <div>
-              <span className='title'>Next Event Is On, </span> <span>{nextDate}</span>
-            </div>
-          </div>
-          <div className='card-avg-price'>
-            <img src='https://res.cloudinary.com/contentexs/image/upload/v1580328925/money.svg' alt='money icon'></img>
-            <div>
-              <span className='title'>Avg Price Is, </span>
-              <span>
-                ${this.props.meal.price}
-                <small> (per guest)</small>
-              </span>
-            </div>
-          </div>
-          <div className='card-btn'>
-            {/* <Link to={`/meal/${this.props.displayCategory.toLowerCase()}/${this.props.category.name}`} className='btn'>
-              <span className=''>View Events</span>
-            </Link> */}
-          </div>
         </div>
-          </div>
-        )
     }
 }
 export default MealPreview;
-
-
-/*
-
-<div className="meal-preview-card-container" ><img className="" src={this.props.meal.imgUrls[0]} alt=""></img>
-            {promotionMsg && <div className="category ">{promotionMsg}</div>}
-            <h5 className="card-name main msg">{msg.val}</h5>
-            <div className="meal-preview-text-container">
-                <div className="meal-preview-title">{this.props.meal.title}</div>
-                <div className="secondary-msg">{msg.type === 'location' ? this.props.meal.cuisineType : this.props.meal.location.city}</div>
-                <div className="meal-preview-num-of-occurrences">{this.props.meal.occurrences.length} Hosted {this.props.meal.occurrences.length > 1 ? 'Events' : 'Event'}</div>
-                <div className="meal-preview-nex-event">Next date is on {nextDate}</div>
-                <div className="meal-preview-price">${this.props.meal.price} <span className="meal-preview-price-ending-text">(per guest)</span></div>
-            </div>
-            <Link to={`/meal/${this.props.meal._id}`} className='btn meal-preview-view-event-btn'>
-                <span className=''>View Event</span>
-            </Link>
-        </div>
-
-*/

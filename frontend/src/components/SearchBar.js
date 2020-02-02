@@ -25,7 +25,7 @@ export class SearchBar extends Component {
 
   render() {
     return (
-      <div className='main-search-container margin-top-20 margin-bottom-20'>
+      <div className='main-search-container container margin-top-20'>
         <input className='search-input' type='text' placeholder={this.props.placeholder} value={this.state.val} onChange={this.handleChange} onKeyUp={this.onSearchAction}></input>
       </div>
     );
@@ -41,13 +41,3 @@ const mapDispatchToProps = {
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchBar));
-
-/*
-
-<div className="search-bar container">
-<input className="search-bar" type="text" onChange={this.handleChange} onKeyUp={this.onSearchAction} placeholder="Search Events..." value={this.state.val}></input>
-<button className="btn" onClick={this.onSearchAction}>Search</button>
-</div>
-
-
-*/

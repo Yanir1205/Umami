@@ -26,7 +26,7 @@ class Login extends Component {
     const user = { email, password };
 
     await this.props.login(user);
-    this.props.history.push(`/`);
+    this.props.history.goBack();
   };
 
   changeForm = () => {
@@ -39,17 +39,15 @@ class Login extends Component {
     return (
       <div className='flex column align-center justify-center'>
         {/* <Navbar styleNavBar={styleNavBar} ></Navbar> */}
-        <div>Log-in</div>
         <div className={hideLogIn}>
-          <div>
-            {' '}
+        <div >Log-in</div>
+          <div >
             <input name='email' onChange={this.changeInput} value={this.state.email} type='text' className='login-input' placeholder=' email'></input>
           </div>
-          <div>
-            {' '}
+          <div className='margin-top-10'>
             <input name='password' onChange={this.changeInput} value={this.state.password} type='password' className='login-input' placeholder=' Password'></input>
           </div>
-          <div className='login-btns-warpper'>
+          <div className='margin-top-10 login-btns-warpper'>
             <div className='btn-container'>
               <button className='btn-lg btn-action' onClick={this.onLogInUser}>
                 Login

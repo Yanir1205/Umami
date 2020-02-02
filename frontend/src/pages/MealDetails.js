@@ -24,17 +24,39 @@ class MealDetails extends Component {
   async componentDidMount() {
     const id = this.props.match.params.id;
     await this.props.getById(id);
-    SocketService.setup();
     const hostedId = this.props.meal.storeMeal.hostedBy._id
     
-    SocketService.emit('newChannel',`onEventRegistration${hostedId}`);
+    this.signToSocketEvent(hostedId) 
+    
+    // SocketService.emit('newChannel',`onEventRegistration${hostedId}`);
+    // SocketService.on('addMsg', this.addMsg);
+  }
+
+  signToSocketEvent = (hostedId) => {
+    
+    SocketService.setup();
+    SocketService.emit('newChannel', `onEventRegistration${hostedId}`);
     SocketService.on('addMsg', this.addMsg);
   }
 
-  componentWillUnmount() {
+// componentWillUnmount(){
+//   // debugger
+//   // if(!this.props.loggedInUser){
+//     this.unSignToSocketEvent()
+//   // }
+// }
+
+  // componentWillUnmount() {
+
+  //   SocketService.off('addMsg', this.addMsg);
+  //   SocketService.terminate();
+  // } //
+
+  unSignToSocketEvent = () => {
+    
     SocketService.off('addMsg', this.addMsg);
     SocketService.terminate();
-  } //
+  }
 
   onEventRegistration = async registration => {
     if (this.props.loggedInUser) {
@@ -56,16 +78,15 @@ class MealDetails extends Component {
       }
       selectedOccurance.total = parseInt(selectedOccurance.total) + parseInt(registration.numOfAttendees);
 
-      // await this.props.add(meal);
-      loggedInUser.titelHost = meal.title
-      SocketService.emit('newMsg',{meal,loggedInUser})
+      await this.props.add(meal);
+      loggedInUser.titleHost = meal.title;
+      SocketService.emit('newMsg', { meal, loggedInUser });
     }
   };
 
-
   addMsg = newMsg => {
-    console.log('TEST addMsg -> ',newMsg);
-  };//
+
+  }; //
 
   onDisplayReviewForm = ev => {
     ev.preventDefault();
@@ -92,8 +113,6 @@ class MealDetails extends Component {
       meal.reviews = [...meal.reviews, newReview];
 
       await this.props.add(meal);
-
-
     }
   };
 
@@ -129,8 +148,10 @@ class MealDetails extends Component {
                     <ReviewForm onSaveReviewForm={this.onSaveReviewForm} onCloseReviewForm={this.onCloseReviewForm}></ReviewForm>
                   </div>
                   {meal.hostReviews && <ReviewList reviews={meal.hostReviews}></ReviewList>}
-                  <h3 id='location'>Location</h3>
-                  <MealMap location={meal.location}></MealMap>
+                  <div className='google-map-container'>
+                    <h3 id='location'>Location</h3>
+                    <MealMap location={meal.location}></MealMap>
+                  </div>
                 </div>
                 <div className='right-box flex-shrink-30'>
                   <MealPayment meal={meal} onEventRegistration={this.onEventRegistration}></MealPayment>
@@ -147,7 +168,6 @@ class MealDetails extends Component {
 const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
   meal: getMealDetails(state),
-
 });
 
 const mapDispatchToProps = {

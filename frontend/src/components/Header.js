@@ -4,13 +4,10 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import Notification from './Notification'
 
-import Login from './Login';
-import Signup from './Signup';
 import { logout, login } from '../actions/UserActions';
 import SocketService from '../services/SocketService';
 import { addMsg } from '../actions/SocketAction';
 import NotificationMsg from './NotificationMsg'
-
 
 export class Header extends Component {
 
@@ -19,48 +16,64 @@ export class Header extends Component {
     registeredUser: {}
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     if (this.props.loggedInUser) {
       this.signToSocketEvent(this.props.loggedInUser._id)
-
+    }
+  }
+  componentDidUpdate(prevProps) {
+    debugger
+    if (prevProps.loggedInUser !== this.props.loggedInUser && this.props.loggedInUser) {
+      this.signToSocketEvent(this.props.loggedInUser._id)
     }
   }
 
   componentWillUnmount() {
-    SocketService.off('addMsg', this.addMsg);
-    SocketService.terminate();
+    
+    this.unSignToSocketEvent()
   }//
 
   signToSocketEvent = (userId) => {
     SocketService.setup();
-    console.log('userId', userId);
     SocketService.emit('newChannel', `onEventRegistration${userId}`);
     SocketService.on('addMsg', this.addMsg);
   }
 
   addMsg = newMsg => {
     
-    this.setState({ showNotification: true ,registeredUser:newMsg.loggedInUser})
-    setTimeout(this.resetNotification , 3000)
+    
+    this.setState({ showNotification: true, registeredUser: newMsg.loggedInUser })
+    setTimeout(this.resetNotification, 3000)
+  };//
+
+  resetNotification = () => {
+    this.setState({ showNotification: false, registeredUser: '' })
   }
 
-  resetNotification =()=>{
-    this.setState({ showNotification: false ,registeredUser:''})
+  unSignToSocketEvent = () => {
+    
+    SocketService.off('addMsg', this.addMsg);
+    SocketService.terminate();
   }
 
   onLogout = (ev) => {
+    debugger
     ev.preventDefault()
+    this.unSignToSocketEvent()
     this.props.logout();
     this.props.history.push(`/`);
   };
 
-  onLogIn = async user => {
-    await this.props.login(user);
-  };
+  // onLogIn = async user => {
+    
+  //   // await this.props.login(user);
+  //   this.signToSocketEvent(this.props.loggedInUser._id)
+  // };
+
 
   render() {
 
-    return ([this.state.showNotification && <Notification  open={true} msg={<NotificationMsg  user={this.state.registeredUser}></NotificationMsg>}></Notification>,
+    return ([this.state.showNotification && <Notification open={true} msg={<NotificationMsg user={this.state.registeredUser}></NotificationMsg>}></Notification>,
     <div className='main-header-container flex align-center space-between'>
       <div className='container logo flex-basis-60 '>
         <Link to='/'>

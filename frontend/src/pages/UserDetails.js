@@ -13,10 +13,10 @@ class UserDetails extends Component {
     this.signToSocketEvent(this.props.loggedInUser._id)
   }
 
-  componentWillUnmount() {
-    SocketService.off('addMsg', this.addMsg);
-    SocketService.terminate();
-  }//
+  // componentWillUnmount() {
+  //   SocketService.off('addMsg', this.addMsg);
+  //   SocketService.terminate();
+  // }//
 
   signToSocketEvent = (userId) => {
     SocketService.setup();
@@ -26,9 +26,11 @@ class UserDetails extends Component {
     SocketService.on('addMsg', this.addMsg);
   }
 
+
+  
   addMsg = newMsg => {
     console.log('TEST addMsg -> ', newMsg);
-    
+
     this.loadMeals()    
   };//
 
@@ -81,7 +83,7 @@ class UserDetails extends Component {
       return attendee._id == userId;
     });
     occurrence.attendees.splice(idx, 1);
-    await this.props.add(meal);
+    // await this.props.add(meal);
     this.loadMeals();
   };
 
