@@ -4,9 +4,7 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import Notification from './Notification';
 
-import Login from './Login';
-import Signup from './Signup';
-import { logout, login } from '../actions/UserActions';
+import { logout } from '../actions/UserActions';
 import SocketService from '../services/SocketService';
 import { addMsg } from '../actions/SocketAction';
 import NotificationMsg from './NotificationMsg';
@@ -23,6 +21,7 @@ export class Header extends Component {
     }
   }
   componentDidUpdate(prevProps) {
+    debugger;
     if (prevProps.loggedInUser !== this.props.loggedInUser && this.props.loggedInUser) {
       this.signToSocketEvent(this.props.loggedInUser._id);
     }
@@ -30,7 +29,7 @@ export class Header extends Component {
 
   componentWillUnmount() {
     this.unSignToSocketEvent();
-  } //
+  }
 
   signToSocketEvent = userId => {
     SocketService.setup();
@@ -44,7 +43,7 @@ export class Header extends Component {
 
     this.setState({ showNotification: true, registeredUser: newMsg.loggedInUser });
     setTimeout(this.resetNotification, 3000);
-  }; //
+  };
 
   resetNotification = () => {
     this.setState({ showNotification: false, registeredUser: '' });
@@ -57,8 +56,8 @@ export class Header extends Component {
 
   onLogout = ev => {
     ev.preventDefault();
-    this.props.logout();
     this.unSignToSocketEvent();
+    this.props.logout();
     this.props.history.push(`/`);
   };
 
@@ -102,7 +101,7 @@ export class Header extends Component {
             )}
             {!this.props.loggedInUser && (
               <>
-                <Link className=' ' to={'/user/login'} onLogIn={this.onLogIn}>
+                <Link className=' ' to={'/user/login'}>
                   log-in
                 </Link>
               </>
@@ -121,7 +120,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   logout,
-  login,
   addMsg,
 };
 

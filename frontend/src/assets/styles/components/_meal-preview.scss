@@ -1,51 +1,26 @@
-.meal-list {
+.category-cards-list {
+  // margin: 0 rem(50px) rem(50px);
+  // padding: 10px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(3, minmax(15rem, 1fr));
+  grid-gap: 2rem;
+  // height: 70rem;
+  margin: 10px;
+  
 }
-.meal-card {
-  position: relative;
-  cursor: pointer;
 
-  .item {
-    display: inline-block;
+.category-card-prev {
+  background-color: $clr2;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(9rem, 1fr));
+  grid-row-gap: 1rem;
+  border: 1px solid #deb200;
+  min-width: 21rem;
 
-    height: calc(100% + 180px);
-    background: #fff;
-    width: 100%;
-    box-sizing: border-box;
-    box-shadow: 2px 2px 4px 0 #ccc;
-
-    .img-meal {
-      height: 350px;
-      object-fit: cover;
-    }
-    .card-main-msg {
-      font-weight: bold;
-      font-size: 1.2rem;
-      .star {
-        font-size: 1rem;
-      }
-    }
-  }
-  .user-img {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    border-radius: 50px;
-  }
-  .text-card {
-    padding: 5px;
-    font-size: 1rem;
-  }
-  .start {
-    font-size: 10px;
-  }
-
-  .category {
-    position: absolute;
-    top: 10px;
-    left: 10px;
+  .super-host-preview {
+    position: relative;
+    // top: -17.5rem;
+    // left:0.5rem;
     // background: $clr6;
     background: #ff0000;
     padding: 1px 5px;
@@ -53,33 +28,120 @@
     font-size: 1rem;
     font-weight: 600;
     text-transform: uppercase;
+    z-index: 2;
+  }
 
-    .price-tag {
+  // & .card-img-prev {
+  //   grid-row: 1 / 2;
+  //   grid-column: 1 / -1;
+  //   z-index: 1;
+  //   max-width: 100%; 
+  //   height: 17rem; 
+  //   object-fit: cover; 
+  // }
+
+  & .image-with-superhost {
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
+    z-index: 1;
+    max-width: 100%; 
+    height: 17rem; 
+    position: relative;
+    img{
+      object-fit: cover; 
+      width: 100%;
+      height: 100%;
+    }
+    div{
       position: absolute;
-      bottom: 0px;
-      right: 20px;
-    }
-    .description-tag {
-      // height: 40%;
-      height: 150px;
-
-      // flex-grow: 1 ;
-      text-overflow: ellipsis;
+      top: 0.375rem;
+      left: 0.375rem;
     }
   }
-  .text-description-tag {
-    height: 120px;
+
+
+
+  & .card-name-prev {
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
+    justify-self: center;
+    align-self: end;
+    z-index: 3;
+
+    width: 80%;
+    font-family: oswald, 'sans-serif';
+    font-size: 1.6rem;
+    font-weight: 400;
+    text-align: center;
+    background-color: #d53807;
+    color: $clr2;
+    transform: translateY(50%);
+
+    &:hover {
+      background-color: #8b2505;
+    }
+  }
+
+  & .card-total-one-prev {
+    margin-top: 20px;
+  }
+
+  & .card-total-one-prev,
+  & .card-hosted-prev,
+  & .card-next-date-prev,
+  & .card-avg-price-prev{
+    grid-column: 1 / -1;
+
+    font-size: 1rem;
+    font-weight: 700;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+
+    img {
+      color: $clr4;
+      height: 2rem;
+      width: 2rem;
+      margin-right: 10px;
+    }
+
+    .title-prev {
+      // font-weight: normal;
+    }
+
+    small {
+      font-size: 0.6rem;
+    }
+  }
+  & .card-btn-prev {
+    grid-column: 1 / -1;
+    background-color: #ffc866;
+    border-radius: 0;
+    border: none;
+    color: $clr2;
+    cursor: pointer;
+    transition: all 0.2s;
+    grid-column: 1 / -1;
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px;
+      font-family: oswald, 'sans-serif';
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      word-spacing: 5px;
+      color: #111111;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    &:hover {
+      background-color: lighten(#ffe991, 0.5%);
+      color: #111111;
+    }
+   
   }
 }
-.price-tag {
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-// .note-list-container {
-
-//     column-gap: 1em;
-//     margin: 1.5em;
-//     padding: 0;
-//     column-gap: 1.5em;
-//     font-size: 0.85em;
-//   }
