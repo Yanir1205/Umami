@@ -60,7 +60,6 @@ export class Header extends Component {
   };
 
   render() {
-    debugger
     return [
       this.state.showNotification && <Notification open={true} msg={<NotificationMsg user={this.state.registeredUser}></NotificationMsg>}></Notification>,
       <div className='main-header-container flex align-center space-between'>
