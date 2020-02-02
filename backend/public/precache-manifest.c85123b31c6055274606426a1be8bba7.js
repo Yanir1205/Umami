@@ -1,31 +1,39 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5b3640f2e501af9aae708ec6b441a9e6",
+    "revision": "90dff4ed953ebf9eea80a3643cad6ac0",
     "url": "/index.html"
   },
   {
-    "revision": "0367f8ca8e26786c8cc5",
+    "revision": "05fa82830e6de20b96d8",
     "url": "/static/css/2.b90ce945.chunk.css"
   },
   {
-    "revision": "62a5ca321409b5264d10",
-    "url": "/static/css/main.ea4074c8.chunk.css"
+    "revision": "2e4e4e20eb93a0b5e633",
+    "url": "/static/css/main.c1f20844.chunk.css"
   },
   {
-    "revision": "0367f8ca8e26786c8cc5",
-    "url": "/static/js/2.e228ac2c.chunk.js"
+    "revision": "05fa82830e6de20b96d8",
+    "url": "/static/js/2.250c8390.chunk.js"
   },
   {
     "revision": "9ff88a2e9d517faff69491c7bb18e291",
-    "url": "/static/js/2.e228ac2c.chunk.js.LICENSE"
+    "url": "/static/js/2.250c8390.chunk.js.LICENSE"
   },
   {
-    "revision": "62a5ca321409b5264d10",
-    "url": "/static/js/main.d101f93a.chunk.js"
+    "revision": "2e4e4e20eb93a0b5e633",
+    "url": "/static/js/main.54b3a179.chunk.js"
   },
   {
     "revision": "a8139511e7e3c6f8467f",
     "url": "/static/js/runtime-main.1c2d59f4.js"
+  },
+  {
+    "revision": "c32e6db748bed398b70c105d50b52ec7",
+    "url": "/static/media/Caviar_Dreams_Bold.c32e6db7.ttf"
+  },
+  {
+    "revision": "8e96daaaad1703684a9d7011f9fbe90a",
+    "url": "/static/media/JosefinSans-Regular.8e96daaa.ttf"
   },
   {
     "revision": "85d339d916479f729938d2911b85bf1f",
@@ -36,16 +44,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/Lato-Regular.2d36b1a9.ttf"
   },
   {
-    "revision": "085414edc3320d73947fc4467e94b790",
-    "url": "/static/media/Oswald-Light.085414ed.ttf"
-  },
-  {
-    "revision": "8006072867e7ef090e9668d76dfb0f85",
-    "url": "/static/media/Oswald-SemiBold.80060728.ttf"
+    "revision": "6ccb9eb89a48d3f3b6e8d3d0e5e207aa",
+    "url": "/static/media/Limelight-Regular.6ccb9eb8.ttf"
   },
   {
     "revision": "c00e79bbf1a949f6de98986b198d98f6",
     "url": "/static/media/PTSerif-Italic.c00e79bb.ttf"
+  },
+  {
+    "revision": "feeecfae4e5e589502646b8519d807ab",
+    "url": "/static/media/PTSerifCaption-Regular.feeecfae.ttf"
   },
   {
     "revision": "f49f3d2d9df5013c9bfaab7e3d39ee57",

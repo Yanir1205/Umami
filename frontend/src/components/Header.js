@@ -71,9 +71,9 @@ export class Header extends Component {
         <div className='nav-container container flex-basis-30 flex justify-end'>
           <div className='controls flex-basis-1 flex row align-center justify-end'>
             <div className='margin-right-10'>
-              <Link to='/meal/edit'>
-                <span className='ellipse-link'>Become a Host</span>
-              </Link>
+              {/* <Link to='/meal/edit'>
+                <span className=''>Hosts Zone</span>
+              </Link> */}
             </div>
             {this.props.loggedInUser && (
               <>
