@@ -1,3 +1,7 @@
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
 function sortByDate(a, b) {
   var dateA = new Date(a.date).getTime();
   var dateB = new Date(b.date).getTime();
@@ -100,7 +104,21 @@ function getOccurrencesCounter(occurrences, minDate) {
   }, 0);
 }
 
-function getCategoriesInfo(meals, category) {
+function getTopEventsInfo(meals, eventCounter = 3) {
+  let idx = 0;
+  let tmpMeals = [...meals];
+  let eventMeals = [];
+  while (idx < eventCounter) {
+    let rnd = getRandomInt(tmpMeals.length);
+    if (!eventMeals.includes(tmpMeals[rnd])) {
+      eventMeals.push(tmpMeals[rnd]);
+      idx += 1;
+    }
+  }
+  return eventMeals;
+}
+
+function getCategoriesInfo(meals, category, returnCounter = 3) {
   let categories = [];
   const categoryType = category === 'Cuisine' ? { type: category, property: 'cuisineType' } : { type: category, property: 'location.city' };
   const startDate = addDaysToDate(new Date(), -1);
@@ -150,7 +168,10 @@ function getCategoriesInfo(meals, category) {
       categories = [...categories, instance];
     }
   });
-  return categories;
+
+  if (returnCounter != 0) {
+    return categories.slice(0, 3);
+  }
 }
 
 export default {
@@ -160,4 +181,6 @@ export default {
   findAllByKey,
   addDaysToDate,
   formatDate,
+  getRandomInt,
+  getTopEventsInfo,
 };

@@ -27,7 +27,7 @@ export const getMealDetails = createSelector([selectedMealSelector, loggedInUser
       noAvailableOccurrence: 'We are sorry, It seems we made a mistake and this event is not active. You will be redirected to our events page to continue browsing.',
       eventSoldOut: 'We are sorry, It seems we made a mistake and this event is all sold out. You will be redirected to our events page to continue browsing.',
       hasAttendees: 'Meet the other guests',
-      noAttendees: 'We will be delighted to have you as our guest. Please register now.',
+      noAttendees: 'Be the first one to join.',
       userRegistered: 'You are booked to this event',
       pleaseLogin: 'Please login before proceeding.',
     },

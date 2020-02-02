@@ -1,28 +1,45 @@
 .menu-main-container {
-  margin: 7px auto 40px;
+  margin: 7px auto 60px;
   .menu-container {
     padding: 20px;
+
+    .main-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & h3 {
+        font-family: caviar_dreams_bold, sans-serif;
+        margin: 10px 0;
+        padding: 10px 15px;
+        text-align: Center;
+        font-size: 1.8rem;
+        text-transform: uppercase;
+        color: darken($clr1, 15%);
+      }
+    }
   }
 
   .menu-section {
     margin-bottom: 20px;
 
     & h3 {
-      font-family: raleway-bold;
+      font-family: caviar_dreams_bold, sans-serif;
       margin: 10px 0;
       padding: 10px 15px;
       text-align: Center;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       letter-spacing: 5px;
-      word-spacing: 3px;
+      text-transform: uppercase;
+      color: darken($clr1, 15%);
     }
 
     & div {
-      margin: 15px 0;
-      font-variant: small-caps;
-      font-size: 1rem;
+      font-family: josefinSans, sans-serif;
+      font-size: 1.2rem;
       text-align: Center;
-      letter-spacing: 2px;
+      line-height: 1.8rem;
+      margin: 15px 0;
     }
   }
 }

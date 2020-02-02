@@ -125,19 +125,17 @@ class MealDetails extends Component {
       const { meal } = this.props;
       return (
         <div className='meal-details-page-container'>
-          <div id='page-overlay' className={this.state.pageOverlayClass}></div>
           {meal && (
             <>
+              <ImageGallery images={meal.images}></ImageGallery>
               <div className='container page-title'>
                 <h2>{meal.title}</h2>
               </div>
-              <ImageGallery images={meal.images}></ImageGallery>
               <div className='container meal-details-container flex'>
                 <div className='left-box flex-shrink-70'>
                   <MealPageNav eventSetup={meal.eventSetup} hostRating={meal.hostRating}></MealPageNav>
-                  <h3>A word about the experience</h3>
+
                   <ShowHideText text={meal.description} showRows={3}></ShowHideText>
-                  <h3 id='menu'>Our menu</h3>
                   <MealMenu menu={meal.eventMenu} />
                   <h3>{meal.eventAttendees && meal.eventAttendees.length > 0 ? meal.messages.hasAttendees : meal.messages.noAttendees}</h3>
                   <AttendeesList attendees={meal.eventAttendees}></AttendeesList>
