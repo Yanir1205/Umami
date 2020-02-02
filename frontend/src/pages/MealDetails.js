@@ -26,7 +26,7 @@ class MealDetails extends Component {
     await this.props.getById(id);
     console.log('MealDetails -> componentDidMount',this.props.meal);
     const hostedId = this.props.meal.storeMeal.hostedBy._id
-    
+
     this.signToSocketEvent(hostedId) 
     // console.log("hostedId->",hostedId);
     
@@ -43,10 +43,9 @@ class MealDetails extends Component {
   }
 
 // componentWillUnmount(){
-//   // debugger
-//   // if(!this.props.loggedInUser){
+//   if(!this.props.loggedInUser){
 //     this.unSignToSocketEvent()
-//   // }
+//   }
 // }
 
   // componentWillUnmount() {
@@ -55,11 +54,11 @@ class MealDetails extends Component {
   //   SocketService.terminate();
   // } //
 
-  unSignToSocketEvent = () => {
+  // unSignToSocketEvent = () => {
     
-    SocketService.off('addMsg', this.addMsg);
-    SocketService.terminate();
-  }
+  //   SocketService.off('addMsg', this.addMsg);
+  //   SocketService.terminate();
+  // }
 
   onEventRegistration = async registration => {
     if (this.props.loggedInUser) {
@@ -88,6 +87,7 @@ class MealDetails extends Component {
   };
 
   addMsg = newMsg => {
+    debugger
     console.log('TEST addMsg -> ', newMsg);
   }; //
 

@@ -1,12 +1,14 @@
 .msg-notification-container{
-    // background-color: rgb(143, 143, 143);
+    // background-color: rgb(252, 16, 16);
     display: flex;
     align-items: center;
+    color: black;
     // .notification-img{
         
         // }
     .user-info-notification{
         margin-left: 10px;
+        
         display: flex;
         flex-direction: column;
         justify-content: start;

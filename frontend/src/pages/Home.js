@@ -10,10 +10,12 @@ import MeetOurHosts from '../components/MeetOurHosts';
 
 class Home extends Component {
   componentDidMount() {
+    debugger
     this.props.load();
   }
 
   render() {
+    debugger
     return (
       <>
         <div className='hero-container'>
@@ -75,7 +77,7 @@ class Home extends Component {
               <div className='section-title-container'>
                 <h2>Here Are Our New Events</h2>
               </div>
-              <MealEventList meals={this.props.meals} displayCategory='Cuisine'></MealEventList>
+              {/* <MealEventList meals={this.props.meals} ></MealEventList> */}
             </>
           )}
         </div>
