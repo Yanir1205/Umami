@@ -132,13 +132,14 @@ export class MealApp extends Component {
   onCardClick = id => {
     this.props.history.push(`/meal/${id}`);
   };
-
+  
   render() {
     const isResultsUrl = this.props.location.pathname.includes('results');
     return (
       <div className='container'>
         <SearchBar></SearchBar>
-        {this.state.isLoading && (!(this.props.cities && this.state.renderType === 'location' && !isResultsUrl) || !(this.props.cities && this.state.renderType === 'location' && !isResultsUrl)) && <div className='spinner-container'>
+        
+        {this.state.isLoading && ((!this.props.cities && this.state.renderType === 'location' && !isResultsUrl) || (!this.props.cuisines && this.state.renderType === 'cuisine' && !isResultsUrl)) && <div className='spinner-container'>
             <Spinner type='spin'></Spinner>
           </div>}
         {this.props.cuisines && this.state.renderType === 'cuisine' && !isResultsUrl && <BadgeList selectedBadge={this.state.selectedBadge} onBadgeClick={this.onCuisineClick} badges={this.props.cuisines}></BadgeList>}
