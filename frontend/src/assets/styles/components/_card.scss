@@ -26,30 +26,17 @@
   }
 }
 
-// .card-simple {
-//   background-image: linear-gradient(to right top, #ffd012, #f0c30d, #e2b708, #d3aa04, #c59e00);
-//   padding-bottom: 30px;
-// }
-// .card-title {
-//   background-image: linear-gradient(to right top, #ffd012, #f0c30d, #e2b708, #d3aa04, #c59e00);
-//   position: relative;
-//   display: grid;
-// }
-// .card-title:before {
-//   content: '';
-//   background-image: linear-gradient(to right top, #ffd012, #f0c30d, #e2b708, #d3aa04, #c59e00);
-//   position: absolute;
-//   height: 30%;
-//   width: 250vw;
-//   left: -100vw;
-//   z-index: -1;
-// }
+.card-bkg-white {
+  background: linear-gradient(to bottom, $bkg1, $bkg2, $bkg3);
+}
+
+.card-bkg-yellow {
+  background: linear-gradient(to bottom, $bkg4, $bkg5), linear-gradient(to top, $bkg1, $bkg2, $bkg3);
+}
 
 .card-simple {
   padding: 20px;
   height: auto;
-  // background-color: $clrCard;
-  background-image: linear-gradient(to right top, #f0c96a, #f0c30d, #f0c96a, #d3aa04, #c59e00);
 
   .card-title {
     font-weight: 900;

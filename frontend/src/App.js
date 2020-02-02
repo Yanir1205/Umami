@@ -35,7 +35,6 @@ export default class App extends Component {
             <Route component={MealDetails} path='/meal/:id' exact></Route>
             <Route component={UserDetails} path='/user/:id' exact></Route>
           </Switch>
-          <Footer></Footer>
         </Router>
       </React.Fragment>
     );

@@ -65,8 +65,7 @@
 
 /* Mixins for font styles   */
 @mixin font-source-sans($size: false, $colour: false, $weight: false, $lh: false) {
-  font-family: raleway, lato, oswald, 'sans-serif';
-
+  font-family: raleway, lato, 'sans-serif';
   @if $size {
     font-size: $size;
   }

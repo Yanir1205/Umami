@@ -5,12 +5,12 @@ import SocketService from '../services/SocketService';
 
 import SearchBar from '../components/SearchBar';
 import MealCategoryList from '../components/MealCategoryList';
+import MealEventList from '../components/MealEventList';
 import MeetOurHosts from '../components/MeetOurHosts';
 
 class Home extends Component {
   componentDidMount() {
     this.props.load();
-
   }
 
   render() {
@@ -70,6 +70,16 @@ class Home extends Component {
           )}
         </div>
         <div className='section-container'>
+          {this.props.meals.length > 0 && (
+            <>
+              <div className='section-title-container'>
+                <h2>Here Are Our New Events</h2>
+              </div>
+              <MealEventList meals={this.props.meals} displayCategory='Cuisine'></MealEventList>
+            </>
+          )}
+        </div>
+        <div className='section-container'>
           <div className='section-title-container'>
             <h2>Meet Our Hosts</h2>
           </div>
@@ -84,12 +94,11 @@ const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
   filter: state.filter.filter,
   meals: state.meal.meals,
-  msg :state.socket.msg,
+  msg: state.socket.msg,
 });
 
 const mapDispatchToProps = {
   load,
-  
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

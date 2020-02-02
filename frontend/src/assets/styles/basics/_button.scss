@@ -1,7 +1,7 @@
 /* **** BUTTONS **** */
 
 button {
-  font-family: raleway, lato, oswald, 'sans-serif';
+  font-family: raleway, lato, 'sans-serif';
   display: inline-block;
   box-sizing: border-box;
   background-color: transparent;
@@ -49,6 +49,25 @@ button {
 .btn-main:hover {
   background-color: $clr6;
   color: $clr3;
+}
+
+.btn-red {
+  border: 1px solid $crd3;
+  background-color: $crd3;
+  color: $clr2;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  padding: 5px;
+  font-family: raleway-bold;
+  font-size: 1rem;
+  letter-spacing: 3px;
+  word-spacing: 5px;
+}
+
+.btn-red:hover {
+  border: 1px solid $crd4;
+  background-color: $crd4;
+  color: $clr2;
 }
 
 .btn-round {

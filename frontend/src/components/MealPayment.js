@@ -80,13 +80,12 @@ class MealPayment extends Component {
   };
 
   render() {
-    
     const { meal } = this.props;
     console.log('MealPayment - props', this.props);
     console.log('MealPayment - state', this.state);
 
     return (
-      <div className='card-simple payment-container'>
+      <div className='card-simple card-bkg-yellow  payment-container'>
         <div className='price'>
           <span>$</span>
           {meal.price}
@@ -101,7 +100,7 @@ class MealPayment extends Component {
           </div>
           <div className='date'>
             <label htmlFor='date'>Date</label>
-            <select name='date' onChange={this.handleChange} value={this.state.date}>
+            <select name='date' onChange={this.handleChange} value={this.state.date} style={{ fontFamily: 'raleway' }} className='minimal'>
               {meal.availableDates.map((current, idx) => {
                 return (
                   <option key={idx} value={Moment(current.date).format('MM-DD-YY')}>
@@ -131,7 +130,7 @@ class MealPayment extends Component {
             </ul>
           </div>
           <div>
-            <button onClick={this.onEventRegistration} className='button btn-main'>
+            <button onClick={this.onEventRegistration} className='button btn-red'>
               {this.state.buttonText}
             </button>
           </div>

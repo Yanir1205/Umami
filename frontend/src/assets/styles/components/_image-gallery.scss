@@ -1,22 +1,29 @@
 .gallery {
-  margin-bottom: 20px;
+  margin: 20px 0;
+  /*  */
+  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); */
+  transition: all 0.3s ease-in-out;
+
   display: grid;
-  grid-template-columns: repeat(5, 20vw);
-  grid-template-rows: repeat(1, 40vh);
+  grid-template-columns: repeat(4, 25vw);
+  grid-template-rows: repeat(1, 35vh);
+  justify-content: center;
 
   .gallery-item {
     width: 100%;
     margin: 0;
     overflow: hidden;
-    // background-color: #ffffff;
+    background: linear-gradient(to bottom, $bkg1, $bkg2, $bkg3);
 
     & > img {
-      width: 100%;
-      height: 100%;
-      transform: scale(1.15);
       object-fit: cover;
-      background-color: #ffffff;
-      transition: transform 0.5s;
+      width: 95%;
+      height: 96%;
+      margin: 1px;
+      display: block;
+      position: relative;
+      border: 1px solid $clr4;
+      padding: 5px;
 
       &:hover {
         transform: scale(1.03);
