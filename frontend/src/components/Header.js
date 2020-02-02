@@ -69,11 +69,7 @@ debugger
     this.props.history.push(`/`);
   };
 
-  // onLogIn = async user => {
-    
-  //   // await this.props.login(user);
-  //   this.signToSocketEvent(this.props.loggedInUser._id)
-  // };
+
 
 
   render() {
@@ -110,7 +106,7 @@ debugger
           )}
           {!this.props.loggedInUser && (
             <>
-              <Link className=' ' to={'/user/login'} onLogIn={this.onLogIn}>log-in</Link>
+              <Link className=' ' to={'/user/login'}>log-in</Link>
             </>
           )}
         </div>
