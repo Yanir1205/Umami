@@ -61,12 +61,6 @@ export class Header extends Component {
     this.props.history.push(`/`);
   };
 
-  // onLogIn = async user => {
-
-  //   // await this.props.login(user);
-  //   this.signToSocketEvent(this.props.loggedInUser._id)
-  // };
-
   render() {
     return [
       this.state.showNotification && <Notification open={true} msg={<NotificationMsg user={this.state.registeredUser}></NotificationMsg>}></Notification>,
