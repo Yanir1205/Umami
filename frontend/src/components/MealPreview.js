@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-
 class MealPreview extends Component {
 
     getNextDateFromNow() {
@@ -50,9 +49,9 @@ class MealPreview extends Component {
         }
     }
 
-    // onCardClick = (id) => {
-    //     this.props.onCardClick(id)
-    // }
+    onCardClick = (id) => {
+        this.props.onCardClick(id)
+    }
 
     render() {
         const msg = this.getMainMsg();
@@ -64,9 +63,9 @@ class MealPreview extends Component {
         nextDate = nextDate.toDateString().split(' ').slice(1, 3).join(' ')
         return this.props.meal && <div className="">
             <div className='category-card-prev'>
-                <div className='image-with-superhost'> 
+                <div className='image-with-superhost'>
                     {promotionMsg && <div className="super-host-preview ">{promotionMsg}</div>}
-                    <img src={this.props.meal.imgUrls[0]} alt='category' className='card-img-prev'></img>
+                    <img src={this.props.meal.imgUrls[0]} alt='category' className='card-img-prev' onClick={() => this.onCardClick(this.props.meal._id)}></img>
                 </div>
                 <h5 className='card-name-prev'>{msg.val}</h5>
                 <div className='card-total-one-prev'>
@@ -99,7 +98,7 @@ class MealPreview extends Component {
                 </div>
                 <div className='card-btn-prev'>
                     <Link to={`/meal/${this.props.meal._id}`} className='btn'>
-                        <span className=''>View Events</span>
+                        <span className=''>View Event</span>
                     </Link>
                 </div>
             </div>
@@ -107,51 +106,3 @@ class MealPreview extends Component {
     }
 }
 export default MealPreview;
-
-
-{/* <div className="category ">{this.getPromotionMsg()}</div>
-<img className="img-meal " src={this.props.meal.imgUrls[0]} alt=""></img>
-<div className="flex.column text-card">
-    <div className="flex space-between ">
-        <div className="card-main-msg">{msg.val}</div>
-        <div className="star">{avgRate ? Math.floor(avgRate) + ' ⭐' : ''}</div>########################################################################?
-    </div>
-    <div>{msg.type === 'location' ? this.props.meal.cuisineType : this.props.meal.location.city + ', ' + this.props.meal.location.country}</div>
-
-
-    <div className="flex space-between ">
-        <div>{this.props.meal.title}</div>V
-        <div>{nextDate}</div>
-    </div>
-    <div className="description-tag">
-        <hr className="hr"></hr>
-    </div>
-    <div className="price-tag flex align-end justify-end">{this.props.meal.price} $</div>
-
-</div> */}
-
-
-
-
-
-
-
-
-
-//////////////////////
-
-
-// <div className="meal-preview-card-container" ><img className="" src={this.props.meal.imgUrls[0]} alt=""></img>
-//             {promotionMsg && <div className="category ">{promotionMsg}</div>}
-//             <h5 className="card-name main msg">{msg.val}</h5>
-//             <div className="meal-preview-text-container">
-//                 <div className="meal-preview-title">{this.props.meal.title}</div>
-//                 <div className="secondary-msg">{msg.type === 'location' ? this.props.meal.cuisineType : this.props.meal.location.city}</div>
-//                 <div className="meal-preview-num-of-occurrences">{this.props.meal.occurrences.length} Hosted {this.props.meal.occurrences.length > 1 ? 'Events' : 'Event'}</div>
-//                 <div className="meal-preview-nex-event">Next date is on {nextDate}</div>
-//                 <div className="meal-preview-price">${this.props.meal.price} <span className="meal-preview-price-ending-text">(per guest)</span></div>
-//             </div>
-//             <Link to={`/meal/${this.props.meal._id}`} className='btn meal-preview-view-event-btn'>
-//                 <span className=''>View Event</span>
-//             </Link>
-//         </div>

@@ -77,7 +77,7 @@ class Home extends Component {
               <div className='section-title-container'>
                 <h2>Here Are Our New Events</h2>
               </div>
-              {/* <MealEventList meals={this.props.meals} ></MealEventList> */}
+              {/* <MealEventList meals={this.props.meals} displayCategory='Cuisine'></MealEventList> */}
             </>
           )}
         </div>

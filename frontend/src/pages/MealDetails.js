@@ -29,18 +29,16 @@ class MealDetails extends Component {
 
     this.signToSocketEvent(hostedId) 
     // console.log("hostedId->",hostedId);
-    
+
     // SocketService.emit('newChannel',`onEventRegistration${hostedId}`);
     // SocketService.on('addMsg', this.addMsg);
   }
 
-  signToSocketEvent = (hostedId) => {
-    
+  signToSocketEvent = hostedId => {
     SocketService.setup();
-    console.log('hostedId', hostedId);
     SocketService.emit('newChannel', `onEventRegistration${hostedId}`);
     SocketService.on('addMsg', this.addMsg);
-  }
+  };
 
 // componentWillUnmount(){
 //   if(!this.props.loggedInUser){
@@ -80,15 +78,13 @@ class MealDetails extends Component {
       }
       selectedOccurance.total = parseInt(selectedOccurance.total) + parseInt(registration.numOfAttendees);
 
-      await this.props.add(meal);
+      // await this.props.add(meal);
       loggedInUser.titleHost = meal.title;
       SocketService.emit('newMsg', { meal, loggedInUser });
     }
   };
 
   addMsg = newMsg => {
-    debugger
-    console.log('TEST addMsg -> ', newMsg);
   }; //
 
   onDisplayReviewForm = ev => {
@@ -176,4 +172,4 @@ const mapDispatchToProps = {
   add,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MealDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(MealDetails)

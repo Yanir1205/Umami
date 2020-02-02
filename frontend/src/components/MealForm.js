@@ -145,6 +145,7 @@ export class MealForm extends Component {
         id: id,
         date: Date.parse(date),
         attendees: [],
+        total: 0
       };
       this.setState(prevState => ({
         occurrences: [...prevState.occurrences, occurrences],
