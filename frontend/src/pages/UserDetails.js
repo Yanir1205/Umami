@@ -2,35 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SocketService from '../services/SocketService';
-import { getById,loadUserMeal,load, add } from '../actions/MealActions';
+import { getById, loadUserMeal, load, add } from '../actions/MealActions';
 import { setFilter } from '../actions/FilterActions';
 import UserMealList from '../components/UserMealList';
 
 class UserDetails extends Component {
-  
   async componentDidMount() {
-    this.resetFilterDefinitions()
-    this.signToSocketEvent(this.props.loggedInUser._id)
+    this.resetFilterDefinitions();
+    this.signToSocketEvent(this.props.loggedInUser._id);
   }
 
   // componentWillUnmount() {
   //   SocketService.off('addMsg', this.addMsg);
   //   SocketService.terminate();
-  // }//
+  // }
 
-  signToSocketEvent = (userId) => {
+  signToSocketEvent = userId => {
     SocketService.setup();
 
     SocketService.emit('newChannel', `onEventRegistration${userId}`);
     SocketService.on('addMsg', this.addMsg);
-  }
+  };
 
-
-  
   addMsg = newMsg => {
 
-    this.loadMeals()    
-  };//
+    this.loadMeals();
+  }; //
 
   resetFilterDefinitions = async () => {
     await this.props.setFilter({
@@ -87,23 +84,26 @@ class UserDetails extends Component {
 
   render() {
     const user = this.props.loggedInUser;
-    return (user && <div className='user-details-container container'>
-        <div className='user-container'>
-          <span>Hello, </span>
-          <span>{user.fullName}</span>
-        </div>
-        <div className='controlls-container flex space-between '>
-          <div className='flex-shrink-50'>
-            <span>Events </span>
+    return (
+      user && (
+        <div className='user-details-container container'>
+          <div className='user-container'>
+            <span>Hello, </span>
+            <span>{user.fullName}</span>
           </div>
-          <div className='flex-shrink-50 flex justify-end'>
-            <button className='btn-sm-md btn-action align-end ' onClick={this.onCreateMeal}>
-              Create Event
-            </button>
+          <div className='controlls-container flex space-between '>
+            <div className='flex-shrink-50'>
+              <span>Events </span>
+            </div>
+            <div className='flex-shrink-50 flex justify-end'>
+              <button className='btn-sm-md btn-action align-end ' onClick={this.onCreateMeal}>
+                Create Event
+              </button>
+            </div>
           </div>
+          {this.props.userMeals.length > 0 && <UserMealList onDelete={this.onDelete} meals={this.props.userMeals} userId={user._id}></UserMealList>}
         </div>
-        {this.props.userMeals.length > 0 && <UserMealList onDelete={this.onDelete} meals={this.props.userMeals} userId={user._id}></UserMealList>}
-      </div>
+      )
     );
   }
 }
