@@ -104,8 +104,8 @@ class MealPayment extends Component {
         return;
       }
       debugger;
-      this.setState({ registerCounter: 0, msg: '', displayMsg: 'hide' });
       this.props.onEventRegistration({ id: this.state.selectedOccurance.id, date: +Moment(this.state.date, 'MM-DD-YY'), numOfAttendees: this.state.numOfAttendees });
+      this.setState({ registerCounter: 0, msg: '', displayMsg: 'hide', buttonText: 'Book Event', paymentClass: 'hide' });
     }
   };
 
@@ -119,8 +119,7 @@ class MealPayment extends Component {
           {meal.price}
           <small>per guest</small>
         </div>
-        <div>
-        </div>
+        <div></div>
         <div className='details-container'>
           <div className='msg'>
             <span className={this.state.displayMsg}>{this.state.msg}</span>
@@ -140,7 +139,7 @@ class MealPayment extends Component {
           <div className='guests'>
             <label htmlFor='numOfAttendees'>Number of Guests</label>
             <input type='number' placeholder='Number of Guests' min='1' name='numOfAttendees' onChange={this.handleChange} value={this.state.numOfAttendees === 0 ? '' : this.state.numOfAttendees}></input>
-            <small className='small-text'>{this.state.availableText}</small>
+            <small className='small-text'>{}</small>
           </div>
           <div className={this.state.paymentClass}>
             <ul className='clean-list'>

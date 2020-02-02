@@ -58,10 +58,14 @@ class MealDetails extends Component {
   // }
 
   onEventRegistration = async registration => {
+    debugger;
+
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       let meal = { ...this.props.meal.storeMeal };
+      console.log('after spread', meal);
 
+      debugger;
       let selectedOccurance = meal.occurrences.find(current => current.id === registration.id);
       if (!selectedOccurance) {
         console.log("onEventRegistration: couldn't find selected occurrence", registration);
@@ -76,7 +80,7 @@ class MealDetails extends Component {
         selectedOccurance.attendees = [...selectedOccurance.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.numOfAttendees }];
       }
       selectedOccurance.total = parseInt(selectedOccurance.total) + parseInt(registration.numOfAttendees);
-
+      console.log('after adding data', meal);
       await this.props.add(meal);
       loggedInUser.titleHost = meal.title;
       SocketService.emit('newMsg', { meal, loggedInUser });
@@ -107,7 +111,12 @@ class MealDetails extends Component {
         rate: review.rate,
         at: Date.now(),
       };
-      meal.reviews = [...meal.reviews, newReview];
+
+      if (meal.reviews) {
+        meal.reviews = [...meal.reviews, newReview];
+      } else {
+        meal.reviews = [newReview];
+      }
 
       await this.props.add(meal);
     }
