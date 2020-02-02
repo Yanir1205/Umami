@@ -1,6 +1,21 @@
 .meal-details-page-container {
+  .page-title {
+    text-align: center;
+    & h2 {
+      margin-bottom: 20px;
+      margin-top: 30px;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      word-spacing: 4px;
+      font-size: 2.5rem;
+      font-family: righteous;
+      font-weight: 900;
+      color: $clr8;
+    }
+  }
+
   .meal-details-container {
-    & * h3 {
+    & > h3 {
       font-family: raleway-bold;
       margin-bottom: 0;
       padding-bottom: 0;
@@ -11,33 +26,45 @@
       height: 100%;
 
       .nav-container {
-        margin: 30px 0;
+        margin: 30px 0 60px 0;
+        background: linear-gradient(to bottom, $bkg1, $bkg2, $bkg3);
 
         .top-box {
-          margin-bottom: 10px;
+          margin-bottom: 50px;
+          justify-content: center;
           & > a {
-            background-color: $clr2;
+            background-color: transparent;
+            border: 1px solid $clr4;
+            color: $clr4;
             margin-right: 30px;
             padding: 10px 20px;
             font-family: raleway-bold;
-            font-size: 1.2rem;
+            font-size: 1rem;
             letter-spacing: 3px;
             word-spacing: 5px;
             transition: all 0.2s;
           }
           & a:hover {
-            background-color: $clr7; //$clr6;
+            border: 1px solid $clr7;
+            background-color: $clr7;
+            color: $clr4;
           }
         }
 
-        .bottom-box > div {
-          margin: 10px 25px 20px 0px;
-          text-transform: capitalize;
-          font-weight: bolder;
-          letter-spacing: 1px;
-          word-spacing: 2px;
-          line-height: normal;
-          vertical-align: text-bottom;
+        .bottom-box {
+          justify-content: space-around;
+
+          & > div {
+            text-transform: capitalize;
+            font-weight: bolder;
+            letter-spacing: 1px;
+            word-spacing: 2px;
+            line-height: normal;
+            vertical-align: text-bottom;
+          }
+          & > div:not(:last-child) {
+            margin-right: 10px;
+          }
         }
       }
 
@@ -61,6 +88,7 @@
 
       .payment-container {
         margin: 30px 0 20px 0;
+        // background-color: $clr1;
         .price {
           margin-bottom: 10px;
           font-family: raleway-bold;
@@ -68,12 +96,17 @@
           font-weight: normal;
           letter-spacing: 3px;
           word-spacing: 5px;
+
+          small {
+            font-size: 0.8rem;
+            margin-left: 5px;
+          }
         }
 
         .details-container {
           display: flex;
           flex-direction: column;
-          padding: 10px 20px 30px 20px;
+          // padding: 10px 20px 30px 20px;
 
           & > div:first-child {
             margin-top: 10px;
@@ -88,7 +121,7 @@
             flex-direction: column;
             margin-bottom: 20px;
             text-transform: capitalize;
-            color: $clr4;
+            // color: $clr4;
             font-weight: bolder;
             letter-spacing: 1px;
             word-spacing: 2px;

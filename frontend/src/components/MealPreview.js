@@ -49,9 +49,9 @@ class MealPreview extends Component {
         }
     }
 
-    // onCardClick = (id) => {
-    //     this.props.onCardClick(id)
-    // }
+    onCardClick = (id) => {
+        this.props.onCardClick(id)
+    }
 
     render() {
         const msg = this.getMainMsg();
@@ -65,7 +65,7 @@ class MealPreview extends Component {
             <div className='category-card-prev'>
                 <div className='image-with-superhost'>
                     {promotionMsg && <div className="super-host-preview ">{promotionMsg}</div>}
-                    <img src={this.props.meal.imgUrls[0]} alt='category' className='card-img-prev'></img>
+                    <img src={this.props.meal.imgUrls[0]} alt='category' className='card-img-prev' onClick={() => this.onCardClick(this.props.meal._id)}></img>
                 </div>
                 <h5 className='card-name-prev'>{msg.val}</h5>
                 <div className='card-total-one-prev'>
@@ -98,7 +98,7 @@ class MealPreview extends Component {
                 </div>
                 <div className='card-btn-prev'>
                     <Link to={`/meal/${this.props.meal._id}`} className='btn'>
-                        <span className=''>View Events</span>
+                        <span className=''>View Event</span>
                     </Link>
                 </div>
             </div>

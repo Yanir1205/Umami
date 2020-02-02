@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MealCategoryPreview from './MealCategoryPreview';
+import MealCategoryPreviewSM from './MealCategoryPreviewSM';
 import UtilitiesService from '../services/UtilitiesService';
 
 class MealCategoryList extends Component {
@@ -14,7 +14,7 @@ class MealCategoryList extends Component {
       <div className='main-categories-container category-cards'>
         {this.state.categories &&
           this.state.categories.map((category, idx) => {
-            return <MealCategoryPreview key={idx} category={category} displayCategory={this.props.displayCategory}></MealCategoryPreview>;
+            return <MealCategoryPreviewSM key={idx} category={category} displayCategory={this.props.displayCategory}></MealCategoryPreviewSM>;
           })}
       </div>
     );

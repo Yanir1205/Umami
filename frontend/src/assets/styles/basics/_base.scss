@@ -19,8 +19,10 @@ html {
 }
 
 body {
+  min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
+  padding-bottom: 65px;
 }
 
 img {
@@ -52,9 +54,11 @@ h2 {
 }
 
 h3 {
-  font-size: 1.2rem;
-  letter-spacing: 3px;
-  word-spacing: 5px;
+  color: darken($clr1, 15%);
+  font-family: caviar_dreams_bold, sans-serif;
+  font-weight: 500;
+  color: darken($clr1, 15%);
+  font-size: 1.4rem;
 }
 
 h4 {

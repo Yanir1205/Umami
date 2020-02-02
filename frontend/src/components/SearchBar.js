@@ -28,7 +28,7 @@ export class SearchBar extends Component {
       <div className='main-search-container container margin-top-20'>
         <input className='search-input' type='text' placeholder={this.props.placeholder} value={this.state.val} onChange={this.handleChange} onKeyUp={this.onSearchAction}></input>
       </div>
-    );
+    )
   }
 }
 

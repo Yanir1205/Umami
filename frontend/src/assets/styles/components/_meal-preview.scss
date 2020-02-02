@@ -5,8 +5,7 @@
   grid-template-columns: repeat(3, minmax(15rem, 1fr));
   grid-gap: 2rem;
   // height: 70rem;
-  margin: 10px;
-  
+  margin: 10px;  
 }
 
 .category-card-prev {
@@ -45,12 +44,13 @@
     grid-column: 1 / -1;
     z-index: 1;
     max-width: 100%; 
-    height: 17rem; 
+    height: 15rem; 
     position: relative;
     img{
       object-fit: cover; 
       width: 100%;
       height: 100%;
+      cursor: pointer;
     }
     div{
       position: absolute;

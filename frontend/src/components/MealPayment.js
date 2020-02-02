@@ -80,57 +80,54 @@ class MealPayment extends Component {
   };
 
   render() {
-
     const { meal } = this.props;
 
-    return (<div className='card-simple payment-container'>
-      <div className='price'>
-        <span>$</span>
-        {meal.price}
-        <small>per guest</small>
-      </div>
-      <div>
-        <hr />
-      </div>
-      <div className='details-container'>
-        <div className='msg'>
-          <span className={this.state.displayMsg}>{this.state.msg}</span>
-        </div>
-        <div className='date'>
-          <label htmlFor='date'>Date</label>
-          <select name='date' onChange={this.handleChange} value={this.state.date}>
-            {meal.availableDates.map((current, idx) => {
-              return (
-                <option key={idx} value={Moment(current.date).format('MM-DD-YY')}>
-                  {Moment(current.date).format('MM-DD-YY')}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div className='guests'>
-          <label htmlFor='numOfAttendees'>Number of Guests</label>
-          <input type='number' placeholder='Number of Guests' min='1' name='numOfAttendees' onChange={this.handleChange} value={this.state.numOfAttendees === 0 ? '' : this.state.numOfAttendees}></input>
-          <small className='small-text'>{this.state.availableText}</small>
-        </div>
-        <div className={this.state.paymentClass}>
-          <ul className='clean-list'>
-            <li>
-              <span>
-                ${meal.price} x {this.state.numOfAttendees}
-              </span>
-              <span>guests</span>
-            </li>
-            <li>
-              <span>Total</span>
-              <span>${this.state.totalPrice}</span>
-            </li>
-          </ul>
+    return (
+      <div className='card-simple card-bkg-yellow  payment-container'>
+        <div className='price'>
+          <span>$</span>
+          {meal.price}
+          <small>per guest</small>
         </div>
         <div>
         </div>
         <div className='details-container'>
-            <button onClick={this.onEventRegistration} className='button btn-main'>
+          <div className='msg'>
+            <span className={this.state.displayMsg}>{this.state.msg}</span>
+          </div>
+          <div className='date'>
+            <label htmlFor='date'>Date</label>
+            <select name='date' onChange={this.handleChange} value={this.state.date} style={{ fontFamily: 'raleway' }} className='minimal'>
+              {meal.availableDates.map((current, idx) => {
+                return (
+                  <option key={idx} value={Moment(current.date).format('MM-DD-YY')}>
+                    {Moment(current.date).format('MM-DD-YY')}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className='guests'>
+            <label htmlFor='numOfAttendees'>Number of Guests</label>
+            <input type='number' placeholder='Number of Guests' min='1' name='numOfAttendees' onChange={this.handleChange} value={this.state.numOfAttendees === 0 ? '' : this.state.numOfAttendees}></input>
+            <small className='small-text'>{this.state.availableText}</small>
+          </div>
+          <div className={this.state.paymentClass}>
+            <ul className='clean-list'>
+              <li>
+                <span>
+                  ${meal.price} x {this.state.numOfAttendees}
+                </span>
+                <span>guests</span>
+              </li>
+              <li>
+                <span>Total</span>
+                <span>${this.state.totalPrice}</span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <button onClick={this.onEventRegistration} className='button btn-red'>
               {this.state.buttonText}
             </button>
           </div>

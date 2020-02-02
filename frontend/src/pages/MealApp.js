@@ -138,11 +138,9 @@ export class MealApp extends Component {
     return (
       <div className='container'>
         <SearchBar></SearchBar>
-        {this.state.isLoading && (
-          <div className='spinner-container'>
+        {this.state.isLoading && (!(this.props.cities && this.state.renderType === 'location' && !isResultsUrl) || !(this.props.cities && this.state.renderType === 'location' && !isResultsUrl)) && <div className='spinner-container'>
             <Spinner type='spin'></Spinner>
-          </div>
-        )}
+          </div>}
         {this.props.cuisines && this.state.renderType === 'cuisine' && !isResultsUrl && <BadgeList selectedBadge={this.state.selectedBadge} onBadgeClick={this.onCuisineClick} badges={this.props.cuisines}></BadgeList>}
         {this.props.cities && this.state.renderType === 'location' && !isResultsUrl && <BadgeList selectedBadge={this.state.selectedBadge} onBadgeClick={this.onLocationClick} badges={this.props.cities}></BadgeList>}
         {this.props.meals.length > 0 && this.state.renderType && !this.state.isLoading && <MealList onCardClick={this.onCardClick} onCuisineClick={this.onCuisineClick} onLocationClick={this.onLocationClick} renderType={this.state.renderType} meals={this.props.meals} getAvgRate={this.getAvgRate}></MealList>}

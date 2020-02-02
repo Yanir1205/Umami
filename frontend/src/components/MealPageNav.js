@@ -17,11 +17,14 @@ class MealPageNav extends Component {
           </a>
         </div>
         <div className='bottom-box flex'>
-          <div className={hostRating.avgRate && hostRating.avgRate > 0 ? 'rate' : 'hide'}>
-            <i className='icon-small fas fa-star'></i>
-            <span>{hostRating.avgRate}</span>
-            <span>({hostRating.totalRated})</span>
-          </div>
+          {hostRating.avgRate > 0 && (
+            <div className={hostRating.avgRate && hostRating.avgRate > 0 ? 'rate' : 'hide'}>
+              <i className='icon-small fas fa-star'></i>
+              <span>{hostRating.avgRate}</span>
+              <span>({hostRating.totalRated})</span>
+            </div>
+          )}
+
           <div className='meal-period'>
             <span>{eventSetup.startTime}</span> - <span>{eventSetup.endTime}</span>
           </div>

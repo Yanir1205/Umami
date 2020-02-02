@@ -1,12 +1,21 @@
 .show-hide-text-container {
-  margin: 7px auto 40px;
+  margin: 7px auto 50px;
+  text-align: center;
+
+  h3 {
+    // font-family: ptserif_caption, 'sans-serif';
+    font-family: caviar_dreams_bold, sans-serif;
+    font-weight: 500;
+    color: darken($clr1, 15%);
+    font-size: 1.4rem;
+  }
 
   & > p {
     transition: all 0.2s;
+    font-family: ptserif-italic, 'sans-serif';
   }
 
   & > p > a {
-    font-family: oswald-semi;
     margin-left: 20px;
     text-decoration: underline;
     font-variant: small-caps;
