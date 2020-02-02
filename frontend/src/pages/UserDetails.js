@@ -19,14 +19,12 @@ class UserDetails extends Component {
 
   signToSocketEvent = userId => {
     SocketService.setup();
-    console.log('userId', userId);
 
     SocketService.emit('newChannel', `onEventRegistration${userId}`);
     SocketService.on('addMsg', this.addMsg);
   };
 
   addMsg = newMsg => {
-    console.log('TEST addMsg -> ', newMsg);
 
     this.loadMeals();
   }; //

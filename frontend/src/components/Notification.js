@@ -12,8 +12,11 @@ export class Notification extends Component {
     open: true,
     vertical: 'top',
     horizontal: 'center',
+    width:'20%',
     style:{
       backgroundColor: '#c0c0c0',
+      marginTop: '138px',
+
       // color:'white'
     }
   };

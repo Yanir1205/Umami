@@ -111,8 +111,6 @@ class MealPayment extends Component {
 
   render() {
     const { meal } = this.props;
-    console.log('MealPayment - props', this.props);
-    console.log('MealPayment - state', this.state);
 
     return (
       <div className='card-simple card-bkg-yellow  payment-container'>
@@ -122,7 +120,6 @@ class MealPayment extends Component {
           <small>per guest</small>
         </div>
         <div>
-          <hr />
         </div>
         <div className='details-container'>
           <div className='msg'>

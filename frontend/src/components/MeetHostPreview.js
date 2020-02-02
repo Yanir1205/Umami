@@ -6,17 +6,18 @@ export default class MeetHostPreview extends Component {
     const { host } = this.props;
     this.setState({
       host: {
-				imgUrl: host.imgUrl,
+        imgUrl: host.imgUrl,
         name: host.name,
-				location: host.location,
-				cuisine: host.cuisine,
-				reviews: host.reviews
-    });
+        location: host.location,
+        cuisine: host.cuisine,
+        reviews: host.reviews
+      }
+    })
   }
 
   render() {
     return (
-     <div></div>
+      <div></div>
     );
   }
 }

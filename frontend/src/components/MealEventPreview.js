@@ -30,7 +30,7 @@ class MealEventPreview extends Component {
             </div>
           </div>
           <div className='card-btn'>
-            <span className='btn'>View Events</span>
+            <span className='btn'>View Event</span>
           </div>
         </div>
       </Link>

@@ -32,7 +32,6 @@ export class Header extends Component {
 
   signToSocketEvent = userId => {
     SocketService.setup();
-    console.log('userId', userId);
     SocketService.emit('newChannel', `onEventRegistration${userId}`);
     SocketService.on('addMsg', this.addMsg);
   };
@@ -41,7 +40,7 @@ export class Header extends Component {
     console.log('Header -> ', newMsg);
 
     this.setState({ showNotification: true, registeredUser: newMsg.loggedInUser });
-    setTimeout(this.resetNotification, 3000);
+    setTimeout(this.resetNotification, 8000);
   };
 
   resetNotification = () => {

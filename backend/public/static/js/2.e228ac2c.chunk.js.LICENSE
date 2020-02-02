@@ -13,6 +13,13 @@ object-assign
 */
 
 /*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <http://feross.org>
+ * @license  MIT
+ */
+
+/*!
  * Adapted from jQuery UI core
  *
  * http://jqueryui.com
@@ -99,6 +106,8 @@ object-assign
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+
+/*! https://mths.be/utf8js v2.1.2 by @mathias */
 
 /** @license React v16.12.0
  * react-dom-server.browser.production.min.js

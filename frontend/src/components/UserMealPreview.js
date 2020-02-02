@@ -34,7 +34,7 @@ class UserMealPreview extends Component {
   render() {
     const occurrences = this.props.meal.occurrences
     
-    if (this.props.meal.objForHosted) {
+    if (this.props.meal.isHosted) {
       return (<React.Fragment>
         {occurrences && occurrences.map((occurrence) => {
           const date = new Date(occurrence.date).toLocaleDateString()
@@ -54,7 +54,7 @@ class UserMealPreview extends Component {
       </React.Fragment>)
     } else {
       const date = new Date(this.props.meal.date).toLocaleDateString()
-      return (!this.props.meal.objForHosted && <React.Fragment>
+      return (!this.props.meal.isHosted && <React.Fragment>
         <div className="tab-content cursor " onClick={this.onClickRow} title="Click me to see event">
           <ul className="guest-list clean-list">
             <ul className="clean-list flex space-between  ">

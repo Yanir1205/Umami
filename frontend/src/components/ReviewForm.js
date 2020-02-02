@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import SocketService from '../services/SocketService';
 import { addMsg } from '../actions/SocketAction';
 var id =1
+
 class ReviewForm extends Component {
   state = {
     email: '',
@@ -12,15 +12,6 @@ class ReviewForm extends Component {
     starSelected: 'icon-medium color-yellow far fa-star',
     msgs: ''
   };
-
-  componentDidMount() {
-
-  }
-
-  componentWillUnmount() {
-
-  }
-
 
   onSaveReviewForm = ev => {
     ev.preventDefault();
