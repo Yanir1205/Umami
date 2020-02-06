@@ -27,13 +27,13 @@ class Home extends Component {
                 <li>
                   <img src='https://res.cloudinary.com/contentexs/image/upload/v1580171632/globe.svg' alt='Food'></img>
                   <span>
-                    <span>1.</span>Choose Location
+                    <span>1.</span> Location
                   </span>
                 </li>
                 <li>
                   <img src='https://res.cloudinary.com/contentexs/image/upload/v1580171632/event.svg' alt='Food'></img>
                   <span>
-                    <span>2.</span>Select Event
+                    <span>2.</span>Select
                   </span>
                 </li>
                 <li>
