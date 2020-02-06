@@ -94,7 +94,7 @@ export class Header extends Component {
             {!this.props.loggedInUser && (
               <>
                 <Link className=' ' to={'/user/login'}>
-                  log-in
+                  login
                 </Link>
               </>
             )}

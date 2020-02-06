@@ -1,28 +1,3 @@
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
-
-function sortByDate(a, b) {
-  var dateA = new Date(a.date).getTime();
-  var dateB = new Date(b.date).getTime();
-  return dateA > dateB ? 1 : -1;
-}
-
-function addDaysToDate(date, days) {
-  const copy = new Date(Number(date));
-  copy.setDate(date.getDate() + days);
-  return copy;
-}
-
-function formatDate(date) {
-  let options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return new Intl.DateTimeFormat('en-US', options).format(new Date(date));
-}
-
-function findAllByKey(obj, keyToFind) {
-  return Object.entries(obj).reduce((acc, [key, value]) => (key === keyToFind ? acc.concat(value) : typeof value === 'object' ? acc.concat(findAllByKey(value, keyToFind)) : acc), []);
-}
-
 function getItemsInRange(items, startDate, endDate = null) {
   if (endDate === null)
     return items.filter(item => {
@@ -34,18 +9,38 @@ function getItemsInRange(items, startDate, endDate = null) {
     });
 }
 
-function _addCategoryInstanceVariety(instance, categoryType, cuisine, city) {
-  let variations = [];
+function findAllByKey(obj, keyToFind) {
+  return Object.entries(obj).reduce((acc, [key, value]) => (key === keyToFind ? acc.concat(value) : typeof value === 'object' ? acc.concat(findAllByKey(value, keyToFind)) : acc), []);
+}
 
-  if (categoryType.type === 'Cuisine') {
-    variations = instance.variations.includes(city) ? [...instance.variations, city] : instance.variations;
+function shuffleArray(items) {
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
   }
+  return items;
+}
 
-  if (categoryType.type === 'Location') {
-    variations = instance.variations.includes(cuisine) ? [...instance.variations, cuisine] : instance.variations;
+function distinctArray(items, property) {
+  const result = [];
+  const map = new Map();
+  for (const item of items) {
+    if (!map.has(item[property])) {
+      map.set(item[property], true);
+      result.push({ ...item });
+    }
   }
+  return result;
+}
 
-  return variations;
+function getRandomMeals(meals, displayCounter = 4) {
+  let result = [...meals];
+  if (result.length > 0) {
+    result = shuffleArray(result);
+    let length = result.length >= displayCounter ? displayCounter : result.length;
+    return result.slice(0, length);
+  }
+  return [];
 }
 
 function _getImageByCategoryType(categoryType, categoryInstance) {
@@ -53,24 +48,38 @@ function _getImageByCategoryType(categoryType, categoryInstance) {
 
   const mapCuisinesImages = {
     default: 'https://res.cloudinary.com/contentexs/image/upload/v1580324681/default-c.jpg',
-    'tex-mex': 'https://res.cloudinary.com/contentexs/image/upload/v1580322135/tex-mex.jpg',
+    american: 'https://res.cloudinary.com/contentexs/image/upload/v1580322135/tex-mex.jpg',
     asian: 'https://res.cloudinary.com/contentexs/image/upload/v1580322135/asian.jpg',
     spanish: 'https://res.cloudinary.com/contentexs/image/upload/v1580324681/barcelona.jpg',
     italian: 'https://res.cloudinary.com/contentexs/image/upload/v1580322135/italian.jpg',
     greek: 'https://res.cloudinary.com/contentexs/image/upload/v1580326079/greek.jpg',
     moroccan: 'https://res.cloudinary.com/contentexs/image/upload/v1580322135/moroccan.jpg',
     indian: 'https://res.cloudinary.com/contentexs/image/upload/v1580322135/indian.jpg',
+    jewish: 'https://res.cloudinary.com/contentexs/image/upload/v1580895267/jewish.jpg',
+    israeli: 'https://res.cloudinary.com/contentexs/image/upload/v1580895267/jewish.jpg',
+    latin: 'https://res.cloudinary.com/contentexs/image/upload/v1580895267/latin.jpg',
+    caribbean: 'https://res.cloudinary.com/contentexs/image/upload/v1580897677/caribbean.jpg',
+    british: 'https://res.cloudinary.com/contentexs/image/upload/v1580897912/british.jpg',
+    mediterranian: 'https://res.cloudinary.com/contentexs/image/upload/v1580898100/mediterranian.jpg',
+    filipino: 'https://res.cloudinary.com/contentexs/image/upload/v1580899463/filipino.jpg',
+    balkan: 'https://res.cloudinary.com/contentexs/image/upload/v1580899630/balkan.jpg',
+    egyptian: 'https://res.cloudinary.com/contentexs/image/upload/v1580900518/egyptian.jpg',
   };
 
   const mapCitiesImages = {
     default: 'https://res.cloudinary.com/contentexs/image/upload/v1580322153/default.jpg',
     dallas: 'https://res.cloudinary.com/contentexs/image/upload/v1580322153/dallas.jpg',
-    barcelona: 'https://res.cloudinary.com/contentexs/image/upload/v1580322153/barcelona.jpg',
+    barcelona: 'https://res.cloudinary.com/contentexs/image/upload/v1580894334/bkg-barcelona.jpg',
     duino: 'https://res.cloudinary.com/contentexs/image/upload/v1580322154/duino.jpg',
     athens: 'https://res.cloudinary.com/contentexs/image/upload/v1580322153/athens.jpg',
     marrakech: 'https://res.cloudinary.com/contentexs/image/upload/v1580322154/marrakech.jpg',
     delhi: 'https://res.cloudinary.com/contentexs/image/upload/v1580322153/delhi.jpg',
     bangkok: 'https://res.cloudinary.com/contentexs/image/upload/v1580322153/bangkok.jpg',
+    'new-york': 'https://res.cloudinary.com/contentexs/image/upload/v1580894333/newyork.jpg',
+    'tel-aviv': 'https://res.cloudinary.com/contentexs/image/upload/v1580894334/telaviv.jpg',
+    london: 'https://res.cloudinary.com/contentexs/image/upload/v1580897254/london.jpg',
+    sofia: 'https://res.cloudinary.com/contentexs/image/upload/v1580897254/sofia.jpg',
+    cairo: 'https://res.cloudinary.com/contentexs/image/upload/v1580900443/cairo.jpg',
   };
 
   if (categoryType.type === 'Cuisine') {
@@ -83,102 +92,28 @@ function _getImageByCategoryType(categoryType, categoryInstance) {
   return imgUrl;
 }
 
-function getNextOccurrenceDate(occurrences) {
-  const today = new Date();
-  return occurrences.reduce((result, value) => (result.date - today < value.date - today ? result.date : value.date), today);
-}
-
-function getAttendeesCounter(occurrences) {
-  return occurrences.reduce((result, value) => (result += parseInt(value.total)), 0);
-}
-
-function getOccurrencesInRange(occurrences, startDate, endDate) {
-  return occurrences.reduce((result, value) => {
-    return value.date > startDate && value.date <= endDate ? (result += 1) : result;
-  }, 0);
-}
-
-function getOccurrencesCounter(occurrences, minDate) {
-  return occurrences.reduce((result, value) => {
-    return value.date > minDate ? (result += 1) : result;
-  }, 0);
-}
-
-function getTopEventsInfo(meals, eventCounter = 4) {
-  let tmpMeals = [...meals];
-  let eventMeals = [];
-  if (tmpMeals.length > 0) {
-    let length = tmpMeals.length >= eventCounter ? eventCounter : tmpMeals.length;
-    for (let index = 0; index < length; index++) {
-      eventMeals.push(tmpMeals[index]);
-    }
-  }
-  return eventMeals;
-}
-
-function getCategoriesInfo(meals, category, returnCounter = 4) {
+function getRandomCategories(meals, category, displayCounter = 4) {
+  let result = [...meals];
   let categories = [];
   const categoryType = category === 'Cuisine' ? { type: category, property: 'cuisineType' } : { type: category, property: 'location.city' };
-  const startDate = addDaysToDate(new Date(), -1);
-  const endDate = addDaysToDate(startDate, 9);
 
-  meals.forEach(current => {
-    //categoryInstance -> Berlin / Italian
+  result.forEach(current => {
     const categoryInstance = categoryType.property.split('.').reduce((result, value) => {
       return result ? result[value] : undefined;
     }, current);
-    if (!categoryInstance) return;
-
-    let nextDate = getNextOccurrenceDate(current.occurrences);
-    let totalAttendees = getAttendeesCounter(current.occurrences);
-    if (parseInt(totalAttendees) < parseInt(current.capacity) && nextDate < new Date()) return;
-
-    let currentWeekOccurrences = getOccurrencesInRange(current.occurrences, startDate, endDate);
-    let totalOccurrences = getOccurrencesCounter(current.occurrences, new Date());
-    let instance = categories.find(current => current.name === categoryInstance);
-
-    if (instance) {
-      instance.nextAvailableDate = {
-        date: instance.nextAvailableDate.date > nextDate ? formatDate(nextDate) : formatDate(instance.nextAvailableDate.date),
-        city: current.location.city,
-        country: current.location.country,
-        cuisine: current.cuisineType,
-      };
-      instance.variations = _addCategoryInstanceVariety(instance, categoryType, current.cuisineType, current.location.city);
-      instance.totalOccurrences += parseInt(totalOccurrences);
-      instance.currentWeekOccurrences += parseInt(currentWeekOccurrences);
-      instance.totalEvents += 1;
-      instance.totalPrice += parseFloat(current.price);
-      instance.priceAvg = Math.floor(parseFloat(instance.totalPrice) / parseInt(instance.totalEvents));
-    } else {
-      instance = {
-        name: categoryInstance,
-        nextAvailableDate: { date: formatDate(nextDate), city: current.location.city, country: current.location.country, cuisine: current.cuisineType },
-        variations: categoryType === 'Cuisine' ? [current.location.city] : [current.cuisineType],
-        totalOccurrences: parseInt(totalOccurrences),
-        currentWeekOccurrences: parseInt(currentWeekOccurrences),
-        totalEvents: 1,
-        totalPrice: parseFloat(current.price),
-        priceAvg: Math.floor(parseFloat(current.price)),
-        imgUrl: _getImageByCategoryType(categoryType, categoryInstance),
-      };
-
-      categories = [...categories, instance];
-    }
+    categories = [...categories, { name: categoryInstance, imgUrl: _getImageByCategoryType(categoryType, categoryInstance) }];
   });
 
-  if (returnCounter != 0) {
-    return categories.slice(0, 4);
-  }
+  categories = distinctArray(categories, 'name');
+  categories = shuffleArray(categories);
+
+  let length = categories.length >= displayCounter ? displayCounter : categories.length;
+  return categories.slice(0, length);
 }
 
 export default {
-  sortByDate,
-  getCategoriesInfo,
   getItemsInRange,
   findAllByKey,
-  addDaysToDate,
-  formatDate,
-  getRandomInt,
-  getTopEventsInfo,
+  getRandomCategories,
+  getRandomMeals,
 };

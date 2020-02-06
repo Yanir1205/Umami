@@ -10,7 +10,7 @@ class MealEventPreview extends Component {
       <Link to={`/meal/${meal._id}`}>
         <div className='category-card'>
           <div className='img-wrapper'>
-            <img src={meal.imgUrl} alt='category' className='card-img'></img>
+            <img src={meal.imgUrls[0]} alt='category' className='card-img'></img>
           </div>
           <h5 className='card-name'>{meal.cuisineType}</h5>
           <div className='card-total-one'>
@@ -20,7 +20,7 @@ class MealEventPreview extends Component {
           </div>
           <div className='card-hosted'>
             <div>
-              <span>{meal.country} </span>,<span>{meal.city} </span>
+              <span>{meal.location.country} </span>,<span>{meal.location.city} </span>
             </div>
           </div>
           <div className='card-avg-price'>

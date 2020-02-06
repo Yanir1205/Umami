@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { load } from '../actions/MealActions';
+import { loadHomeMeals } from '../actions/MealActions';
 import SocketService from '../services/SocketService';
 
 import SearchBar from '../components/SearchBar';
@@ -10,12 +10,10 @@ import MeetOurHosts from '../components/MeetOurHosts';
 
 class Home extends Component {
   componentDidMount() {
-    this.props.load();
+    this.props.loadHomeMeals();
   }
 
   render() {
-    console.log('home page', this.props.meals);
-
     return (
       <>
         <div className='hero-container'>
@@ -52,7 +50,7 @@ class Home extends Component {
           </div>
         </div>
         <div className='section-container'>
-          {this.props.meals.length > 0 && (
+          {this.props.meals && this.props.meals.length > 0 && (
             <>
               <div className='section-title-container'>
                 <h2>Browse Our Top Locations</h2>
@@ -62,7 +60,7 @@ class Home extends Component {
           )}
         </div>
         <div className='section-container'>
-          {this.props.meals.length > 0 && (
+          {this.props.meals && this.props.meals.length > 0 && (
             <>
               <div className='section-title-container'>
                 <h2>View Our Exciting Cuisines</h2>
@@ -72,7 +70,7 @@ class Home extends Component {
           )}
         </div>
         <div className='section-container'>
-          {this.props.meals.length > 0 && (
+          {this.props.meals && this.props.meals.length > 0 && (
             <>
               <div className='section-title-container'>
                 <h2>Here Are Our New Events</h2>
@@ -95,12 +93,12 @@ class Home extends Component {
 const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
   filter: state.filter.filter,
-  meals: state.meal.meals,
+  meals: state.meal.homeMeals,
   msg: state.socket.msg,
 });
 
 const mapDispatchToProps = {
-  load,
+  loadHomeMeals,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

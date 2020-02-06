@@ -1,21 +1,6 @@
 .main-meet-hosts-container {
-  .bg-video {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-    opacity: 0.9;
-    overflow: hidden;
-
-    .bg-video-content {
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-    }
-  }
-
   .hosts {
-    margin: rem(50px) rem(50px);
+    margin: 0px rem(50px) rem(50px);
 
     grid-column: center-start / center-end;
     display: grid;

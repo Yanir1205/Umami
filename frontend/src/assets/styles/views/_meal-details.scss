@@ -70,9 +70,19 @@
 
       .reviews-title-wrapper {
         display: inline-flex;
+        align-items: flex-end;
 
         & > h3 {
           margin-right: 20px;
+        }
+
+        & label {
+          cursor: pointer;
+          transition: all 0.25s ease-out;
+
+          &:hover {
+            color: $clr1;
+          }
         }
       }
 
