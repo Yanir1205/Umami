@@ -10,7 +10,7 @@ export default {
   loadUserMeal,
   loadMealsByLocation,
   loadMealsByCuisine,
-  loadHomeMeals,
+  loadHomeMeals
 };
 
 export function load(filter) {

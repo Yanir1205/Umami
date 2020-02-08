@@ -87,14 +87,18 @@ class MealPayment extends Component {
           availableText: `${parseInt(selectedOccurance.seatsLeft) - parseInt(this.state.numOfAttendees)} available seats`,
           msg: '',
           displayMsg: 'hide',
-        });
+        }, this.updateOccurrance);
       }
     }
+    //set the selectedOccurrence in the meal object to contain the actualy selected occurrance from this function!
   };
+
+  updateOccurrance = () => {
+    this.props.onChangeDate(this.state.selectedOccurance)
+  }
 
   onEventRegistration = ev => {
     ev.preventDefault();
-    debugger;
     if (this.state.registerCounter === 0) {
       this.setState({ registerCounter: 1, buttonText: 'Book Event', paymentClass: 'payment' });
     } else if (this.state.registerCounter >= 1 && this.state.numOfAttendees !== 0) {
@@ -103,7 +107,6 @@ class MealPayment extends Component {
         this.setState({ msg: this.state.meal.messages.pleaseLogin, displayMsg: '' });
         return;
       }
-      debugger;
       this.props.onEventRegistration({ id: this.state.selectedOccurance.id, date: +Moment(this.state.date, 'MM-DD-YY'), numOfAttendees: this.state.numOfAttendees });
       this.setState({ registerCounter: 0, msg: '', displayMsg: 'hide', buttonText: 'Book Event', paymentClass: 'hide' });
     }
@@ -111,7 +114,6 @@ class MealPayment extends Component {
 
   render() {
     const { meal } = this.props;
-
     return (
       <div className='card-simple card-bkg-yellow  payment-container'>
         <div className='price'>

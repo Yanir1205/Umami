@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Notification from '../components/Notification';
-import { getById, add } from '../actions/MealActions';
-import { getMealDetails } from '../reducers/MealSelector';
+import { add } from '../actions/MealActions';
+import { getMeal, changeSelectedOccurrance } from '../actions/OccurrenceActions'
 
 import ImageGallery from '../components/ImageGallery';
 
@@ -23,8 +22,8 @@ class MealDetails extends Component {
 
   async componentDidMount() {
     const id = this.props.match.params.id;
-    await this.props.getById(id);
-    const hostedId = this.props.meal.storeMeal.hostedBy._id;
+    await this.props.getMeal(id, this.props.loggedInUser)
+    const hostedId = this.props.displayedMeal.storeMeal.hostedBy._id;
 
     this.signToSocketEvent(hostedId);
 
@@ -58,7 +57,7 @@ class MealDetails extends Component {
   onEventRegistration = async registration => {
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
-      let meal = { ...this.props.meal.storeMeal };
+      let meal = { ...this.props.displayedMeal.storeMeal };
       console.log('after spread', meal);
 
       let selectedOccurance = meal.occurrences.find(current => current.id === registration.id);
@@ -83,7 +82,7 @@ class MealDetails extends Component {
     }
   };
 
-  addMsg = newMsg => {};
+  addMsg = newMsg => { };
 
   onToggleReviewForm = ev => {
     ev.preventDefault();
@@ -92,11 +91,10 @@ class MealDetails extends Component {
   };
 
   onSaveReviewForm = async review => {
-    debugger;
     this.setState({ displayReviewForm: 'hide' });
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
-      let meal = { ...this.props.meal.storeMeal };
+      let meal = { ...this.props.displayedMeal.storeMeal };
 
       const newReview = {
         byUser: { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl },
@@ -115,10 +113,14 @@ class MealDetails extends Component {
     }
   };
 
+  onChangeDate = (occurrence) => {
+    this.props.changeSelectedOccurrance(occurrence)
+  }
+
   render() {
-    if (!this.props.meal) return <div className='border-loading-indicator col-2 row-1'></div>;
+    if (!this.props.displayedMeal) return <div className='border-loading-indicator col-2 row-1'></div>;
     else {
-      const { meal } = this.props;
+      const meal = this.props.displayedMeal;
       return (
         <div className='meal-details-page-container'>
           {meal && (
@@ -133,7 +135,7 @@ class MealDetails extends Component {
                   <ShowHideText text={meal.description} showRows={3}></ShowHideText>
                   <MealMenu menu={meal.eventMenu} />
                   <h3>{meal.eventAttendees && meal.eventAttendees.length > 0 ? meal.messages.hasAttendees : ''}</h3>
-                  {meal.eventAttendees && meal.eventAttendees.length > 0 && <AttendeesList attendees={meal.eventAttendees}></AttendeesList>}
+                  {meal.eventAttendees && meal.eventAttendees.length > 0 && <AttendeesList attendees={meal.eventAttendees} currOccurrance={meal.selectedOccurance}></AttendeesList>}
                   <div className='reviews-title-wrapper'>
                     <h3 id='reviews'>Reviews</h3>
                     <label title='Add a Review' onClick={this.onToggleReviewForm}>
@@ -150,7 +152,7 @@ class MealDetails extends Component {
                   </div>
                 </div>
                 <div className='right-box flex-shrink-30'>
-                  <MealPayment meal={meal} onEventRegistration={this.onEventRegistration}></MealPayment>
+                  <MealPayment meal={meal} onEventRegistration={this.onEventRegistration} onChangeDate={this.onChangeDate}></MealPayment>
                 </div>
               </div>
             </>
@@ -163,12 +165,13 @@ class MealDetails extends Component {
 
 const mapStateToProps = state => ({
   loggedInUser: state.user.loggedInUser,
-  meal: getMealDetails(state),
+  displayedMeal: state.occurrance.displayedMeal
 });
 
 const mapDispatchToProps = {
-  getById,
+  getMeal,
   add,
+  changeSelectedOccurrance
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MealDetails);

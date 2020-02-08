@@ -9,8 +9,17 @@ import MealEventList from '../components/MealEventList';
 import MeetOurHosts from '../components/MeetOurHosts';
 
 class Home extends Component {
+
   componentDidMount() {
     this.props.loadHomeMeals();
+  }
+
+  onAllCuisines = () => {
+    this.props.history.push('/meal/cuisine')
+  }
+
+  onAllLocations = () => {
+    this.props.history.push('/meal/location')
   }
 
   render() {
@@ -54,6 +63,7 @@ class Home extends Component {
             <>
               <div className='section-title-container'>
                 <h2>Browse Our Top Locations</h2>
+                <button className="container" onClick={this.onAllLocations}>More Locations</button>
               </div>
               <MealCategoryList meals={this.props.meals} displayCategory='Location'></MealCategoryList>
             </>
@@ -64,6 +74,7 @@ class Home extends Component {
             <>
               <div className='section-title-container'>
                 <h2>View Our Exciting Cuisines</h2>
+                <button className="container" onClick={this.onAllCuisines}>More Cuisines</button>
               </div>
               <MealCategoryList meals={this.props.meals} displayCategory='Cuisine'></MealCategoryList>
             </>
