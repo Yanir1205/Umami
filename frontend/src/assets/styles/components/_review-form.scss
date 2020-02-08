@@ -1,4 +1,7 @@
 .main-review-form-container {
+  background: linear-gradient(to bottom, $bkg1, $bkg2, $bkg3);
+  padding: 20px;
+
   & > h4 {
     font-size: 0.75rem;
     font-family: raleway, lato, 'sans-serif';
@@ -8,8 +11,12 @@
     margin-bottom: 20px;
 
     & > h3 {
+      font-size: 1rem;
       text-align: center;
       font-family: raleway, lato, 'sans-serif';
+    }
+    & > h3:first-of-type {
+      margin-bottom: 15px;
     }
 
     & .rating > i {
@@ -38,7 +45,7 @@
       width: 100%;
 
       & button {
-        width: 50%;
+        width: 25%;
       }
     }
   }

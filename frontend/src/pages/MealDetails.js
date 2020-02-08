@@ -19,16 +19,14 @@ import SocketService from '../services/SocketService';
 import MealMap from '../components/MealMap';
 
 class MealDetails extends Component {
-  state = { pageOverlayClass: 'hide', displayReviewForm: 'hide', occurrenceAttendees: {} };
+  state = { displayReviewForm: 'hide', occurrenceAttendees: {} };
 
   async componentDidMount() {
     const id = this.props.match.params.id;
     await this.props.getById(id);
-    console.log('MealDetails -> componentDidMount', this.props.meal);
     const hostedId = this.props.meal.storeMeal.hostedBy._id;
 
     this.signToSocketEvent(hostedId);
-    // console.log("hostedId->",hostedId);
 
     SocketService.emit('newChannel', `onEventRegistration${hostedId}`);
     SocketService.on('addMsg', this.addMsg);
@@ -58,14 +56,11 @@ class MealDetails extends Component {
   // }
 
   onEventRegistration = async registration => {
-    debugger;
-
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       let meal = { ...this.props.meal.storeMeal };
       console.log('after spread', meal);
 
-      debugger;
       let selectedOccurance = meal.occurrences.find(current => current.id === registration.id);
       if (!selectedOccurance) {
         console.log("onEventRegistration: couldn't find selected occurrence", registration);
@@ -80,8 +75,9 @@ class MealDetails extends Component {
         selectedOccurance.attendees = [...selectedOccurance.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.numOfAttendees }];
       }
       selectedOccurance.total = parseInt(selectedOccurance.total) + parseInt(registration.numOfAttendees);
-      console.log('after adding data', meal);
+
       await this.props.add(meal);
+
       loggedInUser.titleHost = meal.title;
       SocketService.emit('newMsg', { meal, loggedInUser });
     }
@@ -89,21 +85,18 @@ class MealDetails extends Component {
 
   addMsg = newMsg => {};
 
-  onDisplayReviewForm = ev => {
+  onToggleReviewForm = ev => {
     ev.preventDefault();
-    if (this.props.loggedInUser) this.setState({ displayReviewForm: '', pageOverlayClass: 'page-overlay show-block' });
-  };
-
-  onCloseReviewForm = ev => {
-    ev.preventDefault();
-    this.setState({ displayReviewForm: 'hide', pageOverlayClass: 'hide' });
+    // if (this.props.loggedInUser)
+    this.setState({ displayReviewForm: this.state.displayReviewForm === 'hide' ? '' : 'hide' });
   };
 
   onSaveReviewForm = async review => {
-    this.setState({ displayReviewForm: 'hide', pageOverlayClass: 'hide' });
+    debugger;
+    this.setState({ displayReviewForm: 'hide' });
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
-      const meal = { ...this.props.meal };
+      let meal = { ...this.props.meal.storeMeal };
 
       const newReview = {
         byUser: { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl },
@@ -139,16 +132,16 @@ class MealDetails extends Component {
                   <MealPageNav eventSetup={meal.eventSetup} hostRating={meal.hostRating}></MealPageNav>
                   <ShowHideText text={meal.description} showRows={3}></ShowHideText>
                   <MealMenu menu={meal.eventMenu} />
-                  <h3>{meal.eventAttendees && meal.eventAttendees.length > 0 ? meal.messages.hasAttendees : meal.messages.noAttendees}</h3>
+                  <h3>{meal.eventAttendees && meal.eventAttendees.length > 0 ? meal.messages.hasAttendees : ''}</h3>
                   {meal.eventAttendees && meal.eventAttendees.length > 0 && <AttendeesList attendees={meal.eventAttendees}></AttendeesList>}
                   <div className='reviews-title-wrapper'>
                     <h3 id='reviews'>Reviews</h3>
-                    <a title='Review Us' href='' onClick={this.onDisplayReviewForm}>
+                    <label title='Add a Review' onClick={this.onToggleReviewForm}>
                       <i className='icon-large far fa-plus-square'></i>
-                    </a>
+                    </label>
                   </div>
                   <div className={this.state.displayReviewForm}>
-                    <ReviewForm onSaveReviewForm={this.onSaveReviewForm} onCloseReviewForm={this.onCloseReviewForm}></ReviewForm>
+                    <ReviewForm onSaveReviewForm={this.onSaveReviewForm}></ReviewForm>
                   </div>
                   {meal.hostReviews && <ReviewList reviews={meal.hostReviews}></ReviewList>}
                   <div className='google-map-container'>

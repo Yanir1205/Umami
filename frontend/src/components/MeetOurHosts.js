@@ -4,12 +4,6 @@ export default class MeetOurHosts extends Component {
   render() {
     return (
       <div className='main-meet-hosts-container'>
-        <div className='bg-video'>
-          <video className='bg-video-content' autoPlay muted loop>
-            <source src='https://res.cloudinary.com/contentexs/video/upload/v1580346727/hosts-bg.mp4' type='video/mp4' /> Your browser is not supported!
-          </video>
-        </div>
-
         <div className='hosts'>
           <div className='host-container'>
             <img src='https://res.cloudinary.com/contentexs/image/upload/v1580359192/002.jpg' alt='Our event hosts' />
@@ -31,7 +25,7 @@ export default class MeetOurHosts extends Component {
             </blockquote>
           </div>
 
-          {/* <div className='host-container'>
+          <div className='host-container'>
             <img src='https://res.cloudinary.com/contentexs/image/upload/v1580359192/003.jpg' alt='Our event hosts' />
             <h2>Luc Seath</h2>
             <h3 className='host-txt'> Astrophysicist by formation, IT Database Designer by profession and cook by passion.</h3>
@@ -39,7 +33,7 @@ export default class MeetOurHosts extends Component {
               It was a very cozy and nice atmosphere. The food was prepared with great attention to detail and there was a huge variety of delicacies. Really very very tasty. It was great a pleasure!
               <cite>Rob Smith</cite>
             </blockquote>
-          </div> */}
+          </div>
         </div>
       </div>
     );

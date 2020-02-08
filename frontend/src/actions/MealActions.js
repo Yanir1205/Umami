@@ -10,6 +10,7 @@ export default {
   loadUserMeal,
   loadMealsByLocation,
   loadMealsByCuisine,
+  loadHomeMeals,
 };
 
 export function load(filter) {
@@ -19,9 +20,16 @@ export function load(filter) {
   };
 }
 
+export function loadHomeMeals() {
+  return async dispatch => {
+    const meals = await MealService.query(null);
+    dispatch({ type: 'LOAD_HOME_MEALS', meals });
+  };
+}
+
 export function loadMealsToList(meals) {
   //this method gets the full list of meals as received from the backend (and stored in the global state)
-  //and filters the meals to contain only the meals with releveant occurrances (dates which didn't pass already, occurrances which are not fully occuppied)
+  //and filters the meals to contain only the meals with releveant occurrences (dates which didn't pass already, occurrences which are not fully occuppied)
   return async dispatch => {
     const filteredMeals = await MealService.filter(meals);
     dispatch({ type: 'LOAD_FILTERED_MEALS', filteredMeals });
@@ -123,9 +131,10 @@ export function remove(id) {
   };
 }
 
-export function getMealForRegistration(meal) { //this method does not turn to the backend therefore it is not async!
+export function getMealForRegistration(meal) {
+  //this method does not turn to the backend therefore it is not async!
   return dispatch => {
     const newMeal = MealService.getMealForRegistration(meal);
-    dispatch({ type: 'LOAD_MEAL_FOR_REGISTRATION', filteredMeal: newMeal })
-  }
+    dispatch({ type: 'LOAD_MEAL_FOR_REGISTRATION', filteredMeal: newMeal });
+  };
 }

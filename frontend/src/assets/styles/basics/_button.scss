@@ -51,6 +51,19 @@ button {
   color: $clr3;
 }
 
+.btn-yellow {
+  border: 1px solid $clr4;
+  background-color: $clr4;
+  color: $clr2;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-yellow:hover {
+  background-color: $clr1;
+  color: $clr3;
+}
+
 .btn-red {
   border: 1px solid $crd3;
   background-color: $crd3;
