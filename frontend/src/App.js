@@ -21,21 +21,21 @@ const history = createBrowserHistory();
 export default class App extends Component {
   render() {
     return (
-      <React.Fragment>
+      <React.Fragment >
         <Router history={history}>
-          <Header></Header>
-          <Switch>
-            <Route component={Home} path='/' exact></Route>
-            <Route component={MealFormWrapper} path='/meal/edit/:id?'></Route>
-            <Route component={MealApp} path='/meal/location/:location?'></Route>
-            <Route component={MealApp} path='/meal/cuisine/:cuisine?'></Route>
-            <Route component={MealApp} path='/meal/results/:results?'></Route>
-            <Route component={Login} path='/user/login' exact></Route>
-            {/* <Route component={Signup} path='/user/signup' exact></Route> */}
-            <Route component={MealDetails} path='/meal/:id' exact></Route>
-            <Route component={UserDetails} path='/user/:id' exact></Route>
-          </Switch>
-          <Footer></Footer>
+            <Header></Header>
+            <Switch>
+              <Route component={Home} path='/' exact></Route>
+              <Route component={MealFormWrapper} path='/meal/edit/:id?'></Route>
+              <Route component={MealApp} path='/meal/location/:location?'></Route>
+              <Route component={MealApp} path='/meal/cuisine/:cuisine?'></Route>
+              <Route component={MealApp} path='/meal/results/:results?'></Route>
+              <Route component={Login} path='/user/login' exact></Route>
+              {/* <Route component={Signup} path='/user/signup' exact></Route> */}
+              <Route component={MealDetails} path='/meal/:id' exact></Route>
+              <Route component={UserDetails} path='/user/:id' exact></Route>
+            </Switch>
+            <Footer></Footer>
         </Router>
       </React.Fragment>
     );

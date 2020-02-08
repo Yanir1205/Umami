@@ -8,7 +8,7 @@ class MealList extends Component {
 
   render() {
     return (
-      <section className="main-categories-container category-cards-list">
+      <section className="container category-cards-list">
         {this.props.meals.map(meal => (
           <div  key={meal._id}>
             <MealPreview onCardClick={this.props.onCardClick} meal={meal} getAvgRate={this.props.getAvgRate} renderType={this.props.renderType} />
