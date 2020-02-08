@@ -3,7 +3,8 @@
   height: 75vh;
   top: 0;
   left: 0;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://res.cloudinary.com/contentexs/image/upload/v1580121612/hero-bkg.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("https://res.cloudinary.com/contentexs/image/upload/v1580121612/hero-bkg.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -85,11 +86,14 @@
 
 .section-title-container {
   margin: rem(50px) rem(50px) 0;
+  display: flex;
+  align-items: baseline;
 
   h2 {
     margin-bottom: 20px;
     font-family: righteous;
     font-size: 2rem;
     letter-spacing: 3px;
+    flex: 1;
   }
 }
