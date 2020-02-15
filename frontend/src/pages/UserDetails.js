@@ -7,6 +7,7 @@ import { setFilter } from '../actions/FilterActions';
 import UserMealList from '../components/UserMealList';
 
 class UserDetails extends Component {
+
   async componentDidMount() {
     this.resetFilterDefinitions();
   }
@@ -38,10 +39,10 @@ class UserDetails extends Component {
     const attended = [];
     const host = [];
 
-    const meals = [];
+    let meals = [];
     meals = [...this.props.userMeals];
     await meals.forEach(async meal => {
-      if (meal.hostedBy._id == id) {
+      if (meal.hostedBy._id === id) {
         await host.push(meal);
       } else {
         await attended.push(meal);
@@ -50,14 +51,14 @@ class UserDetails extends Component {
     return { host, attended };
   };
 
-  onDelete = async (userId, mealId, occurensId) => {
+  onDelete = async (userId, mealId, occurenceId) => {
     await this.props.getById(mealId);
     const meal = { ...this.props.meal };
     const occurrence = meal.occurrences.find(occurrence => {
-      return occurrence.id == occurensId;
+      return occurrence.id === occurenceId;
     });
     const idx = occurrence.attendees.findIndex(attendee => {
-      return attendee._id == userId;
+      return attendee._id === userId;
     });
     occurrence.attendees.splice(idx, 1);
     // await this.props.add(meal);
@@ -67,7 +68,7 @@ class UserDetails extends Component {
   render() {
     debugger
     const user = this.props.loggedInUser;
-    debugger
+    if (!user) return null
     return (
       user && (
         <div className='user-details-container container'>

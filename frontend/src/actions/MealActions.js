@@ -16,7 +16,7 @@ export default {
 export function load(filter) {
   return async dispatch => {
     const meals = await MealService.query(filter);
-    dispatch({ type: 'LOAD', meals });
+    dispatch({ type: 'LOAD_MEALS', meals });
   };
 }
 
@@ -63,7 +63,7 @@ export function loadMealsByLocation() {
   };
   return async dispatch => {
     const meals = await MealService.query(null, groupBy);
-    dispatch({ type: 'LOAD', meals });
+    dispatch({ type: 'LOAD_MEALS', meals });
   };
 }
 
@@ -76,7 +76,7 @@ export function loadMealsByCuisine() {
   };
   return async dispatch => {
     const meals = await MealService.query(null, groupBy);
-    dispatch({ type: 'LOAD', meals });
+    dispatch({ type: 'LOAD_MEALS', meals });
   };
 }
 
@@ -105,13 +105,13 @@ export function loadTags() {
 export function getById(id) {
   return async dispatch => {
     const meal = await MealService.getById(id);
-    dispatch({ type: 'GET_BY_ID', meal });
+    dispatch({ type: 'GET_MEAL_BY_ID', meal });
   };
 }
 
 export function add(meal) {
-  const action = meal._id ? 'UPDATE' : 'ADD';
-  if (action === 'UPDATE') {
+  const action = meal._id ? 'UPDATE_MEAL' : 'ADD_MEAL';
+  if (action === 'UPDATE_MEAL') {
     return async dispatch => {
       const newMeal = await MealService.update(meal);
       dispatch({ type: action, meal: newMeal });
@@ -127,7 +127,7 @@ export function add(meal) {
 export function remove(id) {
   return async dispatch => {
     await MealService.remove(id);
-    dispatch({ type: 'REMOVE', id });
+    dispatch({ type: 'REMOVE_MEAL', id });
   };
 }
 

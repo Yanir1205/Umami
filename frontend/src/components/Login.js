@@ -26,7 +26,7 @@ class Login extends Component {
     const user = { email, password };
 
     await this.props.login(user);
-    this.props.history.goBack();
+    this.props.history.push('/');
   };
 
   changeForm = () => {

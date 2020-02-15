@@ -42,7 +42,8 @@ export class MealForm extends Component {
 
   componentDidMount() {
     if (!this.props.meal) {
-      this.setState({ hostedBy: this.props.loggedInUser });
+      //create mode:
+      this.setState({ hostedBy: { _id: this.props.loggedInUser._id, fullName: this.props.loggedInUser.fullName, imgUrl: this.props.loggedInUser.imgUrl } });
     } else {
       const meal = this.props.meal;
       this.setState({
@@ -203,7 +204,7 @@ export class MealForm extends Component {
   }
 
   onSaveMeal = async ev => {
-    // ev.preventDefault();
+    ev.preventDefault();
     if (this.isFormComplete()) {
       const newAddress = await cloudService.getLatLngFromAddress(this.state.address + ', ' + this.state.city + ', ' + this.state.country);
       this.setTags();

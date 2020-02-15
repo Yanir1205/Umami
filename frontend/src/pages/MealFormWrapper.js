@@ -12,17 +12,16 @@ class MealFormWrapper extends Component {
     }
   }
 
-  onSaveMeal = async meal => {
-    const loggedInUser = { ...this.props.loggedInUser };
-    debugger
-    await this.props.add(meal);
-    debugger
+  onSaveMeal = async (meal) => {
+    const loggedInUser = this.props.loggedInUser;
+    const mealToAdd = { ...meal }
+    await this.props.add(mealToAdd);
     this.props.history.push(`/user/${loggedInUser._id}`)
     debugger
   };
 
   render() {
-    const loggedInUser = { ...this.props.loggedInUser }
+    const loggedInUser = this.props.loggedInUser
     const id = this.props.match.params.id;
     debugger
     return (

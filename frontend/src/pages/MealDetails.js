@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { add } from '../actions/MealActions';
-import { getMeal, changeSelectedOccurrance } from '../actions/OccurrenceActions'
+import { getMeal, changeSelectedOccurrance, updateMeal } from '../actions/OccurrenceActions'
 
 import ImageGallery from '../components/ImageGallery';
 
@@ -74,8 +74,7 @@ class MealDetails extends Component {
         selectedOccurance.attendees = [...selectedOccurance.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.numOfAttendees }];
       }
       selectedOccurance.total = parseInt(selectedOccurance.total) + parseInt(registration.numOfAttendees);
-
-      await this.props.add(meal);
+      await this.props.updateMeal(meal,this.props.loggedInUser);
 
       loggedInUser.titleHost = meal.title;
       SocketService.emit('newMsg', { meal, loggedInUser });
@@ -91,26 +90,25 @@ class MealDetails extends Component {
   };
 
   onSaveReviewForm = async review => {
-    this.setState({ displayReviewForm: 'hide' });
     if (this.props.loggedInUser) {
       const { loggedInUser } = this.props;
       let meal = { ...this.props.displayedMeal.storeMeal };
-
       const newReview = {
         byUser: { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl },
         txt: review.txt,
         rate: review.rate,
         at: Date.now(),
       };
-
-      if (meal.reviews) {
+      
+      if (meal.reviews.length > 0) {
         meal.reviews = [...meal.reviews, newReview];
       } else {
         meal.reviews = [newReview];
       }
-
-      await this.props.add(meal);
+      
+      await this.props.updateMeal(meal,this.props.loggedInUser);
     }
+    this.setState({ displayReviewForm: 'hide' });
   };
 
   onChangeDate = (occurrence) => {
@@ -171,6 +169,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   getMeal,
   add,
+  updateMeal,
   changeSelectedOccurrance
 };
 
