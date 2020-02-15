@@ -63,7 +63,7 @@
             vertical-align: text-bottom;
           }
           & > div:not(:last-child) {
-            margin-right: 10px;
+            margin-right: 5px;
           }
         }
       }
@@ -162,4 +162,364 @@
       }
     }
   }
+
 }
+
+// $mobile-breakpoint: 460px;
+// $narrow-breakpoint: 720px;
+// $normal-breakpoint: 960px;
+// $wide-breakpoint: 1100px;
+
+@media screen and (max-width: $narrow-breakpoint){
+  .meal-details-page-container {
+    padding: 0;
+    .page-title {
+      text-align: center;
+      & h2 {
+        // margin-bottom: 20px;
+        // margin-top: 30px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        word-spacing: 2px;
+        font-size: 1rem;
+        font-family: righteous;
+        font-weight: 900;
+        color: $clr8;
+      }
+    }
+  
+    .meal-details-container {
+      & > h3 {
+        font-family: raleway-bold;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+      flex-direction:column-reverse;
+      .left-box {
+        margin-right: 0px;
+        height: 100%;
+        position: relative;
+  
+        .nav-container {
+          margin: 10px 0 10px 0;
+          background: linear-gradient(to bottom, $bkg1, $bkg2, $bkg3);
+  
+          .top-box {
+            margin-bottom: 30px;
+            justify-content: center;
+            font-size: 1.5rem;
+
+            & > a {
+              background-color: transparent;
+              border: 1px solid $clr4;
+              color: $clr4;
+              // margin-right: 10px;
+              // padding: 10px 20px;
+              font-family: raleway-bold;
+              font-size: 1rem;
+              letter-spacing: 1px;
+              word-spacing: 2px;
+              transition: all 0.2s;
+            }
+            & a:hover {
+              border: 1px solid $clr7;
+              background-color: $clr7;
+              color: $clr4;
+            }
+          }
+  
+          .bottom-box {
+            justify-content: space-around;
+            font-size: 0.9rem;
+
+  
+            & > div {
+              text-transform: capitalize;
+              font-weight: bolder;
+              letter-spacing: 0.5px;
+              word-spacing: 1px;
+              line-height: normal;
+              vertical-align: text-bottom;
+            }
+            & > div:not(:last-child) {
+              margin-right: 5px;
+            }
+          }
+        }
+  
+        .reviews-title-wrapper {
+          display: inline-flex;
+          align-items: flex-end;
+  
+          & > h3 {
+            margin-right: 20px;
+          }
+  
+          & label {
+            cursor: pointer;
+            transition: all 0.25s ease-out;
+  
+            &:hover {
+              color: $clr1;
+            }
+          }
+        }
+  
+        .main-reviews-container {
+          margin-bottom: 40px;
+        }
+      }
+  
+      .right-box {
+        height: 100%;
+        position: relative;
+        // top: 0;
+        // flex: 1 0 10%;
+        // width: fit-content;
+        .payment-container {
+          margin: 30px 0 20px 0;
+          // background-color: $clr1;
+          .price {
+            margin-bottom: 10px;
+            font-family: raleway-bold;
+            font-size: 120%;
+            font-weight: normal;
+            letter-spacing: 3px;
+            word-spacing: 5px;
+  
+            small {
+              font-size: 0.8rem;
+              margin-left: 5px;
+            }
+          }
+  
+          .details-container {
+            display: flex;
+            flex-direction: column;
+            // padding: 10px 20px 30px 20px;
+  
+            & > div:first-child {
+              margin-top: 10px;
+            }
+  
+            & > div label {
+              margin-bottom: 10px;
+            }
+  
+            & > div {
+              display: flex;
+              flex-direction: column;
+              margin-bottom: 20px;
+              text-transform: capitalize;
+              // color: $clr4;
+              font-weight: bolder;
+              letter-spacing: 1px;
+              word-spacing: 2px;
+              line-height: normal;
+              vertical-align: text-bottom;
+            }
+  
+            .selected-date {
+              background-color: $clr5;
+            }
+  
+            .payment ul {
+              display: flex;
+              flex-direction: column;
+            }
+            & ul > li {
+              margin: 10px 0px 20px 0px;
+              padding-bottom: 10px;
+              border-bottom: 1px solid $clr4;
+              font-weight: normal;
+              display: flex;
+              justify-content: space-between;
+            }
+            & ul > li > span:first-child {
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  
+  }
+
+}
+
+
+@media screen and (max-width: $mobile-breakpoint){
+  .meal-details-page-container {
+    padding: 0;
+    .page-title {
+      text-align: center;
+      & h2 {
+        // margin-bottom: 20px;
+        // margin-top: 30px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        word-spacing: 2px;
+        font-size: 1rem;
+        font-family: righteous;
+        font-weight: 900;
+        color: $clr8;
+      }
+    }
+  
+    .meal-details-container {
+      & > h3 {
+        font-family: raleway-bold;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+      flex-direction:column-reverse;
+      .left-box {
+        margin-right: 10px;
+        height: 100%;
+  
+        .nav-container {
+          margin: 10px 0 10px 0;
+          background: linear-gradient(to bottom, $bkg1, $bkg2, $bkg3);
+  
+          .top-box {
+            margin-bottom: 30px;
+            justify-content: center;
+            font-size: 0.8rem;
+
+            & > a {
+              background-color: transparent;
+              border: 1px solid $clr4;
+              color: $clr4;
+              // margin-right: 10px;
+              // padding: 10px 20px;
+              font-family: raleway-bold;
+              font-size: 0.8rem;
+              letter-spacing: 1px;
+              word-spacing: 2px;
+              transition: all 0.2s;
+            }
+            & a:hover {
+              border: 1px solid $clr7;
+              background-color: $clr7;
+              color: $clr4;
+            }
+          }
+  
+          .bottom-box {
+            justify-content: space-around;
+            font-size: 0.8rem;
+
+  
+            & > div {
+              text-transform: capitalize;
+              font-weight: bolder;
+              letter-spacing: 0.5px;
+              word-spacing: 1px;
+              line-height: normal;
+              vertical-align: text-bottom;
+            }
+            & > div:not(:last-child) {
+              margin-right: 5px;
+            }
+          }
+        }
+  
+        .reviews-title-wrapper {
+          display: inline-flex;
+          align-items: flex-end;
+  
+          & > h3 {
+            margin-right: 20px;
+          }
+  
+          & label {
+            cursor: pointer;
+            transition: all 0.25s ease-out;
+  
+            &:hover {
+              color: $clr1;
+            }
+          }
+        }
+  
+        .main-reviews-container {
+          margin-bottom: 40px;
+        }
+      }
+  
+      .right-box {
+        height: 100%;
+        position: relative;
+        // top: 0;
+        // flex: 1 0 10%;
+        .payment-container {
+          margin: 30px 0 20px 0;
+          // background-color: $clr1;
+          .price {
+            margin-bottom: 10px;
+            font-family: raleway-bold;
+            font-size: 120%;
+            font-weight: normal;
+            letter-spacing: 3px;
+            word-spacing: 5px;
+  
+            small {
+              font-size: 0.8rem;
+              margin-left: 5px;
+            }
+          }
+  
+          .details-container {
+            display: flex;
+            flex-direction: column;
+            // padding: 10px 20px 30px 20px;
+  
+            & > div:first-child {
+              margin-top: 10px;
+            }
+  
+            & > div label {
+              margin-bottom: 10px;
+            }
+  
+            & > div {
+              display: flex;
+              flex-direction: column;
+              margin-bottom: 20px;
+              text-transform: capitalize;
+              // color: $clr4;
+              font-weight: bolder;
+              letter-spacing: 1px;
+              word-spacing: 2px;
+              line-height: normal;
+              vertical-align: text-bottom;
+            }
+  
+            .selected-date {
+              background-color: $clr5;
+            }
+  
+            .payment ul {
+              display: flex;
+              flex-direction: column;
+            }
+            & ul > li {
+              margin: 10px 0px 20px 0px;
+              padding-bottom: 10px;
+              border-bottom: 1px solid $clr4;
+              font-weight: normal;
+              display: flex;
+              justify-content: space-between;
+            }
+            & ul > li > span:first-child {
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  
+  }
+
+}
+

@@ -2,7 +2,7 @@
   // margin: 0 rem(50px) rem(50px);
   // padding: 10px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(15rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
   grid-gap: 2rem;
   font-family: raleway, lato, 'sans-serif';
 
@@ -13,7 +13,7 @@
 
   background-color: $clr2;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
   grid-row-gap: 1rem;
   border: 1px solid #deb200;
   // min-width: 21rem;
@@ -160,7 +160,7 @@
     // margin: 0 rem(50px) rem(50px);
     // padding: 10px;
     display: grid;
-    grid-template-columns: repeat(2, minmax(5rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
     grid-gap: 2rem;
     font-family: raleway, lato, 'sans-serif';
 
@@ -171,10 +171,10 @@
   
     background-color: $clr2;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
     grid-row-gap: 1rem;
     border: 1px solid #deb200;
-    // min-width:15rem;
+    min-width:15rem;
   
     .super-host-preview {
       font-family: raleway, lato, 'sans-serif';
