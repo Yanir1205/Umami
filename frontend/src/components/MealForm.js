@@ -197,45 +197,52 @@ export class MealForm extends Component {
     this.setState({ tags: newTags });
   };
 
+  isFormComplete = () => {
+    const status = this.state
+    return (status.address && status.country && status.city && status.cuisineType && status.mealType && status.title && status.price && status.description && status.firstCourse && status.mainCourse && status.desserts && status.beverages && status.capacity && status.imgUrls)
+  }
+
   onSaveMeal = async ev => {
     // ev.preventDefault();
-    const newAddress = await cloudService.getLatLngFromAddress(this.state.address + ', ' + this.state.city + ', ' + this.state.country);
-    this.setTags();
-    let meal = {
-      _id: this.state._id,
-      isActive: true,
-      isPromoted: this.state.isPromoted,
-      hostedBy: this.state.hostedBy,
-      menu: {
-        firstCourse: this.state.firstCourse,
-        mainCourse: this.state.mainCourse,
-        desserts: this.state.desserts,
-        beverages: this.state.beverages,
-      },
-      location: {
-        city: this.state.city,
-        country: this.state.country,
-        address: this.state.address,
-        lat: newAddress.lat,
-        lng: newAddress.lng,
-      },
-      imgUrls: this.state.imgUrls,
-      title: this.state.title,
-      description: this.state.description,
-      cuisineType: this.state.cuisineType,
-      mealType: this.state.mealType,
-      price: this.state.price,
-      occurrences: this.state.occurrences,
-      capacity: this.state.capacity,
-      reviews: this.state.reviews,
-      currency: this.state.currency,
-      tags: this.state.tags,
-    };
-    if (!this.props.meal) {
-      //create mode
-      delete meal._id;
+    if (this.isFormComplete()) {
+      const newAddress = await cloudService.getLatLngFromAddress(this.state.address + ', ' + this.state.city + ', ' + this.state.country);
+      this.setTags();
+      let meal = {
+        _id: this.state._id,
+        isActive: true,
+        isPromoted: this.state.isPromoted,
+        hostedBy: this.state.hostedBy,
+        menu: {
+          firstCourse: this.state.firstCourse,
+          mainCourse: this.state.mainCourse,
+          desserts: this.state.desserts,
+          beverages: this.state.beverages,
+        },
+        location: {
+          city: this.state.city,
+          country: this.state.country,
+          address: this.state.address,
+          lat: newAddress.lat,
+          lng: newAddress.lng,
+        },
+        imgUrls: this.state.imgUrls,
+        title: this.state.title,
+        description: this.state.description,
+        cuisineType: this.state.cuisineType,
+        mealType: this.state.mealType,
+        price: this.state.price,
+        occurrences: this.state.occurrences,
+        capacity: this.state.capacity,
+        reviews: this.state.reviews,
+        currency: this.state.currency,
+        tags: this.state.tags,
+      };
+      if (!this.props.meal) {
+        //create mode
+        delete meal._id;
+      }
+      this.props.onSaveMeal(meal);
     }
-    this.props.onSaveMeal(meal);
   };
 
   handleDateRemoval = (occurrences, occurrenceIdx) => {
