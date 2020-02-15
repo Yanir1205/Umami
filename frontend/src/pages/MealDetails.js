@@ -37,22 +37,22 @@ class MealDetails extends Component {
     SocketService.on('addMsg', this.addMsg);
   };
 
-  // componentWillUnmount(){
-  //   if(!this.props.loggedInUser){
-  //     this.unSignToSocketEvent()
-  //   }
-  // }
+  componentWillUnmount(){
+    if(!this.props.loggedInUser){
+      this.unSignToSocketEvent()
+    }
+  }
 
   // componentWillUnmount() {
   //   SocketService.off('addMsg', this.addMsg);
   //   SocketService.terminate();
   // } //
 
-  // unSignToSocketEvent = () => {
+  unSignToSocketEvent = () => {
 
-  //   SocketService.off('addMsg', this.addMsg);
-  //   SocketService.terminate();
-  // }
+    SocketService.off('addMsg', this.addMsg);
+    SocketService.terminate();
+  }
 
   onEventRegistration = async registration => {
     if (this.props.loggedInUser) {

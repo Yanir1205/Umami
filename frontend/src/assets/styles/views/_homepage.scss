@@ -97,3 +97,240 @@
     flex: 1;
   }
 }
+
+// $mobile-breakpoint: 460px;
+// $narrow-breakpoint: 720px;
+// $normal-breakpoint: 960px;
+// $wide-breakpoint: 1100px;
+
+
+@media screen and (max-width: $narrow-breakpoint){ //720px
+
+
+  .hero-container {
+    max-width: 100vw; //start vale 100vw
+    height: 75vh;// start value 75 vh
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+      url("https://res.cloudinary.com/contentexs/image/upload/v1580121612/hero-bkg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  
+    .hero-box {
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba($clr2, 0.85);
+      border-radius: 5px;
+      width: 80vw;//start value 70vw
+      padding-bottom: 30px;
+  
+      .text {
+        // margin-bottom: 15px;
+        padding: 3px;
+        text-align: center;
+        color: $clr3;
+  
+        & > span:first-child {
+          font-family: righteous;
+          color: $clr8;
+          font-size:3rem;
+          letter-spacing: 2px;
+          word-spacing: 5px;
+        }
+  
+        & > span:last-child {
+          //font-family: raleway-bold;
+          font-size: 1rem;
+          text-transform: uppercase;
+          /* letter-spacing: 4px; */
+          word-spacing: 4px;
+        }
+      }
+  
+      .how-to {
+        margin-bottom: 10px;
+        width: 100%;
+  
+        & > ul > li:first-child {
+          margin-left: 20px; //start value 30px
+        }
+  
+        & > ul > li {
+          margin-right: 20px;//start value 30px
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          // justify-content: space-between;
+  
+          & > img {
+            width: 40px;
+            height: auto;
+            object-fit: contain;
+          }
+  
+          // & > img:hover {
+          //   filter: invert(0.5) sepia(36) saturate(390) hue-rotate(10deg);
+          // }
+  
+          & > span {
+            font-family: raleway-bold;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            word-spacing: 3px;
+  
+            span {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+  
+      .search-container {
+        width: 98%; //start value 80%
+      }
+    }
+  }
+
+  .section-title-container {
+    margin: rem(50px) rem(50px) 0;
+    display: flex;
+    align-items: baseline;
+  
+      h2 {
+      margin-bottom: 20px;
+      font-family: righteous;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      flex: 1;
+    }
+
+    .btn-more-options{
+      width:8.8rem;
+      height:3rem;
+      font-size: 1rem;
+
+    }
+  }
+
+
+
+}
+
+@media screen and (max-width:$mobile-breakpoint){
+
+
+  .hero-container {
+    max-width: 100vw; //start vale 100vw
+    height: 75vh;// start value 75 vh
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+      url("https://res.cloudinary.com/contentexs/image/upload/v1580121612/hero-bkg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  
+    .hero-box {
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba($clr2, 0.85);
+      border-radius: 5px;
+      width: 80vw;//start value 70vw
+      padding-bottom: 30px;
+  
+      .text {
+        margin-bottom: 30px;
+        padding: 2px;
+        text-align: center;
+        color: $clr3;
+  
+        & > span:first-child {
+          font-family: righteous;
+          color: $clr8;
+          font-size: 3rem;
+          letter-spacing: 2px;
+          word-spacing: 5px;
+        }
+  
+        & > span:last-child {
+          //font-family: raleway-bold;
+          font-size: 1rem;
+          text-transform: uppercase;
+          /* letter-spacing: 4px; */
+          word-spacing: 4px;
+        }
+      }
+  
+      .how-to {
+        margin-bottom: 10px;
+        width: 100%;
+  
+        & > ul > li:first-child {
+          margin-left: 15px; //start value 30px
+        }
+  
+        & > ul > li {
+          margin-right: 15px;//start value 30px
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          // justify-content: space-between;
+  
+          & > img {
+            width: 40px;
+            height: auto;
+            object-fit: contain;
+          }
+  
+          // & > img:hover {
+          //   filter: invert(0.5) sepia(36) saturate(390) hue-rotate(10deg);
+          // }
+  
+          & > span {
+            font-family: raleway-bold;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            word-spacing: 3px;
+  
+            span {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+  
+      .search-container {
+        width: 98%; //start value 80%
+      }
+    }
+  }
+
+  .section-title-container {
+    margin: rem(50px) rem(50px) 0;
+    display: flex;
+    align-items: baseline;
+  
+      h2 {
+      margin-bottom: 20px;
+      font-family: righteous;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      flex: 1;
+    }
+
+    .btn-more-options{
+      width:6.5rem;
+      height:3rem;
+      font-size: 0.7rem;
+
+    }
+  }
+
+}
+

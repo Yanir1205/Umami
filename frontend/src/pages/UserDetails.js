@@ -9,25 +9,7 @@ import UserMealList from '../components/UserMealList';
 class UserDetails extends Component {
   async componentDidMount() {
     this.resetFilterDefinitions();
-    this.signToSocketEvent(this.props.loggedInUser._id);
   }
-
-  // componentWillUnmount() {
-  //   SocketService.off('addMsg', this.addMsg);
-  //   SocketService.terminate();
-  // }
-
-  signToSocketEvent = userId => {
-    SocketService.setup();
-
-    SocketService.emit('newChannel', `onEventRegistration${userId}`);
-    SocketService.on('addMsg', this.addMsg);
-  };
-
-  addMsg = newMsg => {
-
-    this.loadMeals();
-  }; //
 
   resetFilterDefinitions = async () => {
     await this.props.setFilter({
@@ -83,7 +65,9 @@ class UserDetails extends Component {
   };
 
   render() {
+    debugger
     const user = this.props.loggedInUser;
+    debugger
     return (
       user && (
         <div className='user-details-container container'>

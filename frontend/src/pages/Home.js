@@ -63,7 +63,7 @@ class Home extends Component {
             <>
               <div className='section-title-container'>
                 <h2>Browse Our Top Locations</h2>
-                <button className="container" onClick={this.onAllLocations}>More Locations</button>
+                <button className="container btn-more-options" onClick={this.onAllLocations}>More Locations</button>
               </div>
               <MealCategoryList meals={this.props.meals} displayCategory='Location'></MealCategoryList>
             </>
@@ -74,7 +74,7 @@ class Home extends Component {
             <>
               <div className='section-title-container'>
                 <h2>View Our Exciting Cuisines</h2>
-                <button className="container" onClick={this.onAllCuisines}>More Cuisines</button>
+                <button className="container btn-more-options" onClick={this.onAllCuisines}>More Cuisines</button>
               </div>
               <MealCategoryList meals={this.props.meals} displayCategory='Cuisine'></MealCategoryList>
             </>

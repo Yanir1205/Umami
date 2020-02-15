@@ -14,14 +14,17 @@ class MealFormWrapper extends Component {
 
   onSaveMeal = async meal => {
     const loggedInUser = { ...this.props.loggedInUser };
-
+    debugger
     await this.props.add(meal);
+    debugger
     this.props.history.push(`/user/${loggedInUser._id}`)
+    debugger
   };
 
   render() {
     const loggedInUser = { ...this.props.loggedInUser }
     const id = this.props.match.params.id;
+    debugger
     return (
       <React.Fragment>
         <div className='container main-form-container'>
