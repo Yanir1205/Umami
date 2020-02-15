@@ -25,9 +25,11 @@ class MealPreview extends Component {
     getPromotionMsg() {
         const nextMeal = this.getNextDateFromNow()
         if (this.props.meal.isPromoted) return 'super host';
-        else if (this.getDifferenceInDays(nextMeal.max.date) <= 2) return 'hurry up!';
-        else if (this.props.meal.capacity - this.props.meal.occurrences[nextMeal.maxIdx].attendees.length < 4) {
-            return `${this.props.meal.capacity - this.props.meal.occurrences[nextMeal.maxIdx].attendees.length} places left!`
+        else if (nextMeal.maxIdx) {
+            if (this.getDifferenceInDays(nextMeal.max.date) <= 2) return 'hurry up!';
+            else if (this.props.meal.capacity - this.props.meal.occurrences[nextMeal.maxIdx].attendees.length < 4) {
+                return `${this.props.meal.capacity - this.props.meal.occurrences[nextMeal.maxIdx].attendees.length} places left!`
+            }
         }
         return null;
     }

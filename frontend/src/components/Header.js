@@ -26,9 +26,9 @@ export class Header extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.unSignToSocketEvent();
-  }
+  // componentWillUnmount() {
+  //   this.unSignToSocketEvent();
+  // }
 
   signToSocketEvent = userId => {
     SocketService.setup();
@@ -47,10 +47,10 @@ export class Header extends Component {
     this.setState({ showNotification: false, registeredUser: '' });
   };
 
-  unSignToSocketEvent = () => {
-    SocketService.off('addMsg', this.addMsg);
-    SocketService.terminate();
-  };
+  // unSignToSocketEvent = () => {
+  //   SocketService.off('addMsg', this.addMsg);
+  //   SocketService.terminate();
+  // };
 
   onLogout = ev => {
     ev.preventDefault();
