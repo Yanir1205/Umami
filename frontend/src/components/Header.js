@@ -26,9 +26,9 @@ export class Header extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.unSignToSocketEvent();
-  }
+  // componentWillUnmount() {
+  //   this.unSignToSocketEvent();
+  // }
 
   signToSocketEvent = userId => {
     SocketService.setup();
@@ -48,7 +48,7 @@ export class Header extends Component {
   };
 
   // unSignToSocketEvent = () => {
-  //   SocketService.off('addMsg', this.addMsg);
+  //   // SocketService.off('addMsg', this.addMsg);
   //   SocketService.terminate();
   // };
 

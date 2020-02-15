@@ -24,6 +24,7 @@ class MealPreview extends Component {
 
     getPromotionMsg() {
         const nextMeal = this.getNextDateFromNow()
+        debugger
         if (this.props.meal.isPromoted) return 'super host';
         else if (this.getDifferenceInDays(nextMeal.max.date) <= 2) return 'hurry up!';
         else if (this.props.meal.capacity - this.props.meal.occurrences[nextMeal.maxIdx].attendees.length < 4) {
