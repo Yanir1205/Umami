@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 
 const GOOGLE_API_KEY = 'AIzaSyDt708aK1FKYJTOT61i_xrzY9R3UD3_6Lw&&';
 
@@ -10,13 +10,6 @@ const mapContainerStyle = {
 };
 
 class MealMap extends Component {
-  // defaultProps = {
-  //   center: {
-  //     lat: this.props.location.lat,
-  //     lng: this.props.location.lng,
-  //   },
-  //   zoom: 20,
-  // };
 
   render() {
     const location = { ...this.props.location };

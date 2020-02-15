@@ -26,9 +26,9 @@ export class Header extends Component {
     }
   }
 
-  // componentWillUnmount() {
-  //   this.unSignToSocketEvent();
-  // }
+  componentWillUnmount() {
+    this.unSignToSocketEvent();
+  }
 
   signToSocketEvent = userId => {
     SocketService.setup();
@@ -47,10 +47,10 @@ export class Header extends Component {
     this.setState({ showNotification: false, registeredUser: '' });
   };
 
-  // unSignToSocketEvent = () => {
-  //   SocketService.off('addMsg', this.addMsg);
-  //   SocketService.terminate();
-  // };
+  unSignToSocketEvent = () => {
+    SocketService.off('addMsg', this.addMsg);
+    SocketService.terminate();
+  };
 
   onLogout = ev => {
     ev.preventDefault();
@@ -61,8 +61,8 @@ export class Header extends Component {
 
   render() {
     return [
-      this.state.showNotification && <Notification open={true} msg={<NotificationMsg user={this.state.registeredUser}></NotificationMsg>}></Notification>,
-      <div className='main-header-container flex align-center space-between'>
+      this.state.showNotification && <Notification key={1} open={true} msg={<NotificationMsg user={this.state.registeredUser}></NotificationMsg>}></Notification>,
+      <div key={2} className='main-header-container flex align-center space-between'>
         <div className='container logo flex-basis-60 '>
           <Link to='/'>
             <span>umami</span>

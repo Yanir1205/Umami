@@ -129,13 +129,13 @@ class MealPayment extends Component {
           <div className='date'>
             <label htmlFor='date'>Date</label>
             <select name='date' onChange={this.handleChange} value={this.state.date} style={{ fontFamily: 'raleway' }} className='minimal'>
-              {meal.availableDates.map((current, idx) => {
+              {meal.availableDates.length > 0 ? meal.availableDates.map((current, idx) => {
                 return (
                   <option key={idx} value={Moment(current.date).format('MM-DD-YY')}>
                     {Moment(current.date).format('MM-DD-YY')}
                   </option>
                 );
-              })}
+              }) : <option key={1} value={'No Dates Available!'}></option>}
             </select>
           </div>
           <div className='guests'>

@@ -2,7 +2,9 @@ import MealService from '../services/mealService';
 import { getDisplayedMeal } from '../services/OccurranceUtils';
 
 export default {
-    changeSelectedOccurrance
+    changeSelectedOccurrance,
+    updateMeal,
+    getMeal
 };
 
 export function getMeal(id, loggedInUser) {
@@ -11,7 +13,7 @@ export function getMeal(id, loggedInUser) {
     //storing it in the global state using the proper reducer
     return async dispatch => {
         const meal = await MealService.getById(id);
-        const displayedMeal = getDisplayedMeal(meal,loggedInUser)
+        const displayedMeal = getDisplayedMeal(meal, loggedInUser)
         dispatch({ type: 'LOAD_DISPLAYED_MEAL', displayedMeal });
     };
 }
@@ -22,4 +24,12 @@ export function changeSelectedOccurrance(selectedOccurance) {
         type: 'SET_SELECTED_OCCURRANCE',
         selectedOccurance
     }
+}
+
+export function updateMeal(meal,loggedInUser) {
+    return async dispatch => {
+        const newStoreMeal = await MealService.update(meal);
+        const displayedMeal = getDisplayedMeal(newStoreMeal, loggedInUser)
+        dispatch({ type: 'LOAD_DISPLAYED_MEAL', displayedMeal });
+    };
 }

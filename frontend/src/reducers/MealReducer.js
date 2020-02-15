@@ -9,29 +9,29 @@ let initialState = {
 
 export default function MealReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case 'LOAD':
+    case 'LOAD_MEALS':
       return {
         ...state,
         meals: action.meals,
       };
-    case 'GET_BY_ID':
+    case 'GET_MEAL_BY_ID':
       return {
         ...state,
         selectedMeal: action.meal,
       };
-    case 'ADD':
+    case 'ADD_MEAL':
       return {
         ...state,
         meals: [...state.meals, action.meal],
         selectedMeal: action.meal,
       };
-    case 'UPDATE':
+    case 'UPDATE_MEAL':
       return {
         ...state,
         meals: state.meals.map(meal => (action.meal._id === meal._id ? action.meal : meal)),
         selectedMeal: action.meal,
       };
-    case 'REMOVE':
+    case 'REMOVE_MEAL':
       return { ...state, meals: state.meals.filter(meal => meal._id !== action.id) };
     case 'LOAD_CITIES':
       return { ...state, cities: [...action.citiesToReducer] };

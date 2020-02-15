@@ -1,5 +1,3 @@
-import { createSelector } from 'reselect';
-
 import UtilitiesService from './UtilitiesService';
 
 
@@ -11,7 +9,7 @@ export const getDisplayedMeal = (selectedMeal, loggedInUser) => {
 
   let meal = { ...selectedMeal };
   availableOccurrences = meal.occurrences && meal.occurrences.length > 0 ? UtilitiesService.getItemsInRange(meal.occurrences, new Date()) : [];
-  if (!availableOccurrences || availableOccurrences.length < 1) return { errorMsg: 'There are no available events' };
+  if (!availableOccurrences || meal.occurrences.length < 1) return { errorMsg: 'There are no available events' };
 
   detailsMeal = {
     storeMeal: meal,
@@ -76,6 +74,7 @@ export const getDisplayedMeal = (selectedMeal, loggedInUser) => {
 }
 
 function setOccurrences(occurrences, price, capacity, userId) {
+  if (!occurrences) return null
   return occurrences.map(occurrence => {
     let totalReservations = 0;
     return {
@@ -150,50 +149,3 @@ function getEventAttendees(occurrence) {
     return acc;
   }, []);
 }
-
-/*
-
-
-
-
-
-
-
-  on Load: ==>
-            for both situations:
-                get eventId
-                check/validate event & occurrences:
-                  1. all occurrences are greater then today
-                  2. every occurrence has at least one available slot
-                      2.1. - for logged in users - will be able to see also - occurrences that have
-                             no more available seats but has still not passed
-
-            if user is not logged in:
-                load - data -> don't allow to register to an event or write a review
-                set the nearest occurrence as the one which is displayed
-
-            if user is logged in:
-
-                check if the user is registered to one of the occurrences
-
-                    if not registered  ->  set the nearest occurrence as the one which is displayed
-                                           enable both registration form & review form
-
-                    if registered to event -> populate data for the nearest registered event in the registration form
-                                              display a message to the user in the registration form -
-                                              that he registered to that event on - bla bla ...
-
-  on change date ==> re-render the data that is relvent to the specific occurrence  + validate available slots
-
-        --- perform process from load --- get only valid occurrences  + chk if user is registered to current event --> get data from DB ??
-
-        --- populate the following:  number of available slots , registration form data
-
-  on register to an event :
-        maybe - change to one phase ? or add to another prop -->
-            on input change -> save to -> 'add-to-cart' list
-            on button click -> if both fields are populated -> ask user to approve
-            on button click approve --> register user
-                                        clear the 'add-to-cart' list
-
-  */

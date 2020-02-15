@@ -6,7 +6,7 @@ export default function OccurrenceReducer(state = initialState, action = {}) {
   switch (action.type) {
     case 'LOAD_DISPLAYED_MEAL':
       return {
-        displayedMeal: action.displayedMeal,
+        displayedMeal: {...action.displayedMeal},
       };
     case 'SET_SELECTED_OCCURRANCE':
       return {
