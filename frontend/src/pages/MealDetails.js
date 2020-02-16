@@ -37,8 +37,8 @@ class MealDetails extends Component {
     SocketService.on('addMsg', this.addMsg);
   };
 
-  componentWillUnmount(){
-    if(!this.props.loggedInUser){
+  componentWillUnmount() {
+    if (!this.props.loggedInUser) {
       this.unSignToSocketEvent()
     }
   }
@@ -74,7 +74,7 @@ class MealDetails extends Component {
         selectedOccurance.attendees = [...selectedOccurance.attendees, { _id: loggedInUser._id, fullName: loggedInUser.fullName, imgUrl: loggedInUser.imgUrl, numOfAttendees: registration.numOfAttendees }];
       }
       selectedOccurance.total = parseInt(selectedOccurance.total) + parseInt(registration.numOfAttendees);
-      await this.props.updateMeal(meal,this.props.loggedInUser);
+      await this.props.updateMeal(meal, this.props.loggedInUser);
 
       loggedInUser.titleHost = meal.title;
       SocketService.emit('newMsg', { meal, loggedInUser });
@@ -99,14 +99,14 @@ class MealDetails extends Component {
         rate: review.rate,
         at: Date.now(),
       };
-      
+
       if (meal.reviews.length > 0) {
         meal.reviews = [...meal.reviews, newReview];
       } else {
         meal.reviews = [newReview];
       }
-      
-      await this.props.updateMeal(meal,this.props.loggedInUser);
+
+      await this.props.updateMeal(meal, this.props.loggedInUser);
     }
     this.setState({ displayReviewForm: 'hide' });
   };
@@ -128,18 +128,22 @@ class MealDetails extends Component {
                 <h2>{meal.title}</h2>
               </div>
               <div className='container meal-details-container flex'>
-                <div className='left-box flex-shrink-70'>
+                <div className='left-box'>
                   <MealPageNav eventSetup={meal.eventSetup} hostRating={meal.hostRating}></MealPageNav>
                   <ShowHideText text={meal.description} showRows={3}></ShowHideText>
                   <MealMenu menu={meal.eventMenu} />
                   <h3>{meal.eventAttendees && meal.eventAttendees.length > 0 ? meal.messages.hasAttendees : ''}</h3>
                   {meal.eventAttendees && meal.eventAttendees.length > 0 && <AttendeesList attendees={meal.eventAttendees} currOccurrance={meal.selectedOccurance}></AttendeesList>}
+                  {/* <div className='right-box '>
+                  <MealPayment meal={meal} onEventRegistration={this.onEventRegistration} onChangeDate={this.onChangeDate}></MealPayment>
+                </div> */}
                   <div className='reviews-title-wrapper'>
                     <h3 id='reviews'>Reviews</h3>
                     <label title='Add a Review' onClick={this.onToggleReviewForm}>
                       <i className='icon-large far fa-plus-square'></i>
                     </label>
                   </div>
+
                   <div className={this.state.displayReviewForm}>
                     <ReviewForm onSaveReviewForm={this.onSaveReviewForm}></ReviewForm>
                   </div>
@@ -149,7 +153,7 @@ class MealDetails extends Component {
                     <MealMap location={meal.location}></MealMap>
                   </div>
                 </div>
-                <div className='right-box flex-shrink-30'>
+                <div className='right-box '>
                   <MealPayment meal={meal} onEventRegistration={this.onEventRegistration} onChangeDate={this.onChangeDate}></MealPayment>
                 </div>
               </div>

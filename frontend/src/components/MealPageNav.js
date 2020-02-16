@@ -16,7 +16,7 @@ class MealPageNav extends Component {
             Location
           </a>
         </div>
-        <div className='bottom-box flex'>
+        <div className='bottom-box flex flex-shrink-30'>
           {hostRating.avgRate > 0 && (
             <div className={hostRating.avgRate && hostRating.avgRate > 0 ? 'rate' : 'hide'}>
               <i className='icon-small fas fa-star'></i>
