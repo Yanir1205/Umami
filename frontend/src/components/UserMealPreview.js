@@ -27,7 +27,7 @@ class UserMealPreview extends Component {
     const userId = id
     const mealId = this.props.meal._id
     const occurensId = this.props.meal.occurensId
-
+    debugger
     this.props.onDelete(userId,mealId,occurensId)
   }
 
