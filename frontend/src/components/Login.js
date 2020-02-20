@@ -44,7 +44,6 @@ class Login extends Component {
     const loginOrSignupText = (this.state.isHide) ? 'register' : 'login'
     return (
       <div className='flex column align-center justify-center'>
-        {/* <Navbar styleNavBar={styleNavBar} ></Navbar> */}
         <div className={hideLogIn}>
           <div >Log-in</div>
           <div >

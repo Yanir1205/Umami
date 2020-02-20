@@ -92,8 +92,12 @@ $clouds: #ecf0f1;
       
       margin-right: 5px;
       font-family: lato-bold;
-      font-size: 1rem;
+      font-size: 0.8rem;
       // letter-spacing: 2px;
+    }
+    & > p{
+      font-size: 0.8rem;
+
     }
   
   }

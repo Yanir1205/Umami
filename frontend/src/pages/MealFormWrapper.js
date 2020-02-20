@@ -6,6 +6,7 @@ import { getById, add } from '../actions/MealActions.js';
 class MealFormWrapper extends Component {
 
   async componentDidMount() {
+    window.scrollTo(0,10)
     const id = this.props.match.params.id;
     if (id) { //edit mode:
       await this.props.getById(id);

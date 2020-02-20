@@ -6,6 +6,9 @@ async function login(req, res) {
   try {
     const user = await authService.login(email, password);
     req.session.user = user;
+    console.log("req.session.user --> ");
+    console.log(req.session.user);
+    
     res.json(user);
   } catch (err) {
     res.status(401).send({ error: err });
@@ -29,6 +32,8 @@ async function signup(req, res) {
 
 async function logout(req, res) {
   try {
+    console.log(req);
+    
     req.session.destroy();
     console.log('logged out successfully')
     res.send({ message: 'logged out successfully' });
