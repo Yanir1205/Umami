@@ -4,7 +4,6 @@ const authEndpoint = 'auth';
 const endpoint = 'user';
 
 async function login(credentails) {
-  
   const user = await HttpService.post(`${authEndpoint}/login`, credentails);
   return _handleLogin(user);
 }
@@ -16,7 +15,6 @@ async function signup(credentails) {
 async function logout() {
   
   await HttpService.post(`${authEndpoint}/logout`);
-  
   sessionStorage.clear();
   
 }

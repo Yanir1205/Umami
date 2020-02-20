@@ -5,9 +5,10 @@ async function query(filterBy = {}) {
   const collection = await dbService.getCollection('meal');
 
   try {
+    let meals
     if (!filterBy.group && !filterBy.distinct) {
       //getting all meals according to the filter definitions
-      const meals = await _getMealsByFilter(collection, filterBy);
+      meals = await _getMealsByFilter(collection, filterBy);
       return meals;
     } else if (!filterBy.distinct) {
       if (!filterBy.meals) {
@@ -16,7 +17,7 @@ async function query(filterBy = {}) {
         return badges;
       } else {
         //grouping all meals by location or by cuisine
-        const meals = await _getMealsByGroup(collection, filterBy);
+        meals = await _getMealsByGroup(collection, filterBy);
         return meals;
       }
     } else {
@@ -117,10 +118,7 @@ function filterMealsByUserId(userId, meals) {
     meals.forEach(meal => {
       meal.occurrences.forEach(occurrence => {
         occurrence.attendees.forEach(attendee => {
-          // if (attendee._id !== undefined) {
-          // const id = attendee._id;
           if (attendee._id == userId) {
-            //for attendees
             const currMeal = { ...meal };
             currMeal.isHosted = false;
             delete currMeal.occurrences;
@@ -137,7 +135,6 @@ function filterMealsByUserId(userId, meals) {
             delete currMeal.menu;
             resultMeals.push(currMeal);
           }
-          // }
         });
       });
     });
@@ -180,13 +177,10 @@ function buildCriteria(filterBy) {
   if (filterBy.tags) {
     criteria['tags'] = { $regex: `.*${filterBy.tags}.*`, $options: 'i' };
   }
+  //filter the meals who's date has already passed:
+  criteria["occurrences.date"] = {"$gt": Date.now()}
   return criteria;
 }
-
-
-//getting all meals with relevant dates and limiting to 4 results:
-// db.getCollection('meal').find({"occurrences.date":{"$gt":1580375368440}}).limit(4)
-//db.getCollection('meal').find({"occurrences.date":{"$gt":1580375368440},"occurrences.attendees":{"$size": 1}}).limit(4)
 
 module.exports = {
   query,

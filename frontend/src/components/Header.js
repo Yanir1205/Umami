@@ -72,9 +72,8 @@ export class Header extends Component {
 
   onLogout = ev => {
     ev.preventDefault();
-    
-    this.unSignToSocketEvent();
     this.props.logout();
+    this.unSignToSocketEvent();
     this.props.history.push(`/`);
   };
 

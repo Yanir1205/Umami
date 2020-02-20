@@ -14,7 +14,7 @@ class BadgeList extends Component {
             <span className="container  badge-list-container margin-top-20">
                 {this.props.badges && this.props.badges.map((badge, idx) => {
                     return <div className="badge-card-container " key={idx}>
-                        <BadgePreview  isSelected={badge === this.props.selectedBadge ? 'selected' : ''} onBadgeClick={this.props.onBadgeClick} badge={badge} />
+                        <BadgePreview isSelected={badge === this.props.selectedBadge ? 'selected' : ''} onBadgeClick={this.props.onBadgeClick} badge={badge} />
                     </div>
                 })}
             </span>

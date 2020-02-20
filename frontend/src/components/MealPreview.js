@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 
-class PreviewWithCarousel extends Component {
+class MealPreview extends Component {
 
     getNextDateFromNow() {
         let max = -Infinity
@@ -116,4 +116,4 @@ class PreviewWithCarousel extends Component {
         </div>
     }
 }
-export default PreviewWithCarousel;
+export default MealPreview;
