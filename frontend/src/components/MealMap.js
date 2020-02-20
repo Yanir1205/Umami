@@ -4,9 +4,9 @@ import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 const GOOGLE_API_KEY = 'AIzaSyDt708aK1FKYJTOT61i_xrzY9R3UD3_6Lw&&';
 
 const mapContainerStyle = {
-  width: '400px',
-  height: '35vh',
-  zIndex: -1,
+  width: '60vw',
+  height: '45vh',
+  // zIndex: -1,
 };
 
 class MealMap extends Component {

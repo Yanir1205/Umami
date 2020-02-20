@@ -1,5 +1,11 @@
 /* Breakpoint mixins */
 
+// $mobile-breakpoint-small: 350px;
+// $mobile-breakpoint: 460px;
+// $narrow-breakpoint: 720px;
+// $normal-breakpoint: 960px;
+// $wide-breakpoint: 1100px;
+
 @mixin for-mobile-layout {
   @media (max-width: $mobile-breakpoint) {
     @content;
