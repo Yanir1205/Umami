@@ -11,7 +11,7 @@ function connectSockets(io) {
         })
 
         socket.on('newChannel', channel=>{
-            
+            console.log('socket.myChannel->',socket.myChannel)
             if (socket.myChannel) {
                 console.log('leaving socket!')
                 socket.leave(socket.myChannel)
@@ -22,6 +22,6 @@ function connectSockets(io) {
             socket.myChannel = channel;
             
         })
-        console.log("socket->4");
+        console.log("connectSockets(io)");
     })
 }

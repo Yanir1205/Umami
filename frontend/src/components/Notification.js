@@ -11,11 +11,16 @@ export class Notification extends Component {
   state = {
     open: true,
     vertical: 'top',
-    horizontal: 'center',
+    horizontal: 'right',
     width:'20%',
     style:{
       backgroundColor: '#c0c0c0',
-      marginTop: '138px',
+      marginTop: '0px',
+      padding:'15px',
+      marginRight:'-24px',
+      borderTopLeftRadius:'50px',
+      borderBottomLeftRadius:'50px'
+
 
       // color:'white'
     }
@@ -38,7 +43,7 @@ export class Notification extends Component {
   };
 
   handleClose = () => {
-    this.setState({ ...this.state, open: false });
+    // this.setState({ ...this.state, open: false });
   };
 
   render() {

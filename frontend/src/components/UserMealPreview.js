@@ -8,6 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 class UserMealPreview extends Component {
 
   componentDidMount() {
+    window.scrollTo(0,0)
   }
 
   onClickRow = (event, data) => {
@@ -27,26 +28,29 @@ class UserMealPreview extends Component {
     const userId = id
     const mealId = this.props.meal._id
     const occurensId = this.props.meal.occurensId
-    debugger
-    this.props.onDelete(userId,mealId,occurensId)
+
+    this.props.onDelete(userId, mealId, occurensId)
   }
 
   render() {
     const occurrences = this.props.meal.occurrences
-    
+
     if (this.props.meal.isHosted) {
       return (<React.Fragment>
-        {occurrences && occurrences.map((occurrence) => {
+        {occurrences && occurrences.map((occurrence, idx) => {
+
           const date = new Date(occurrence.date).toLocaleDateString()
-          return <div key={"Key" + occurrences.id} className="tab-content ">
-            <div className=" ">
+          return <div key={"KeyOccurrences" + idx} className="tab-content ">
+            <div className="flex  justify-center">
+              {idx === 0 && <span> <EditIcon className=" cursor" onClick={this.onEditClick}></EditIcon> </span>}
+            </div>
+            <div>
               <ul className="host-list flex space-around clean-list">
-                <li><span>Date: </span><span>{date}</span></li>
-                <li><span>Total Guests:</span><span> {this.props.meal.capacity}</span></li>
-                <li><span>Registered Guests:</span> <span>{occurrence.total}</span></li>
-                <li><span>Revenue:</span> <span>{occurrence.total * this.props.meal.price} </span></li>
-                <li><span>Commission:</span> <span> {(occurrence.total * this.props.meal.price) * 0.1}</span></li>
-                <li><span> <EditIcon className=" cursor" onClick={this.onEditClick}></EditIcon> </span></li>
+                <li><span>Date: </span><p>{date}</p></li>
+                <li><span>Total Guests:</span><p> {this.props.meal.capacity}</p></li>
+                <li><span>Registered Guests:</span> <p>{occurrence.total}</p></li>
+                <li><span>Revenue:</span> <p>{occurrence.total * this.props.meal.price} </p></li>
+                <li><span>Commission:</span> <p> {(occurrence.total * this.props.meal.price) * 0.1}</p></li>
               </ul>
             </div>
           </div>

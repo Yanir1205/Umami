@@ -17,6 +17,7 @@ export class MealApp extends Component {
   };
 
   async componentDidMount() {
+    window.scrollTo(0,10)
     await this.resetFilterDefinitions();
     if (this.props.location.pathname.includes('results')) {
       this.setState({ renderType: 'results' });

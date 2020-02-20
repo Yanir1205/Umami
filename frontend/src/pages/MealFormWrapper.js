@@ -6,6 +6,7 @@ import { getById, add } from '../actions/MealActions.js';
 class MealFormWrapper extends Component {
 
   async componentDidMount() {
+    window.scrollTo(0,10)
     const id = this.props.match.params.id;
     if (id) { //edit mode:
       await this.props.getById(id);
@@ -17,13 +18,11 @@ class MealFormWrapper extends Component {
     const mealToAdd = { ...meal }
     await this.props.add(mealToAdd);
     this.props.history.push(`/user/${loggedInUser._id}`)
-    debugger
   };
 
   render() {
     const loggedInUser = this.props.loggedInUser
     const id = this.props.match.params.id;
-    debugger
     return (
       <React.Fragment>
         <div className='container main-form-container'>

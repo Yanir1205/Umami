@@ -9,6 +9,9 @@ import UserMealList from '../components/UserMealList';
 class UserDetails extends Component {
 
   async componentDidMount() {
+
+  window.scrollTo(0,10)
+    
     this.resetFilterDefinitions();
   }
 
@@ -60,8 +63,9 @@ class UserDetails extends Component {
     const idx = occurrence.attendees.findIndex(attendee => {
       return attendee._id === userId;
     });
+    
     occurrence.attendees.splice(idx, 1);
-    // await this.props.add(meal);
+    await this.props.add(meal);
     this.loadMeals();
   };
 

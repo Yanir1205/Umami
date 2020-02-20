@@ -14,6 +14,7 @@ async function signup(credentails) {
 }
 
 async function logout() {
+  
   await HttpService.post(`${authEndpoint}/logout`);
   
   sessionStorage.clear();
@@ -22,6 +23,7 @@ async function logout() {
 
 function _handleLogin(user) {
   sessionStorage.setItem(endpoint, JSON.stringify(user));
+  
   return user;
 }
 

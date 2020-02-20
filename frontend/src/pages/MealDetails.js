@@ -20,7 +20,9 @@ import MealMap from '../components/MealMap';
 class MealDetails extends Component {
   state = { displayReviewForm: 'hide', occurrenceAttendees: {} };
 
+
   async componentDidMount() {
+    window.scrollTo(0,10)
     const id = this.props.match.params.id;
     await this.props.getMeal(id, this.props.loggedInUser)
     const hostedId = this.props.displayedMeal.storeMeal.hostedBy._id;

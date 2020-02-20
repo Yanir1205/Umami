@@ -21,10 +21,13 @@ export class Header extends Component {
   };
 
   componentDidMount() {
+    
     if (this.props.loggedInUser) {
+      
       this.signToSocketEvent(this.props.loggedInUser._id);
     }
     else {
+      
       this.loginAsGuest();
       this.signToSocketEvent(GUEST_ID);
     }
@@ -41,6 +44,7 @@ export class Header extends Component {
   }
 
   componentWillUnmount() {
+    
     this.unSignToSocketEvent();
   }
 
@@ -68,6 +72,7 @@ export class Header extends Component {
 
   onLogout = ev => {
     ev.preventDefault();
+    
     this.unSignToSocketEvent();
     this.props.logout();
     this.props.history.push(`/`);

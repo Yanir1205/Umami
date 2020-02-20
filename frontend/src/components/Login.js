@@ -38,7 +38,6 @@ class Login extends Component {
     const hideLogIn = !this.state.isHide ? 'hide' : 'show-block';
     return (
       <div className='flex column align-center justify-center'>
-        {/* <Navbar styleNavBar={styleNavBar} ></Navbar> */}
         <div className={hideLogIn}>
         <div >Log-in</div>
           <div >
