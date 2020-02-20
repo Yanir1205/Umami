@@ -66,13 +66,13 @@ class UserDetails extends Component {
   };
 
   render() {
-    debugger
+    
     const user = this.props.loggedInUser;
     if (!user) return null
     return (
       user && (
-        <div className='user-details-container container'>
-          <div className='user-container'>
+        <div className='container user-details-container '>
+          <div className=' user-container'>
             <span>Hello, </span>
             <span>{user.fullName}</span>
           </div>
@@ -85,8 +85,9 @@ class UserDetails extends Component {
                 Create Event
               </button>
             </div>
+            
           </div>
-          {this.props.userMeals.length > 0 && <UserMealList onDelete={this.onDelete} meals={this.props.userMeals} userId={user._id}></UserMealList>}
+          {this.props.userMeals.length > 0 && <UserMealList  onDelete={this.onDelete} meals={this.props.userMeals} userId={user._id}></UserMealList>}
         </div>
       )
     );

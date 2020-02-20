@@ -5,7 +5,7 @@ class AttendeesPreview extends Component {
     const { attendee } = this.props;
     return (
       <div className='frame'>
-        <div className='card-simple center'>
+        <div className='card-simple-attendees center'>
           <div className='profile'>
             <div className='image'>
               <div className='circle-1'></div>

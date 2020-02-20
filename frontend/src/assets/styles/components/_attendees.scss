@@ -1,5 +1,7 @@
 .main-attendees-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  grid-gap: 2rem;
   align-items: center;
   margin: 7px auto 60px;
 
@@ -14,6 +16,11 @@
 
     // box-shadow: 5px 5px 5px 0 rgba($clr3, 0.3);
   }
+}
+
+.card-simple-attendees{
+  background: linear-gradient(to bottom, #eeeeee, #faf8f9, #ffffff);
+  height: 10rem;
 }
 .profile {
   text-align: center;

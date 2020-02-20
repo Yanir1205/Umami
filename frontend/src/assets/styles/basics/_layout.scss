@@ -32,12 +32,20 @@
 // }
 
 
-
+// $mobile-breakpoint-small: 350px;
+// $mobile-breakpoint: 460px;
+// $narrow-breakpoint: 720px;
+// $normal-breakpoint: 960px;
+// $wide-breakpoint: 1100px;
 
 .container {
   margin: 0 auto;
   padding-left: 10px;
   padding-right: 10px;
+
+  @include for-mobile-layout {
+    max-width: $mobile-breakpoint-small;
+  }
   @include for-narrow-layout {
     max-width: $mobile-breakpoint;
   }
