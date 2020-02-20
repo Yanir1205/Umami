@@ -22,6 +22,5 @@ function connectSockets(io) {
             socket.myChannel = channel;
             
         })
-        console.log("socket->4");
     })
 }

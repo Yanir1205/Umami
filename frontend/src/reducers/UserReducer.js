@@ -13,12 +13,10 @@ const UserReducer = reducerUtility.createReducer(initialState, {
 });
 
 function load(state, action) {
-  debugger
   return { ...state, loggedInUser: action.user };
 }
 
 function add(state, action) {
-  debugger
   return {
     ...state,
     loggedInUser: action.user,

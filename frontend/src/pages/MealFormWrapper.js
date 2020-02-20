@@ -17,13 +17,11 @@ class MealFormWrapper extends Component {
     const mealToAdd = { ...meal }
     await this.props.add(mealToAdd);
     this.props.history.push(`/user/${loggedInUser._id}`)
-    debugger
   };
 
   render() {
     const loggedInUser = this.props.loggedInUser
     const id = this.props.match.params.id;
-    debugger
     return (
       <React.Fragment>
         <div className='container main-form-container'>

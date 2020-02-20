@@ -24,10 +24,15 @@ class Login extends Component {
     const email = this.state.email;
     const password = this.state.password;
     const user = { email, password };
-
-    await this.props.login(user);
-    this.props.history.push('/');
+    if (email && password) {
+      await this.props.login(user);
+      this.props.history.push('/');
+    }
   };
+
+  onCheckForm = (ev) => {
+    if (ev.key === 'Enter') this.onLogInUser()
+  }
 
   changeForm = () => {
     this.setState(prevState => ({ isHide: !prevState.isHide }));
@@ -36,11 +41,12 @@ class Login extends Component {
   render() {
     const hideSignup = this.state.isHide ? 'hide' : 'show-block';
     const hideLogIn = !this.state.isHide ? 'hide' : 'show-block';
+    const loginOrSignupText = (this.state.isHide) ? 'register' : 'login'
     return (
       <div className='flex column align-center justify-center'>
         {/* <Navbar styleNavBar={styleNavBar} ></Navbar> */}
         <div className={hideLogIn}>
-        <div >Log-in</div>
+          <div >Log-in</div>
           <div >
             <input name='email' onChange={this.changeInput} value={this.state.email} type='text' className='login-input' placeholder=' email'></input>
           </div>
@@ -58,8 +64,8 @@ class Login extends Component {
         <div className={hideSignup}>
           <Signup></Signup>
         </div>
-        <span className='cursor-pointer' onClick={this.changeForm}>
-          If you are not registered click here to register
+        <span className='login-or-signup' onClick={this.changeForm} onKeyUp={(ev) => this.onCheckForm(ev)}>
+          click <span className="cursor-pointer emphasized-login-text">here</span> to {loginOrSignupText}
         </span>
       </div>
     );
