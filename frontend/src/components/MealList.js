@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-
-
 import { withRouter } from "react-router";
-import MealPreview from './MealPreview'
+// import MealPreview from './MealPreview'
+import PreviewWithCarousel from './PreviewWithCarousel'
 
 class MealList extends Component {
 
@@ -11,7 +10,7 @@ class MealList extends Component {
       <section className="container category-cards-list">
         {this.props.meals.map(meal => (
           <div  key={meal._id}>
-            <MealPreview onCardClick={this.props.onCardClick} meal={meal} getAvgRate={this.props.getAvgRate} renderType={this.props.renderType} />
+            <PreviewWithCarousel onCardClick={this.props.onCardClick} meal={meal} getAvgRate={this.props.getAvgRate} renderType={this.props.renderType} />
           </div>
         ))}
       </section>

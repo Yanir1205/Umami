@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 
-class MealPreview extends Component {
+class PreviewWithCarousel extends Component {
 
     getNextDateFromNow() {
         let max = -Infinity
@@ -24,7 +26,7 @@ class MealPreview extends Component {
 
     getPromotionMsg() {
         const nextMeal = this.getNextDateFromNow()
-        
+
         if (this.props.meal.isPromoted) return 'super host';
         else if (nextMeal.maxIdx) {
             if (this.getDifferenceInDays(nextMeal.max.date) <= 2) return 'hurry up!';
@@ -68,7 +70,13 @@ class MealPreview extends Component {
             <div className='category-card-prev'>
                 <div className='image-with-superhost'>
                     {promotionMsg && <div className="super-host-preview ">{promotionMsg}</div>}
-                    <img src={this.props.meal.imgUrls[0]} alt='category' className='card-img-prev' onClick={() => this.onCardClick(this.props.meal._id)}></img>
+                    <div className="img-carousel-container">
+                        <Carousel showThumbs={false} showStatus={false} infiniteLoop={true}>
+                            {this.props.meal.imgUrls.map((imgUrl, idx) => {
+                                return <img key={idx} src={imgUrl} alt="" className="card-img"></img>
+                            })}
+                        </Carousel>
+                    </div>
                 </div>
                 <h5 className='card-name-prev'>{msg.val}</h5>
                 <div className='card-total-one-prev'>
@@ -108,4 +116,4 @@ class MealPreview extends Component {
         </div>
     }
 }
-export default MealPreview;
+export default PreviewWithCarousel;
