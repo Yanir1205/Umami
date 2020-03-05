@@ -114,16 +114,14 @@ export class MealApp extends Component {
     }
   };
 
-  onLocationClick = async event => {
-    const city = event.target.innerText;
+  onLocationClick = async city => {
     await this.resetFilterDefinitions();
     await this.props.setFilter({ ...this.props.filter, location: { ...this.props.filter.location, city } });
     this.props.history.push(`/meal/location/${city}`);
     await this.loadMeals();
   };
 
-  onCuisineClick = async event => {
-    const cuisine = event.target.innerText;
+  onCuisineClick = async cuisine => {
     await this.resetFilterDefinitions();
     await this.props.setFilter({ ...this.props.filter, type: cuisine });
     this.props.history.push(`/meal/cuisine/${cuisine}`);

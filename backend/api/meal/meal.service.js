@@ -40,13 +40,13 @@ async function _getMealsByFilter(collection, filterBy) {
 }
 
 async function _getBadges(collection, filterBy) {
-  const badges = await collection.aggregate([{ $group: { _id: filterBy.group } }]).limit(8).toArray();
+  const badges = await collection.aggregate([{ $group: { _id: filterBy.group } }]).toArray();
   return badges;
 }
 
 async function _getMealsByGroup(collection, filterBy) {
   //returns one meal for each group name (by location or by cuisine)
-  const meals = await collection.aggregate([{ $group: { _id: filterBy.group, meals: { $push: filterBy.meals } } }]).toArray();
+  const meals = await collection.aggregate([{ $group: { _id: filterBy.group, meals: { $push: filterBy.meals } } }, { $match: { "meals.occurrences.date": { $gte: Date.now() } } }]).toArray();
   let mealsToReturn = [];
   //for each group taking only the first meal to display
   meals.forEach(meal => {
@@ -54,6 +54,71 @@ async function _getMealsByGroup(collection, filterBy) {
   });
   return mealsToReturn;
 }
+
+
+
+/*
+
+db.getCollection('meal').aggregate(
+    [
+        {
+            "$group":
+                    {
+                    "_id":"$location.city", 
+                    meals: {"$push":"$$ROOT"} 
+                    }
+        },
+        {
+            "$match":
+                    {
+                    "meals.occurrences.date": {
+                                        "$gt":1580508000000
+                                        }
+                    }
+        }
+    ]
+)
+
+
+
+  criteria["occurrences.date"] = { "$gt": Date.now() }
+
+
+
+db.sales.aggregate([
+   {
+      $project: {
+         items: {
+            $filter: {
+               input: "$items",
+               as: "item",
+               cond: { $gte: [ "$$item.price", 100 ] }
+            }
+         }
+      }
+   }
+])
+
+
+
+db.sales.aggregate(
+  [
+    // First Stage
+    {
+      $group :
+        {
+          _id : "$item",
+          totalSaleAmount: { $sum: { $multiply: [ "$price", "$quantity" ] } }
+        }
+     },
+     // Second Stage
+     {
+       $match: { "totalSaleAmount": { $gte: 100 } }
+     }
+   ]
+ )
+
+*/
 
 async function _getDistinctTags(collection, filterBy) {
   const tags = await collection.distinct(filterBy.distinct);
@@ -178,7 +243,7 @@ function buildCriteria(filterBy) {
     criteria['tags'] = { $regex: `.*${filterBy.tags}.*`, $options: 'i' };
   }
   //filter the meals who's date has already passed:
-  criteria["occurrences.date"] = {"$gt": Date.now()}
+  criteria["occurrences.date"] = { "$gt": Date.now() }
   return criteria;
 }
 
