@@ -15,7 +15,7 @@
     "google-maps-react": "^2.0.2",
     "material-table": "^1.55.0",
     "material-ui-formik-components": "^0.5.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-alice-carousel": "^1.17.3",
